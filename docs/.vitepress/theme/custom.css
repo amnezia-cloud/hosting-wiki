@@ -162,6 +162,35 @@ body {
   color: var(--vp-c-text-2);
 }
 
+/* Без картинки-изображения — центрируем контент и добавляем мягкое
+   свечение позади заголовка, чтобы пустая главная не выглядела голо */
+.VPHero:not(.has-image) {
+  position: relative;
+}
+.VPHero:not(.has-image)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(640px 360px at 50% 35%, var(--vp-c-brand-softer), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+.VPHero:not(.has-image) .container {
+  justify-content: center;
+}
+.VPHero:not(.has-image) .main {
+  max-width: 100%;
+  text-align: center;
+  align-items: center;
+}
+.VPHero:not(.has-image) .name,
+.VPHero:not(.has-image) .clip {
+  justify-content: center;
+}
+.VPHero:not(.has-image) .actions {
+  justify-content: center;
+}
+
 /* --------------------------------------------------------------------------
    6. КАРТОЧКИ-ФИЧИ (стекло + анимация)
    -------------------------------------------------------------------------- */
@@ -406,8 +435,32 @@ body {
   *,
   .VPContent .vp-doc > div > *,
   .VPHome .VPHero,
-  .VPFeature {
+  .VPFeature,
+  .amz-easter-cat {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* --------------------------------------------------------------------------
+   17. ПАСХАЛКА — наберите "meow" на любой странице
+   -------------------------------------------------------------------------- */
+.amz-easter-cat {
+  position: fixed;
+  bottom: 24px;
+  left: -80px;
+  font-size: 2.4rem;
+  line-height: 1;
+  z-index: 9999;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
+  animation: amz-cat-walk 4.5s linear forwards, amz-cat-bounce 0.5s ease-in-out infinite;
+}
+@keyframes amz-cat-walk {
+  from { left: -80px; }
+  to { left: 100vw; }
+}
+@keyframes amz-cat-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
