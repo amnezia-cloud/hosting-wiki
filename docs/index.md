@@ -3,14 +3,59 @@ layout: home
 title: Amnezia Hosting Wiki
 hero:
   name: Amnezia Hosting Wiki
+  tagline: База знаний для клиентов Amnezia Hosting — как подключиться к серверу, настроить VPN и управлять хостингом.
   actions:
     - theme: brand
-      text: Быстрый старт
+      text: 🚀 Быстрый старт
       link: /commands
     - theme: alt
-      text: Личный кабинет
+      text: 👤 Личный кабинет
       link: https://my.amnezia.host
     - theme: alt
-      text: Поддержка в Telegram
+      text: 💬 Поддержка в Telegram
       link: https://t.me/amnezia_hosting_bot
+features:
+  - icon: 🚀
+    title: Быстрый старт
+    details: Первое подключение к серверу по SSH и базовые команды Linux.
+    link: /commands
+  - icon: 🖥️
+    title: Управление сервером
+    details: Личный кабинет, действия с сервером (Power On / Reset) и подключение по SSH.
+    link: /server-management
+  - icon: 🛡️
+    title: Настройка VPN
+    details: Запуск личного VPN за три шага через приложение AmneziaVPN.
+    link: /vpn-setup
+  - icon: 🔌
+    title: Протоколы
+    details: AmneziaWG и XRay / VLESS Reality — чем отличаются и что выбрать.
+    link: /protocols
+  - icon: 📊
+    title: Панель 3X-UI
+    details: Веб-панель для управления ключами доступа и протоколами.
+    link: /3x-ui
+  - icon: ⚡
+    title: Hysteria 2
+    details: Ручная установка быстрого протокола Hysteria 2 с маскировкой.
+    link: /hysteria2
+  - icon: 🔒
+    title: Безопасность сервера
+    details: UFW, смена порта SSH, fail2ban и базовый харденинг VPS.
+    link: /security
+  - icon: ❓
+    title: Решение проблем (FAQ)
+    details: Ответы на частые вопросы и разбор типовых ошибок подключения.
+    link: /faq
 ---
+
+## С чего начать
+
+1. Зайдите в **[личный кабинет](https://my.amnezia.host)** — там выдаются данные сервера (IP, логин, пароль) и доступны действия с ним (перезагрузка, переустановка ОС).
+2. Подключитесь к серверу по SSH — раздел **[Быстрый старт](/commands)** объясняет, как это сделать, даже если вы никогда не работали с консолью.
+3. Установите приложение **[AmneziaVPN](https://amnezia.org)** и настройте VPN за три шага — раздел **[Настройка VPN](/vpn-setup)**.
+4. Если что-то пошло не так — загляните в **[FAQ](/faq)** или напишите в **[поддержку Telegram](https://t.me/amnezia_hosting_bot)**.
+
+::: tip Один сервер — весь набор возможностей
+Помимо VPN на сервере можно поднять защищённое хранилище файлов или сайт в сети Tor — всё через одно и то же приложение AmneziaVPN.
+:::
