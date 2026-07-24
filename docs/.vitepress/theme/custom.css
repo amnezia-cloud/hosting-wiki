@@ -152,39 +152,20 @@ body {
    -------------------------------------------------------------------------- */
 .VPHero .name {
   font-weight: 900;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 .VPHero .text {
   font-weight: 800;
   color: var(--vp-c-text-1);
-  letter-spacing: -0.02em;
 }
 .VPHero .tagline {
   color: var(--vp-c-text-2);
-  max-width: 60ch;
-}
-@media (min-width: 960px) {
-  .VPHero .name,
-  .VPHero .text {
-    font-size: 3.4rem;
-  }
-}
-/* Логотип в шапке — мягкое свечение бренда */
-.VPNavBarTitle .logo {
-  filter: drop-shadow(0 0 6px var(--vp-c-brand-soft));
-  transition: transform 0.2s ease;
-}
-.VPNavBarTitle:hover .logo {
-  transform: rotate(-6deg) scale(1.05);
 }
 
 /* --------------------------------------------------------------------------
    6. КАРТОЧКИ-ФИЧИ (стекло + анимация)
    -------------------------------------------------------------------------- */
 .VPFeature {
-  position: relative;
-  overflow: hidden;
   background: var(--amz-surface) !important;
   border: 1px solid var(--amz-glass-border) !important;
   border-radius: 16px !important;
@@ -193,38 +174,18 @@ body {
   transition: transform 0.22s ease, border-color 0.22s ease,
     box-shadow 0.22s ease, background 0.22s ease;
 }
-/* Верхняя акцентная линия — проявляется на ховере */
-.VPFeature::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--vp-c-brand-2), transparent);
-  opacity: 0;
-  transition: opacity 0.22s ease;
-}
 .VPFeature:hover {
   transform: translateY(-5px);
   border-color: var(--vp-c-brand-2) !important;
   background: var(--amz-surface-hover) !important;
   box-shadow: var(--amz-shadow), 0 0 0 1px var(--vp-c-brand-soft);
 }
-.VPFeature:hover::before {
-  opacity: 1;
-}
 .VPFeature .icon {
   background: var(--vp-c-brand-soft) !important;
-  border: 1px solid var(--vp-c-brand-softer) !important;
   border-radius: 12px !important;
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
-}
-.VPFeature:hover .icon {
-  transform: scale(1.06);
-  box-shadow: 0 0 22px var(--vp-c-brand-soft);
 }
 .VPFeature .title {
   font-weight: 700;
-  letter-spacing: -0.01em;
 }
 
 /* --------------------------------------------------------------------------
@@ -299,13 +260,6 @@ body {
 .vp-doc .custom-block.tip .custom-block-title {
   color: var(--vp-c-brand-1);
 }
-/* Единый акцентный левый кант у всех блоков */
-.vp-doc .custom-block {
-  border-left-width: 3px;
-}
-.vp-doc .custom-block.tip {
-  border-left-color: var(--vp-c-brand-2);
-}
 
 /* --------------------------------------------------------------------------
    10. ТАБЛИЦЫ
@@ -345,18 +299,6 @@ body {
   font-size: 0.68rem;
   letter-spacing: 0.07em;
   font-weight: 700;
-}
-/* Активный пункт — зелёная плашка с левым акцентом (как в референсе) */
-.VPSidebarItem.is-link > .item .link {
-  border-radius: 8px;
-  transition: background 0.15s ease;
-}
-.VPSidebarItem.is-link > .item .link:hover {
-  background: var(--amz-surface);
-}
-.VPSidebarItem.is-active.is-link > .item .link {
-  background: var(--vp-c-brand-softer);
-  box-shadow: inset 3px 0 0 var(--vp-c-brand-2);
 }
 .VPSidebarItem.is-active > .item .link .text {
   color: var(--vp-c-brand-1);
@@ -439,9 +381,12 @@ body {
    15. МОБИЛЬНАЯ АДАПТАЦИЯ
    -------------------------------------------------------------------------- */
 @media (max-width: 640px) {
-  .VPFooter .message,
-  .VPFooter .copyright {
-    line-height: 1.8;
+  .amz-footer {
+    padding: 32px 20px 28px;
+  }
+  .amz-footer__cols {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
   }
   .vp-doc h1 {
     font-size: 1.7rem;
