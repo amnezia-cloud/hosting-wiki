@@ -162,30 +162,34 @@ body {
   color: var(--vp-c-text-2);
 }
 
-/* Без картинки-изображения — центрируем контент и добавляем мягкое
-   свечение позади заголовка, чтобы пустая главная не выглядела голо */
+/* Без картинки-изображения — весь блок занимает экран под шапкой и
+   центрируется и по горизонтали, и по вертикали; плюс мягкое свечение,
+   чтобы пустая главная не выглядела голо */
 .VPHero:not(.has-image) {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - var(--vp-nav-height, 64px));
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .VPHero:not(.has-image)::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(640px 360px at 50% 35%, var(--vp-c-brand-softer), transparent 70%);
+  background: radial-gradient(640px 360px at 50% 45%, var(--vp-c-brand-softer), transparent 70%);
   pointer-events: none;
   z-index: -1;
 }
 .VPHero:not(.has-image) .container {
+  width: 100%;
   justify-content: center;
 }
 .VPHero:not(.has-image) .main {
   max-width: 100%;
   text-align: center;
   align-items: center;
-}
-.VPHero:not(.has-image) .name,
-.VPHero:not(.has-image) .clip {
-  justify-content: center;
 }
 .VPHero:not(.has-image) .actions {
   justify-content: center;

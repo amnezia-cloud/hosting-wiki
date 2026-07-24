@@ -1,10 +1,17 @@
 import DefaultTheme from 'vitepress/theme'
 import './custom.css'
 
+function spawnCat() {
+  const cat = document.createElement('div')
+  cat.className = 'amz-easter-cat'
+  cat.textContent = '🐈'
+  cat.setAttribute('aria-hidden', 'true')
+  document.body.appendChild(cat)
+  cat.addEventListener('animationend', () => cat.remove())
+}
+
 // Пасхалка: наберите "meow" на любой странице — пробежит кот.
 function setupCatEasterEgg() {
-  if (typeof window === 'undefined') return
-
   const secret = 'meow'
   let buffer = ''
 
@@ -13,19 +20,23 @@ function setupCatEasterEgg() {
     buffer = (buffer + e.key.toLowerCase()).slice(-secret.length)
     if (buffer === secret) {
       buffer = ''
-      const cat = document.createElement('div')
-      cat.className = 'amz-easter-cat'
-      cat.textContent = '🐈'
-      cat.setAttribute('aria-hidden', 'true')
-      document.body.appendChild(cat)
-      cat.addEventListener('animationend', () => cat.remove())
+      spawnCat()
     }
   })
 }
 
 export default {
   extends: DefaultTheme,
-  enhanceApp() {
+  enhanceApp({ router }) {
+    if (typeof window === 'undefined') return
+
     setupCatEasterEgg()
+
+    // Кот заглядывает сам, когда открываешь главную страницу.
+    router.onAfterRouteChanged = (to) => {
+      if (to === '/' || to === '/en/') {
+        setTimeout(spawnCat, 900)
+      }
+    }
   }
 }
