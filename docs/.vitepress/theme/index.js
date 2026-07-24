@@ -1,4 +1,5 @@
 import DefaultTheme from 'vitepress/theme'
+import { withBase } from 'vitepress'
 import './custom.css'
 
 function spawnCat() {
@@ -25,18 +26,27 @@ function setupCatEasterEgg() {
   })
 }
 
+// Кот в футере — нажми на него.
+function mountFooterCat() {
+  const container = document.querySelector('.VPFooter .container')
+  if (!container || container.querySelector('.amz-footer-cat')) return
+
+  const btn = document.createElement('button')
+  btn.type = 'button'
+  btn.className = 'amz-footer-cat'
+  btn.setAttribute('aria-label', 'Кот')
+  btn.innerHTML = `<img src="${withBase('/cat.png')}" alt="" width="44" height="44" />`
+  btn.addEventListener('click', spawnCat)
+  container.appendChild(btn)
+}
+
 export default {
   extends: DefaultTheme,
   enhanceApp({ router }) {
     if (typeof window === 'undefined') return
 
     setupCatEasterEgg()
-
-    // Кот заглядывает сам, когда открываешь главную страницу.
-    router.onAfterRouteChanged = (to) => {
-      if (to === '/' || to === '/en/') {
-        setTimeout(spawnCat, 900)
-      }
-    }
+    router.onAfterRouteChanged = () => setTimeout(mountFooterCat, 50)
+    setTimeout(mountFooterCat, 50)
   }
 }
