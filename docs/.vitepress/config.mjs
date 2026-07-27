@@ -8,14 +8,14 @@ const socialLinks = [
 export default defineConfig({
   title: 'Amnezia Hosting Docs',
   description: 'VPS-серверы для собственного VPN без сложной настройки. Руководства по подключению, настройке VPN и управлению сервером.',
-  base: '/hosting-wiki/',
+  base: '/', // кастомный домен wiki.amnezia.host — сайт в корне, не в /hosting-wiki/
   cleanUrls: false,
   appearance: 'dark', // по умолчанию тёмная тема, доступен переключатель на светлую
   lastUpdated: true,
   metaChunk: true,
 
   head: [
-    ['link', { rel: 'icon', href: '/hosting-wiki/favicon.png' }],
+    ['link', { rel: 'icon', href: '/favicon.png' }],
     ['meta', { name: 'theme-color', content: '#00e63d' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'Amnezia Hosting Docs' }]
