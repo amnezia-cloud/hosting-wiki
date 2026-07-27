@@ -2,7 +2,7 @@
 
 Welcome to the control panel for your virtual private server (VPS). This page brings together everything you need to control your server: connection details, available actions, and step-by-step instructions for beginners.
 
-## ⚙️ 1. Connection Details (Your Credentials)
+## ⚙️ 1. Connection Details (Your Credentials) {#credentials}
 
 You need this information to configure VPN clients, connect to the server via the console, or pass it to third-party applications.
 
@@ -14,7 +14,7 @@ This information is strictly confidential. Never share it with third parties. Te
 *   👤 **Username:** `root` *(The main system administrator with full privileges)*
 *   🔑 **Access Password:** `XXxxXX2026` *(Generated automatically when the server was created)*
 
-## 🛠️ 2. Available Actions in the Control Panel
+## 🛠️ 2. Available Actions in the Control Panel {#panel-actions}
 
 You can manage the physical state of your server directly from the control panel using these buttons:
 
@@ -25,7 +25,7 @@ You can manage the physical state of your server directly from the control panel
 *   🔑 **Reset Password:** Erases the current administrator password and generates a new one. **Note:** before clicking this button, you must shut the server down first with the `Shutdown` command.
 *   💳 **Renew Service:** A quick link to the payment gateway to top up your balance and extend the lease.
 
-## ⚠️ 3. Security and Resolving Critical Issues
+## ⚠️ 3. Security and Resolving Critical Issues {#security}
 
 We care about keeping your work stable, so the panel enforces restrictions designed to protect your data.
 
@@ -43,7 +43,7 @@ For the security of all hosting clients, the option to change the IP address you
 *   If you genuinely need to replace your IP address (for example, due to blocking by providers), **contact support**.
 *   Our specialists will quickly verify your account and replace the address manually for your safety.
 
-## 📊 4. Dedicated Technical Resources
+## 📊 4. Dedicated Technical Resources {#resources}
 
 Your server is guaranteed the following capacity, which is not shared with other users. It is enough for stable VPN performance with up to 10 devices connected at once:
 
@@ -52,7 +52,7 @@ Your server is guaranteed the following capacity, which is not shared with other
 *   🌐 **Network:** Up to 100 MB/s channel, unlimited traffic
 *   💾 **Storage:** 10 GB of fast SSD disk space
 
-## 📖 5. Detailed Connection Instructions (For Beginners)
+## 📖 5. Detailed Connection Instructions (For Beginners) {#ssh}
 
 If you need to install additional software on the server, configure a proxy, or check the configuration, you will need to connect to the server's text console over the **SSH** protocol.
 
@@ -89,7 +89,7 @@ The system will ask for the secret key: `root@0.0.0.0's password:`
 When you paste or type a password in the terminal, **nothing appears on screen (no characters, asterisks, or dots)**. This is a built-in protection of Unix systems. The password is still entered successfully — just press Enter.
 :::
 
-## 🗲 6. Basic Commands Cheat Sheet
+## 🗲 6. Basic Commands Cheat Sheet {#commands}
 
 After a successful login, you will see the system greeting. Here are the main commands that may come in handy:
 

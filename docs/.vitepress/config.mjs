@@ -73,7 +73,19 @@ export default defineConfig({
             text: 'Начало работы',
             items: [
               { text: '🚀 Быстрый старт', link: '/commands' },
-              { text: '🖥️ Управление сервером', link: '/server-management' }
+              {
+                text: '🖥️ Управление сервером',
+                link: '/server-management',
+                collapsed: true,
+                items: [
+                  { text: 'Параметры подключения', link: '/server-management#credentials' },
+                  { text: 'Действия в панели', link: '/server-management#panel-actions' },
+                  { text: 'Безопасность и проблемы', link: '/server-management#security' },
+                  { text: 'Выделенные ресурсы', link: '/server-management#resources' },
+                  { text: 'Подключение по SSH', link: '/server-management#ssh' },
+                  { text: 'Шпаргалка по командам', link: '/server-management#commands' }
+                ]
+              }
             ]
           },
           {
@@ -118,7 +130,19 @@ export default defineConfig({
             text: 'Getting Started',
             items: [
               { text: '🚀 Quick Start', link: '/en/commands' },
-              { text: '🖥️ Server Management', link: '/en/server-management' }
+              {
+                text: '🖥️ Server Management',
+                link: '/en/server-management',
+                collapsed: true,
+                items: [
+                  { text: 'Connection Details', link: '/en/server-management#credentials' },
+                  { text: 'Control Panel Actions', link: '/en/server-management#panel-actions' },
+                  { text: 'Security & Issues', link: '/en/server-management#security' },
+                  { text: 'Dedicated Resources', link: '/en/server-management#resources' },
+                  { text: 'Connecting via SSH', link: '/en/server-management#ssh' },
+                  { text: 'Commands Cheat Sheet', link: '/en/server-management#commands' }
+                ]
+              }
             ]
           },
           {
