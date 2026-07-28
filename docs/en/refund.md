@@ -18,7 +18,7 @@ Refunds are handled through a ticket in your client area at **[my.amnezia.host](
 | **1 month** | On the day of purchase or the next day |
 | **3, 6, or 12 months** | If **at least one month** of the paid period remains |
 
-Full terms are in the **Refund and Compensation Policy**.
+Full terms are in the **[Refund and Compensation Policy](https://amnezia.host/en/refund-policy)**.
 
 ## How to request it {#how}
 

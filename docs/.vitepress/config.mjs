@@ -5,6 +5,25 @@ const socialLinks = [
   { icon: 'github', link: 'https://github.com/amnezia-cloud/hosting-wiki' }
 ]
 
+const SUPPORT_TELEGRAM = 'https://t.me/amnezia_hosting_bot'
+
+// Футер строится под локаль: юридические страницы на amnezia.host живут
+// по локализованным адресам (/ru/… и /en/…).
+const footerFor = (locale, labels) => ({
+  message: [
+    '<a href="https://amnezia.org" target="_blank" rel="noreferrer">Amnezia VPN</a>',
+    '<a href="https://amnezia.host" target="_blank" rel="noreferrer">Amnezia Hosting</a>',
+    `<a href="https://amnezia.host/${locale}/privacy-policy" target="_blank" rel="noreferrer">${labels.privacy}</a>`,
+    `<a href="https://amnezia.host/${locale}/refund-policy" target="_blank" rel="noreferrer">${labels.refund}</a>`,
+    `<a href="https://amnezia.host/${locale}/terms-of-use" target="_blank" rel="noreferrer">${labels.terms}</a>`,
+    `<a href="${SUPPORT_TELEGRAM}" target="_blank" rel="noreferrer">Telegram</a>`,
+    '<a href="mailto:support@amnezia.host">support@amnezia.host</a>',
+    `<a href="mailto:abuse@amnezia.host" style="color:#ff5a5a">${labels.abuse}</a>`
+  ].join('&nbsp;&nbsp;·&nbsp;&nbsp;'),
+  copyright:
+    'LLC "AIMor", Yerevan, 2 Avetis Aharonyan St. Registration number: 264.110.1229448 · © 2026 Amnezia Hosting'
+})
+
 export default defineConfig({
   title: 'Amnezia Hosting Wiki',
   description: 'VPS-серверы для собственного VPN без сложной настройки. Руководства по подключению, настройке VPN и управлению сервером.',
@@ -37,20 +56,6 @@ export default defineConfig({
   themeConfig: {
     logo: '/logo.png',
     socialLinks,
-    footer: {
-      message: [
-        '<a href="https://amnezia.org" target="_blank" rel="noreferrer">Amnezia VPN</a>',
-        '<a href="https://amnezia.host" target="_blank" rel="noreferrer">Amnezia Hosting</a>',
-        '<a href="https://amnezia.host/privacy" target="_blank" rel="noreferrer">Privacy Policy</a>',
-        '<a href="https://amnezia.host/refund" target="_blank" rel="noreferrer">Refund and Compensation Policy</a>',
-        '<a href="https://amnezia.host/terms" target="_blank" rel="noreferrer">User Agreement</a>',
-        '<a href="https://t.me" target="_blank" rel="noreferrer">Telegram</a>',
-        '<a href="mailto:support@amnezia.host">support@amnezia.host</a>',
-        '<a href="mailto:abuse@amnezia.host" style="color:#ff5a5a">Report abuse</a>'
-      ].join('&nbsp;&nbsp;·&nbsp;&nbsp;'),
-      copyright:
-        'LLC "AIMor", Yerevan, 2 Avetis Aharonyan St. Registration number: 264.110.1229448 · © 2026 Amnezia Hosting'
-    },
     search: {
       provider: 'local',
       options: {
@@ -75,6 +80,12 @@ export default defineConfig({
       label: 'Русский',
       lang: 'ru',
       themeConfig: {
+        footer: footerFor('ru', {
+          privacy: 'Политика конфиденциальности',
+          refund: 'Политика возврата',
+          terms: 'Пользовательское соглашение',
+          abuse: 'Сообщить о нарушении'
+        }),
         nav: [
           { text: 'Главная', link: '/' },
           { text: 'Начало работы', link: '/commands' },
@@ -249,6 +260,12 @@ export default defineConfig({
       lang: 'en-US',
       link: '/en/',
       themeConfig: {
+        footer: footerFor('en', {
+          privacy: 'Privacy Policy',
+          refund: 'Refund and Compensation Policy',
+          terms: 'User Agreement',
+          abuse: 'Report abuse'
+        }),
         nav: [
           { text: 'Home', link: '/en/' },
           { text: 'Getting Started', link: '/en/commands' },
