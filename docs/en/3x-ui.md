@@ -130,7 +130,7 @@ In the left menu open **Inbounds** and click **+ Add Inbound**.
 | **Remark** | any label, e.g. `VLESS-Reality` |
 | **Protocol** | `vless` |
 | **Listen IP** | leave empty (listen on all interfaces) |
-| **Port** | `443` |
+| **Port** | `443` (alternatives below) |
 | **Total Flow** | `0` — unlimited traffic |
 | **Duration** | empty — no expiry |
 | **Transmission** | `TCP (RAW)` |
@@ -148,6 +148,33 @@ In the **Client** block:
 
 ::: tip Why port 443
 443 is the standard HTTPS port. Traffic on it raises no suspicion and is almost never blocked on public networks. Make sure no web server occupies it: `ss -ltnp | grep :443`.
+:::
+
+#### Alternative Ports
+
+If the connection fails on 443 — the port is taken on the server or throttled by the ISP — use one of the fallbacks:
+
+| Port | When to choose it | What to keep in mind |
+| :--- | :--- | :--- |
+| **443** | the default | Standard HTTPS, so the masking is as plausible as it gets. Must not be occupied by a web server or the panel itself. |
+| **8443** | 443 is taken or blocked | The second most common HTTPS port, open on most networks. A good first fallback. |
+| **80** | the network only passes web traffic | An HTTP port carrying TLS traffic looks unusual to DPI, so keep it as a last resort. Often already taken by nginx or Apache. |
+
+Check that a port is free:
+
+```bash
+ss -ltnp | grep -E ':(80|443|8443)\s'
+```
+
+How to change the port of an existing inbound:
+
+1. **Inbounds** → **Edit** (pencil icon) on the inbound → the **Port** field.
+2. Save and confirm the Xray restart.
+3. If a firewall is enabled, open the new port: `ufw allow 8443/tcp`.
+4. **Re-issue the client links** — the port is part of the `vless://` link, so the old one stops working.
+
+::: tip Keep a second inbound as a fallback
+Instead of switching the port back and forth, create a second inbound — say `VLESS-Reality-8443` on port `8443` — and give the user both links. If one fails on a particular network, they switch to the other. Each inbound has its own Reality keys, so click **Get New Cert** again for the second one.
 :::
 
 ### 6.2. Reality Settings
@@ -171,7 +198,9 @@ Scroll to the **Security** block and pick **Reality**. Fill in the fields:
 ::: tip Choosing a masking domain
 `ya.ru` works well for users in Russia: the site is not blocked, supports TLS 1.3, and requests to it look natural. The only hard requirement is that the domain must be reachable **from the server** and not blocked **for the client**.
 
-Alternatives: `dl.google.com`, `www.microsoft.com`, `www.cloudflare.com`. Avoid domains that may themselves be blocked in the client's region.
+Alternatives for users in Russia: `2gis.ru`, `pochta.ru`. International options include `dl.google.com`, `www.microsoft.com`, and `www.cloudflare.com`. Avoid domains that may themselves be blocked in the client's region.
+
+The domain goes into two fields at once: **Dest (Target)** takes it with the port (`2gis.ru:443`), **SNI** without (`2gis.ru`).
 :::
 
 ### 6.3. Sniffing
@@ -267,7 +296,7 @@ This opens a text menu. Individual subcommands:
 
 *   **The panel does not open in the browser.** Check that the address includes the secret path (`/k4TnQ8pVzR2Wd` from Step 4) and that the service is running: `x-ui status`. If a firewall is enabled, open the ports: `ufw allow 6873/tcp` and `ufw allow 443/tcp` (use your own panel port).
 *   **Username and password lost.** Run `x-ui settings` on the server — the credentials are printed to the console.
-*   **The client cannot connect.** Make sure port `443` is not taken by another service (`ss -ltnp | grep :443`), the inbound is enabled, and `pbk`, `sid`, and `sni` match in the client — re-importing the link from the panel is the easiest fix.
+*   **The client cannot connect.** Make sure port `443` is not taken by another service (`ss -ltnp | grep :443`), the inbound is enabled, and `pbk`, `sid`, and `sni` match in the client — re-importing the link from the panel is the easiest fix. If only that port fails on a given network, try `8443` or `80` — see **[Alternative Ports](#inbound)**.
 *   **Websites stop opening after Step 8.** Blocking rules are the likely cause — review the **Block Domains** list in **Xray Configs → Basic Routing**.
 
 More common questions in **[Troubleshooting (FAQ)](/en/faq)**.
