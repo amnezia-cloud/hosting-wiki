@@ -469,33 +469,6 @@ html {
 }
 
 /* --------------------------------------------------------------------------
-   13.1. ИНДИКАТОР ПРОЧИТАННОГО (внизу экрана)
-   -------------------------------------------------------------------------- */
-.amz-reading-progress {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 3px;
-  z-index: 25;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    var(--amz-glass-border),
-    transparent 40%
-  );
-}
-.amz-reading-progress__bar {
-  height: 100%;
-  transform: scaleX(0);
-  transform-origin: 0 50%;
-  background: linear-gradient(90deg, var(--vp-c-brand-3), var(--vp-c-brand-1));
-  box-shadow: 0 0 8px var(--vp-c-brand-2), 0 -2px 16px var(--vp-c-brand-soft);
-  transition: transform 0.08s linear;
-  will-change: transform;
-}
-
-/* --------------------------------------------------------------------------
    14. ПЛАВНЫЕ АНИМАЦИИ
    -------------------------------------------------------------------------- */
 @keyframes amz-fade-up {
