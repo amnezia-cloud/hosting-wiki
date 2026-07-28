@@ -112,10 +112,17 @@ export default defineConfig({
           },
           {
             text: 'Помощь',
-            items: [{ text: '❓ Решение проблем (FAQ)', link: '/faq' }]
+            items: [
+              { text: '❓ Решение проблем (FAQ)', link: '/faq' },
+              { text: '🤖 Gemini через VPN', link: '/gemini' }
+            ]
           }
         ],
         outline: { level: [2, 3], label: 'На этой странице' },
+        editLink: {
+          pattern: 'https://github.com/amnezia-cloud/hosting-wiki/edit/main/docs/:path',
+          text: 'Предложить правку этой страницы'
+        },
         docFooter: { prev: 'Назад', next: 'Вперёд' },
         lastUpdatedText: 'Обновлено',
         returnToTopLabel: 'Наверх',
@@ -166,10 +173,17 @@ export default defineConfig({
           },
           {
             text: 'Help',
-            items: [{ text: '❓ Troubleshooting (FAQ)', link: '/en/faq' }]
+            items: [
+              { text: '❓ Troubleshooting (FAQ)', link: '/en/faq' },
+              { text: '🤖 Gemini via VPN', link: '/en/gemini' }
+            ]
           }
         ],
         outline: { level: [2, 3], label: 'On this page' },
+        editLink: {
+          pattern: 'https://github.com/amnezia-cloud/hosting-wiki/edit/main/docs/:path',
+          text: 'Suggest an edit to this page'
+        },
         docFooter: { prev: 'Previous', next: 'Next' },
         lastUpdatedText: 'Updated'
       }

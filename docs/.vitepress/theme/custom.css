@@ -363,6 +363,70 @@ body {
 }
 
 /* --------------------------------------------------------------------------
+   12.1. БЛОК ОБРАТНОЙ СВЯЗИ (в конце страницы)
+   -------------------------------------------------------------------------- */
+.amz-feedback {
+  margin: 3rem 0 0;
+  padding: 20px 22px;
+  background: var(--amz-surface);
+  border: 1px solid var(--amz-glass-border);
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.amz-feedback__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--vp-c-text-1);
+}
+.amz-feedback__lead {
+  margin: 0.4rem 0 0;
+  font-size: 0.9rem;
+  color: var(--vp-c-text-2);
+}
+.amz-feedback__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+.amz-feedback__btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 20px;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.amz-feedback__btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--vp-c-brand-2);
+  background: var(--amz-surface-hover);
+}
+.amz-feedback__btn--brand {
+  color: var(--vp-button-brand-text);
+  background: var(--vp-button-brand-bg);
+  border-color: transparent;
+}
+.amz-feedback__btn--brand:hover {
+  color: var(--vp-button-brand-hover-text);
+  background: var(--vp-button-brand-hover-bg);
+  border-color: transparent;
+}
+.amz-feedback__hint {
+  margin: 12px 0 0;
+  font-size: 0.78rem;
+  color: var(--vp-c-text-3);
+}
+
+/* --------------------------------------------------------------------------
    13. СКРОЛЛБАР
    -------------------------------------------------------------------------- */
 ::-webkit-scrollbar {

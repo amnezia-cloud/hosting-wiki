@@ -1,5 +1,7 @@
+import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import { withBase } from 'vitepress'
+import Feedback from './Feedback.js'
 import './custom.css'
 
 function spawnCat() {
@@ -42,6 +44,8 @@ function mountFooterCat() {
 
 export default {
   extends: DefaultTheme,
+  // Блок «предложить правку» под текстом каждой страницы документации.
+  Layout: () => h(DefaultTheme.Layout, null, { 'doc-after': () => h(Feedback) }),
   enhanceApp({ router }) {
     if (typeof window === 'undefined') return
 
