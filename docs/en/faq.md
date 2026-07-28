@@ -37,6 +37,10 @@ We accept **Visa** and **Mastercard** bank cards, as well as the **Freekassa** p
 Refund conditions are described in the **Refund and Compensation Policy**. To request a refund, open a ticket in your **Client Area** — the support team will guide you through the process.
 :::
 
+::: details Why doesn't Google Gemini work via VPN?
+Gemini rejects requests from hosting and data-center IP addresses — that restriction is enforced on Google's side and no VPN setting works around it. Full explanation, including split tunneling as a workaround: **[Gemini via VPN](/en/gemini)**.
+:::
+
 ::: details How do I protect my server from hacking?
 Set up the UFW firewall, change the default SSH port, and enable fail2ban. See the **[Server Security](/en/security)** section for step-by-step instructions.
 :::
