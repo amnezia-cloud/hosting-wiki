@@ -432,16 +432,26 @@ body {
 .VPHome .VPHero {
   animation: amz-fade-up 0.6s ease both;
 }
-.VPFeatures .items .item:nth-child(1) .VPFeature { animation: amz-fade-up 0.5s ease both 0.05s; }
-.VPFeatures .items .item:nth-child(2) .VPFeature { animation: amz-fade-up 0.5s ease both 0.1s; }
-.VPFeatures .items .item:nth-child(3) .VPFeature { animation: amz-fade-up 0.5s ease both 0.15s; }
-.VPFeatures .items .item:nth-child(4) .VPFeature { animation: amz-fade-up 0.5s ease both 0.2s; }
-.VPFeatures .items .item:nth-child(5) .VPFeature { animation: amz-fade-up 0.5s ease both 0.25s; }
-.VPFeatures .items .item:nth-child(6) .VPFeature { animation: amz-fade-up 0.5s ease both 0.3s; }
-.VPFeatures .items .item:nth-child(7) .VPFeature { animation: amz-fade-up 0.5s ease both 0.35s; }
-.VPFeatures .items .item:nth-child(8) .VPFeature { animation: amz-fade-up 0.5s ease both 0.4s; }
-.VPFeatures .items .item:nth-child(9) .VPFeature { animation: amz-fade-up 0.5s ease both 0.45s; }
-.VPFeatures .items .item:nth-child(10) .VPFeature { animation: amz-fade-up 0.5s ease both 0.5s; }
+/* Карточки-фичи: анимация задаётся всем сразу, nth-child лишь сдвигает старт.
+   Так новая карточка не остаётся без анимации, сколько бы их ни было. */
+.VPFeatures .items .item .VPFeature {
+  animation: amz-fade-up 0.5s ease both;
+  animation-delay: 0.05s;
+}
+.VPFeatures .items .item:nth-child(2) .VPFeature { animation-delay: 0.1s; }
+.VPFeatures .items .item:nth-child(3) .VPFeature { animation-delay: 0.15s; }
+.VPFeatures .items .item:nth-child(4) .VPFeature { animation-delay: 0.2s; }
+.VPFeatures .items .item:nth-child(5) .VPFeature { animation-delay: 0.25s; }
+.VPFeatures .items .item:nth-child(6) .VPFeature { animation-delay: 0.3s; }
+.VPFeatures .items .item:nth-child(7) .VPFeature { animation-delay: 0.35s; }
+.VPFeatures .items .item:nth-child(8) .VPFeature { animation-delay: 0.4s; }
+.VPFeatures .items .item:nth-child(9) .VPFeature { animation-delay: 0.45s; }
+.VPFeatures .items .item:nth-child(10) .VPFeature { animation-delay: 0.5s; }
+.VPFeatures .items .item:nth-child(11) .VPFeature { animation-delay: 0.55s; }
+.VPFeatures .items .item:nth-child(12) .VPFeature { animation-delay: 0.6s; }
+/* Всё, что дальше двенадцатой, появляется одной волной — лестница к этому
+   моменту уже прочитана глазом. */
+.VPFeatures .items .item:nth-child(n + 13) .VPFeature { animation-delay: 0.65s; }
 
 /* --------------------------------------------------------------------------
    15. МОБИЛЬНАЯ АДАПТАЦИЯ
