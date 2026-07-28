@@ -67,3 +67,9 @@ features:
 ::: tip One server, the whole toolkit
 Besides a VPN, the same server can run secure file storage or a site on the Tor network — all through the same AmneziaVPN app.
 :::
+
+## 🙌 Built together with the community
+
+This wiki was not written by the support team alone. Amnezia users sent in working configurations, screenshots, error breakdowns, and corrections to the text — thanks to them these guides describe what actually happens on servers and inside ISP networks, rather than the ideal scenario.
+
+Thanks to everyone who helped. If you would like to add your own experience, there is a **“Suggest an edit”** button at the bottom of every page, and questions or corrections are welcome via **[support](/en/support)**.
