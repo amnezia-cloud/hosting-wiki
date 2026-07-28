@@ -1,6 +1,6 @@
 ---
 title: The App Says “Server Connection Error”
-description: Three common causes of the connection error in AmneziaVPN: typos in credentials, the OS is still installing, port 22 is closed.
+description: "Three common causes of the connection error in AmneziaVPN: typos in credentials, the OS is still installing, port 22 is closed."
 head:
   - - meta
     - name: keywords

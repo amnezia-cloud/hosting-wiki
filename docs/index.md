@@ -45,7 +45,7 @@ features:
     link: /security
   - icon: 🩺
     title: Не подключается VPN
-    details: Пошаговая диагностика: ошибка 305, проверка по SSH, блокировки провайдера.
+    details: "Пошаговая диагностика: ошибка 305, проверка по SSH, блокировки провайдера."
     link: /vpn-troubleshooting
   - icon: ❓
     title: Частые вопросы

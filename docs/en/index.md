@@ -45,7 +45,7 @@ features:
     link: /en/security
   - icon: 🩺
     title: VPN not connecting
-    details: Step-by-step troubleshooting: error 305, SSH checks, ISP blocking.
+    details: "Step-by-step troubleshooting: error 305, SSH checks, ISP blocking."
     link: /en/vpn-troubleshooting
   - icon: ❓
     title: Frequently asked questions

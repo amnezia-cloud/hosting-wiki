@@ -1,6 +1,6 @@
 ---
 title: Frequently Asked Questions
-description: An index of every topic: connection and VPN, server and access, billing and plans. Each question has its own article.
+description: "An index of every topic: connection and VPN, server and access, billing and plans. Each question has its own article."
 head:
   - - meta
     - name: keywords

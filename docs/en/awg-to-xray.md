@@ -1,6 +1,6 @@
 ---
 title: What to Do if AmneziaWG Stops Working
-description: Your ISP started blocking AWG — switch to XRay with masking: port 443, SNI ya.ru, fallbacks 8443 and 2gis.ru.
+description: "Your ISP started blocking AWG — switch to XRay with masking: port 443, SNI ya.ru, fallbacks 8443 and 2gis.ru."
 head:
   - - meta
     - name: keywords
