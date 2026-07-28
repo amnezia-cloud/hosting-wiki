@@ -8,15 +8,21 @@ This guide covers the full path from a bare VPS to a working key: installing the
 Just the server IP and the root password from your hosting control panel — everything else happens over SSH and in the browser. Nothing needs to be installed on your computer.
 :::
 
+::: info About the screenshots
+Grey boxes in the screenshots hide the IP address, passwords, the panel's secret path, the client UUID, and the Reality keys — you will see your own values there. All addresses and credentials shown in the examples are fictitious.
+:::
+
 ## 🔑 Step 1. Server Connection Details {#credentials}
 
 Open your server card in the hosting control panel (**Manage** section) and copy:
 
 | Field | Value |
 | :--- | :--- |
-| **IP Address** | your server address, e.g. `153.76.197.192` |
+| **IP Address** | your server address, e.g. `203.0.113.10` |
 | **Username** | `root` |
 | **Password** | the root password |
+
+![Server card in the hosting control panel: IP address, root username, and password](/img/3x-ui/01-credentials.png)
 
 Make sure the server is running — the status indicator should be green. If the password is lost, click **Reset Password**.
 
@@ -27,7 +33,7 @@ More about connection details in **[Server Management](/en/server-management#cre
 In **PowerShell** (Windows 10/11) or **Terminal** (macOS/Linux) run:
 
 ```bash
-ssh root@153.76.197.192
+ssh root@203.0.113.10
 ```
 
 Use your own IP. On the first connection confirm the key fingerprint by typing `yes`, then enter the password.
@@ -43,6 +49,8 @@ Welcome to Ubuntu 26.04 LTS (GNU/Linux x86_64)
 root@vps-4906:/home#
 ```
 
+![Terminal: SSH login and the Ubuntu 26.04 LTS welcome message](/img/3x-ui/02-ssh.png)
+
 ## 🚀 Step 3. Installing the Panel {#install}
 
 Install a specific (verified) panel version:
@@ -52,6 +60,8 @@ VERSION=v2.5.5 && bash <(curl -Ls "https://raw.githubusercontent.com/mhsanaei/3x
 ```
 
 The script detects your OS and architecture, installs dependencies (`wget`, `curl`, `tar`, `tzdata`), downloads `x-ui` together with Xray-core, and registers the systemd service. It takes 1–2 minutes.
+
+![Output of the 3X-UI installer: system detection and Xray-core download](/img/3x-ui/03-install.png)
 
 ::: tip Why pin the version
 The `$VERSION` form installs a known-good release. If you always want the newest build, use:
@@ -66,20 +76,24 @@ During installation the script asks:
 Would you like to customize the Panel Port settings? (If not, a random port will be applied) [y/n]:
 ```
 
+![The installer's panel port prompt](/img/3x-ui/04-port-prompt.png)
+
 **We recommend pressing `Enter`** (or typing `n`) — the panel will generate a random port, a random username, a password, and a secret path (Base URI Path). That is safer than any default value: automated scanners will not find the panel.
 
 When installation finishes, the console prints your credentials:
 
 ```text
 ##############################################
-Username: y9xBqe3Oz0
-Password: hGiCd9MmoK
+Username: a1B2c3D4e5
+Password: Xy7Zq2Lm9P
 Port: 6873
-WebBasePath: HzRbEN3OSmE9TrA
-Access URL: http://153.76.197.192:6873/HzRbEN3OSmE9TrA
+WebBasePath: k4TnQ8pVzR2Wd
+Access URL: http://203.0.113.10:6873/k4TnQ8pVzR2Wd
 ##############################################
 x-ui v2.5.5 installation finished, it is running now...
 ```
+
+![Installation summary: generated username, password, port, WebBasePath, and Access URL, plus the x-ui command menu](/img/3x-ui/05-install-done.png)
 
 ::: danger Save these credentials
 Copy the whole block into a password manager **before closing the terminal**. Without the secret path (`WebBasePath`) the panel will not open — a plain `http://IP:PORT` returns a 404 error.
@@ -94,6 +108,8 @@ If you lose them, run `x-ui settings` on the server to display them again.
 2. Enter the generated `Username` and `Password`, then click **Log In**.
 3. Change the interface language in the dropdown on the login form if needed.
 
+![The 3X-UI login form](/img/3x-ui/06-login.png)
+
 ::: warning “Connection is not secure”
 The browser warns you because the panel runs over plain `http` without a certificate. That is acceptable for initial setup, but passwords and keys travel unencrypted. Afterwards, change the password to your own and enable an HTTPS certificate in **Panel Settings** — or access the panel through an SSH tunnel.
 :::
@@ -103,6 +119,8 @@ The browser warns you because the panel runs over plain `http` without a certifi
 **Reality** disguises your traffic as an ordinary visit to a real website: the server borrows the genuine TLS handshake of the chosen domain, so no certificate or domain of your own is required. See **[VLESS + Reality](/en/vless)** for details.
 
 In the left menu open **Inbounds** and click **+ Add Inbound**.
+
+![The Inbounds section in 3X-UI with the Add Inbound button](/img/3x-ui/07-inbounds.png)
 
 ### 6.1. Core Settings
 
@@ -126,6 +144,8 @@ In the **Client** block:
 | **Flow** | `xtls-rprx-vision` |
 | **Total Flow** / **Duration** | per-client limits; `0`/empty means unlimited |
 
+![The Add Inbound form: vless protocol, port 443, Client block with Flow xtls-rprx-vision and Transmission TCP (RAW)](/img/3x-ui/08-inbound-general.png)
+
 ::: tip Why port 443
 443 is the standard HTTPS port. Traffic on it raises no suspicion and is almost never blocked on public networks. Make sure no web server occupies it: `ss -ltnp | grep :443`.
 :::
@@ -146,6 +166,8 @@ Scroll to the **Security** block and pick **Reality**. Fill in the fields:
 | **SpiderX** | `/` |
 | **Public Key** / **Private Key** | click **Get New Cert** — the x25519 key pair is created automatically |
 
+![The Security block with Reality selected: uTLS chrome, Dest ya.ru:443, SNI ya.ru, SpiderX and keys, with the Sniffing block below](/img/3x-ui/09-inbound-reality.png)
+
 ::: tip Choosing a masking domain
 `ya.ru` works well for users in Russia: the site is not blocked, supports TLS 1.3, and requests to it look natural. The only hard requirement is that the domain must be reachable **from the server** and not blocked **for the client**.
 
@@ -154,7 +176,7 @@ Alternatives: `dl.google.com`, `www.microsoft.com`, `www.cloudflare.com`. Avoid 
 
 ### 6.3. Sniffing
 
-In the **Sniffing** block turn **Enabled** on and check **HTTP**, **TLS**, **QUIC** (`FAKEDNS` is not needed). This lets Xray recognise domains inside connections — without it the blocking rules from Step 8 will not work.
+In the **Sniffing** block (visible in the screenshot above) turn **Enabled** on and check **HTTP**, **TLS**, **QUIC** (`FAKEDNS` is not needed). This lets Xray recognise domains inside connections — without it the blocking rules from Step 8 will not work.
 
 Click **Create**. The inbound appears in the list as “Enabled”.
 
@@ -163,6 +185,8 @@ Click **Create**. The inbound appears in the list as “Enabled”.
 1. Expand the new inbound in the list and click the client name (or **Details**).
 2. A summary card opens: protocol, address, port, `Security: reality`, `Domain Name: ya.ru`.
 3. In the **URL** block click the copy icon next to the client name — or scan the **QR code**.
+
+![The Details card: connection parameters, client data, and the ready-made vless:// link](/img/3x-ui/10-client-details.png)
 
 The link looks like this:
 
@@ -190,6 +214,8 @@ Russian websites are reachable without a VPN, and some of them restrict access f
 | **Block Domains** | `Ads All`, `Ads RU`, `RU Russia`, `.ru`, `.su`, `.рф` |
 
 4. Click **Save**, then confirm the Xray core restart (**Restart Xray**).
+
+![Xray Configs → Basic Routing: Block IPs with Private IPs and RU Russia, Block Domains with Ads All, Ads RU, RU Russia, .ru, .su, .рф](/img/3x-ui/11-basic-routing.png)
 
 What each rule does:
 
@@ -239,7 +265,7 @@ This opens a text menu. Individual subcommands:
 
 ## ❗ If Something Does Not Work {#troubleshooting}
 
-*   **The panel does not open in the browser.** Check that the address includes the secret path (`/HzRbEN3OSmE9TrA`) and that the service is running: `x-ui status`. If a firewall is enabled, open the ports: `ufw allow 6873/tcp` and `ufw allow 443/tcp` (use your own panel port).
+*   **The panel does not open in the browser.** Check that the address includes the secret path (`/k4TnQ8pVzR2Wd` from Step 4) and that the service is running: `x-ui status`. If a firewall is enabled, open the ports: `ufw allow 6873/tcp` and `ufw allow 443/tcp` (use your own panel port).
 *   **Username and password lost.** Run `x-ui settings` on the server — the credentials are printed to the console.
 *   **The client cannot connect.** Make sure port `443` is not taken by another service (`ss -ltnp | grep :443`), the inbound is enabled, and `pbk`, `sid`, and `sni` match in the client — re-importing the link from the panel is the easiest fix.
 *   **Websites stop opening after Step 8.** Blocking rules are the likely cause — review the **Block Domains** list in **Xray Configs → Basic Routing**.
