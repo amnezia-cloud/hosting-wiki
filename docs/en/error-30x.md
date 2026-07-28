@@ -111,4 +111,77 @@ What to do:
 1.  Remove the server from the app and add it again with the current credentials.
 2.  If protocols were already installed, **do not install them again** — in the server settings press **“Check the server for previously installed Amnezia services”**.
 
-Still stuck? Write to us and we will help you sort it out: **[Contacting Support](/en/support)**.
+## What each code means {#codes}
+
+Below is the breakdown of codes 300–305: what the error means and what helps in that particular case.
+
+### 300 — SshRequestDeniedError {#code-300}
+
+*SSH request was denied.* Occurs when the server connection data is incorrect, the server lacks resources, or a newer AmneziaVPN version is required.
+
+1.  Verify that the entered data is correct.
+2.  Verify that the server is reachable and healthy: free disk space, available memory, not frozen, and responding over SSH.
+3.  Restart the server from the hosting panel, then retry.
+4.  Update the app to the latest version from the official download page.
+
+### 301 — SshInterruptedError {#code-301}
+
+*SSH request was interrupted.* Occurs when adding a new server, connecting to an already added one, or changing its settings.
+
+1.  Check the stability of your internet connection and retry.
+
+### 302 — SshInternalError {#code-302}
+
+*SSH internal error.* The causes vary:
+
+*   **Amnezia Premium or Amnezia Free** — the connection is created on an iOS device running an outdated app version 4.8.2.0 or lower.
+*   **Self-hosted** — the server IP is blocked by the ISP; the server was shut down by the hosting provider; the connection data was entered incorrectly.
+
+For Premium or Free:
+
+1.  Update the app in the App Store. If it is unavailable, follow the guide “AmneziaVPN not available in App Store”.
+
+For a self-hosted server:
+
+1.  Fully restart the application and retry the action.
+2.  Try the same action from another network: mobile internet, another provider, or through another VPN if needed.
+3.  If the error only occurs on one network while another succeeds, the server IP is blocked by that ISP. Changing the server IP or renting a server with a different IP will help.
+4.  If the error occurs for any server action together with errors 300 or 305, additionally check SSH availability and the server status.
+
+### 303 — SshPrivateKeyError {#code-303}
+
+*Invalid private key or invalid passphrase entered.* Occurs when adding a server, connecting to one, or changing its settings.
+
+1.  Verify that the key and its passphrase are correct.
+
+### 304 — SshPrivateKeyFormatError {#code-304}
+
+*The selected private key format is not supported.* Supported types are **openssh ED25519** keys and keys in **PEM** format.
+
+1.  Check the key format — conversion steps are in the **[SSH key format](#ssh-keys)** section above.
+
+### 305 — SshTimeoutError {#code-305}
+
+*Timeout connecting to server.* Occurs when connecting to the server or changing its settings: port 22 may be closed or blocked, or the server may be unreachable for some reason.
+
+1.  Make sure the server is powered on and answers over SSH.
+2.  Verify the username, password, IP address, and server port (after a colon).
+3.  Make sure you specify the SSH port the server actually accepts connections on: you may have changed it, or the default port 22 may be blocked.
+4.  Restart the server from the hosting panel.
+5.  Retry the action from another network.
+
+A step-by-step walkthrough of 305 — **[VPN not connecting](/en/vpn-troubleshooting#error-305)**.
+
+## If nothing helped {#contacts}
+
+Write to us and we will sort it out together:
+
+| Channel | Address |
+| :--- | :--- |
+| **Ticket in the client area** | [my.amnezia.host](https://my.amnezia.host) — the main channel |
+| **Email** | [support@amnezia.host](mailto:support@amnezia.host) |
+| **Support bot on Telegram** | [@amnezia_hosting_bot](https://t.me/amnezia_hosting_bot) |
+| **Community chat (Russian)** | [t.me/amnezia_vpn](https://t.me/amnezia_vpn) |
+| **Community chat (English)** | [t.me/amnezia_vpn_en](https://t.me/amnezia_vpn_en) |
+
+What to include so the first reply is already on point — **[details checklist](/en/support#checklist)**.

@@ -235,7 +235,6 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                   { text: 'Зеркала Docker Hub', link: '/error-20x#mirrors' },
-                  { text: 'HostVDS и OpenStack', link: '/error-20x#hostvds' },
                   { text: 'Восстановление wrapper', link: '/error-20x#recovery' },
                   { text: 'Нестабильный Alpine CDN', link: '/error-20x#alpine' },
                   { text: 'Установился, но нет сети', link: '/error-20x#no-traffic' },
@@ -486,7 +485,6 @@ export default defineConfig({
                 collapsed: true,
                 items: [
                   { text: 'Docker Hub mirrors', link: '/en/error-20x#mirrors' },
-                  { text: 'HostVDS and OpenStack', link: '/en/error-20x#hostvds' },
                   { text: 'Wrapper recovery', link: '/en/error-20x#recovery' },
                   { text: 'Unstable Alpine CDN', link: '/en/error-20x#alpine' },
                   { text: 'Installed, but no traffic', link: '/en/error-20x#no-traffic' },

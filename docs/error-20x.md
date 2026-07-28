@@ -1,10 +1,10 @@
 ---
 title: "Ошибки 20x в AmneziaVPN (202, 203)"
-description: "Ошибка 202 ServerContainerMissingError и 203 ServerDockerFailedError: зеркала Docker Hub, обход сломанного bridge-networking, нестабильный Alpine CDN и восстановление после wrapper."
+description: "Ошибка 202 ServerContainerMissingError и 203 ServerDockerFailedError: зеркала Docker Hub, нестабильный Alpine CDN, «установился, но нет сети» и восстановление после обёртки."
 head:
   - - meta
     - name: keywords
-      content: "ошибка 202, ServerContainerMissingError, ошибка 203, ServerDockerFailedError, docker, registry-mirrors, hostvds, openstack, wrapper, alpine cdn, masquerade, ip_forward"
+      content: "ошибка 202, ServerContainerMissingError, ошибка 203, ServerDockerFailedError, docker, registry-mirrors, wrapper, alpine cdn, masquerade, ip_forward"
 ---
 
 # 🐳 Ошибки 20x в AmneziaVPN (202, 203)
@@ -15,9 +15,9 @@ head:
 Не нужно делать всё подряд. Пройдите по порядку действий в конце страницы — он подскажет, какой раздел ваш. Команды выполняются по SSH на сервере.
 :::
 
-## Раздел 1. Зеркала Docker Hub {#mirrors}
+## Зеркала Docker Hub {#mirrors}
 
-Подходит для большинства хостингов. Если у вас **HostVDS** — этот раздел может не помочь, переходите к [Разделу 2](#hostvds).
+Самая частая причина 202: образы не скачиваются, поэтому контейнер не собирается. Начинать стоит отсюда.
 
 ### Шаг 1. Проверить доступность Docker Hub
 
@@ -85,92 +85,9 @@ docker pull alpine:latest
 
 Прошло успешно — возвращайтесь в приложение AmneziaVPN и устанавливайте протокол.
 
-## Раздел 2. HostVDS и другие OpenStack-хостинги {#hostvds}
+## Восстановление после сбоя wrapper {#recovery}
 
-Здесь у 202 бывает три причины:
-
-| Причина | Что происходит |
-| :--- | :--- |
-| **Docker Hub недоступен** | образы не скачиваются, контейнер не собирается — лечится [Разделом 1](#mirrors) |
-| **Сломан bridge-networking** | виртуальный мост `docker0` не пропускает трафик наружу (часто на OpenStack Nova: port security на гипервизоре либо слишком широкое правило в systemd-networkd). Контейнеры создаются, но без интернета — бесконечное «подключение» |
-| **Конфликт sysctl** | Amnezia пытается задать `net.ipv4.conf.all.src_valid_mark` изнутри контейнера, что запрещено при `--network host` — контейнер не стартует |
-
-::: danger Перед шагом 3 обязательная проверка
-```bash
-file /usr/bin/docker
-```
-*   `ELF 64-bit LSB executable` — это настоящий Docker, wrapper не установлен, шаг 3 выполнять можно.
-*   `Bourne-Again shell script` — wrapper уже стоит. **Шаг 3 пропустите**, переходите к шагу 4.
-
-Повторное выполнение шага 3 подвешивает сервер — см. **[Раздел 3](#recovery)**.
-:::
-
-### 1. Зеркала для Docker Hub
-
-```bash
-cat > /etc/docker/daemon.json << 'EOF'
-{
-  "registry-mirrors": [
-    "https://dockerhub.timeweb.cloud",
-    "https://docker.m.daocloud.io",
-    "https://hub.rat.dev",
-    "https://docker.1panel.live"
-  ],
-  "dns": ["8.8.8.8", "1.1.1.1"]
-}
-EOF
-systemctl restart docker
-```
-
-### 2. Sysctl на хосте (нужен для WireGuard)
-
-```bash
-sysctl -w net.ipv4.conf.all.src_valid_mark=1
-echo "net.ipv4.conf.all.src_valid_mark=1" >> /etc/sysctl.conf
-```
-
-### 3. Wrapper поверх Docker — принудительный host-networking
-
-Только если проверка выше показала настоящий Docker.
-
-```bash
-mv /usr/bin/docker /usr/bin/docker.real
-
-cat > /usr/bin/docker << 'EOF'
-#!/bin/bash
-CMD="$1"
-if [ "$CMD" = "build" ]; then
-    shift
-    exec /usr/bin/docker.real build --network=host "$@"
-elif [ "$CMD" = "run" ] || [ "$CMD" = "create" ]; then
-    shift
-    ARGS=()
-    SKIP_NEXT=0
-    for arg in "$@"; do
-        if [ "$SKIP_NEXT" = "1" ]; then SKIP_NEXT=0; continue; fi
-        if [ "$arg" = "--sysctl" ]; then SKIP_NEXT=1; continue; fi
-        if [[ "$arg" == --sysctl=* ]]; then continue; fi
-        ARGS+=("$arg")
-    done
-    exec /usr/bin/docker.real "$CMD" --network=host "${ARGS[@]}"
-else
-    exec /usr/bin/docker.real "$@"
-fi
-EOF
-chmod +x /usr/bin/docker
-```
-
-### 4. Пересоздать контейнеры Amnezia
-
-```bash
-docker rm -f amnezia-xray amnezia-awg2 2>/dev/null
-```
-
-Теперь возвращайтесь в приложение и устанавливайте протокол. Если wrapper всё же наложился сам на себя, приложение обычно выдаёт ошибку 302 — переходите к [Разделу 3](#recovery).
-
-## Раздел 3. Восстановление после сбоя wrapper {#recovery}
-
-Симптом: шаг 3 выполнен повторно, сервер подвиснул, `docker ps` и `docker run` не отвечают.
+Раздел нужен, если вы устанавливали обёртку (wrapper) поверх Docker — по инструкции ниже или по сторонним руководствам — и запустили `mv /usr/bin/docker /usr/bin/docker.real` дважды. Симптом: сервер подвиснул, `docker ps` и `docker run` не отвечают.
 
 Причина: повторный `mv /usr/bin/docker /usr/bin/docker.real` переименовывает уже сам wrapper — получаются два одинаковых скрипта, вызывающих друг друга по кругу.
 
@@ -191,11 +108,11 @@ file /usr/bin/docker
 docker ps -a
 ```
 
-После этого вернитесь в [Раздел 2](#hostvds) и пройдите шаги заново, не пропуская проверку `file /usr/bin/docker` перед шагом 3.
+После восстановления Docker можно снова ставить обёртку — но перед этим обязательно проверьте `file /usr/bin/docker`, чтобы не наложить её саму на себя.
 
 ## Нестабильный Alpine CDN {#alpine}
 
-Симптом: `docker pull hello-world` работает, wrapper стоит, sysctl в порядке — а 202 всё равно появляется, то воспроизводится, то нет.
+Симптом: `docker pull hello-world` работает — а 202 всё равно появляется, то воспроизводится, то нет.
 
 Проверка:
 
@@ -208,7 +125,18 @@ done
 
 Если хотя бы раз видите `IO ERROR` или `Permission denied` — дело в нестабильной сети до `dl-cdn.alpinelinux.org` (Fastly). MTU и IPv6 тут обычно ни при чём.
 
-**1. Собрать образ вручную**, повторяя попытки (обычно нужно 5–25):
+**1. Отделить настоящий Docker**, если обёртки ещё нет:
+
+```bash
+file /usr/bin/docker
+mv /usr/bin/docker /usr/bin/docker.real
+```
+
+::: danger Команду `mv` выполняют строго один раз
+`file` показывает `ELF 64-bit LSB executable` — это настоящий Docker, `mv` выполнять можно. Если видите `Bourne-Again shell script`, обёртка уже стоит: **`mv` не выполняйте**, сразу переходите к пункту 2. Повторный запуск подвешивает сервер — тогда поможет **[восстановление](#recovery)**.
+:::
+
+**2. Собрать образ вручную**, повторяя попытки (обычно нужно 5–25):
 
 ```bash
 for i in $(seq 1 30); do
@@ -216,13 +144,13 @@ for i in $(seq 1 30); do
 done
 ```
 
-**2. Сохранить как постоянный бэкап:**
+**3. Сохранить как постоянный бэкап:**
 
 ```bash
 docker.real tag amnezia-awg2:latest amnezia-awg2-backup:latest
 ```
 
-**3. Прописать обёртку, которая подставляет бэкап вместо реальной сборки:**
+**4. Прописать обёртку, которая подставляет бэкап вместо реальной сборки:**
 
 ```bash
 cat > /usr/bin/docker << 'EOF'
@@ -320,9 +248,10 @@ curl -fsSL https://get.docker.com | sh
 
 ## Порядок действий целиком {#order}
 
-1.  `docker pull hello-world` прошёл — [Раздел 1](#mirrors) пропускаем.
-2.  `file /usr/bin/docker`: `ELF` — ставим wrapper из [Раздела 2](#hostvds); shell-script — он уже стоит.
-3.  Установка падает нестабильно — тест `apk update` в цикле, и если ловите ошибки, ставим кеширующую обёртку из раздела **[Alpine CDN](#alpine)**.
-4.  Протокол установился, но нет интернета — проверяем порт в конфиге, NAT на верный интерфейс и `ip_forward`: раздел **[Протокол установился, но интернета нет](#no-traffic)**.
+1.  Docker вообще есть? `docker --version` отвечает `command not found` — ставим Docker: **[ошибка 203](#error-203)**.
+2.  `docker pull hello-world` не проходит — настраиваем **[зеркала Docker Hub](#mirrors)**. Проходит — пропускаем этот раздел.
+3.  Установка падает нестабильно — прогоняем `apk update` в цикле и, если ловим ошибки, ставим кеширующую обёртку: **[нестабильный Alpine CDN](#alpine)**.
+4.  Протокол установился, но нет интернета — проверяем порт в конфиге, NAT на верный интерфейс и `ip_forward`: **[протокол установился, но интернета нет](#no-traffic)**.
+5.  Сервер подвис после работы с обёрткой — **[восстановление](#recovery)**.
 
 Не получилось — напишите нам, вместе разберёмся: **[Обращение в поддержку](/support)**.

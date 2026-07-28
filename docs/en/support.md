@@ -15,8 +15,13 @@ One request: the more complete your first message, the faster the answer. With t
 
 ## Where to write {#where}
 
-*   **A ticket in your client area** — the main channel for server, billing, and refund questions.
-*   **The support Telegram bot** — for quick questions.
+| Channel | Address | Best for |
+| :--- | :--- | :--- |
+| **Ticket in the client area** | [my.amnezia.host](https://my.amnezia.host) | server, billing, and refund questions — the main channel |
+| **Email** | [support@amnezia.host](mailto:support@amnezia.host) | when a letter suits you better |
+| **Support bot on Telegram** | [@amnezia_hosting_bot](https://t.me/amnezia_hosting_bot) | quick questions |
+| **Community chat (Russian)** | [t.me/amnezia_vpn](https://t.me/amnezia_vpn) | talking things over with other users |
+| **Community chat (English)** | [t.me/amnezia_vpn_en](https://t.me/amnezia_vpn_en) | the same in English |
 
 ## Before you write: a quick self-check {#before}
 

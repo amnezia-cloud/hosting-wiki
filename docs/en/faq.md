@@ -20,7 +20,7 @@ An index of every walkthrough. Each question has its own article — open the on
 | **[VPN connects but there is no internet](/en/no-internet)** | Two VPNs, antivirus, blocking rules in 3X-UI |
 | **[Ping to the server does not work](/en/ping)** | ICMP is blocked on purpose — check over SSH |
 | **[AmneziaWG stopped working](/en/awg-to-xray)** | Switching to XRay: port 443, SNI `ya.ru`, fallbacks |
-| **[20x errors during installation](/en/error-20x)** | Docker: mirrors, HostVDS, an unstable Alpine CDN |
+| **[20x errors during installation](/en/error-20x)** | Docker: mirrors, an unstable Alpine CDN, no traffic after install |
 | **[30x errors during installation](/en/error-30x)** | SSH: the port, installing behind another VPN, key format |
 | **[No access on mobile internet](/en/mobile-restrictions)** | Carrier “whitelists”, no way around them |
 | **[Google Gemini does not work](/en/gemini)** | Requests from data-center addresses are filtered |
@@ -61,5 +61,6 @@ An index of every walkthrough. Each question has its own article — open the on
 If your question is not listed, collect the checklist details and write to us: **[Contacting Support](/en/support)**. That page also has a ready-to-fill template and the split of responsibilities.
 
 *   💻 A ticket in your client area at **[my.amnezia.host](https://my.amnezia.host)** — the main channel.
-*   💬 The official Amnezia user community on Telegram.
+*   ✉️ Email **[support@amnezia.host](mailto:support@amnezia.host)**, bot **[@amnezia_hosting_bot](https://t.me/amnezia_hosting_bot)**.
+*   💬 Community chats: **[English](https://t.me/amnezia_vpn_en)** and **[Russian](https://t.me/amnezia_vpn)**.
 *   📂 Self-diagnosis of the OS — **[Server Management](/en/server-management)**.
