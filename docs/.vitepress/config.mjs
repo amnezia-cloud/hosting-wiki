@@ -46,8 +46,29 @@ export default defineConfig({
   lastUpdated: true,
   metaChunk: true,
 
+  // Дефолтная тема предзагружает Inter, но базовый шрифт вики — IBM Plex Sans.
+  // Убираем ненужный preload, чтобы не тянуть лишний файл на каждой странице.
+  transformHtml(code) {
+    return code.replace(/<link[^>]+inter-roman[^>]*>/g, '')
+  },
+
   head: [
     ['link', { rel: 'icon', href: '/favicon.png' }],
+    // Основные начертания IBM Plex Sans — чтобы текст не мигал системным шрифтом
+    ['link', {
+      rel: 'preload',
+      href: '/fonts/ibm-plex-sans-v19-cyrillic_latin-regular.woff2',
+      as: 'font',
+      type: 'font/woff2',
+      crossorigin: ''
+    }],
+    ['link', {
+      rel: 'preload',
+      href: '/fonts/ibm-plex-sans-v19-cyrillic_latin-700.woff2',
+      as: 'font',
+      type: 'font/woff2',
+      crossorigin: ''
+    }],
     ['meta', { name: 'theme-color', content: '#00e63d' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'Amnezia Hosting Wiki' }]
