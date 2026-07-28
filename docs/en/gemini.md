@@ -30,6 +30,18 @@ Google treats data-center connections as higher risk: that is where most automat
 
 Address ranges belonging to hosting providers and clouds are publicly known — they are listed in registries and identifiable by autonomous system number (ASN). Any VPS from any provider falls into those lists; this is not specific to Amnezia Hosting.
 
+## Inaccurate geo databases add to it {#geo}
+
+A separate reason behind odd replies such as “Gemini isn't available yet in your country” is outdated geolocation data for our addresses in third-party GeoIP databases: a service may resolve the server's country incorrectly and refuse access by region.
+
+**What we have already done:** data for our ranges has been submitted to all the major commercial GeoIP databases (MaxMind, IP2Location, DB-IP, and others) and recorded in the official internet registries. We are waiting for those providers and the services themselves to refresh their records — the timing is on their side, and updates ship with delays ranging from weeks to a few months.
+
+More on how this works: **[Why your server's geolocation mismatches](/en/geolocation)**.
+
+::: warning What changes once the databases update
+A correct country removes region-based refusals, but the data-center filter stays — it has nothing to do with geolocation. So do not count on Gemini starting to work behind the VPN on its own: use the options in the section below.
+:::
+
 ## Why VPN settings cannot work around it
 
 The filtering is based on **IP reputation**, not on traffic contents. That is why the tricks that normally defeat ISP-level blocking do not help here:
