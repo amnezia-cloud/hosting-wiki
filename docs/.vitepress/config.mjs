@@ -113,8 +113,72 @@ export default defineConfig({
           {
             text: 'Помощь',
             items: [
-              { text: '❓ Решение проблем (FAQ)', link: '/faq' },
-              { text: '🤖 Gemini через VPN', link: '/gemini' }
+              {
+                text: '❓ Решение проблем (FAQ)',
+                link: '/faq',
+                collapsed: true,
+                items: [
+                  { text: 'Подключение и VPN', link: '/faq#connection' },
+                  { text: 'Протоколы и трафик', link: '/faq#protocols' },
+                  { text: 'Сервер и безопасность', link: '/faq#server' },
+                  { text: 'Оплата и возвраты', link: '/faq#billing' },
+                  { text: 'Техническая поддержка', link: '/faq#support' }
+                ]
+              },
+              {
+                text: '🩺 Не подключается VPN',
+                link: '/vpn-troubleshooting',
+                collapsed: true,
+                items: [
+                  { text: 'Статус сервера', link: '/vpn-troubleshooting#status' },
+                  { text: 'Ошибка 305 и проверка по SSH', link: '/vpn-troubleshooting#error-305' },
+                  { text: 'Блокировки и белые списки', link: '/vpn-troubleshooting#isp-blocks' },
+                  { text: 'Подключение есть, интернета нет', link: '/vpn-troubleshooting#next' }
+                ]
+              },
+              {
+                text: '🔁 AmneziaWG → XRay',
+                link: '/awg-to-xray',
+                collapsed: true,
+                items: [
+                  { text: 'Симптомы', link: '/awg-to-xray#symptoms' },
+                  { text: 'Решение по шагам', link: '/awg-to-xray#fix' },
+                  { text: 'Запасные порты и SNI', link: '/awg-to-xray#fallback' },
+                  { text: 'Почему XRay устойчивее', link: '/awg-to-xray#why' }
+                ]
+              },
+              {
+                text: '📵 Мобильные ограничения',
+                link: '/mobile-restrictions',
+                collapsed: true,
+                items: [
+                  { text: 'Почему это происходит', link: '/mobile-restrictions#why' },
+                  { text: 'Почему нельзя обойти', link: '/mobile-restrictions#no-workaround' },
+                  { text: 'Что делать', link: '/mobile-restrictions#what-to-do' }
+                ]
+              },
+              {
+                text: '🌍 Геолокация сервера',
+                link: '/geolocation',
+                collapsed: true,
+                items: [
+                  { text: 'Как определяется страна по IP', link: '/geolocation#how-it-works' },
+                  { text: 'Что можно сделать', link: '/geolocation#what-to-do' },
+                  { text: 'Что делаем мы', link: '/geolocation#what-we-do' }
+                ]
+              },
+              { text: '🤖 Gemini через VPN', link: '/gemini' },
+              {
+                text: '💬 Обращение в поддержку',
+                link: '/support',
+                collapsed: true,
+                items: [
+                  { text: 'Самопроверка перед тикетом', link: '/support#before' },
+                  { text: 'Что сообщить', link: '/support#checklist' },
+                  { text: 'Готовый шаблон', link: '/support#template' },
+                  { text: 'Зона ответственности', link: '/support#scope' }
+                ]
+              }
             ]
           }
         ],
@@ -174,8 +238,72 @@ export default defineConfig({
           {
             text: 'Help',
             items: [
-              { text: '❓ Troubleshooting (FAQ)', link: '/en/faq' },
-              { text: '🤖 Gemini via VPN', link: '/en/gemini' }
+              {
+                text: '❓ Troubleshooting (FAQ)',
+                link: '/en/faq',
+                collapsed: true,
+                items: [
+                  { text: 'Connection and VPN', link: '/en/faq#connection' },
+                  { text: 'Protocols and traffic', link: '/en/faq#protocols' },
+                  { text: 'Server and security', link: '/en/faq#server' },
+                  { text: 'Billing and refunds', link: '/en/faq#billing' },
+                  { text: 'Technical support', link: '/en/faq#support' }
+                ]
+              },
+              {
+                text: '🩺 VPN not connecting',
+                link: '/en/vpn-troubleshooting',
+                collapsed: true,
+                items: [
+                  { text: 'Server status', link: '/en/vpn-troubleshooting#status' },
+                  { text: 'Error 305 and SSH check', link: '/en/vpn-troubleshooting#error-305' },
+                  { text: 'ISP blocking and whitelists', link: '/en/vpn-troubleshooting#isp-blocks' },
+                  { text: 'Connected, but no internet', link: '/en/vpn-troubleshooting#next' }
+                ]
+              },
+              {
+                text: '🔁 AmneziaWG → XRay',
+                link: '/en/awg-to-xray',
+                collapsed: true,
+                items: [
+                  { text: 'Symptoms', link: '/en/awg-to-xray#symptoms' },
+                  { text: 'Step-by-step fix', link: '/en/awg-to-xray#fix' },
+                  { text: 'Fallback ports and SNI', link: '/en/awg-to-xray#fallback' },
+                  { text: 'Why XRay is more resilient', link: '/en/awg-to-xray#why' }
+                ]
+              },
+              {
+                text: '📵 Mobile restrictions',
+                link: '/en/mobile-restrictions',
+                collapsed: true,
+                items: [
+                  { text: 'Why it happens', link: '/en/mobile-restrictions#why' },
+                  { text: 'Why it cannot be bypassed', link: '/en/mobile-restrictions#no-workaround' },
+                  { text: 'What to do', link: '/en/mobile-restrictions#what-to-do' }
+                ]
+              },
+              {
+                text: '🌍 Server geolocation',
+                link: '/en/geolocation',
+                collapsed: true,
+                items: [
+                  { text: 'How country detection works', link: '/en/geolocation#how-it-works' },
+                  { text: 'What you can do', link: '/en/geolocation#what-to-do' },
+                  { text: 'What we are doing', link: '/en/geolocation#what-we-do' }
+                ]
+              },
+              { text: '🤖 Gemini via VPN', link: '/en/gemini' },
+              {
+                text: '💬 Contacting support',
+                link: '/en/support',
+                collapsed: true,
+                items: [
+                  { text: 'Self-check before a ticket', link: '/en/support#before' },
+                  { text: 'What to include', link: '/en/support#checklist' },
+                  { text: 'Ready-to-fill template', link: '/en/support#template' },
+                  { text: 'Split of responsibilities', link: '/en/support#scope' }
+                ]
+              }
             ]
           }
         ],

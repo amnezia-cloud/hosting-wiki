@@ -39,10 +39,18 @@ features:
     title: Безопасность сервера
     details: UFW, смена порта SSH, fail2ban и базовый харденинг VPS.
     link: /security
+  - icon: 🩺
+    title: Не подключается VPN
+    details: Пошаговая диагностика: ошибка 305, проверка по SSH, блокировки провайдера.
+    link: /vpn-troubleshooting
   - icon: ❓
     title: Решение проблем (FAQ)
     details: Ответы на частые вопросы и разбор типовых ошибок подключения.
     link: /faq
+  - icon: 💬
+    title: Обращение в поддержку
+    details: Чеклист данных, готовый шаблон тикета и зона ответственности.
+    link: /support
 ---
 
 ## С чего начать

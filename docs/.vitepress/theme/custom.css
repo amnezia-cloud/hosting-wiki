@@ -471,6 +471,8 @@ body {
 .VPFeatures .items .item:nth-child(6) .VPFeature { animation: amz-fade-up 0.5s ease both 0.3s; }
 .VPFeatures .items .item:nth-child(7) .VPFeature { animation: amz-fade-up 0.5s ease both 0.35s; }
 .VPFeatures .items .item:nth-child(8) .VPFeature { animation: amz-fade-up 0.5s ease both 0.4s; }
+.VPFeatures .items .item:nth-child(9) .VPFeature { animation: amz-fade-up 0.5s ease both 0.45s; }
+.VPFeatures .items .item:nth-child(10) .VPFeature { animation: amz-fade-up 0.5s ease both 0.5s; }
 
 /* --------------------------------------------------------------------------
    15. МОБИЛЬНАЯ АДАПТАЦИЯ

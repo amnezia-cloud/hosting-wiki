@@ -39,10 +39,18 @@ features:
     title: Server Security
     details: UFW, changing the SSH port, fail2ban, and basic VPS hardening.
     link: /en/security
+  - icon: 🩺
+    title: VPN not connecting
+    details: Step-by-step troubleshooting: error 305, SSH checks, ISP blocking.
+    link: /en/vpn-troubleshooting
   - icon: ❓
     title: Troubleshooting (FAQ)
     details: Answers to common questions and fixes for typical connection errors.
     link: /en/faq
+  - icon: 💬
+    title: Contacting support
+    details: A details checklist, a ready-to-fill ticket template, and who handles what.
+    link: /en/support
 ---
 
 ## Where to start

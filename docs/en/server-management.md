@@ -58,8 +58,9 @@ If you need to install additional software on the server, configure a proxy, or 
 
 ### Step 1: Open a terminal on your PC
 
-*   **On Windows:** Press `Win + R` on your keyboard, type `cmd` in the window that opens, and press Enter. A black command-line window will appear.
-*   **On macOS or Linux:** Use the app search to find the **Terminal** program and launch it.
+*   **Windows 10/11:** Press `Win + X` and pick **Terminal** or **PowerShell**. Alternatively `Win + R` → `cmd` → Enter.
+*   **macOS or Linux:** Use the app search to find the **Terminal** program and launch it.
+*   **Windows 7/8:** There is no built-in SSH client — download and run **PuTTY**, enter the server IP in *Host Name*, and click **Open**.
 
 ### Step 2: Enter the connection command
 
@@ -88,6 +89,14 @@ The system will ask for the secret key: `root@0.0.0.0's password:`
 ::: warning The password is not shown — this is normal
 When you paste or type a password in the terminal, **nothing appears on screen (no characters, asterisks, or dots)**. This is a built-in protection of Unix systems. The password is still entered successfully — just press Enter.
 :::
+
+### If the connection fails
+
+| Error | Cause and fix |
+| :--- | :--- |
+| `Connection timed out` | Check that the server status in the panel is **Active**. If it is, your network is blocking traffic to the server: on mobile data under regional restrictions port 22 is often closed — switch to wired Wi-Fi. Walkthrough: **[Connection troubleshooting](/en/vpn-troubleshooting#isp-blocks)** |
+| `Permission denied` | The server is reachable but the password is wrong. Note: you need the **server's SSH password**, not your client-area password. Reissue it with **Reset Password** (the server must be powered off) |
+| `Connection refused` | The SSH service is down or the port was changed. If you changed the port in the security settings, connect with `-p`: `ssh root@0.0.0.0 -p 2222` |
 
 ## 🗲 6. Basic Commands Cheat Sheet {#commands}
 
