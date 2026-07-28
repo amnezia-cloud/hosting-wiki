@@ -48,8 +48,8 @@ features:
     details: Step-by-step troubleshooting: error 305, SSH checks, ISP blocking.
     link: /en/vpn-troubleshooting
   - icon: ❓
-    title: Troubleshooting (FAQ)
-    details: Answers to common questions and fixes for typical connection errors.
+    title: Frequently asked questions
+    details: An index of every walkthrough — one article per question.
     link: /en/faq
   - icon: 💬
     title: Contacting support

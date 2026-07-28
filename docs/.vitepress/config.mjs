@@ -135,20 +135,8 @@ export default defineConfig({
             ]
           },
           {
-            text: 'Помощь',
+            text: 'Подключение и VPN',
             items: [
-              {
-                text: '❓ Решение проблем (FAQ)',
-                link: '/faq',
-                collapsed: true,
-                items: [
-                  { text: 'Подключение и VPN', link: '/faq#connection' },
-                  { text: 'Протоколы и трафик', link: '/faq#protocols' },
-                  { text: 'Сервер и безопасность', link: '/faq#server' },
-                  { text: 'Оплата и возвраты', link: '/faq#billing' },
-                  { text: 'Техническая поддержка', link: '/faq#support' }
-                ]
-              },
               {
                 text: '🩺 Не подключается VPN',
                 link: '/vpn-troubleshooting',
@@ -160,6 +148,9 @@ export default defineConfig({
                   { text: 'Подключение есть, интернета нет', link: '/vpn-troubleshooting#next' }
                 ]
               },
+              { text: '⚠️ «Ошибка подключения к серверу»', link: '/connection-error' },
+              { text: '🚫 Подключился, но интернета нет', link: '/no-internet' },
+              { text: '📡 Не проходит ping', link: '/ping' },
               {
                 text: '🔁 AmneziaWG → XRay',
                 link: '/awg-to-xray',
@@ -181,6 +172,16 @@ export default defineConfig({
                   { text: 'Что делать', link: '/mobile-restrictions#what-to-do' }
                 ]
               },
+              { text: '🤖 Gemini через VPN', link: '/gemini' },
+              { text: '👥 Несколько устройств', link: '/multiple-devices' },
+              { text: '📊 Расход трафика', link: '/traffic-usage' }
+            ]
+          },
+          {
+            text: 'Сервер и доступ',
+            items: [
+              { text: '🔑 Смена пароля root', link: '/root-password' },
+              { text: '🛑 Сервер в Bad State', link: '/broken-state' },
               {
                 text: '🌍 Геолокация сервера',
                 link: '/geolocation',
@@ -190,8 +191,32 @@ export default defineConfig({
                   { text: 'Что можно сделать', link: '/geolocation#what-to-do' },
                   { text: 'Что делаем мы', link: '/geolocation#what-we-do' }
                 ]
+              }
+            ]
+          },
+          {
+            text: 'Оплата и тарифы',
+            items: [
+              { text: '💳 Как оплатить хостинг', link: '/payment' },
+              { text: '↩️ Возврат средств', link: '/refund' },
+              { text: '📦 Изменение тарифа', link: '/change-plan' },
+              { text: '🗓️ Период оплаты', link: '/billing-period' }
+            ]
+          },
+          {
+            text: 'Помощь',
+            items: [
+              {
+                text: '❓ Частые вопросы',
+                link: '/faq',
+                collapsed: true,
+                items: [
+                  { text: 'Подключение и VPN', link: '/faq#connection' },
+                  { text: 'Протоколы и трафик', link: '/faq#protocols' },
+                  { text: 'Сервер и доступ', link: '/faq#server' },
+                  { text: 'Оплата и тарифы', link: '/faq#billing' }
+                ]
               },
-              { text: '🤖 Gemini через VPN', link: '/gemini' },
               {
                 text: '💬 Обращение в поддержку',
                 link: '/support',
@@ -284,20 +309,8 @@ export default defineConfig({
             ]
           },
           {
-            text: 'Help',
+            text: 'Connection and VPN',
             items: [
-              {
-                text: '❓ Troubleshooting (FAQ)',
-                link: '/en/faq',
-                collapsed: true,
-                items: [
-                  { text: 'Connection and VPN', link: '/en/faq#connection' },
-                  { text: 'Protocols and traffic', link: '/en/faq#protocols' },
-                  { text: 'Server and security', link: '/en/faq#server' },
-                  { text: 'Billing and refunds', link: '/en/faq#billing' },
-                  { text: 'Technical support', link: '/en/faq#support' }
-                ]
-              },
               {
                 text: '🩺 VPN not connecting',
                 link: '/en/vpn-troubleshooting',
@@ -309,6 +322,9 @@ export default defineConfig({
                   { text: 'Connected, but no internet', link: '/en/vpn-troubleshooting#next' }
                 ]
               },
+              { text: '⚠️ “Server connection error”', link: '/en/connection-error' },
+              { text: '🚫 Connected, but no internet', link: '/en/no-internet' },
+              { text: '📡 Ping does not work', link: '/en/ping' },
               {
                 text: '🔁 AmneziaWG → XRay',
                 link: '/en/awg-to-xray',
@@ -330,6 +346,16 @@ export default defineConfig({
                   { text: 'What to do', link: '/en/mobile-restrictions#what-to-do' }
                 ]
               },
+              { text: '🤖 Gemini via VPN', link: '/en/gemini' },
+              { text: '👥 Multiple devices', link: '/en/multiple-devices' },
+              { text: '📊 Traffic usage', link: '/en/traffic-usage' }
+            ]
+          },
+          {
+            text: 'Server and access',
+            items: [
+              { text: '🔑 Changing the root password', link: '/en/root-password' },
+              { text: '🛑 Server in Bad State', link: '/en/broken-state' },
               {
                 text: '🌍 Server geolocation',
                 link: '/en/geolocation',
@@ -339,8 +365,32 @@ export default defineConfig({
                   { text: 'What you can do', link: '/en/geolocation#what-to-do' },
                   { text: 'What we are doing', link: '/en/geolocation#what-we-do' }
                 ]
+              }
+            ]
+          },
+          {
+            text: 'Billing and plans',
+            items: [
+              { text: '💳 How to pay', link: '/en/payment' },
+              { text: '↩️ Refunds', link: '/en/refund' },
+              { text: '📦 Changing the plan', link: '/en/change-plan' },
+              { text: '🗓️ Billing period', link: '/en/billing-period' }
+            ]
+          },
+          {
+            text: 'Help',
+            items: [
+              {
+                text: '❓ Frequently asked questions',
+                link: '/en/faq',
+                collapsed: true,
+                items: [
+                  { text: 'Connection and VPN', link: '/en/faq#connection' },
+                  { text: 'Protocols and traffic', link: '/en/faq#protocols' },
+                  { text: 'Server and access', link: '/en/faq#server' },
+                  { text: 'Billing and plans', link: '/en/faq#billing' }
+                ]
               },
-              { text: '🤖 Gemini via VPN', link: '/en/gemini' },
               {
                 text: '💬 Contacting support',
                 link: '/en/support',

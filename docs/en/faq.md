@@ -1,112 +1,59 @@
-# ❓ Troubleshooting <span class="green">(FAQ)</span>
+---
+title: Frequently Asked Questions
+description: An index of every topic: connection and VPN, server and access, billing and plans. Each question has its own article.
+head:
+  - - meta
+    - name: keywords
+      content: faq, frequently asked questions, help, troubleshooting, amnezia hosting, support
+---
 
-Short answers to common questions. Larger topics live in their own articles — linked in each section.
+# ❓ Frequently Asked Questions
+
+An index of every walkthrough. Each question has its own article — open the one you need, and if your question is not listed, write to us: **[Contacting Support](/en/support)**.
 
 ## 🔌 Connection and VPN {#connection}
 
-Dedicated articles:
-
-*   🩺 **[VPN connection issues: step-by-step troubleshooting](/en/vpn-troubleshooting)** — error 305, SSH checks, ISP blocking.
-*   🔁 **[AmneziaWG stopped working](/en/awg-to-xray)** — switching to XRay: port 443, SNI `ya.ru`, fallbacks.
-*   📵 **[No access on mobile internet](/en/mobile-restrictions)** — carrier “whitelists”.
-*   🤖 **[Gemini via VPN](/en/gemini)** — why some services reject data-center traffic.
-
-::: details Why does the app say 'Server connection error'?
-This is usually due to three main reasons:
-
-1.  **Incorrect credentials:** Double-check your IP address, username, or password for any accidental spaces.
-2.  **Server is not ready yet:** After purchasing hosting, the OS installation can take 2 to 10 minutes. Please wait a bit and try again.
-3.  **Port 22 is closed:** Ensure that no firewall in your hosting control panel is blocking incoming SSH connections.
-
-If the credentials are correct and it still fails, run the **[step-by-step troubleshooting](/en/vpn-troubleshooting)**.
-:::
-
-::: details The Ping command doesn't work! 'Request timed out' or '100% loss'
-ICMP traffic is blocked on our servers. Check the server's availability via `ssh root@server-ip` instead.
-:::
-
-::: details It connects, but there is no internet
-The server is reachable, so the tunnel is at fault: check that two VPNs are not installed at once, that an antivirus or AdGuard is not blocking traffic, and that the `.ru` zone blocking is not enabled in 3X-UI. Walkthrough — **[Connection troubleshooting](/en/vpn-troubleshooting#next)**.
-:::
+| Question | In short |
+| :--- | :--- |
+| **[VPN not connecting: step-by-step troubleshooting](/en/vpn-troubleshooting)** | The overall order of checks: server status, error 305, ISP blocking |
+| **[The app says “Server connection error”](/en/connection-error)** | Typos in credentials, the OS is still installing, port 22 is closed |
+| **[VPN connects but there is no internet](/en/no-internet)** | Two VPNs, antivirus, blocking rules in 3X-UI |
+| **[Ping to the server does not work](/en/ping)** | ICMP is blocked on purpose — check over SSH |
+| **[AmneziaWG stopped working](/en/awg-to-xray)** | Switching to XRay: port 443, SNI `ya.ru`, fallbacks |
+| **[No access on mobile internet](/en/mobile-restrictions)** | Carrier “whitelists”, no way around them |
+| **[Google Gemini does not work](/en/gemini)** | Requests from data-center addresses are filtered |
 
 ## 🎛️ Protocols and traffic {#protocols}
 
-::: details Which VPN protocol should I choose in the Amnezia app?
-*   **AmneziaWG (WireGuard):** The fastest and most lightweight protocol, ideal if your ISP does not block standard VPN traffic.
-*   **XRay / VLESS (Reality):** The better choice in regions with strict censorship — it disguises traffic as regular website visits (HTTPS).
-
-Ideally keep both on the server: AWG by default for speed, XRay when AWG stops connecting. Full comparison — **[Protocols](/en/protocols)**.
-:::
-
-::: details Can I use a single server for multiple devices?
-**Yes.** You can configure AmneziaVPN on your server and then generate configuration files or QR codes for any of your devices (smartphones, tablets, PCs) or share them with others. Our plans are tuned for smooth performance with **up to 10 devices** connected simultaneously.
-
-Issuing a separate key per device is easiest through the **[3X-UI panel](/en/3x-ui#client-key)**.
-:::
-
-::: details How much traffic does running a VPN on the server consume?
-The VPN server itself does not generate traffic. Consumption depends entirely on your activity: if you download a 1 GB file through the VPN, the server spends 1 GB downloading it and another 1 GB delivering it to you (2 GB total from your hosting limit). Choose plans with unlimited traffic.
-:::
-
-## 🖥️ Server and security {#server}
-
-Dedicated articles:
-
-*   🔄 **[Reinstalling the OS](/en/reinstall)** — available on servers issued on or after 20 July 2026; on older ones it causes Bad State.
-*   🌍 **[Why your server's geolocation mismatches](/en/geolocation)** — how GeoIP databases work and why their data lags.
-*   🔒 **[Server security](/en/security)** — UFW, changing the SSH port, fail2ban.
-
-::: details How do I protect my server from hacking?
-Set up the UFW firewall, change the default SSH port, and enable fail2ban. See the **[Server Security](/en/security)** section for step-by-step instructions.
-:::
-
-::: details How do I change the root password?
-Connect via SSH and run `passwd` — the system will ask for the new password twice.
-
-The **Reset Password** button in the client area also reissues it, but only on servers issued **on or after 20 July 2026** (power the server off first). On older VPS that button causes Bad State and the server has to be replaced by support: **[Reinstalling the OS](/en/reinstall#check)**.
-:::
-
-::: details The server is in “Broken State” and will not start
-Do not press the control buttons repeatedly — that can make the container error worse. Open a ticket right away and our engineers will check the node manually. Details — **[Server Management](/en/server-management#security)**.
-:::
-
-## 💳 Billing, plans and refunds {#billing}
-
-::: details How can I pay for the hosting?
-Three payment services are available — pick whichever suits you:
-
-| Service | Payment methods |
+| Question | In short |
 | :--- | :--- |
-| **FreeKassa** | Russian bank cards and SBP |
-| **YooKassa** | a YooMoney account or cash payment |
-| **Stripe** | international bank cards |
+| **[Which protocol to choose](/en/protocols)** | AmneziaWG for speed, XRay / VLESS to defeat blocking |
+| **[One server for multiple devices](/en/multiple-devices)** | Yes, up to 10 devices; one key each |
+| **[How much traffic the VPN uses](/en/traffic-usage)** | Every gigabyte passes through the server twice |
 
-All invoices and payment history live in your client area at **[my.amnezia.host](https://my.amnezia.host)**, the “Invoices” section.
-:::
+## 🖥️ Server and access {#server}
 
-::: details How do I get a refund for a server?
-Open a ticket in your client area at **[my.amnezia.host](https://my.amnezia.host)** and support will guide you through it. The conditions depend on the term the server was ordered for:
-
-| Payment term | Refund condition |
+| Question | In short |
 | :--- | :--- |
-| **1 month** | Refunded on the day of purchase or the next day |
-| **3, 6, 12 months** | Refunded if at least one month of the paid period remains |
+| **[How to change the root password](/en/root-password)** | `passwd` over SSH; `Reset Password` only on servers from 20 July 2026 |
+| **[Reinstalling the OS](/en/reinstall)** | Works on servers issued on or after 20 July 2026 |
+| **[The server is in Bad State](/en/broken-state)** | Do not press the buttons again — open a ticket |
+| **[Server geolocation mismatch](/en/geolocation)** | Third-party GeoIP databases lag behind |
+| **[How to protect the server from hacking](/en/security)** | UFW, changing the SSH port, fail2ban |
 
-Full terms are in the **Refund and Compensation Policy**.
-:::
+## 💳 Billing and plans {#billing}
 
-::: details How do I change my plan?
-There are no other plans at the moment — all servers ship in a single configuration. Current specs and prices are on **[amnezia.host](https://amnezia.host)**.
-:::
+| Question | In short |
+| :--- | :--- |
+| **[How to pay for the hosting](/en/payment)** | FreeKassa, YooKassa, Stripe |
+| **[How to get a refund](/en/refund)** | Terms depend on the ordered period |
+| **[How to change my plan](/en/change-plan)** | There are no other plans right now |
+| **[How to change the billing period](/en/billing-period)** | Through support: Telegram or a ticket |
 
-::: details How do I change the billing period?
-Contact support — on Telegram or by ticket in your client area at **[my.amnezia.host](https://my.amnezia.host)**. Available periods and prices are listed on **[amnezia.host](https://amnezia.host)**.
-:::
+## 🔧 Support {#support}
 
-## 🔧 Technical support {#support}
+If your question is not listed, collect the checklist details and write to us: **[Contacting Support](/en/support)**. That page also has a ready-to-fill template and the split of responsibilities.
 
-If your problem is not listed here, collect the details from the checklist and write to us: **[Contacting Support](/en/support)**. That page also has a ready-to-fill template and the split of responsibilities.
-
-*   💻 A ticket in the **Client Area** — the main channel.
+*   💻 A ticket in your client area at **[my.amnezia.host](https://my.amnezia.host)** — the main channel.
 *   💬 The official Amnezia user community on Telegram.
 *   📂 Self-diagnosis of the OS — **[Server Management](/en/server-management)**.
