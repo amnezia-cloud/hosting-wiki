@@ -1,3 +1,12 @@
+---
+title: "Quick Start with VPS"
+description: "Your first SSH connection to an Amnezia Hosting server, updating the system, and the basic Linux commands."
+head:
+  - - meta
+    - name: keywords
+      content: "quick start, first connection, ssh, vps, linux commands, system update, apt, beginners"
+---
+
 # 🚀 Quick Start <span class="green">with VPS</span>
 
 This guide will help you make your first connection to your new Amnezia Hosting server and introduce you to the basic commands for managing the system.

@@ -1,3 +1,12 @@
+---
+title: "How to Launch Your Own VPN"
+description: "Three steps: add the server to the AmneziaVPN app, install a protocol, and connect."
+head:
+  - - meta
+    - name: keywords
+      content: "vpn setup, amneziavpn, own vpn, connection, protocol, installation, three steps, configuration"
+---
+
 # 🛡️ How to Launch Your Own <span class="green">VPN</span>
 
 Three simple steps to create your own personal VPN on a virtual private server.

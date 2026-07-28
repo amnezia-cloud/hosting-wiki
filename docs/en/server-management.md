@@ -1,3 +1,12 @@
+---
+title: "Managing Your Amnezia VPS"
+description: "Connection details, control panel actions, connecting over SSH, and a cheat sheet of commands for your VPS."
+head:
+  - - meta
+    - name: keywords
+      content: "server management, client area, power on, reboot, reset password, reinstall os, ssh, vps resources, broken state"
+---
+
 # 🖥️ Managing Your Amnezia VPS
 
 Welcome to the control panel for your virtual private server (VPS). This page brings together everything you need to control your server: connection details, available actions, and step-by-step instructions for beginners.
@@ -40,6 +49,8 @@ If you see **Broken State** in the server status field, or if the server has sto
 
 1. Do not repeatedly click the control buttons — this may worsen the error inside the virtual container.
 2. Immediately **open a ticket with our technical support**. Our engineers will manually check the state of the node (the physical hardware) and restore access as quickly as possible.
+
+A full walkthrough, including the most common cause and what happens to your data and IP address: **[The server is in Bad State](/en/broken-state)**.
 
 ### 🔒 Why can't I change the IP address myself?
 

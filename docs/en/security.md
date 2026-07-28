@@ -1,3 +1,12 @@
+---
+title: "Server Security"
+description: "Basic VPS hardening: the UFW firewall, changing the SSH port, fail2ban, and security updates."
+head:
+  - - meta
+    - name: keywords
+      content: "server security, ufw, firewall, ssh port, fail2ban, hardening, vps protection, hacking"
+---
+
 # 🔒 Server Security
 
 A few simple steps will noticeably improve the protection of your VPS. All commands are run over SSH as the `root` user.

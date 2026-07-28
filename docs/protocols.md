@@ -1,3 +1,12 @@
+---
+title: "Протоколы: AmneziaWG и XRay / VLESS"
+description: "Чем отличаются AmneziaWG и XRay / VLESS Reality, что выбрать для скорости и что для обхода блокировок."
+head:
+  - - meta
+    - name: keywords
+      content: "протоколы vpn, amneziawg, awg, xray, vless, reality, wireguard, сравнение, какой протокол выбрать, dpi"
+---
+
 # 🔌 Протоколы: AmneziaWG (AWG) и XRay / VLESS
 
 Для обеспечения максимальной скорости и обхода блокировок в нашей сети используются два самых передовых протокола. Ниже разобраны их особенности, отличия и сценарии использования.

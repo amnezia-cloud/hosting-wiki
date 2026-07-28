@@ -1,3 +1,12 @@
+---
+title: "Protocols: AmneziaWG and XRay / VLESS"
+description: "How AmneziaWG and XRay / VLESS Reality differ, which to pick for speed and which to defeat censorship."
+head:
+  - - meta
+    - name: keywords
+      content: "vpn protocols, amneziawg, awg, xray, vless, reality, wireguard, comparison, which protocol, dpi"
+---
+
 # 🔌 Protocols: AmneziaWG (AWG) and XRay / VLESS
 
 To ensure maximum connection speed and reliably bypass censorship, our network utilizes two of the most advanced VPN protocols available. Below is a detailed breakdown of their features, pros and cons, and recommended use cases.

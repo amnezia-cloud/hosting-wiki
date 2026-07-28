@@ -1,3 +1,12 @@
+---
+title: "3X-UI Panel: VLESS + Reality and Blocking Russian Domains"
+description: "Installing 3X-UI on a VPS, a VLESS + Reality inbound on port 443 masked as ya.ru, and blocking ads and Russian domains."
+head:
+  - - meta
+    - name: keywords
+      content: "3x-ui, x-ui, vless, reality, xray, ya.ru, port 443, 8443, blocking ru domains, web panel, access keys"
+---
+
 # 📊 3X-UI Panel: VLESS + Reality and Blocking Russian Domains
 
 **3X-UI** is a graphical web panel for managing a VPN server powered by **Xray-core**. It lets you set up a **VLESS + Reality** connection in minutes, issue separate keys per user, track traffic, and define routing rules.
