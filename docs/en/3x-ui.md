@@ -110,6 +110,14 @@ Copy the whole block into a password manager **before closing the terminal**. Wi
 If you lose them, run `x-ui settings` on the server to display them again.
 :::
 
+**Open the panel port in the firewall right after installation** — otherwise the login page will not load. Use your own port from the block above:
+
+```bash
+sudo ufw allow 6873/tcp
+```
+
+Open the port your inbound will use as well (443 by default): `sudo ufw allow 443/tcp`. Check the current rules with `sudo ufw status`. If UFW is not enabled, there is nothing to open; for firewall setup see **[Server Security](/en/security)**.
+
 ## 🌐 Step 5. Signing In to the Web Interface {#login}
 
 1. Open the **Access URL** from the previous step in your browser:
@@ -194,7 +202,7 @@ Scroll to the **Security** block and pick **Reality**. Fill in the fields:
 | :--- | :--- |
 | **Show** | off |
 | **Xver** | `0` |
-| **uTLS** | `chrome` |
+| **uTLS** | `firefox` |
 | **Dest (Target)** | `ya.ru:443` |
 | **SNI** | `ya.ru` |
 | **Max Time Diff (ms)** | `0` |
@@ -202,7 +210,13 @@ Scroll to the **Security** block and pick **Reality**. Fill in the fields:
 | **SpiderX** | `/` |
 | **Public Key** / **Private Key** | click **Get New Cert** — the x25519 key pair is created automatically |
 
-![The Security block with Reality selected: uTLS chrome, Dest ya.ru:443, SNI ya.ru, SpiderX and keys, with the Sniffing block below](/img/3x-ui/09-inbound-reality.png)
+![The Security block with Reality selected: uTLS, Dest ya.ru:443, SNI ya.ru, SpiderX and keys, with the Sniffing block below](/img/3x-ui/09-inbound-reality.png)
+
+::: warning uTLS: switch chrome to firefox
+The panel pre-selects `chrome` — that is what the screenshot above shows. In our testing the **`firefox`** fingerprint passes filtering more reliably, so pick it in the dropdown.
+
+The value ends up in the client link as `fp=firefox`. If you change uTLS on an existing inbound, re-issue the links.
+:::
 
 ::: tip Choosing a masking domain
 `ya.ru` works well for users in Russia: the site is not blocked, supports TLS 1.3, and requests to it look natural. The only hard requirement is that the domain must be reachable **from the server** and not blocked **for the client**.
@@ -229,13 +243,13 @@ Click **Create**. The inbound appears in the list as “Enabled”.
 The link looks like this:
 
 ```text
-vless://UUID@SERVER_IP:443?type=tcp&security=reality&pbk=PUBLIC_KEY&fp=chrome&sni=ya.ru&sid=SHORT_ID&spx=%2F&flow=xtls-rprx-vision#Client-name
+vless://UUID@SERVER_IP:443?type=tcp&security=reality&pbk=PUBLIC_KEY&fp=firefox&sni=ya.ru&sid=SHORT_ID&spx=%2F&flow=xtls-rprx-vision#Client-name
 ```
 
 Import it into a client app — every parameter is filled in automatically.
 
 ::: warning One key per device
-Do not share a single link between people: traffic statistics get mixed and simultaneous connections may drop. Add a separate client for each device (**Operations → Add Client**) — a single inbound is enough.
+Technically one key works on several devices at once, but their traffic statistics get mixed, the limit and expiry date apply to all of them together, and access cannot be revoked for a single device — only for all of them. Add a separate client per device (**Operations → Add Client**); a single inbound still covers them all.
 :::
 
 ## 🚫 Step 8. Blocking Ads and Russian Domains {#routing}

@@ -113,6 +113,7 @@ When you paste or type a password in the terminal, **nothing appears on screen (
 | `Connection timed out` | Check that the server status in the panel is **Active**. If it is, your network is blocking traffic to the server: on mobile data under regional restrictions port 22 is often closed — switch to wired Wi-Fi. Walkthrough: **[Connection troubleshooting](/en/vpn-troubleshooting#isp-blocks)** |
 | `Permission denied` | The server is reachable but the password is wrong. Note: you need the **server's SSH password**, not your client-area password. Reissue it with **Reset Password** — power the server off first, and only if it was issued on or after 20 July 2026 ([why](/en/reinstall#check)) |
 | `Connection refused` | The SSH service is down or the port was changed. If you changed the port in the security settings, connect with `-p`: `ssh root@0.0.0.0 -p 2222` |
+| `Connection closed by … port 22` | The connection opened and dropped immediately. Most often the node is closed for maintenance — wait and retry, and open a ticket if it persists. Less commonly it is fail2ban: your address got banned after failed login attempts, so connect from another network or lift the ban |
 
 ## 🗲 6. Basic Commands Cheat Sheet {#commands}
 

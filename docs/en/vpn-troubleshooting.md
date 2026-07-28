@@ -36,8 +36,9 @@ ssh root@YOUR_SERVER_IP
 | The server asks for a password | The hosting works fine | The issue is in the app or the credentials. Use the **server's SSH password**, not your hosting account password |
 | The connection hangs or drops | Traffic does not reach the server | Go to [Step 3](#isp-blocks) |
 | `Permission denied` | Server reachable, password wrong | Reissue it with **Reset Password** — shut the server down first, and only if it was issued on or after 20 July 2026 ([why](/en/reinstall#check)) |
+| `Connection closed by … port 22` | The server answers but closes the session at once | Usually the node is closed for maintenance — wait and retry; open a ticket if it keeps happening |
 
-Details on console access — **[Server Management](/en/server-management#ssh)**.
+Details on console access and the remaining SSH errors — **[Server Management](/en/server-management#ssh)**.
 
 ## Step 3. ISP blocking and “whitelists” {#isp-blocks}
 

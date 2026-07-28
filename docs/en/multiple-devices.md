@@ -21,8 +21,10 @@ head:
 ## Why one key per device {#separate-keys}
 
 *   Traffic statistics stay separate for each user.
-*   Simultaneous connections on one key can cause drops.
+*   Traffic limits and expiry dates are set per client rather than for everyone at once.
 *   Access can be revoked per person without affecting anyone else.
+
+Running several devices on one key is technically fine and does not cause drops by itself — the inconvenience is in the statistics, the shared limits, and revoking access.
 
 In the 3X-UI panel a single inbound is enough — it can hold as many clients as you need, each with its own traffic limit and expiry date.
 

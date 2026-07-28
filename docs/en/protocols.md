@@ -31,7 +31,7 @@ Ideal for daily use, high-definition streaming, online gaming (low latency/ping)
 ### Pros & Cons
 
 *   **➕ Pros:** Virtually immune to modern censorship and blocking techniques. The ISP only detects a standard, secure HTTPS connection to a regular website.
-*   **➖ Cons:** Slightly higher CPU utilization on your device; maximum speeds may be marginally lower compared to AWG.
+*   **➖ Cons:** Slightly higher CPU utilization on your device — mostly noticeable on weak or older hardware. In practice throughput is limited by your ISP link rather than by the protocol.
 
 ### Best Used For
 

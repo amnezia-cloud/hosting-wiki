@@ -50,7 +50,7 @@ For manual setup with full control over ports, keys, and the masking domain, use
 | :--- | :--- | :--- |
 | Transport | UDP | TCP + TLS |
 | How the ISP sees it | obfuscated VPN traffic | an ordinary HTTPS connection to an allowed site |
-| Speed and ping | higher | slightly lower |
+| Load on the device | lower | slightly higher on weak devices |
 | DPI resistance | high | maximum |
 
 Full protocol comparison — **[Protocols](/en/protocols)**. Ideally keep both on the server: AWG for speed, XRay as the fallback.
