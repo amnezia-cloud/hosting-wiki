@@ -35,10 +35,6 @@ features:
     title: 3X-UI Panel
     details: Web panel for managing access keys and protocols.
     link: /en/3x-ui
-  - icon: ⚡
-    title: Hysteria 2
-    details: Manual setup of the fast Hysteria 2 protocol with masquerade.
-    link: /en/hysteria2
   - icon: 🔒
     title: Server Security
     details: UFW, changing the SSH port, fail2ban, and basic VPS hardening.

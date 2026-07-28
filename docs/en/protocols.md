@@ -15,8 +15,6 @@ To ensure maximum connection speed and reliably bypass censorship, our network u
 
 Ideal for daily use, high-definition streaming, online gaming (low latency/ping), and downloading files—provided your ISP does not block UDP connections.
 
-📖 Learn more: **[AmneziaWG (AWG) — full guide](/en/awg)**
-
 ## ⚡ XRay / VLESS (Reality)
 
 **XRay running VLESS with Reality stealth technology** represents the cutting edge of anti-censorship tools. It operates over TCP and fully camouflages your VPN traffic as a standard visit to a legitimate, unblocked website (such as a major international marketplace or IT platform).
@@ -30,7 +28,7 @@ Ideal for daily use, high-definition streaming, online gaming (low latency/ping)
 
 Highly recommended as the primary protocol in regions with strict internet censorship, or as a reliable backup option if AmneziaWG fails to connect.
 
-📖 Learn more: **[VLESS + Reality — full guide](/en/vless)**
+📖 Set up VLESS + Reality manually through the web panel: **[3X-UI Panel](/en/3x-ui)**
 
 ## 📊 Protocol Comparison Matrix
 

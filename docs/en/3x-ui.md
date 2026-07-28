@@ -116,7 +116,7 @@ The browser warns you because the panel runs over plain `http` without a certifi
 
 ## 🛡️ Step 6. Creating the Inbound: VLESS + Reality on 443 {#inbound}
 
-**Reality** disguises your traffic as an ordinary visit to a real website: the server borrows the genuine TLS handshake of the chosen domain, so no certificate or domain of your own is required. See **[VLESS + Reality](/en/vless)** for details.
+**Reality** disguises your traffic as an ordinary visit to a real website: the server borrows the genuine TLS handshake of the chosen domain, so no certificate or domain of your own is required. See **[Protocols](/en/protocols)** for a comparison with the other options.
 
 In the left menu open **Inbounds** and click **+ Add Inbound**.
 

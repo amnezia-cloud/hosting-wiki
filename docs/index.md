@@ -35,10 +35,6 @@ features:
     title: Панель 3X-UI
     details: Веб-панель для управления ключами доступа и протоколами.
     link: /3x-ui
-  - icon: ⚡
-    title: Hysteria 2
-    details: Ручная установка быстрого протокола Hysteria 2 с маскировкой.
-    link: /hysteria2
   - icon: 🔒
     title: Безопасность сервера
     details: UFW, смена порта SSH, fail2ban и базовый харденинг VPS.
