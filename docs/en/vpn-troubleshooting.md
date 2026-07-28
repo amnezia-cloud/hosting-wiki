@@ -9,7 +9,9 @@ head:
 
 # 🩺 VPN Connection Issues: Step-by-Step Troubleshooting
 
-Amnezia Hosting provides a VPS with a clean operating system: we are responsible for hardware stability and network availability **up to the server**. Installing, configuring, and troubleshooting the protocols (AmneziaWG, XRay, Hysteria2) is done on your side. The order of checks below covers most cases.
+When a VPN stops connecting, the cause is almost always found within a few minutes — and more often than not it is the network between you and the server rather than the server itself. The order of checks below covers most cases; if none of it helps, write to us and we will work through it together.
+
+A short note on who handles what: we are responsible for hardware stability and network availability **up to the server**, while installing and configuring the protocols (AmneziaWG, XRay, Hysteria2) happens on your side — which is also why full control over the server stays with you.
 
 | Symptom | Likely cause | Where to look |
 | :--- | :--- | :--- |

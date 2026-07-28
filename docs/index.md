@@ -23,6 +23,10 @@ features:
     title: Управление сервером
     details: Личный кабинет, действия с сервером (Power On / Reset) и подключение по SSH.
     link: /server-management
+  - icon: 🔁
+    title: Переход с Amnezia Premium
+    details: Перенесём остаток подписки на ваш сервер — помогаем на каждом шаге.
+    link: /premium-migration
   - icon: 🔄
     title: Переустановка ОС
     details: Как вернуть сервер к чистой системе и почему это работает не на всех VPS.

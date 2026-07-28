@@ -9,7 +9,7 @@ head:
 
 # 🚫 VPN Connects but There Is No Internet
 
-The connect button turned green, so the server is reachable and the tunnel is up. The problem is where traffic goes inside the tunnel. Check in order.
+The connect button turned green, so the server is reachable and the tunnel is up — that is already half the battle. What is left is figuring out where the traffic goes inside the tunnel. Work through the points in order: the cause is usually in the first two.
 
 ## 1. Two VPNs at once {#two-vpns}
 

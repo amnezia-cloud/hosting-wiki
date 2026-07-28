@@ -9,7 +9,7 @@ head:
 
 # 🛑 The Server Is in Bad State
 
-**Bad State** (shown as **Broken State** in the panel) means a failure at the virtual container level: the server does not boot and ignores `Power On` and `Reboot`.
+**Bad State** (shown as **Broken State** in the panel) means a failure at the virtual container level: the server does not boot and ignores `Power On` and `Reboot`. Unpleasant, but solvable — and almost always at no cost to you: engineers restore access, and if it cannot be restored, the server is replaced.
 
 ## What to do {#what-to-do}
 

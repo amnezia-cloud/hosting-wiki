@@ -9,7 +9,9 @@ head:
 
 # 💬 Contacting Support
 
-The more complete your first message, the faster the answer: with the checklist filled in, the cause is usually identified straight away instead of over several rounds of questions. Keep it **short but cover every point**.
+Please write to us — that is what we are here for. No “read the whole documentation first”: if something does not work, or is simply unclear, get in touch.
+
+One request: the more complete your first message, the faster the answer. With the checklist filled in the cause is usually obvious straight away, which saves you several rounds of questions. Keep it **short but cover every point** — and if you do not know something, just say so, that is perfectly fine.
 
 ## Where to write {#where}
 

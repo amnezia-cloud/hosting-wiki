@@ -98,6 +98,17 @@ export default defineConfig({
             items: [
               { text: '🚀 Быстрый старт', link: '/commands' },
               {
+                text: '🔁 Переход с Amnezia Premium',
+                link: '/premium-migration',
+                collapsed: true,
+                items: [
+                  { text: 'Создайте аккаунт', link: '/premium-migration#account' },
+                  { text: 'Тикет на перенос', link: '/premium-migration#ticket' },
+                  { text: 'Активация сервера', link: '/premium-migration#activation' },
+                  { text: 'Отключение Premium', link: '/premium-migration#premium-off' }
+                ]
+              },
+              {
                 text: '🖥️ Управление сервером',
                 link: '/server-management',
                 collapsed: true,
@@ -142,7 +153,42 @@ export default defineConfig({
                   { text: 'Команды x-ui', link: '/3x-ui#cli' }
                 ]
               },
-              { text: '🔒 Безопасность сервера', link: '/security' }
+              {
+                text: '⚡ XRay: маскировка и настройка',
+                link: '/xray-tuning',
+                collapsed: true,
+                items: [
+                  { text: 'Домен маскировки', link: '/xray-tuning#domain' },
+                  { text: 'Проверка домена', link: '/xray-tuning#verify' },
+                  { text: 'Ускорение BBR', link: '/xray-tuning#bbr' },
+                  { text: 'Обновление ядра', link: '/xray-tuning#core-update' },
+                  { text: 'XRay перестал подключаться', link: '/xray-tuning#troubleshooting' }
+                ]
+              },
+              {
+                text: '🛡️ AmneziaWG: версии и настройка',
+                link: '/amneziawg-tuning',
+                collapsed: true,
+                items: [
+                  { text: 'Как определить версию', link: '/amneziawg-tuning#version' },
+                  { text: 'Генераторы параметров', link: '/amneziawg-tuning#generators' },
+                  { text: 'AWG 1.0 и 1.5', link: '/amneziawg-tuning#legacy' },
+                  { text: 'AWG 2.0 и мимикрия', link: '/amneziawg-tuning#awg2' },
+                  { text: 'Смена подсети', link: '/amneziawg-tuning#subnet' }
+                ]
+              },
+              {
+                text: '🔒 Безопасность сервера',
+                link: '/security',
+                collapsed: true,
+                items: [
+                  { text: 'Отдельный пользователь', link: '/security#user' },
+                  { text: 'Смена порта SSH', link: '/security#ssh-port' },
+                  { text: 'Вход по SSH-ключу', link: '/security#ssh-keys' },
+                  { text: 'Файрвол UFW', link: '/security#ufw' },
+                  { text: 'fail2ban', link: '/security#fail2ban' }
+                ]
+              }
             ]
           },
           {
@@ -183,7 +229,32 @@ export default defineConfig({
                   { text: 'Что делать', link: '/mobile-restrictions#what-to-do' }
                 ]
               },
+              {
+                text: '🐳 Ошибки 20x (Docker)',
+                link: '/error-20x',
+                collapsed: true,
+                items: [
+                  { text: 'Зеркала Docker Hub', link: '/error-20x#mirrors' },
+                  { text: 'HostVDS и OpenStack', link: '/error-20x#hostvds' },
+                  { text: 'Восстановление wrapper', link: '/error-20x#recovery' },
+                  { text: 'Нестабильный Alpine CDN', link: '/error-20x#alpine' },
+                  { text: 'Установился, но нет сети', link: '/error-20x#no-traffic' },
+                  { text: 'Порядок действий', link: '/error-20x#order' }
+                ]
+              },
+              {
+                text: '🧩 Ошибки 30x (SSH)',
+                link: '/error-30x',
+                collapsed: true,
+                items: [
+                  { text: 'Указать порт явно', link: '/error-30x#explicit-port' },
+                  { text: 'Ставить из-под другого VPN', link: '/error-30x#other-vpn' },
+                  { text: 'Диагностика сервера', link: '/error-30x#diagnostics' },
+                  { text: 'Формат SSH-ключа', link: '/error-30x#ssh-keys' }
+                ]
+              },
               { text: '🤖 Gemini через VPN', link: '/gemini' },
+              { text: '▶️ Реклама на YouTube', link: '/youtube-ads' },
               { text: '👥 Несколько устройств', link: '/multiple-devices' },
               { text: '📊 Расход трафика', link: '/traffic-usage' }
             ]
@@ -278,6 +349,17 @@ export default defineConfig({
             items: [
               { text: '🚀 Quick Start', link: '/en/commands' },
               {
+                text: '🔁 Moving from Amnezia Premium',
+                link: '/en/premium-migration',
+                collapsed: true,
+                items: [
+                  { text: 'Create an account', link: '/en/premium-migration#account' },
+                  { text: 'Transfer ticket', link: '/en/premium-migration#ticket' },
+                  { text: 'Server activation', link: '/en/premium-migration#activation' },
+                  { text: 'Premium switch-off', link: '/en/premium-migration#premium-off' }
+                ]
+              },
+              {
                 text: '🖥️ Server Management',
                 link: '/en/server-management',
                 collapsed: true,
@@ -322,7 +404,42 @@ export default defineConfig({
                   { text: 'x-ui commands', link: '/en/3x-ui#cli' }
                 ]
               },
-              { text: '🔒 Server Security', link: '/en/security' }
+              {
+                text: '⚡ XRay: masking and tuning',
+                link: '/en/xray-tuning',
+                collapsed: true,
+                items: [
+                  { text: 'Masking domain', link: '/en/xray-tuning#domain' },
+                  { text: 'Verifying the domain', link: '/en/xray-tuning#verify' },
+                  { text: 'BBR acceleration', link: '/en/xray-tuning#bbr' },
+                  { text: 'Updating the core', link: '/en/xray-tuning#core-update' },
+                  { text: 'XRay stopped connecting', link: '/en/xray-tuning#troubleshooting' }
+                ]
+              },
+              {
+                text: '🛡️ AmneziaWG: versions and tuning',
+                link: '/en/amneziawg-tuning',
+                collapsed: true,
+                items: [
+                  { text: 'Telling the version', link: '/en/amneziawg-tuning#version' },
+                  { text: 'Parameter generators', link: '/en/amneziawg-tuning#generators' },
+                  { text: 'AWG 1.0 and 1.5', link: '/en/amneziawg-tuning#legacy' },
+                  { text: 'AWG 2.0 and mimicry', link: '/en/amneziawg-tuning#awg2' },
+                  { text: 'Changing the subnet', link: '/en/amneziawg-tuning#subnet' }
+                ]
+              },
+              {
+                text: '🔒 Server Security',
+                link: '/en/security',
+                collapsed: true,
+                items: [
+                  { text: 'A separate user', link: '/en/security#user' },
+                  { text: 'Changing the SSH port', link: '/en/security#ssh-port' },
+                  { text: 'Key-based login', link: '/en/security#ssh-keys' },
+                  { text: 'UFW firewall', link: '/en/security#ufw' },
+                  { text: 'fail2ban', link: '/en/security#fail2ban' }
+                ]
+              }
             ]
           },
           {
@@ -363,7 +480,32 @@ export default defineConfig({
                   { text: 'What to do', link: '/en/mobile-restrictions#what-to-do' }
                 ]
               },
+              {
+                text: '🐳 20x errors (Docker)',
+                link: '/en/error-20x',
+                collapsed: true,
+                items: [
+                  { text: 'Docker Hub mirrors', link: '/en/error-20x#mirrors' },
+                  { text: 'HostVDS and OpenStack', link: '/en/error-20x#hostvds' },
+                  { text: 'Wrapper recovery', link: '/en/error-20x#recovery' },
+                  { text: 'Unstable Alpine CDN', link: '/en/error-20x#alpine' },
+                  { text: 'Installed, but no traffic', link: '/en/error-20x#no-traffic' },
+                  { text: 'Order of operations', link: '/en/error-20x#order' }
+                ]
+              },
+              {
+                text: '🧩 30x errors (SSH)',
+                link: '/en/error-30x',
+                collapsed: true,
+                items: [
+                  { text: 'State the port explicitly', link: '/en/error-30x#explicit-port' },
+                  { text: 'Install behind another VPN', link: '/en/error-30x#other-vpn' },
+                  { text: 'Server diagnostics', link: '/en/error-30x#diagnostics' },
+                  { text: 'SSH key format', link: '/en/error-30x#ssh-keys' }
+                ]
+              },
               { text: '🤖 Gemini via VPN', link: '/en/gemini' },
+              { text: '▶️ YouTube ads', link: '/en/youtube-ads' },
               { text: '👥 Multiple devices', link: '/en/multiple-devices' },
               { text: '📊 Traffic usage', link: '/en/traffic-usage' }
             ]

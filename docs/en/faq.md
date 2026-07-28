@@ -20,14 +20,19 @@ An index of every walkthrough. Each question has its own article — open the on
 | **[VPN connects but there is no internet](/en/no-internet)** | Two VPNs, antivirus, blocking rules in 3X-UI |
 | **[Ping to the server does not work](/en/ping)** | ICMP is blocked on purpose — check over SSH |
 | **[AmneziaWG stopped working](/en/awg-to-xray)** | Switching to XRay: port 443, SNI `ya.ru`, fallbacks |
+| **[20x errors during installation](/en/error-20x)** | Docker: mirrors, HostVDS, an unstable Alpine CDN |
+| **[30x errors during installation](/en/error-30x)** | SSH: the port, installing behind another VPN, key format |
 | **[No access on mobile internet](/en/mobile-restrictions)** | Carrier “whitelists”, no way around them |
 | **[Google Gemini does not work](/en/gemini)** | Requests from data-center addresses are filtered |
+| **[YouTube ads](/en/youtube-ads)** | YouTube decides by IP; where ads are absent and what helps |
 
 ## 🎛️ Protocols and traffic {#protocols}
 
 | Question | In short |
 | :--- | :--- |
 | **[Which protocol to choose](/en/protocols)** | AmneziaWG for speed, XRay / VLESS to defeat blocking |
+| **[XRay: masking and tuning](/en/xray-tuning)** | A domain in your subnet, verification, fingerprint, BBR |
+| **[AmneziaWG: versions and tuning](/en/amneziawg-tuning)** | Versions 1.0 / 1.5 / 2.0, obfuscation parameters, subnet |
 | **[One server for multiple devices](/en/multiple-devices)** | Yes, up to 10 devices; one key each |
 | **[How much traffic the VPN uses](/en/traffic-usage)** | Every gigabyte passes through the server twice |
 
@@ -49,6 +54,7 @@ An index of every walkthrough. Each question has its own article — open the on
 | **[How to get a refund](/en/refund)** | Terms depend on the ordered period |
 | **[How to change my plan](/en/change-plan)** | There are no other plans right now |
 | **[How to change the billing period](/en/billing-period)** | Through support: Telegram or a ticket |
+| **[Moving from Amnezia Premium](/en/premium-migration)** | We carry the remaining subscription over to your own server |
 
 ## 🔧 Support {#support}
 

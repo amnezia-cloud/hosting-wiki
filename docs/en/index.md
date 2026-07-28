@@ -23,6 +23,10 @@ features:
     title: Server Management
     details: Client area, server actions (Power On / Reset), and connecting via SSH.
     link: /en/server-management
+  - icon: 🔁
+    title: Moving from Amnezia Premium
+    details: We carry the remaining subscription over to your server and help at every step.
+    link: /en/premium-migration
   - icon: 🔄
     title: Reinstalling the OS
     details: How to return the server to a clean system, and why it does not work on every VPS.
