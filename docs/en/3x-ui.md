@@ -24,7 +24,7 @@ Open your server card in the hosting control panel (**Manage** section) and copy
 
 ![Server card in the hosting control panel: IP address, root username, and password](/img/3x-ui/01-credentials.png)
 
-Make sure the server is running — the status indicator should be green. If the password is lost, click **Reset Password**.
+Make sure the server is running — the status indicator should be green. If the password is lost, the **Reset Password** button reissues it — but only on servers issued on or after 20 July 2026: **[details](/en/reinstall#check)**.
 
 More about connection details in **[Server Management](/en/server-management#credentials)**.
 

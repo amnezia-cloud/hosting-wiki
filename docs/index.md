@@ -23,6 +23,10 @@ features:
     title: Управление сервером
     details: Личный кабинет, действия с сервером (Power On / Reset) и подключение по SSH.
     link: /server-management
+  - icon: 🔄
+    title: Переустановка ОС
+    details: Как вернуть сервер к чистой системе и почему это работает не на всех VPS.
+    link: /reinstall
   - icon: 🛡️
     title: Настройка VPN
     details: Запуск личного VPN за три шага через приложение AmneziaVPN.

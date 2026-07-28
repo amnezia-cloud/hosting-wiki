@@ -32,7 +32,7 @@ Three checks resolve most tickets and take a couple of minutes:
 | :--- | :--- |
 | **Device** | iPhone 14, Android, Windows 11 laptop |
 | **Internet at the time of the problem** | mobile carrier / home Wi-Fi |
-| **Protocol** | AmneziaWG, XRay, OpenVPN — shown on the app's main screen under the connect button |
+| **Protocol** | AmneziaWG, XRay, or another — shown on the app's main screen under the connect button |
 | **Connect button behaviour** | spins on “Connecting” forever **or** turns green but there is no internet |
 | **Other VPN services** | do they work right now on the same device and network |
 | **Security software** | antivirus, blockers (AdGuard), other VPNs — these can conflict with Amnezia |
@@ -58,7 +58,7 @@ What I already tried:
 | Our side | Your side |
 | :--- | :--- |
 | Hardware stability and network availability up to the server | Installing and configuring protocols (AmneziaWG, XRay, Hysteria2) |
-| VPS state in the panel, `Power On` / `Reboot`, `Reset Password` | Client app settings and the keys you issue |
+| VPS state in the panel and server replacement after **Bad State** — including after `Reinstall OS` or `Reset Password` on servers issued before 20 July 2026 ([details](/en/reinstall)) | Client app settings and the keys you issue |
 | IP address replacement on a justified request | Choice of port, masking domain, and routing rules |
 
 What we physically cannot do — and why:

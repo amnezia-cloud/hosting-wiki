@@ -98,6 +98,18 @@ export default defineConfig({
                   { text: 'Подключение по SSH', link: '/server-management#ssh' },
                   { text: 'Шпаргалка по командам', link: '/server-management#commands' }
                 ]
+              },
+              {
+                text: '🔄 Переустановка ОС',
+                link: '/reinstall',
+                collapsed: true,
+                items: [
+                  { text: 'Проверьте дату выдачи', link: '/reinstall#check' },
+                  { text: 'Что происходит', link: '/reinstall#what-happens' },
+                  { text: 'Перед переустановкой', link: '/reinstall#before' },
+                  { text: 'Порядок действий', link: '/reinstall#how' },
+                  { text: 'Старые серверы: замена', link: '/reinstall#legacy' }
+                ]
               }
             ]
           },
@@ -106,7 +118,19 @@ export default defineConfig({
             items: [
               { text: '🛡️ Настройка VPN', link: '/vpn-setup' },
               { text: '🔌 Протоколы', link: '/protocols' },
-              { text: '📊 Панель 3X-UI', link: '/3x-ui' },
+              {
+                text: '📊 Панель 3X-UI',
+                link: '/3x-ui',
+                collapsed: true,
+                items: [
+                  { text: 'Установка панели', link: '/3x-ui#install' },
+                  { text: 'Порт и данные для входа', link: '/3x-ui#credentials-panel' },
+                  { text: 'Inbound: VLESS + Reality', link: '/3x-ui#inbound' },
+                  { text: 'Выдача ключа клиенту', link: '/3x-ui#client-key' },
+                  { text: 'Блокировка рекламы и ру-доменов', link: '/3x-ui#routing' },
+                  { text: 'Команды x-ui', link: '/3x-ui#cli' }
+                ]
+              },
               { text: '🔒 Безопасность сервера', link: '/security' }
             ]
           },
@@ -223,6 +247,18 @@ export default defineConfig({
                   { text: 'Connecting via SSH', link: '/en/server-management#ssh' },
                   { text: 'Commands Cheat Sheet', link: '/en/server-management#commands' }
                 ]
+              },
+              {
+                text: '🔄 Reinstalling the OS',
+                link: '/en/reinstall',
+                collapsed: true,
+                items: [
+                  { text: 'Check the issue date', link: '/en/reinstall#check' },
+                  { text: 'What a reinstall does', link: '/en/reinstall#what-happens' },
+                  { text: 'Before you reinstall', link: '/en/reinstall#before' },
+                  { text: 'Step by step', link: '/en/reinstall#how' },
+                  { text: 'Older servers: replacement', link: '/en/reinstall#legacy' }
+                ]
               }
             ]
           },
@@ -231,7 +267,19 @@ export default defineConfig({
             items: [
               { text: '🛡️ VPN Setup', link: '/en/vpn-setup' },
               { text: '🔌 Protocols', link: '/en/protocols' },
-              { text: '📊 3X-UI Panel', link: '/en/3x-ui' },
+              {
+                text: '📊 3X-UI Panel',
+                link: '/en/3x-ui',
+                collapsed: true,
+                items: [
+                  { text: 'Installing the panel', link: '/en/3x-ui#install' },
+                  { text: 'Port and credentials', link: '/en/3x-ui#credentials-panel' },
+                  { text: 'Inbound: VLESS + Reality', link: '/en/3x-ui#inbound' },
+                  { text: 'Issuing a client key', link: '/en/3x-ui#client-key' },
+                  { text: 'Blocking ads and RU domains', link: '/en/3x-ui#routing' },
+                  { text: 'x-ui commands', link: '/en/3x-ui#cli' }
+                ]
+              },
               { text: '🔒 Server Security', link: '/en/security' }
             ]
           },

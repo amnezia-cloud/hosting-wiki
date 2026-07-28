@@ -23,6 +23,10 @@ features:
     title: Server Management
     details: Client area, server actions (Power On / Reset), and connecting via SSH.
     link: /en/server-management
+  - icon: 🔄
+    title: Reinstalling the OS
+    details: How to return the server to a clean system, and why it does not work on every VPS.
+    link: /en/reinstall
   - icon: 🛡️
     title: VPN Setup
     details: Launch your personal VPN in three steps with the AmneziaVPN app.

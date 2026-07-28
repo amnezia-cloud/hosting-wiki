@@ -32,10 +32,10 @@ The server is reachable, so the tunnel is at fault: check that two VPNs are not 
 ## 🎛️ Protocols and traffic {#protocols}
 
 ::: details Which VPN protocol should I choose in the Amnezia app?
-*   **Amnezia WG (WireGuard):** The fastest and most lightweight protocol, ideal if your ISP does not block standard VPN traffic.
-*   **XRay / OpenVPN vmess:** Excellent choice for regions with strict censorship, as these protocols disguise traffic as regular website visits (HTTPS).
+*   **AmneziaWG (WireGuard):** The fastest and most lightweight protocol, ideal if your ISP does not block standard VPN traffic.
+*   **XRay / VLESS (Reality):** The better choice in regions with strict censorship — it disguises traffic as regular website visits (HTTPS).
 
-Full comparison — **[Protocols](/en/protocols)**.
+Ideally keep both on the server: AWG by default for speed, XRay when AWG stops connecting. Full comparison — **[Protocols](/en/protocols)**.
 :::
 
 ::: details Can I use a single server for multiple devices?
@@ -52,6 +52,7 @@ The VPN server itself does not generate traffic. Consumption depends entirely on
 
 Dedicated articles:
 
+*   🔄 **[Reinstalling the OS](/en/reinstall)** — available on servers issued on or after 20 July 2026; on older ones it causes Bad State.
 *   🌍 **[Why your server's geolocation mismatches](/en/geolocation)** — how GeoIP databases work and why their data lags.
 *   🔒 **[Server security](/en/security)** — UFW, changing the SSH port, fail2ban.
 
@@ -60,21 +61,46 @@ Set up the UFW firewall, change the default SSH port, and enable fail2ban. See t
 :::
 
 ::: details How do I change the root password?
-Connect via SSH and run `passwd` — the system will ask for the new password twice. You can also reissue the password with the **Reset Password** button in your client area (the server must be powered off first).
+Connect via SSH and run `passwd` — the system will ask for the new password twice.
+
+The **Reset Password** button in the client area also reissues it, but only on servers issued **on or after 20 July 2026** (power the server off first). On older VPS that button causes Bad State and the server has to be replaced by support: **[Reinstalling the OS](/en/reinstall#check)**.
 :::
 
 ::: details The server is in “Broken State” and will not start
 Do not press the control buttons repeatedly — that can make the container error worse. Open a ticket right away and our engineers will check the node manually. Details — **[Server Management](/en/server-management#security)**.
 :::
 
-## 💳 Billing and refunds {#billing}
+## 💳 Billing, plans and refunds {#billing}
 
-::: details How can I pay for Amnezia Hosting?
-We accept **Visa** and **Mastercard** bank cards, as well as the **Freekassa** payment service. All invoices and payment history are available in your **Client Area** under the "Invoices" section.
+::: details How can I pay for the hosting?
+Three payment services are available — pick whichever suits you:
+
+| Service | Payment methods |
+| :--- | :--- |
+| **FreeKassa** | Russian bank cards and SBP |
+| **YooKassa** | a YooMoney account or cash payment |
+| **Stripe** | international bank cards |
+
+All invoices and payment history live in your client area at **[my.amnezia.host](https://my.amnezia.host)**, the “Invoices” section.
 :::
 
 ::: details How do I get a refund for a server?
-Refund conditions are described in the **Refund and Compensation Policy**. To request a refund, open a ticket in your **Client Area** — the support team will guide you through the process.
+Open a ticket in your client area at **[my.amnezia.host](https://my.amnezia.host)** and support will guide you through it. The conditions depend on the term the server was ordered for:
+
+| Payment term | Refund condition |
+| :--- | :--- |
+| **1 month** | Refunded on the day of purchase or the next day |
+| **3, 6, 12 months** | Refunded if at least one month of the paid period remains |
+
+Full terms are in the **Refund and Compensation Policy**.
+:::
+
+::: details How do I change my plan?
+There are no other plans at the moment — all servers ship in a single configuration. Current specs and prices are on **[amnezia.host](https://amnezia.host)**.
+:::
+
+::: details How do I change the billing period?
+Contact support — on Telegram or by ticket in your client area at **[my.amnezia.host](https://my.amnezia.host)**. Available periods and prices are listed on **[amnezia.host](https://amnezia.host)**.
 :::
 
 ## 🔧 Technical support {#support}

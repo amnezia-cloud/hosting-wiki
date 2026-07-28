@@ -23,6 +23,11 @@ You can manage the physical state of your server directly from the control panel
 *   ⚡ **Power Off:** Instantly cuts power to the server. Use only if the server has frozen and does not respond to the regular `Shutdown` command.
 *   🔄 **Reboot:** Performs a quick restart of the server to refresh the configuration or apply settings.
 *   🔑 **Reset Password:** Erases the current administrator password and generates a new one. **Note:** before clicking this button, you must shut the server down first with the `Shutdown` command.
+*   🔄 **Reinstall OS:** Returns the server to a clean system, wiping every setting and key.
+
+::: danger Reinstall OS and Reset Password do not work on every server
+These two buttons are supported only on servers issued **on or after 20 July 2026**. On older VPS they put the server into **Bad State**, and it has to be replaced by support. Check the service activation date before clicking: **[Reinstalling the OS](/en/reinstall#check)**.
+:::
 *   💳 **Renew Service:** A quick link to the payment gateway to top up your balance and extend the lease.
 
 ## ⚠️ 3. Security and Resolving Critical Issues {#security}
@@ -95,7 +100,7 @@ When you paste or type a password in the terminal, **nothing appears on screen (
 | Error | Cause and fix |
 | :--- | :--- |
 | `Connection timed out` | Check that the server status in the panel is **Active**. If it is, your network is blocking traffic to the server: on mobile data under regional restrictions port 22 is often closed — switch to wired Wi-Fi. Walkthrough: **[Connection troubleshooting](/en/vpn-troubleshooting#isp-blocks)** |
-| `Permission denied` | The server is reachable but the password is wrong. Note: you need the **server's SSH password**, not your client-area password. Reissue it with **Reset Password** (the server must be powered off) |
+| `Permission denied` | The server is reachable but the password is wrong. Note: you need the **server's SSH password**, not your client-area password. Reissue it with **Reset Password** — power the server off first, and only if it was issued on or after 20 July 2026 ([why](/en/reinstall#check)) |
 | `Connection refused` | The SSH service is down or the port was changed. If you changed the port in the security settings, connect with `-p`: `ssh root@0.0.0.0 -p 2222` |
 
 ## 🗲 6. Basic Commands Cheat Sheet {#commands}
