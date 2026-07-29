@@ -21,7 +21,8 @@ An index of every walkthrough. Each question has its own article — open the on
 | **[Ping to the server does not work](/en/ping)** | ICMP is blocked on purpose — check over SSH |
 | **[AmneziaWG stopped working](/en/awg-to-xray)** | Switching to XRay: port 443, SNI `ya.ru`, fallbacks |
 | **[20x errors during installation](/en/error-20x)** | Docker: mirrors, an unstable Alpine CDN, no traffic after install |
-| **[30x errors during installation](/en/error-30x)** | SSH: the port, installing behind another VPN, key format |
+| **[30x errors during installation](/en/error-30x)** | SSH: the port, installing behind another VPN, key format, codes 300–305 |
+| **[AmneziaVPN on iOS in Russia](/en/ios-app-store)** | The app is hidden from the App Store: what to use and how to install |
 | **[No access on mobile internet](/en/mobile-restrictions)** | Carrier “whitelists”, no way around them |
 | **[Google Gemini does not work](/en/gemini)** | Requests from data-center addresses are filtered |
 | **[YouTube ads](/en/youtube-ads)** | YouTube decides by IP; where ads are absent and what helps |

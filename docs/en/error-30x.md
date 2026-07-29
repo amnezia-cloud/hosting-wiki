@@ -139,7 +139,7 @@ Below is the breakdown of codes 300–305: what the error means and what helps i
 
 For Premium or Free:
 
-1.  Update the app in the App Store. If it is unavailable, follow the guide “AmneziaVPN not available in App Store”.
+1.  Update the app in the App Store. If it is unavailable — the app is hidden in the Russian App Store, for instance — see **[Installing AmneziaVPN on iOS in Russia](/en/ios-app-store)**.
 
 For a self-hosted server:
 

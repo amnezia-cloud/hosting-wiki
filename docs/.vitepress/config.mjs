@@ -273,6 +273,17 @@ export default defineConfig({
                   { text: 'Формат SSH-ключа', link: '/error-30x#ssh-keys' }
                 ]
               },
+              {
+                text: '🍎 AmneziaVPN на iOS в России',
+                link: '/ios-app-store',
+                collapsed: true,
+                items: [
+                  { text: 'Сначала простое', link: '/ios-app-store#quick-options' },
+                  { text: 'Почему нет в магазине', link: '/ios-app-store#why-hidden' },
+                  { text: 'Новый аккаунт Apple', link: '/ios-app-store#new-account' },
+                  { text: 'Смена региона', link: '/ios-app-store#change-region' }
+                ]
+              },
               { text: '🤖 Gemini через VPN', link: '/gemini' },
               { text: '▶️ Реклама на YouTube', link: '/youtube-ads' },
               { text: '👥 Несколько устройств', link: '/multiple-devices' },
@@ -521,6 +532,17 @@ export default defineConfig({
                   { text: 'Install behind another VPN', link: '/en/error-30x#other-vpn' },
                   { text: 'Server diagnostics', link: '/en/error-30x#diagnostics' },
                   { text: 'SSH key format', link: '/en/error-30x#ssh-keys' }
+                ]
+              },
+              {
+                text: '🍎 AmneziaVPN on iOS in Russia',
+                link: '/en/ios-app-store',
+                collapsed: true,
+                items: [
+                  { text: 'The easy things first', link: '/en/ios-app-store#quick-options' },
+                  { text: 'Why it is missing', link: '/en/ios-app-store#why-hidden' },
+                  { text: 'A new Apple account', link: '/en/ios-app-store#new-account' },
+                  { text: 'Changing the region', link: '/en/ios-app-store#change-region' }
                 ]
               },
               { text: '🤖 Gemini via VPN', link: '/en/gemini' },
