@@ -7,7 +7,7 @@ head:
       content: "xray, vless, reality, masking site, sni, realitlscanner, domain check, fingerprint, firefox, bbr, xray core update, port 443"
 ---
 
-# ⚡ XRay: Proper Masking and Fine-Tuning
+# XRay: Proper Masking and Fine-Tuning
 
 The settings below are a technical best practice rather than a guarantee: they noticeably reduce how visible your traffic is to DPI and make the server's disguise plausible, but promising a hundred-percent bypass would not be honest.
 

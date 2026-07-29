@@ -7,7 +7,7 @@ head:
       content: how to pay, hosting payment, freekassa, yookassa, stripe, sbp, yoomoney, invoices, renewal
 ---
 
-# 💳 How to Pay for the Hosting
+# How to Pay for the Hosting
 
 Payments go through your client area at **[my.amnezia.host](https://my.amnezia.host)** — the “Invoices” section. Three payment services are available; pick whichever method suits you.
 

@@ -7,7 +7,7 @@ head:
       content: "amneziawg, awg, obfuscation, junk packets, h1 h2 h3 h4, i1 i5, s3 s4, awg 2.0, mimicry, quic, dns, parameter generator, subnet"
 ---
 
-# 🛡️ AmneziaWG: Versions and Fine-Tuning
+# AmneziaWG: Versions and Fine-Tuning
 
 **AmneziaWG** is a WireGuard fork with obfuscation: it alters traffic signatures so DPI systems do not recognise a VPN. If the default settings are not enough and your ISP has started throttling the connection, the parameters can be tuned by hand.
 

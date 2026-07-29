@@ -1,6 +1,7 @@
 import { computed, h, nextTick, onMounted, onUnmounted, ref } from 'vue'
 import { useData } from 'vitepress'
 import { newsEn, newsRu } from './newsItems.js'
+import Icon from './Icon.js'
 
 const STRINGS = {
   ru: {
@@ -99,7 +100,7 @@ export default {
     return () => {
       if (!items.value.length) {
         return h('div', { class: 'amz-news amz-news--empty' }, [
-          h('div', { class: 'amz-news__empty-icon', 'aria-hidden': 'true' }, '📭'),
+          h('div', { class: 'amz-news__empty-icon' }, [h(Icon, { name: 'mail', size: 28 })]),
           h('p', { class: 'amz-news__empty-title' }, t.value.emptyTitle),
           h('p', { class: 'amz-news__empty-text' }, t.value.emptyText)
         ])

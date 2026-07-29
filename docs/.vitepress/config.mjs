@@ -7,6 +7,35 @@ const socialLinks = [
 
 const SUPPORT_TELEGRAM = 'https://t.me/amnezia_hosting_bot'
 
+// Транслитерация кириллицы для якорей заголовков.
+//
+// По умолчанию markdown-it-anchor оставляет заголовок как есть, и русский
+// заголовок превращается в якорь вида «#дополнительные-материалы». В адресной
+// строке и при копировании ссылки он становится процентной кашей на две сотни
+// символов, которую невозможно ни прочитать, ни продиктовать.
+//
+// Схема подобрана под чтение, а не под обратимость: щ → sch, ю → yu, ъ и ь
+// выбрасываются. Заголовки с явным {#id} сюда не попадают — их markdown-it
+// берёт как есть, и все существующие ссылки продолжают работать.
+const CYRILLIC = {
+  а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh',
+  з: 'z', и: 'i', й: 'y', к: 'k', л: 'l', м: 'm', н: 'n', о: 'o',
+  п: 'p', р: 'r', с: 's', т: 't', у: 'u', ф: 'f', х: 'h', ц: 'ts',
+  ч: 'ch', ш: 'sh', щ: 'sch', ъ: '', ы: 'y', ь: '', э: 'e', ю: 'yu',
+  я: 'ya'
+}
+
+const slugify = (text) =>
+  text
+    .toLowerCase()
+    .split('')
+    .map((ch) => (ch in CYRILLIC ? CYRILLIC[ch] : ch))
+    .join('')
+    // Всё, что не латиница и не цифра, становится разделителем: пробелы,
+    // точки, скобки, эмодзи, которые могли пережить чистку.
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+
 // Футер строится под локаль: юридические страницы на amnezia.host живут
 // по локализованным адресам (/ru/… и /en/…).
 const footerFor = (locale, labels) => ({
@@ -45,6 +74,11 @@ export default defineConfig({
   appearance: 'dark', // по умолчанию тёмная тема, доступен переключатель на светлую
   lastUpdated: true,
   metaChunk: true,
+
+  markdown: {
+    // Якоря заголовков — латиницей, см. slugify выше.
+    anchor: { slugify }
+  },
 
   // Дефолтная тема предзагружает Inter, но базовый шрифт вики — IBM Plex Sans.
   // Убираем ненужный preload, чтобы не тянуть лишний файл на каждой странице.
@@ -117,14 +151,14 @@ export default defineConfig({
         sidebar: [
           {
             text: 'Новости',
-            items: [{ text: '📰 Новости Amnezia Hosting', link: '/news' }]
+            items: [{ text: 'Новости Amnezia Hosting', link: '/news' }]
           },
           {
             text: 'Начало работы',
             items: [
-              { text: '🚀 Быстрый старт', link: '/commands' },
+              { text: 'Быстрый старт', link: '/commands' },
               {
-                text: '🔁 Переход с Amnezia Premium',
+                text: 'Переход с Amnezia Premium',
                 link: '/premium-migration',
                 collapsed: true,
                 items: [
@@ -135,7 +169,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🖥️ Управление сервером',
+                text: 'Управление сервером',
                 link: '/server-management',
                 collapsed: true,
                 items: [
@@ -148,7 +182,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🔄 Переустановка ОС',
+                text: 'Переустановка ОС',
                 link: '/reinstall',
                 collapsed: true,
                 items: [
@@ -164,10 +198,10 @@ export default defineConfig({
           {
             text: 'VPN и защита',
             items: [
-              { text: '🛡️ Настройка VPN', link: '/vpn-setup' },
-              { text: '🔌 Протоколы', link: '/protocols' },
+              { text: 'Настройка VPN', link: '/vpn-setup' },
+              { text: 'Протоколы', link: '/protocols' },
               {
-                text: '📊 Панель 3X-UI',
+                text: 'Панель 3X-UI',
                 link: '/3x-ui',
                 collapsed: true,
                 items: [
@@ -180,7 +214,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '⚡ XRay: маскировка и настройка',
+                text: 'XRay: маскировка и настройка',
                 link: '/xray-tuning',
                 collapsed: true,
                 items: [
@@ -192,7 +226,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🛡️ AmneziaWG: версии и настройка',
+                text: 'AmneziaWG: версии и настройка',
                 link: '/amneziawg-tuning',
                 collapsed: true,
                 items: [
@@ -204,7 +238,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🔒 Безопасность сервера',
+                text: 'Безопасность сервера',
                 link: '/security',
                 collapsed: true,
                 items: [
@@ -221,7 +255,7 @@ export default defineConfig({
             text: 'Подключение и VPN',
             items: [
               {
-                text: '🩺 Не подключается VPN',
+                text: 'Не подключается VPN',
                 link: '/vpn-troubleshooting',
                 collapsed: true,
                 items: [
@@ -231,11 +265,11 @@ export default defineConfig({
                   { text: 'Подключение есть, интернета нет', link: '/vpn-troubleshooting#next' }
                 ]
               },
-              { text: '⚠️ «Ошибка подключения к серверу»', link: '/connection-error' },
-              { text: '🚫 Подключился, но интернета нет', link: '/no-internet' },
-              { text: '📡 Не проходит ping', link: '/ping' },
+              { text: '«Ошибка подключения к серверу»', link: '/connection-error' },
+              { text: 'Подключился, но интернета нет', link: '/no-internet' },
+              { text: 'Не проходит ping', link: '/ping' },
               {
-                text: '🔁 AmneziaWG → XRay',
+                text: 'AmneziaWG → XRay',
                 link: '/awg-to-xray',
                 collapsed: true,
                 items: [
@@ -246,7 +280,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '📵 Мобильные ограничения',
+                text: 'Мобильные ограничения',
                 link: '/mobile-restrictions',
                 collapsed: true,
                 items: [
@@ -256,7 +290,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🐳 Ошибки 20x (Docker)',
+                text: 'Ошибки 20x (Docker)',
                 link: '/error-20x',
                 collapsed: true,
                 items: [
@@ -268,7 +302,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🧩 Ошибки 30x (SSH)',
+                text: 'Ошибки 30x (SSH)',
                 link: '/error-30x',
                 collapsed: true,
                 items: [
@@ -279,7 +313,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🍎 AmneziaVPN на iOS в России',
+                text: 'AmneziaVPN на iOS в России',
                 link: '/ios-app-store',
                 collapsed: true,
                 items: [
@@ -289,19 +323,19 @@ export default defineConfig({
                   { text: 'Смена региона', link: '/ios-app-store#change-region' }
                 ]
               },
-              { text: '🤖 Gemini через VPN', link: '/gemini' },
-              { text: '▶️ Реклама на YouTube', link: '/youtube-ads' },
-              { text: '👥 Несколько устройств', link: '/multiple-devices' },
-              { text: '📊 Расход трафика', link: '/traffic-usage' }
+              { text: 'Gemini через VPN', link: '/gemini' },
+              { text: 'Реклама на YouTube', link: '/youtube-ads' },
+              { text: 'Несколько устройств', link: '/multiple-devices' },
+              { text: 'Расход трафика', link: '/traffic-usage' }
             ]
           },
           {
             text: 'Сервер и доступ',
             items: [
-              { text: '🔑 Смена пароля root', link: '/root-password' },
-              { text: '🛑 Сервер в Bad State', link: '/broken-state' },
+              { text: 'Смена пароля root', link: '/root-password' },
+              { text: 'Сервер в Bad State', link: '/broken-state' },
               {
-                text: '🌍 Геолокация сервера',
+                text: 'Геолокация сервера',
                 link: '/geolocation',
                 collapsed: true,
                 items: [
@@ -315,17 +349,17 @@ export default defineConfig({
           {
             text: 'Оплата и тарифы',
             items: [
-              { text: '💳 Как оплатить хостинг', link: '/payment' },
-              { text: '↩️ Возврат средств', link: '/refund' },
-              { text: '📦 Изменение тарифа', link: '/change-plan' },
-              { text: '🗓️ Период оплаты', link: '/billing-period' }
+              { text: 'Как оплатить хостинг', link: '/payment' },
+              { text: 'Возврат средств', link: '/refund' },
+              { text: 'Изменение тарифа', link: '/change-plan' },
+              { text: 'Период оплаты', link: '/billing-period' }
             ]
           },
           {
             text: 'Помощь',
             items: [
               {
-                text: '❓ Частые вопросы',
+                text: 'Частые вопросы',
                 link: '/faq',
                 collapsed: true,
                 items: [
@@ -336,7 +370,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '💬 Обращение в поддержку',
+                text: 'Обращение в поддержку',
                 link: '/support',
                 collapsed: true,
                 items: [
@@ -350,10 +384,9 @@ export default defineConfig({
           }
         ],
         outline: { level: [2, 3], label: 'На этой странице' },
-        editLink: {
-          pattern: 'https://github.com/amnezia-cloud/hosting-wiki/edit/main/docs/:path',
-          text: 'Предложить правку этой страницы'
-        },
+        // editLink намеренно выключен: правка файла на GitHub — одна из кнопок
+        // блока обратной связи внизу страницы. Раньше эти две ссылки стояли
+        // рядом и назывались почти одинаково.
         docFooter: { prev: 'Назад', next: 'Вперёд' },
         lastUpdatedText: 'Обновлено',
         returnToTopLabel: 'Наверх',
@@ -383,14 +416,14 @@ export default defineConfig({
         sidebar: [
           {
             text: 'News',
-            items: [{ text: '📰 Amnezia Hosting News', link: '/en/news' }]
+            items: [{ text: 'Amnezia Hosting News', link: '/en/news' }]
           },
           {
             text: 'Getting Started',
             items: [
-              { text: '🚀 Quick Start', link: '/en/commands' },
+              { text: 'Quick Start', link: '/en/commands' },
               {
-                text: '🔁 Moving from Amnezia Premium',
+                text: 'Moving from Amnezia Premium',
                 link: '/en/premium-migration',
                 collapsed: true,
                 items: [
@@ -401,7 +434,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🖥️ Server Management',
+                text: 'Server Management',
                 link: '/en/server-management',
                 collapsed: true,
                 items: [
@@ -414,7 +447,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🔄 Reinstalling the OS',
+                text: 'Reinstalling the OS',
                 link: '/en/reinstall',
                 collapsed: true,
                 items: [
@@ -430,10 +463,10 @@ export default defineConfig({
           {
             text: 'VPN & Security',
             items: [
-              { text: '🛡️ VPN Setup', link: '/en/vpn-setup' },
-              { text: '🔌 Protocols', link: '/en/protocols' },
+              { text: 'VPN Setup', link: '/en/vpn-setup' },
+              { text: 'Protocols', link: '/en/protocols' },
               {
-                text: '📊 3X-UI Panel',
+                text: '3X-UI Panel',
                 link: '/en/3x-ui',
                 collapsed: true,
                 items: [
@@ -446,7 +479,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '⚡ XRay: masking and tuning',
+                text: 'XRay: masking and tuning',
                 link: '/en/xray-tuning',
                 collapsed: true,
                 items: [
@@ -458,7 +491,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🛡️ AmneziaWG: versions and tuning',
+                text: 'AmneziaWG: versions and tuning',
                 link: '/en/amneziawg-tuning',
                 collapsed: true,
                 items: [
@@ -470,7 +503,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🔒 Server Security',
+                text: 'Server Security',
                 link: '/en/security',
                 collapsed: true,
                 items: [
@@ -487,7 +520,7 @@ export default defineConfig({
             text: 'Connection and VPN',
             items: [
               {
-                text: '🩺 VPN not connecting',
+                text: 'VPN not connecting',
                 link: '/en/vpn-troubleshooting',
                 collapsed: true,
                 items: [
@@ -497,11 +530,11 @@ export default defineConfig({
                   { text: 'Connected, but no internet', link: '/en/vpn-troubleshooting#next' }
                 ]
               },
-              { text: '⚠️ “Server connection error”', link: '/en/connection-error' },
-              { text: '🚫 Connected, but no internet', link: '/en/no-internet' },
-              { text: '📡 Ping does not work', link: '/en/ping' },
+              { text: '“Server connection error”', link: '/en/connection-error' },
+              { text: 'Connected, but no internet', link: '/en/no-internet' },
+              { text: 'Ping does not work', link: '/en/ping' },
               {
-                text: '🔁 AmneziaWG → XRay',
+                text: 'AmneziaWG → XRay',
                 link: '/en/awg-to-xray',
                 collapsed: true,
                 items: [
@@ -512,7 +545,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '📵 Mobile restrictions',
+                text: 'Mobile restrictions',
                 link: '/en/mobile-restrictions',
                 collapsed: true,
                 items: [
@@ -522,7 +555,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🐳 20x errors (Docker)',
+                text: '20x errors (Docker)',
                 link: '/en/error-20x',
                 collapsed: true,
                 items: [
@@ -534,7 +567,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🧩 30x errors (SSH)',
+                text: '30x errors (SSH)',
                 link: '/en/error-30x',
                 collapsed: true,
                 items: [
@@ -545,7 +578,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🍎 AmneziaVPN on iOS in Russia',
+                text: 'AmneziaVPN on iOS in Russia',
                 link: '/en/ios-app-store',
                 collapsed: true,
                 items: [
@@ -555,19 +588,19 @@ export default defineConfig({
                   { text: 'Changing the region', link: '/en/ios-app-store#change-region' }
                 ]
               },
-              { text: '🤖 Gemini via VPN', link: '/en/gemini' },
-              { text: '▶️ YouTube ads', link: '/en/youtube-ads' },
-              { text: '👥 Multiple devices', link: '/en/multiple-devices' },
-              { text: '📊 Traffic usage', link: '/en/traffic-usage' }
+              { text: 'Gemini via VPN', link: '/en/gemini' },
+              { text: 'YouTube ads', link: '/en/youtube-ads' },
+              { text: 'Multiple devices', link: '/en/multiple-devices' },
+              { text: 'Traffic usage', link: '/en/traffic-usage' }
             ]
           },
           {
             text: 'Server and access',
             items: [
-              { text: '🔑 Changing the root password', link: '/en/root-password' },
-              { text: '🛑 Server in Bad State', link: '/en/broken-state' },
+              { text: 'Changing the root password', link: '/en/root-password' },
+              { text: 'Server in Bad State', link: '/en/broken-state' },
               {
-                text: '🌍 Server geolocation',
+                text: 'Server geolocation',
                 link: '/en/geolocation',
                 collapsed: true,
                 items: [
@@ -581,17 +614,17 @@ export default defineConfig({
           {
             text: 'Billing and plans',
             items: [
-              { text: '💳 How to pay', link: '/en/payment' },
-              { text: '↩️ Refunds', link: '/en/refund' },
-              { text: '📦 Changing the plan', link: '/en/change-plan' },
-              { text: '🗓️ Billing period', link: '/en/billing-period' }
+              { text: 'How to pay', link: '/en/payment' },
+              { text: 'Refunds', link: '/en/refund' },
+              { text: 'Changing the plan', link: '/en/change-plan' },
+              { text: 'Billing period', link: '/en/billing-period' }
             ]
           },
           {
             text: 'Help',
             items: [
               {
-                text: '❓ Frequently asked questions',
+                text: 'Frequently asked questions',
                 link: '/en/faq',
                 collapsed: true,
                 items: [
@@ -602,7 +635,7 @@ export default defineConfig({
                 ]
               },
               {
-                text: '💬 Contacting support',
+                text: 'Contacting support',
                 link: '/en/support',
                 collapsed: true,
                 items: [
@@ -616,10 +649,7 @@ export default defineConfig({
           }
         ],
         outline: { level: [2, 3], label: 'On this page' },
-        editLink: {
-          pattern: 'https://github.com/amnezia-cloud/hosting-wiki/edit/main/docs/:path',
-          text: 'Suggest an edit to this page'
-        },
+        // editLink is off on purpose; see the note on the Russian locale.
         docFooter: { prev: 'Previous', next: 'Next' },
         lastUpdatedText: 'Updated'
       }

@@ -7,7 +7,7 @@ head:
       content: refund, get money back, cancel service, server refund, ticket, refund policy
 ---
 
-# ↩️ How to Get a Refund for a Server
+# How to Get a Refund for a Server
 
 Refunds are handled through a ticket in your client area at **[my.amnezia.host](https://my.amnezia.host)** — support will guide you through the process.
 

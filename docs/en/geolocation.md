@@ -7,7 +7,7 @@ head:
       content: geolocation, location mismatch, geoip, maxmind, ip2location, db-ip, vps location, incorrect country, ip address
 ---
 
-# 🌍 Why Does My Server's Geolocation Mismatch?
+# Why Does My Server's Geolocation Mismatch?
 
 Third-party websites and services (Google, Steam, streaming platforms, online games) may place your server's IP in a different country than the one you ordered. Physically our equipment is always in the stated location — the mismatch comes from how IP databases work across the internet.
 

@@ -1,4 +1,4 @@
-# 📂 Setting Up the Hysteria 2 Protocol
+# Setting Up the Hysteria 2 Protocol
 
 This guide will help you deploy and configure a fast VPN server on the **Hysteria 2** protocol on your own. It is written for beginners: deep knowledge of Linux or networking is not required — just follow the steps carefully in order.
 

@@ -7,7 +7,7 @@ head:
       content: "error 301, error 302, error 30x, amneziavpn, protocol installation, ssh, port 22, ssh key, pem, ed25519, putty, ppk"
 ---
 
-# 🧩 30x Errors in AmneziaVPN
+# 30x Errors in AmneziaVPN
 
 The **30x** series (301, 302 and similar) almost always means one thing: the app could not reach the server over SSH during installation. The server is usually alive — it is access that fails. Let's work through it, simplest first.
 
@@ -66,9 +66,9 @@ A common cause of 30x is the wrong key format. The app expects a PEM key or an O
 
 | Key | First line of the file | Works |
 | :--- | :--- | :--- |
-| RSA in PEM format | `-----BEGIN RSA PRIVATE KEY-----` | ✅ yes |
-| ED25519 | `-----BEGIN OPENSSH PRIVATE KEY-----` | ✅ yes, that header is normal for ED25519 |
-| RSA in the new OpenSSH format | `-----BEGIN OPENSSH PRIVATE KEY-----` | ❌ this is what the parser usually complains about |
+| RSA in PEM format | `-----BEGIN RSA PRIVATE KEY-----` | <Icon name="check" tone="ok" /> yes |
+| ED25519 | `-----BEGIN OPENSSH PRIVATE KEY-----` | <Icon name="check" tone="ok" /> yes, that header is normal for ED25519 |
+| RSA in the new OpenSSH format | `-----BEGIN OPENSSH PRIVATE KEY-----` | <Icon name="x" tone="bad" /> this is what the parser usually complains about |
 
 ### RSA in the wrong format
 

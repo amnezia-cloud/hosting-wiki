@@ -7,7 +7,7 @@ head:
       content: vpn not connecting, error 305, xray, amneziawg, blocking, whitelists, troubleshooting, ssh, dpi
 ---
 
-# 🩺 VPN Connection Issues: Step-by-Step Troubleshooting
+# VPN Connection Issues: Step-by-Step Troubleshooting
 
 When a VPN stops connecting, the cause is almost always found within a few minutes — and more often than not it is the network between you and the server rather than the server itself. The order of checks below covers most cases; if none of it helps, write to us and we will work through it together.
 

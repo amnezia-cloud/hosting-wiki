@@ -7,7 +7,7 @@ head:
       content: "amnezia hosting news, announcements, updates, plan changes, notices, amnezia"
 ---
 
-# 📰 Amnezia Hosting News
+# Amnezia Hosting News
 
 Announcements, plan changes, and important notices live here. The newest items come first — flip through the cards with the buttons, the mouse wheel, or a swipe.
 

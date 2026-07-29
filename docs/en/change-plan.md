@@ -7,7 +7,7 @@ head:
       content: change plan, upgrade, more resources, plans, server configuration, prices
 ---
 
-# 📦 How to Change My Plan
+# How to Change My Plan
 
 At the moment there are **no other plans** — every server ships in a single configuration, so there is nothing to switch between and no such option in the client area.
 

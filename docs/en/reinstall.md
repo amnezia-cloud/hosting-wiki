@@ -7,7 +7,7 @@ head:
       content: reinstall os, reinstall server, bad state, broken state, reset password, server replacement, vps
 ---
 
-# 🔄 Reinstalling the Server OS
+# Reinstalling the Server OS
 
 A reinstall returns the server to a clean operating system — handy if the configuration got tangled, you want to set the VPN up from scratch, or you are switching protocols.
 

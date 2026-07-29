@@ -17,40 +17,131 @@ concurrency:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0 # нужно для «Обновлено» (git-таймстампы lastUpdated)
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
+          # Версия лежит в .nvmrc, чтобы CI и локальная разработка не
+          # разъезжались и правка была в одном месте. VitePress требует
+          # Node >= 20; 24 — действующая LTS.
+          node-version-file: .nvmrc
           cache: npm
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build with VitePress
-        run: npm run docs:build
+        id: build
+        run: |
+          START=$(date +%s)
+          npm run docs:build
+          echo "seconds=$(( $(date +%s) - START ))" >> "$GITHUB_OUTPUT"
+
+      - name: Collect build info
+        id: info
+        # Значения приходят через env, а не подстановкой ${{ }} в тело run:
+        # интерполяция вставляет текст в скрипт до того, как его разберёт bash.
+        env:
+          BUILD_SECONDS: ${{ steps.build.outputs.seconds }}
+        run: |
+          DIST=docs/.vitepress/dist
+
+          PAGES=$(find "$DIST" -name '*.html' | wc -l | tr -d ' ')
+          ASSETS=$(find "$DIST" -type f ! -name '*.html' | wc -l | tr -d ' ')
+          SIZE=$(du -sh "$DIST" | cut -f1)
+          # Индекс локального поиска — самый крупный генерируемый файл, за его
+          # ростом полезно следить: он грузится при первом открытии поиска.
+          SEARCH=$(du -ch "$DIST"/assets/chunks/@localSearchIndex*.js 2>/dev/null \
+            | tail -n 1 | cut -f1 || echo 'n/a')
+
+          {
+            echo "pages=$PAGES"
+            echo "assets=$ASSETS"
+            echo "size=$SIZE"
+          } >> "$GITHUB_OUTPUT"
+
+          {
+            echo "### Сборка вики"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Страниц | $PAGES |"
+            echo "| Прочих файлов | $ASSETS |"
+            echo "| Размер | $SIZE |"
+            echo "| Индекс поиска | $SEARCH |"
+            echo "| Время сборки | ${BUILD_SECONDS} с |"
+            echo "| Node | $(node --version) |"
+            echo "| VitePress | $(npm ls vitepress --depth=0 2>/dev/null | grep -o 'vitepress@[0-9.]*' | head -n 1) |"
+            echo "| Коммит | \`${GITHUB_SHA::7}\` |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          echo "Собрано страниц: $PAGES, размер: $SIZE, за ${BUILD_SECONDS} с"
+
+      - name: Check for broken internal links
+        # Ловим внутренние ссылки на .md: в собранном сайте их быть не должно,
+        # страницы отдаются как .html. Двоеточие исключено из шаблона намеренно
+        # — иначе сюда попадали ссылки блока обратной связи на GitHub, которые
+        # оканчиваются на .md по делу, и предупреждение горело на каждой сборке.
+        run: |
+          BAD=$(grep -rhoE 'href="[^":]+\.md(#[^"]*)?"' docs/.vitepress/dist --include='*.html' | sort -u || true)
+          if [ -n "$BAD" ]; then
+            echo "::warning::В собранных страницах остались ссылки на .md:"
+            echo "$BAD" | sed 's/^/  /'
+            {
+              echo ""
+              echo "> Ссылки на \`.md\` в собранных страницах — вероятно, опечатка в пути."
+              echo ""
+              echo '```'
+              echo "$BAD"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Ссылок на .md в сборке нет."
+          fi
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v6
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: docs/.vitepress/dist
 
   deploy:
+    name: Deploy
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
+
+      - name: Summary
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          {
+            echo "### Опубликовано"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Адрес | ${PAGE_URL} |"
+            echo "| Коммит | \`${GITHUB_SHA::7}\` |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          echo "Опубликовано: ${PAGE_URL}"

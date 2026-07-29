@@ -7,7 +7,7 @@ head:
       content: "amneziavpn ios, not available in app store, hidden, change app store region, new apple id, defaultvpn, update app, iphone, ipad"
 ---
 
-# 🍎 Installing AmneziaVPN on iOS in Russia
+# Installing AmneziaVPN on iOS in Russia
 
 AmneziaVPN is hidden from the Russian App Store at the request of Roskomnadzor, so it cannot be downloaded to an iPhone or iPad directly. The app is hidden in the Chinese App Store as well. Below are the options that work, from the simplest to the longest.
 
