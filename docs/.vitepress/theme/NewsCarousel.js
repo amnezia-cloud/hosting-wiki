@@ -9,7 +9,7 @@ const STRINGS = {
     more: 'Подробнее',
     emptyTitle: 'Пока новостей нет',
     emptyText:
-      'Здесь будут появляться анонсы, изменения в тарифах и важные объявления по Amnezia Premium.'
+      'Здесь будут появляться анонсы, изменения в тарифах и важные объявления Amnezia Hosting.'
   },
   en: {
     prev: 'Previous news',
@@ -17,7 +17,7 @@ const STRINGS = {
     more: 'Read more',
     emptyTitle: 'No news yet',
     emptyText:
-      'Announcements, plan changes, and important notices about Amnezia Premium will appear here.'
+      'Announcements, plan changes, and important notices from Amnezia Hosting will appear here.'
   }
 }
 

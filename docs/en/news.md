@@ -1,13 +1,13 @@
 ---
-title: "Amnezia Premium News"
-description: "Announcements, plan changes, and important notices about Amnezia Premium — newest first."
+title: "Amnezia Hosting News"
+description: "Announcements, plan changes, and important notices from Amnezia Hosting — newest first."
 head:
   - - meta
     - name: keywords
-      content: "amnezia premium news, announcements, updates, plan changes, notices, amnezia"
+      content: "amnezia hosting news, announcements, updates, plan changes, notices, amnezia"
 ---
 
-# 📰 Amnezia Premium News
+# 📰 Amnezia Hosting News
 
 Announcements, plan changes, and important notices live here. The newest items come first — flip through the cards with the buttons, the mouse wheel, or a swipe.
 

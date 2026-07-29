@@ -1,13 +1,13 @@
 ---
-title: "Новости Amnezia Premium"
-description: "Анонсы, изменения в тарифах и важные объявления по Amnezia Premium — свежее впереди."
+title: "Новости Amnezia Hosting"
+description: "Анонсы, изменения в тарифах и важные объявления Amnezia Hosting — свежее впереди."
 head:
   - - meta
     - name: keywords
-      content: "новости amnezia premium, анонсы, обновления, изменения тарифов, объявления, amnezia"
+      content: "новости amnezia hosting, анонсы, обновления, изменения тарифов, объявления, amnezia"
 ---
 
-# 📰 Новости Amnezia Premium
+# 📰 Новости Amnezia Hosting
 
 Здесь собраны анонсы, изменения в тарифах и важные объявления. Свежие новости — первыми, листайте карточки кнопками, колесом мыши или свайпом.
 

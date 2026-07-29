@@ -27,6 +27,7 @@
 
 | Раздел | О чём |
 | :--- | :--- |
+| [📰 Новости Amnezia Hosting](https://wiki.amnezia.host/news.html) | Анонсы и объявления карточками; тексты — в `docs/.vitepress/theme/newsItems.js` |
 | [🚀 Быстрый старт](https://wiki.amnezia.host/commands.html) | Первое подключение к серверу по SSH и базовые команды |
 | [🔁 Переход с Amnezia Premium](https://wiki.amnezia.host/premium-migration.html) | Перенос остатка подписки на свой VPS |
 | [🖥️ Управление сервером](https://wiki.amnezia.host/server-management.html) | Личный кабинет, действия с сервером, ресурсы |

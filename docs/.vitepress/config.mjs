@@ -117,7 +117,7 @@ export default defineConfig({
         sidebar: [
           {
             text: 'Новости',
-            items: [{ text: '📰 Новости Amnezia Premium', link: '/news' }]
+            items: [{ text: '📰 Новости Amnezia Hosting', link: '/news' }]
           },
           {
             text: 'Начало работы',
@@ -383,7 +383,7 @@ export default defineConfig({
         sidebar: [
           {
             text: 'News',
-            items: [{ text: '📰 Amnezia Premium News', link: '/en/news' }]
+            items: [{ text: '📰 Amnezia Hosting News', link: '/en/news' }]
           },
           {
             text: 'Getting Started',
