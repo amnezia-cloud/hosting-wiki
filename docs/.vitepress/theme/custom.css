@@ -268,6 +268,158 @@ body {
   font-weight: 700;
 }
 
+/* --------------------------------------------------------------------------
+   8.1. ЛЕНТА НОВОСТЕЙ (карточки с горизонтальной прокруткой)
+   -------------------------------------------------------------------------- */
+.amz-news {
+  margin: 1.5rem 0 0;
+}
+.amz-news__controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.amz-news__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  font-size: 1rem;
+  color: var(--vp-c-text-1);
+  background: var(--amz-surface);
+  border: 1px solid var(--amz-glass-border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.amz-news__nav:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: var(--vp-c-brand-2);
+  background: var(--amz-surface-hover);
+}
+.amz-news__nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.amz-news__track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 2px;
+  padding: 2px 2px 6px;
+  /* Полосу прокрутки прячем: есть кнопки, свайп и стрелки на клавиатуре. */
+  scrollbar-width: none;
+}
+.amz-news__track::-webkit-scrollbar {
+  display: none;
+}
+.amz-news__track:focus-visible {
+  outline: 2px solid var(--vp-c-brand-2);
+  outline-offset: 4px;
+  border-radius: 16px;
+}
+.amz-news__card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 0 0 320px;
+  scroll-snap-align: start;
+  padding: 18px 20px;
+  background: var(--amz-surface);
+  border: 1px solid var(--amz-glass-border);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.amz-news__card:hover {
+  transform: translateY(-4px);
+  border-color: var(--vp-c-brand-2);
+  box-shadow: var(--amz-shadow), 0 0 0 1px var(--vp-c-brand-soft);
+}
+/* Отступы внутри карточки задаёт gap. Селектор с .vp-doc нужен, чтобы
+   перебить типографику статьи (.vp-doc h3 / p приходят со своими margin). */
+.vp-doc .amz-news__card > * {
+  margin: 0;
+}
+.amz-news__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.amz-news__tag {
+  padding: 2px 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+  border-radius: 20px;
+}
+.amz-news__date {
+  font-size: 0.78rem;
+  color: var(--vp-c-text-3);
+}
+.amz-news__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--vp-c-text-1);
+}
+.amz-news__text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--vp-c-text-2);
+}
+/* Ссылка прижата к низу — у карточек равная высота, и ссылки стоят в ряд. */
+.vp-doc .amz-news__link {
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+}
+.amz-news__link:hover {
+  opacity: 0.8;
+}
+
+/* Пустое состояние — пока новостей нет */
+.amz-news--empty {
+  padding: 32px 24px;
+  text-align: center;
+  background: var(--amz-surface);
+  border: 1px dashed var(--amz-glass-border);
+  border-radius: 16px;
+}
+.amz-news__empty-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+.amz-news__empty-title {
+  margin: 0 0 6px;
+  font-weight: 700;
+  color: var(--vp-c-text-1);
+}
+.amz-news__empty-text {
+  margin: 0 auto;
+  max-width: 44ch;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--vp-c-text-3);
+}
+
+@media (max-width: 640px) {
+  .amz-news__card {
+    flex-basis: 82vw;
+  }
+}
+
 /* Строка благодарности — тише основного текста, чтобы не тянуть внимание */
 .amz-credit {
   margin-top: 1.2rem;

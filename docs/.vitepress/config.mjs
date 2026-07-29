@@ -109,11 +109,16 @@ export default defineConfig({
         }),
         nav: [
           { text: 'Главная', link: '/' },
+          { text: 'Новости', link: '/news' },
           { text: 'Начало работы', link: '/commands' },
           { text: 'VPN и защита', link: '/vpn-setup' },
           { text: 'Помощь', link: '/faq' }
         ],
         sidebar: [
+          {
+            text: 'Новости',
+            items: [{ text: '📰 Новости Amnezia Premium', link: '/news' }]
+          },
           {
             text: 'Начало работы',
             items: [
@@ -370,11 +375,16 @@ export default defineConfig({
         }),
         nav: [
           { text: 'Home', link: '/en/' },
+          { text: 'News', link: '/en/news' },
           { text: 'Getting Started', link: '/en/commands' },
           { text: 'VPN & Security', link: '/en/vpn-setup' },
           { text: 'Help', link: '/en/faq' }
         ],
         sidebar: [
+          {
+            text: 'News',
+            items: [{ text: '📰 Amnezia Premium News', link: '/en/news' }]
+          },
           {
             text: 'Getting Started',
             items: [
