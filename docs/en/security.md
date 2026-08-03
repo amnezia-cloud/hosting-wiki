@@ -4,7 +4,7 @@ description: "Basic VPS protection: updates, a separate user, changing the SSH p
 head:
   - - meta
     - name: keywords
-      content: "server security, ufw, firewall, ssh port, fail2ban, ssh keys, sudo, hardening, vps protection, brute force"
+      content: "server security, ufw, firewall, ssh port, ssh.socket, fail2ban, ssh keys, sudo, hardening, vps protection, brute force"
 ---
 
 # 🔒 Server Security
@@ -58,11 +58,60 @@ sudo ufw allow 2222/tcp
 sudo systemctl restart ssh   # on very old systems: sudo systemctl restart sshd
 ```
 
+Check that the server really listens on the new port:
+
+```bash
+sudo ss -tlnp | grep -E ':(22|2222)\s'
+```
+
 Connecting now looks like this: `ssh -p 2222 alex@SERVER_IP`
 
 ::: danger Verify access first
 Without closing your current session, open a **new** terminal window and confirm that logging in on the new port works. Otherwise you may lock yourself out.
 :::
+
+### Still port 22? It's ssh.socket {#ssh-socket}
+
+On Ubuntu 22.10 and newer (including 24.04), SSH is started through a systemd socket by default. In that case the socket defines the port and the `Port` setting in `sshd_config` is ignored — every command succeeds, yet the server keeps listening on 22. The giveaway: in the `ss -tlnp` output, port 22 belongs to `systemd`, not `sshd`.
+
+Check whether socket activation is in use:
+
+```bash
+systemctl is-enabled ssh.socket
+```
+
+If the answer is `enabled`, change the port in the socket — one of two ways.
+
+**Option A — set the port in the socket:**
+
+```bash
+sudo systemctl edit ssh.socket
+```
+
+An editor opens (usually nano). In the empty area between the comment lines, add:
+
+```ini
+[Socket]
+ListenStream=
+ListenStream=2222
+```
+
+The empty `ListenStream=` line is required: it clears the inherited port 22, otherwise the server listens on both ports. Save (`Ctrl+O` → Enter → `Ctrl+X`) and apply:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart ssh.socket
+```
+
+**Option B — disable the socket and go back to the plain service.** The port is then taken from `sshd_config`, as on older versions:
+
+```bash
+sudo systemctl disable --now ssh.socket
+sudo systemctl enable --now ssh.service
+sudo systemctl restart ssh
+```
+
+After either option, check the port again with `sudo ss -tlnp | grep -E ':(22|2222)\s'` and — without closing your current session — log in from a new terminal window.
 
 ::: warning Important for AmneziaVPN
 If the server is added to the app, set the new port there too — otherwise protocol installation will fail. The app cannot edit saved credentials: remove the server and add it again, and instead of reinstalling protocols use the **“Check the server for previously installed Amnezia services”** button. See **[30x errors](/en/error-30x#credentials-changed)**.
