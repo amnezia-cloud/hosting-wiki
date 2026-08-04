@@ -2,7 +2,7 @@
 
 <img src="docs/public/logo.png" alt="Amnezia Hosting" width="72" />
 
-# Amnezia Hosting Wiki
+# Amnezia Hosting Wiki1
 
 **База знаний для клиентов Amnezia Hosting** — как подключиться к серверу,
 настроить свой VPN и разобраться, если что-то не работает.
