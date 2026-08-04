@@ -7,11 +7,11 @@ head:
       content: faq, frequently asked questions, help, troubleshooting, amnezia hosting, support
 ---
 
-# ❓ Frequently Asked Questions
+# Frequently Asked Questions
 
 An index of every walkthrough. Each question has its own article — open the one you need, and if your question is not listed, write to us: **[Contacting Support](/en/support)**.
 
-## 🔌 Connection and VPN {#connection}
+## Connection and VPN {#connection}
 
 | Question | In short |
 | :--- | :--- |
@@ -27,7 +27,7 @@ An index of every walkthrough. Each question has its own article — open the on
 | **[Google Gemini does not work](/en/gemini)** | Requests from data-center addresses are filtered |
 | **[YouTube ads](/en/youtube-ads)** | YouTube decides by IP; where ads are absent and what helps |
 
-## 🎛️ Protocols and traffic {#protocols}
+## Protocols and traffic {#protocols}
 
 | Question | In short |
 | :--- | :--- |
@@ -37,7 +37,7 @@ An index of every walkthrough. Each question has its own article — open the on
 | **[One server for multiple devices](/en/multiple-devices)** | Yes, up to 10 devices; one key each |
 | **[How much traffic the VPN uses](/en/traffic-usage)** | Every gigabyte passes through the server twice |
 
-## 🖥️ Server and access {#server}
+## Server and access {#server}
 
 | Question | In short |
 | :--- | :--- |
@@ -47,7 +47,7 @@ An index of every walkthrough. Each question has its own article — open the on
 | **[Server geolocation mismatch](/en/geolocation)** | Third-party GeoIP databases lag behind |
 | **[How to protect the server from hacking](/en/security)** | UFW, changing the SSH port, fail2ban |
 
-## 💳 Billing and plans {#billing}
+## Billing and plans {#billing}
 
 | Question | In short |
 | :--- | :--- |
@@ -57,11 +57,11 @@ An index of every walkthrough. Each question has its own article — open the on
 | **[How to change the billing period](/en/billing-period)** | Through support: Telegram or a ticket |
 | **[Moving from Amnezia Premium](/en/premium-migration)** | We carry the remaining subscription over to your own server |
 
-## 🔧 Support {#support}
+## Support {#support}
 
 If your question is not listed, collect the checklist details and write to us: **[Contacting Support](/en/support)**. That page also has a ready-to-fill template and the split of responsibilities.
 
-*   💻 A ticket in your client area at **[my.amnezia.host](https://my.amnezia.host)** — the main channel.
-*   ✉️ Email **[support@amnezia.host](mailto:support@amnezia.host)**, bot **[@amnezia_hosting_bot](https://t.me/amnezia_hosting_bot)**.
-*   💬 Community chats: **[English](https://t.me/amnezia_vpn_en)** and **[Russian](https://t.me/amnezia_vpn)**.
-*   📂 Self-diagnosis of the OS — **[Server Management](/en/server-management)**.
+*   <Icon name="laptop" /> A ticket in your client area at **[my.amnezia.host](https://my.amnezia.host)** — the main channel.
+*   <Icon name="mail" /> Email **[support@amnezia.host](mailto:support@amnezia.host)**, bot **[@amnezia_hosting_bot](https://t.me/amnezia_hosting_bot)**.
+*   <Icon name="chat" /> Community chats: **[English](https://t.me/amnezia_vpn_en)** and **[Russian](https://t.me/amnezia_vpn)**.
+*   <Icon name="folder" /> Self-diagnosis of the OS — **[Server Management](/en/server-management)**.

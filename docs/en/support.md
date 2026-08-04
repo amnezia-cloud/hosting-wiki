@@ -7,7 +7,7 @@ head:
       content: support, ticket, help, whmcs, vpn not working, support template, amnezia hosting support
 ---
 
-# 💬 Contacting Support
+# Contacting Support
 
 Please write to us — that is what we are here for. No “read the whole documentation first”: if something does not work, or is simply unclear, get in touch.
 

@@ -7,11 +7,11 @@ head:
       content: "server management, client area, power on, reboot, reset password, reinstall os, ssh, vps resources, broken state"
 ---
 
-# 🖥️ Managing Your Amnezia VPS
+# Managing Your Amnezia VPS
 
 Welcome to the control panel for your virtual private server (VPS). This page brings together everything you need to control your server: connection details, available actions, and step-by-step instructions for beginners.
 
-## ⚙️ 1. Connection Details (Your Credentials) {#credentials}
+## 1. Connection Details (Your Credentials) {#credentials}
 
 You need this information to configure VPN clients, connect to the server via the console, or pass it to third-party applications.
 
@@ -19,31 +19,31 @@ You need this information to configure VPN clients, connect to the server via th
 This information is strictly confidential. Never share it with third parties. Technical support staff will never ask you for your password.
 :::
 
-*   🌐 **Server IP Address:** `0.0.0.0` *(The main address of your server on the internet)*
-*   👤 **Username:** `root` *(The main system administrator with full privileges)*
-*   🔑 **Access Password:** `XXxxXX2026` *(Generated automatically when the server was created)*
+*   <Icon name="globe" /> **Server IP Address:** `0.0.0.0` *(The main address of your server on the internet)*
+*   <Icon name="user" /> **Username:** `root` *(The main system administrator with full privileges)*
+*   <Icon name="key" /> **Access Password:** `XXxxXX2026` *(Generated automatically when the server was created)*
 
-## 🛠️ 2. Available Actions in the Control Panel {#panel-actions}
+## 2. Available Actions in the Control Panel {#panel-actions}
 
 You can manage the physical state of your server directly from the control panel using these buttons:
 
-*   🚀 **Power On:** Starts the server's operating system if it was shut down.
-*   🛑 **Shutdown:** Sends a signal to the operating system to safely terminate all processes and power off. We recommend using this option.
-*   ⚡ **Power Off:** Instantly cuts power to the server. Use only if the server has frozen and does not respond to the regular `Shutdown` command.
-*   🔄 **Reboot:** Performs a quick restart of the server to refresh the configuration or apply settings.
-*   🔑 **Reset Password:** Erases the current administrator password and generates a new one. **Note:** before clicking this button, you must shut the server down first with the `Shutdown` command.
-*   🔄 **Reinstall OS:** Returns the server to a clean system, wiping every setting and key.
+*   <Icon name="rocket" /> **Power On:** Starts the server's operating system if it was shut down.
+*   <Icon name="stop" tone="bad" /> **Shutdown:** Sends a signal to the operating system to safely terminate all processes and power off. We recommend using this option.
+*   <Icon name="zap" /> **Power Off:** Instantly cuts power to the server. Use only if the server has frozen and does not respond to the regular `Shutdown` command.
+*   <Icon name="refresh" /> **Reboot:** Performs a quick restart of the server to refresh the configuration or apply settings.
+*   <Icon name="key" /> **Reset Password:** Erases the current administrator password and generates a new one. **Note:** before clicking this button, you must shut the server down first with the `Shutdown` command.
+*   <Icon name="refresh" /> **Reinstall OS:** Returns the server to a clean system, wiping every setting and key.
 
 ::: danger Reinstall OS and Reset Password do not work on every server
 These two buttons are supported only on servers issued **on or after 20 July 2026**. On older VPS they put the server into **Bad State**, and it has to be replaced by support. Check the service activation date before clicking: **[Reinstalling the OS](/en/reinstall#check)**.
 :::
-*   💳 **Renew Service:** A quick link to the payment gateway to top up your balance and extend the lease.
+*   <Icon name="card" /> **Renew Service:** A quick link to the payment gateway to top up your balance and extend the lease.
 
-## ⚠️ 3. Security and Resolving Critical Issues {#security}
+## 3. Security and Resolving Critical Issues {#security}
 
 We care about keeping your work stable, so the panel enforces restrictions designed to protect your data.
 
-### 🚨 What to do if the status changes to "Broken State"?
+### What to do if the status changes to "Broken State"?
 
 If you see **Broken State** in the server status field, or if the server has stopped powering on for any reason and does not respond to the `Power On` / `Reboot` buttons:
 
@@ -52,23 +52,23 @@ If you see **Broken State** in the server status field, or if the server has sto
 
 A full walkthrough, including the most common cause and what happens to your data and IP address: **[The server is in Bad State](/en/broken-state)**.
 
-### 🔒 Why can't I change the IP address myself?
+### Why can't I change the IP address myself?
 
 For the security of all hosting clients, the option to change the IP address yourself in the panel is disabled. This prevents accidental loss of connection to the server and protects against fraudulent activity.
 
 *   If you genuinely need to replace your IP address (for example, due to blocking by providers), **contact support**.
 *   Our specialists will quickly verify your account and replace the address manually for your safety.
 
-## 📊 4. Dedicated Technical Resources {#resources}
+## 4. Dedicated Technical Resources {#resources}
 
 Your server is guaranteed the following capacity, which is not shared with other users. It is enough for stable VPN performance with up to 10 devices connected at once:
 
-*   🧠 **Processor:** 1 dedicated CPU core (1 × 2.2 GHz)
-*   ⚡ **RAM:** 1 GB RAM
-*   🌐 **Network:** Up to 100 MB/s channel, unlimited traffic
-*   💾 **Storage:** 10 GB of fast SSD disk space
+*   <Icon name="brain" /> **Processor:** 1 dedicated CPU core (1 × 2.2 GHz)
+*   <Icon name="zap" /> **RAM:** 1 GB RAM
+*   <Icon name="globe" /> **Network:** Up to 100 MB/s channel, unlimited traffic
+*   <Icon name="hard-drive" /> **Storage:** 10 GB of fast SSD disk space
 
-## 📖 5. Detailed Connection Instructions (For Beginners) {#ssh}
+## 5. Detailed Connection Instructions (For Beginners) {#ssh}
 
 If you need to install additional software on the server, configure a proxy, or check the configuration, you will need to connect to the server's text console over the **SSH** protocol.
 
@@ -115,7 +115,7 @@ When you paste or type a password in the terminal, **nothing appears on screen (
 | `Connection refused` | The SSH service is down or the port was changed. If you changed the port in the security settings, connect with `-p`: `ssh root@0.0.0.0 -p 2222` |
 | `Connection closed by … port 22` | The connection opened and dropped immediately. Most often the node is closed for maintenance — wait and retry, and open a ticket if it persists. Less commonly it is fail2ban: your address got banned after failed login attempts, so connect from another network or lift the ban |
 
-## 🗲 6. Basic Commands Cheat Sheet {#commands}
+## 6. Basic Commands Cheat Sheet {#commands}
 
 After a successful login, you will see the system greeting. Here are the main commands that may come in handy:
 

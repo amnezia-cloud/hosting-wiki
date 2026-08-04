@@ -7,7 +7,7 @@ head:
       content: vpn connected but no internet, sites not opening through vpn, adguard conflict, two vpns, ru domain blocking, dns
 ---
 
-# 🚫 VPN Connects but There Is No Internet
+# VPN Connects but There Is No Internet
 
 The connect button turned green, so the server is reachable and the tunnel is up — that is already half the battle. What is left is figuring out where the traffic goes inside the tunnel. Work through the points in order: the cause is usually in the first two.
 

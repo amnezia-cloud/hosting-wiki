@@ -7,7 +7,7 @@ head:
       content: vpn traffic usage, how much traffic, traffic limit, unlimited, double traffic, consumption
 ---
 
-# 📊 How Much Traffic Does the VPN Use
+# How Much Traffic Does the VPN Use
 
 The VPN server itself generates no traffic — consumption depends entirely on your activity.
 

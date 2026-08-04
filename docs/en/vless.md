@@ -1,4 +1,4 @@
-# 🎭 VLESS + Reality: Detailed Guide
+# VLESS + Reality: Detailed Guide
 
 **VLESS** is a modern protocol of the **XRay** core, and **Reality** is a masking technology that makes VPN traffic indistinguishable from a regular visit to an allowed website. This is the most censorship-resistant option in our stack.
 
@@ -43,9 +43,9 @@ The generated `vless://…` links are supported by all modern clients:
 
 ## When to Choose VLESS + Reality
 
-*   ✅ Regions with strict censorship that block VPN protocols and UDP.
-*   ✅ As a reliable **backup** protocol if **[AmneziaWG](/en/awg)** stops connecting.
-*   ⚠️ Slightly higher CPU load and usually somewhat lower speed than AWG.
+*   <Icon name="check" tone="ok" /> Regions with strict censorship that block VPN protocols and UDP.
+*   <Icon name="check" tone="ok" /> As a reliable **backup** protocol if **[AmneziaWG](/en/awg)** stops connecting.
+*   <Icon name="warning" tone="warn" /> Slightly higher CPU load and usually somewhat lower speed than AWG.
 
 ::: tip Masking tip
 For `SNI`/`dest`, pick a large website that is definitely not blocked in your region and supports TLS 1.3 — this makes the masking as convincing as possible.

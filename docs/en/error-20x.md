@@ -7,7 +7,7 @@ head:
       content: "error 202, ServerContainerMissingError, error 203, ServerDockerFailedError, docker, registry-mirrors, wrapper, alpine cdn, masquerade, ip_forward"
 ---
 
-# 🐳 20x Errors in AmneziaVPN (202, 203)
+# 20x Errors in AmneziaVPN (202, 203)
 
 Error **202** (`ServerContainerMissingError`) means Amnezia could not build or start the Docker container with the protocol. Error **203** (`ServerDockerFailedError`) means Docker itself is missing on the server. Both are fixed from the console, and everything below is step by step.
 

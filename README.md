@@ -7,7 +7,7 @@
 **База знаний для клиентов Amnezia Hosting** — как подключиться к серверу,
 настроить свой VPN и разобраться, если что-то не работает.
 
-[**📖 Открыть вики → wiki.amnezia.host**](https://wiki.amnezia.host)
+[**Открыть вики → wiki.amnezia.host**](https://wiki.amnezia.host)
 
 [![Деплой](https://github.com/amnezia-cloud/hosting-wiki/actions/workflows/deploy.yml/badge.svg)](https://github.com/amnezia-cloud/hosting-wiki/actions/workflows/deploy.yml)
 [![Звёзды](https://img.shields.io/github/stars/amnezia-cloud/hosting-wiki?style=flat-square&color=00e63d&labelColor=0a0b0d&label=%E2%98%85%20stars)](https://github.com/amnezia-cloud/hosting-wiki/stargazers)
@@ -27,17 +27,17 @@
 
 | Раздел | О чём |
 | :--- | :--- |
-| [📰 Новости Amnezia Hosting](https://wiki.amnezia.host/news.html) | Анонсы и объявления карточками; тексты — в `docs/.vitepress/theme/newsItems.js` |
-| [🚀 Быстрый старт](https://wiki.amnezia.host/commands.html) | Первое подключение к серверу по SSH и базовые команды |
-| [🔁 Переход с Amnezia Premium](https://wiki.amnezia.host/premium-migration.html) | Перенос остатка подписки на свой VPS |
-| [🖥️ Управление сервером](https://wiki.amnezia.host/server-management.html) | Личный кабинет, действия с сервером, ресурсы |
-| [🛡️ Настройка VPN](https://wiki.amnezia.host/vpn-setup.html) | Запуск VPN через приложение AmneziaVPN |
-| [📊 Панель 3X-UI](https://wiki.amnezia.host/3x-ui.html) | VLESS + Reality на 443, выдача ключей, блокировки |
-| [⚡ XRay и 🛡️ AmneziaWG](https://wiki.amnezia.host/xray-tuning.html) | Маскировка, домены-доноры, версии AWG и обфускация |
-| [🩺 Диагностика](https://wiki.amnezia.host/vpn-troubleshooting.html) | Ошибки 20x / 30x, блокировки провайдера, «нет интернета» |
-| [🔒 Безопасность сервера](https://wiki.amnezia.host/security.html) | UFW, порт SSH, ключи, fail2ban |
-| [💳 Оплата и тарифы](https://wiki.amnezia.host/payment.html) | Способы оплаты, возвраты, период оплаты |
-| [❓ Частые вопросы](https://wiki.amnezia.host/faq.html) | Указатель по всем разборам |
+| [Новости Amnezia Hosting](https://wiki.amnezia.host/news.html) | Анонсы и объявления карточками; тексты — в `docs/.vitepress/theme/newsItems.js` |
+| [Быстрый старт](https://wiki.amnezia.host/commands.html) | Первое подключение к серверу по SSH и базовые команды |
+| [Переход с Amnezia Premium](https://wiki.amnezia.host/premium-migration.html) | Перенос остатка подписки на свой VPS |
+| [Управление сервером](https://wiki.amnezia.host/server-management.html) | Личный кабинет, действия с сервером, ресурсы |
+| [Настройка VPN](https://wiki.amnezia.host/vpn-setup.html) | Запуск VPN через приложение AmneziaVPN |
+| [Панель 3X-UI](https://wiki.amnezia.host/3x-ui.html) | VLESS + Reality на 443, выдача ключей, блокировки |
+| [XRay и AmneziaWG](https://wiki.amnezia.host/xray-tuning.html) | Маскировка, домены-доноры, версии AWG и обфускация |
+| [Диагностика](https://wiki.amnezia.host/vpn-troubleshooting.html) | Ошибки 20x / 30x, блокировки провайдера, «нет интернета» |
+| [Безопасность сервера](https://wiki.amnezia.host/security.html) | UFW, порт SSH, ключи, fail2ban |
+| [Оплата и тарифы](https://wiki.amnezia.host/payment.html) | Способы оплаты, возвраты, период оплаты |
+| [Частые вопросы](https://wiki.amnezia.host/faq.html) | Указатель по всем разборам |
 
 ## Как предложить правку
 

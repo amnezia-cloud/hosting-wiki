@@ -7,7 +7,7 @@ head:
       content: bad state, broken state, server not starting, power on not working, server replacement, ticket, node
 ---
 
-# 🛑 The Server Is in Bad State
+# The Server Is in Bad State
 
 **Bad State** (shown as **Broken State** in the panel) means a failure at the virtual container level: the server does not boot and ignores `Power On` and `Reboot`. Unpleasant, but solvable — and almost always at no cost to you: engineers restore access, and if it cannot be restored, the server is replaced.
 

@@ -7,7 +7,7 @@ head:
       content: "amnezia premium, переход с premium, перенос подписки, свой сервер, vps, ключ подписки, миграция, my.amnezia.host"
 ---
 
-# 🔁 Переход с Amnezia Premium на Amnezia Hosting
+# Переход с Amnezia Premium на Amnezia Hosting
 
 Если вы пользуетесь **Amnezia Premium** и хотите перейти на свой сервер — остаток подписки не потеряется. Мы перенесём его на VPS: напишите нам, и дальше всё сделаем вместе. Обычно занимает пару сообщений в тикете.
 

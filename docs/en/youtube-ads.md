@@ -7,7 +7,7 @@ head:
       content: "youtube ads, youtube ads vpn, block ads, ublock origin, smarttube, revanced, youtube premium, server location"
 ---
 
-# ▶️ YouTube Ads over VPN
+# YouTube Ads over VPN
 
 Whether ads are shown is decided by YouTube itself, based on the IP address and a combination of account signals. Neither the VPN nor the hosting influences that decision, which is why ads disappear through some locations and remain through others.
 

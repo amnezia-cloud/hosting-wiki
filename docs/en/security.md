@@ -7,7 +7,7 @@ head:
       content: "server security, ufw, firewall, ssh port, ssh.socket, fail2ban, ssh keys, sudo, hardening, vps protection, brute force"
 ---
 
-# 🔒 Server Security
+# Server Security
 
 A few straightforward steps noticeably improve your VPS's protection, shutting it off from password guessing and automated scanners. You do not have to do everything at once — start with the basics and add the rest when you have time.
 

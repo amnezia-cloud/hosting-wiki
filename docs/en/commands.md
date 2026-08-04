@@ -7,11 +7,11 @@ head:
       content: "quick start, first connection, ssh, vps, linux commands, system update, apt, beginners"
 ---
 
-# 🚀 Quick Start <span class="green">with VPS</span>
+# Quick Start <span class="green">with VPS</span>
 
 This guide will help you make your first connection to your new Amnezia Hosting server and introduce you to the basic commands for managing the system.
 
-## 🚀 Step 1. Get Server Credentials
+## Step 1. Get Server Credentials
 
 After your VPS is successfully activated, the main access details will be sent to the email address in your account:
 
@@ -19,7 +19,7 @@ After your VPS is successfully activated, the main access details will be sent t
 *   **Username** (usually `root`)
 *   **Password** or **SSH Key**
 
-## 💻 Step 2. Connect to the Server via SSH
+## Step 2. Connect to the Server via SSH
 
 Depending on your operating system, open a terminal and enter the connection command.
 
@@ -35,7 +35,7 @@ ssh root@YOUR_SERVER_IP
 On the first connection, the terminal will show the warning `The authenticity of host... can't be established`. Type **`yes`** and press **Enter**, then paste your server password (the password characters will not be shown as you type).
 :::
 
-## 🔄 Step 3. Update the System First
+## Step 3. Update the System First
 
 Right after your first login, be sure to update the package list and installed software to the latest security versions. Run the command:
 
@@ -43,7 +43,7 @@ Right after your first login, be sure to update the package list and installed s
 apt update && apt upgrade -y
 ```
 
-## 🛠️ Essential Commands for Managing Your VPS
+## Essential Commands for Managing Your VPS
 
 Here is the basic set of Linux commands that every administrator needs:
 
@@ -60,7 +60,7 @@ Here is the basic set of Linux commands that every administrator needs:
 | `systemctl status service` | Check a service's status (e.g., `ssh`) |
 | `reboot` | Reboot your server |
 
-## 🛡️ Next Step
+## Next Step
 
 After the basic update, you can move on to deploying your personal VPN.
 

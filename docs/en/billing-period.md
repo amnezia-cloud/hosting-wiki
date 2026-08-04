@@ -7,7 +7,7 @@ head:
       content: change billing period, billing period, renewal, monthly, 3 months, 6 months, yearly, prices, ticket
 ---
 
-# 🗓️ How to Change the Billing Period
+# How to Change the Billing Period
 
 The billing period is changed by support — it cannot be switched on your own in the client area.
 

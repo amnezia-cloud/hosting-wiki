@@ -7,7 +7,7 @@ head:
       content: server connection error, amneziavpn error, cannot connect, port 22, firewall, os installation
 ---
 
-# ⚠️ The App Says “Server Connection Error”
+# The App Says “Server Connection Error”
 
 The message looks alarming, but usually nothing is broken: the app simply could not log in to the server over SSH to install or read the configuration. In most cases it is one of the three causes below, and it takes a minute to fix.
 

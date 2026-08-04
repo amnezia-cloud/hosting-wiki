@@ -7,7 +7,7 @@ head:
       content: ping not working, request timed out, 100% loss, icmp, server availability check, vps ping
 ---
 
-# 📡 Ping to the Server Does Not Work
+# Ping to the Server Does Not Work
 
 `Request timed out` or `100% packet loss` in response to `ping` is **normal and does not mean the server is down**.
 

@@ -7,7 +7,7 @@ head:
       content: one server multiple devices, how many devices, share vpn, separate key, qr code, configuration
 ---
 
-# 👥 One Server for Multiple Devices
+# One Server for Multiple Devices
 
 **Yes.** Set the VPN up on the server once, then hand out configurations or QR codes to any of your devices — phones, tablets, computers — or share them with family. The plans are tuned for smooth performance with **up to 10 devices** connected at the same time.
 

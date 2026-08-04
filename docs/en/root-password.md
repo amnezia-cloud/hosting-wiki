@@ -7,7 +7,7 @@ head:
       content: change root password, passwd, reset password, forgot server password, restore access, vps password
 ---
 
-# 🔑 How to Change the Root Password
+# How to Change the Root Password
 
 ## If you still have access {#passwd}
 

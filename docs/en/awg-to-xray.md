@@ -7,7 +7,7 @@ head:
       content: amneziawg not working, awg not connecting, xray, ya.ru, sni, port 443, 8443, isp blocking, wireguard, amnezia
 ---
 
-# 🔁 AmneziaWG Stopped Working — Switch to XRay
+# AmneziaWG Stopped Working — Switch to XRay
 
 If AWG no longer connects or the connection hangs, your ISP has most likely started blocking this type of traffic. AWG runs over **UDP**, and on heavily filtered networks that traffic is throttled entirely. The fix is to move the server to **XRay**, which runs over TCP and disguises itself as ordinary HTTPS.
 

@@ -7,7 +7,7 @@ head:
       content: "3x-ui, x-ui, vless, reality, xray, ya.ru, port 443, 8443, blocking ru domains, web panel, access keys"
 ---
 
-# 📊 3X-UI Panel: VLESS + Reality and Blocking Russian Domains
+# 3X-UI Panel: VLESS + Reality and Blocking Russian Domains
 
 **3X-UI** is a graphical web panel for managing a VPN server powered by **Xray-core**. It lets you set up a **VLESS + Reality** connection in minutes, issue separate keys per user, track traffic, and define routing rules.
 
@@ -21,7 +21,7 @@ Just the server IP and the root password from your hosting control panel — eve
 Grey boxes in the screenshots hide the IP address, passwords, the panel's secret path, the client UUID, and the Reality keys — you will see your own values there. All addresses and credentials shown in the examples are fictitious.
 :::
 
-## 🔑 Step 1. Server Connection Details {#credentials}
+## Step 1. Server Connection Details {#credentials}
 
 Open your server card in the hosting control panel (**Manage** section) and copy:
 
@@ -37,7 +37,7 @@ Make sure the server is running — the status indicator should be green. If the
 
 More about connection details in **[Server Management](/en/server-management#credentials)**.
 
-## 💻 Step 2. Connecting via SSH {#ssh}
+## Step 2. Connecting via SSH {#ssh}
 
 In **PowerShell** (Windows 10/11) or **Terminal** (macOS/Linux) run:
 
@@ -60,7 +60,7 @@ root@vps-4906:/home#
 
 ![Terminal: SSH login and the Ubuntu 26.04 LTS welcome message](/img/3x-ui/02-ssh.png)
 
-## 🚀 Step 3. Installing the Panel {#install}
+## Step 3. Installing the Panel {#install}
 
 Install a specific (verified) panel version:
 
@@ -77,7 +77,7 @@ The `$VERSION` form installs a known-good release. If you always want the newest
 `bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)`
 :::
 
-## 🔐 Step 4. Port and Login Credentials {#credentials-panel}
+## Step 4. Port and Login Credentials {#credentials-panel}
 
 During installation the script asks:
 
@@ -118,7 +118,7 @@ sudo ufw allow 6873/tcp
 
 Open the port your inbound will use as well (443 by default): `sudo ufw allow 443/tcp`. Check the current rules with `sudo ufw status`. If UFW is not enabled, there is nothing to open; for firewall setup see **[Server Security](/en/security)**.
 
-## 🌐 Step 5. Signing In to the Web Interface {#login}
+## Step 5. Signing In to the Web Interface {#login}
 
 1. Open the **Access URL** from the previous step in your browser:
    `http://SERVER_IP:PORT/SECRET_PATH`
@@ -131,7 +131,7 @@ Open the port your inbound will use as well (443 by default): `sudo ufw allow 44
 The browser warns you because the panel runs over plain `http` without a certificate. That is acceptable for initial setup, but passwords and keys travel unencrypted. Afterwards, change the password to your own and enable an HTTPS certificate in **Panel Settings** — or access the panel through an SSH tunnel.
 :::
 
-## 🛡️ Step 6. Creating the Inbound: VLESS + Reality on 443 {#inbound}
+## Step 6. Creating the Inbound: VLESS + Reality on 443 {#inbound}
 
 **Reality** disguises your traffic as an ordinary visit to a real website: the server borrows the genuine TLS handshake of the chosen domain, so no certificate or domain of your own is required. See **[Protocols](/en/protocols)** for a comparison with the other options.
 
@@ -157,7 +157,7 @@ In the **Client** block:
 | Setting | Value |
 | :--- | :--- |
 | **Email** | the user identifier — keep the generated one or set something readable (`ivan-phone`) |
-| **ID** | the client UUID, generated automatically (🔄 creates a new one) |
+| **ID** | the client UUID, generated automatically (<Icon name="refresh" /> creates a new one) |
 | **Flow** | `xtls-rprx-vision` |
 | **Total Flow** / **Duration** | per-client limits; `0`/empty means unlimited |
 
@@ -206,7 +206,7 @@ Scroll to the **Security** block and pick **Reality**. Fill in the fields:
 | **Dest (Target)** | `ya.ru:443` |
 | **SNI** | `ya.ru` |
 | **Max Time Diff (ms)** | `0` |
-| **Short IDs** | keep the generated set (🔄 for a new one) |
+| **Short IDs** | keep the generated set (<Icon name="refresh" /> for a new one) |
 | **SpiderX** | `/` |
 | **Public Key** / **Private Key** | click **Get New Cert** — the x25519 key pair is created automatically |
 
@@ -232,7 +232,7 @@ In the **Sniffing** block (visible in the screenshot above) turn **Enabled** on 
 
 Click **Create**. The inbound appears in the list as “Enabled”.
 
-## 🔗 Step 7. Issuing a Client Key {#client-key}
+## Step 7. Issuing a Client Key {#client-key}
 
 1. Expand the new inbound in the list and click the client name (or **Details**).
 2. A summary card opens: protocol, address, port, `Security: reality`, `Domain Name: ya.ru`.
@@ -252,7 +252,7 @@ Import it into a client app — every parameter is filled in automatically.
 Technically one key works on several devices at once, but their traffic statistics get mixed, the limit and expiry date apply to all of them together, and access cannot be revoked for a single device — only for all of them. Add a separate client per device (**Operations → Add Client**); a single inbound still covers them all.
 :::
 
-## 🚫 Step 8. Blocking Ads and Russian Domains {#routing}
+## Step 8. Blocking Ads and Russian Domains {#routing}
 
 Russian websites are reachable without a VPN, and some of them restrict access from foreign IP addresses anyway. It therefore makes sense not to route that traffic through your server: it reduces load, saves bandwidth, and lowers the risk of complaints against your IP.
 
@@ -284,7 +284,7 @@ Routing rules apply to **client** traffic. The Reality TLS handshake with `ya.ru
 Once these rules are active, Russian websites become **unreachable while the VPN is on** — open them with the VPN disabled, or configure split tunneling in your client to exclude `.ru` domains from the tunnel. If that is not acceptable, remove `.ru`, `.su`, `.рф` and `RU Russia` from **Block Domains**, keeping only `Ads All` / `Ads RU` and `Private IPs`.
 :::
 
-## 📱 Client Applications {#clients}
+## Client Applications {#clients}
 
 Links and QR codes exported by 3X-UI work with all modern clients:
 
@@ -294,7 +294,7 @@ Links and QR codes exported by 3X-UI work with all modern clients:
 | **iOS (iPhone)** | Streisand, FoXray, Shadowrocket, V2Box |
 | **Windows / macOS** | Hiddify, NekoRay, v2rayN |
 
-## ⚙️ Managing the Panel over SSH {#cli}
+## Managing the Panel over SSH {#cli}
 
 All maintenance operations are available through the `x-ui` command:
 
@@ -315,7 +315,7 @@ This opens a text menu. Individual subcommands:
 | `x-ui update` | update the panel |
 | `x-ui uninstall` | complete removal |
 
-## ❗ If Something Does Not Work {#troubleshooting}
+## If Something Does Not Work {#troubleshooting}
 
 *   **The panel does not open in the browser.** Check that the address includes the secret path (`/k4TnQ8pVzR2Wd` from Step 4) and that the service is running: `x-ui status`. If a firewall is enabled, open the ports: `ufw allow 6873/tcp` and `ufw allow 443/tcp` (use your own panel port).
 *   **Username and password lost.** Run `x-ui settings` on the server — the credentials are printed to the console.

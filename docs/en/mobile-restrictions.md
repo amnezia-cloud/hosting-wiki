@@ -7,7 +7,7 @@ head:
       content: mobile whitelist, carrier restriction, drone threat internet, cellular block vps, ssh connection failed mobile, tspu, vpn block 4g
 ---
 
-# 📵 No Server Access on Mobile Internet (“Whitelists”)
+# No Server Access on Mobile Internet (“Whitelists”)
 
 If your server is active but access from a smartphone or modem disappears completely — especially while a drone-attack threat is declared in the region — that is the result of enforced security measures. During such periods mobile carriers switch their networks to state “whitelist” mode.
 

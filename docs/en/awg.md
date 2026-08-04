@@ -1,4 +1,4 @@
-# 🛡️ AmneziaWG (AWG): Detailed Guide
+# AmneziaWG (AWG): Detailed Guide
 
 **AmneziaWG (AWG)** is a fork of the popular **WireGuard** protocol, extended by the Amnezia team. It keeps all the speed and lightness of WireGuard but adds **obfuscation** that hides WireGuard's recognizable "fingerprint" from Deep Packet Inspection (DPI) systems.
 
@@ -68,9 +68,9 @@ PersistentKeepalive = 25
 
 ## When to Choose AWG
 
-*   ✅ Everyday use, streaming, gaming — where maximum speed and minimal ping matter.
-*   ✅ Mobile internet — fast reconnection and low battery drain.
-*   ⚠️ If your ISP fully blocks **UDP**, AWG may fail to connect. In that case use **[VLESS + Reality](/en/vless)**, which runs over TCP.
+*   <Icon name="check" tone="ok" /> Everyday use, streaming, gaming — where maximum speed and minimal ping matter.
+*   <Icon name="check" tone="ok" /> Mobile internet — fast reconnection and low battery drain.
+*   <Icon name="warning" tone="warn" /> If your ISP fully blocks **UDP**, AWG may fail to connect. In that case use **[VLESS + Reality](/en/vless)**, which runs over TCP.
 
 ::: tip Tip
 Install both protocols on your server — **AmneziaWG** as the primary one and **VLESS** as a backup. If AWG stops connecting, switch to VLESS in one click.

@@ -7,7 +7,7 @@ head:
       content: "amnezia premium, move from premium, subscription transfer, own server, vps, subscription key, migration, my.amnezia.host"
 ---
 
-# 🔁 Moving from Amnezia Premium to Amnezia Hosting
+# Moving from Amnezia Premium to Amnezia Hosting
 
 If you use **Amnezia Premium** and would like your own server, the remainder of your subscription is not lost — we carry it over to a VPS. Just write to us and we will walk through it together; it usually takes a couple of messages in a ticket.
 
