@@ -31,6 +31,7 @@ Noise itself is untouched — only how the connection looks from the outside cha
 | **1.5** | CPS chains `I1`–`I5` — client-side only |
 | **2.0** | `S3` and `S4` (cookie and transport packet padding); `H1`–`H4` are ranges rather than single numbers — each packet's header is picked from the range at random |
 | **3.0** | `HeaderProtectionKey` (ChaCha20 header encryption), `ContentPaddingAddition` (random transport padding) and randomisation of the protocol timers |
+| **3.1** | `RandomTrailers` — pads packets up to the MTU with random values; `DisableCookies` — disables `cookiereply` responses on the WireGuard port |
 
 To identify the version from your own `.conf`, see **[How to tell the version](/en/amneziawg-tuning#version)**.
 
@@ -141,6 +142,11 @@ Ping goes through, light pages open, but heavy sites and downloads hang. If that
 
 For AmneziaWG 3.1 the recommendation is to set **MTU = 1280** straight away — see **[upgrading from 2.0 to 3.1](/en/awg-3-1-upgrade#defaults)**.
 
-## Source {#source}
+## Sources {#source}
 
-This page is based on the **[ARCHITECT generator FAQ](https://architect.vai-rice.space/faq)**, which also cites the places in the code the described behaviour follows from.
+This page is assembled from community material rather than written by us from scratch:
+
+*   **[The ARCHITECT generator FAQ](https://architect.vai-rice.space/faq)** — how the protocol works, the parameter breakdown, and citations to the places in the code the behaviour follows from.
+*   **[Shidla's instructions](https://gitlab.com/ShidlaSGC/amn-instructions/)** — version identification, the 3.1 markers and practical procedures.
+
+Thank you to the authors for putting any of this in writing at all.

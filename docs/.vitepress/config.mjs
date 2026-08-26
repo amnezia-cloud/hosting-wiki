@@ -127,6 +127,7 @@ export default defineConfig({
                   { text: 'Параметры по умолчанию', link: '/awg-3-1-upgrade#defaults' },
                   { text: 'Что даёт генератор', link: '/awg-3-1-upgrade#parameters' },
                   { text: 'Ограничения клиентов', link: '/awg-3-1-upgrade#clients' },
+                  { text: '3.1 рядом с работающим 2.0', link: '/awg-3-1-upgrade#keep-2-0' },
                   { text: 'Откат на 2.0', link: '/awg-3-1-upgrade#rollback' }
                 ]
               },
@@ -229,6 +230,8 @@ export default defineConfig({
                   { text: 'Генераторы параметров', link: '/amneziawg-tuning#generators' },
                   { text: 'AWG 1.0 и 1.5', link: '/amneziawg-tuning#legacy' },
                   { text: 'AWG 2.0 и мимикрия', link: '/amneziawg-tuning#awg2' },
+                  { text: 'Установка legacy 1.0 / 1.5', link: '/amneziawg-tuning#legacy-install' },
+                  { text: 'Резервное копирование', link: '/amneziawg-tuning#backup' },
                   { text: 'Смена подсети', link: '/amneziawg-tuning#subnet' }
                 ]
               },
@@ -422,6 +425,7 @@ export default defineConfig({
                   { text: 'Default parameters', link: '/en/awg-3-1-upgrade#defaults' },
                   { text: 'What the generator does', link: '/en/awg-3-1-upgrade#parameters' },
                   { text: 'Client limitations', link: '/en/awg-3-1-upgrade#clients' },
+                  { text: '3.1 alongside a working 2.0', link: '/en/awg-3-1-upgrade#keep-2-0' },
                   { text: 'Rolling back to 2.0', link: '/en/awg-3-1-upgrade#rollback' }
                 ]
               },
@@ -524,6 +528,8 @@ export default defineConfig({
                   { text: 'Parameter generators', link: '/en/amneziawg-tuning#generators' },
                   { text: 'AWG 1.0 and 1.5', link: '/en/amneziawg-tuning#legacy' },
                   { text: 'AWG 2.0 and mimicry', link: '/en/amneziawg-tuning#awg2' },
+                  { text: 'Installing legacy 1.0 / 1.5', link: '/en/amneziawg-tuning#legacy-install' },
+                  { text: 'Backing up containers', link: '/en/amneziawg-tuning#backup' },
                   { text: 'Changing the subnet', link: '/en/amneziawg-tuning#subnet' }
                 ]
               },

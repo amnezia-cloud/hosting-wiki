@@ -105,6 +105,30 @@ Clients for **Android, iOS, Windows, macOS and Linux** use `amneziawg-go`. Its t
 *   The `<c>` tag does not exist in `amneziawg-go` at all. If it ends up in the CPS chain, the client will reject the whole configuration.
 *   The packet counter is implemented only in the Linux kernel module.
 
+## Installing 3.1 without losing a working 2.0 {#keep-2-0}
+
+The standard route deletes the old container along with every key issued from it. If 2.0 is serving live users you cannot cut off, do not delete the container — **rename** it. The app will then not see it, will conclude the protocol is absent, and will install a new one alongside.
+
+::: danger What you get and what you don't
+The AWG 2.0 container keeps running and **already-issued configurations keep working**. But you can no longer manage it from the app: issuing a new user from 2.0 is not possible without further renaming. This is a way to carry existing clients until they migrate, not a permanent arrangement.
+:::
+
+Connect to the server over SSH (see **[Server Management](/en/server-management#ssh)**) and rename the container:
+
+```bash
+docker rename amnezia-awg2 amnezia-awg2-old
+```
+
+You can confirm the result like this — the container is still running, only its name changed:
+
+```bash
+docker ps | grep amnezia
+```
+
+Then install the AmneziaWG protocol from **AmneziaVPN 5.0.1.5** the usual way (step 4 above). It will come up as **AWG 3.1** and take the freed `amnezia-awg2` name.
+
+The server then holds three containers: the new `amnezia-awg2` (3.1), the old `amnezia-awg` (1.x, if you had one) and the renamed `amnezia-awg2-old` (2.0). Only **1.x and 3.1** are manageable from the app — the renamed 2.0 is invisible to it.
+
 ## Rolling back from 3.1 to 2.0 {#rollback}
 
 If the server already runs AmneziaWG 3.1 and you need to return to 2.0:
@@ -121,4 +145,14 @@ A rollback is also a container reinstall. Every `.conf` file issued earlier will
 
 *   First confirm the protocol is at fault rather than the server: **[step-by-step troubleshooting](/en/vpn-troubleshooting)**.
 *   Your ISP may be throttling UDP entirely — no obfuscation helps there, so a TCP-based protocol is the sturdier answer: **[AmneziaWG → XRay](/en/awg-to-xray)**.
-*   Still stuck? Write to us and we will work through it together: **[Contacting Support](/en/support)**.
+
+::: warning Protocol tuning is outside hosting support
+We sell a server, not a VPN service. Upgrading the protocol and choosing parameters are on your side — see the **[scope of responsibility](/en/support#scope)**. This guide shares what we and the community have collected, but we cannot debug individual configurations.
+
+*   Questions about the protocol and its parameters belong in the Amnezia community: **[Russian chat](https://t.me/amnezia_vpn)**, **[English](https://t.me/amnezia_vpn_en)**.
+*   Write to **[hosting support](/en/support)** when the server itself is the problem: it will not power on, is unreachable, or shows Bad State.
+:::
+
+## Sources {#sources}
+
+The upgrade procedure, the rollback and the container-renaming trick come from **[Shidla's instructions](https://gitlab.com/ShidlaSGC/amn-instructions/)** — thank you for collecting and verifying this material. For the generator's parameters, see the reference **[how AmneziaWG works](/en/awg-parameters#source)**.

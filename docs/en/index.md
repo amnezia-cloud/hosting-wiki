@@ -78,4 +78,4 @@ This wiki was not written by the support team alone. Amnezia users sent in worki
 
 Thanks to everyone who helped. If you would like to add your own experience, there is a **“Suggest an edit”** button at the bottom of every page, and questions or corrections are welcome via **[support](/en/support)**.
 
-<p class="amz-credit">Special thanks to <strong>Shidla</strong> for helping with this wiki.</p>
+<p class="amz-credit">Special thanks to <strong>Shidla</strong> for helping with this wiki and for the <a href="https://gitlab.com/ShidlaSGC/amn-instructions/" target="_blank" rel="noreferrer">Amnezia instructions</a> our AmneziaWG pages are built from.</p>

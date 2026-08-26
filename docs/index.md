@@ -78,4 +78,4 @@ features:
 
 Спасибо всем, кто помогал. Если хотите добавить свой опыт — в конце каждой страницы есть кнопка **«Предложить правку»**, а вопросы и замечания можно писать в **[поддержку](/support)**.
 
-<p class="amz-credit">Отдельное спасибо <strong>Shidla</strong> за помощь с этой вики.</p>
+<p class="amz-credit">Отдельное спасибо <strong>Shidla</strong> за помощь с этой вики и за <a href="https://gitlab.com/ShidlaSGC/amn-instructions/" target="_blank" rel="noreferrer">инструкции по Amnezia</a>, из которых собраны наши страницы про AmneziaWG.</p>
