@@ -1,6 +1,6 @@
 ---
 title: "AmneziaWG: How It Works and What Each Parameter Means"
-description: "How AmneziaWG differs from WireGuard, what each version from 1.0 to 3.0 added, which parameters must match the server and which are client-side only, and how to pick an MTU."
+description: "How AmneziaWG differs from WireGuard, what each version from 1.0 to 3.1 added, which parameters must match the server and which are client-side only, and how to pick an MTU."
 head:
   - - meta
     - name: keywords
@@ -147,6 +147,6 @@ For AmneziaWG 3.1 the recommendation is to set **MTU = 1280** straight away — 
 This page is assembled from community material rather than written by us from scratch:
 
 *   **[The ARCHITECT generator FAQ](https://architect.vai-rice.space/faq)** — how the protocol works, the parameter breakdown, and citations to the places in the code the behaviour follows from.
-*   **[Shidla's instructions](https://gitlab.com/ShidlaSGC/amn-instructions/)** — version identification, the 3.1 markers and practical procedures.
+*   **[Shidla's AmneziaWG instructions](https://gitlab.com/ShidlaSGC/amn-instructions/-/blob/main/%D0%9F%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB%20AmneziaWG.md)** — version identification, the 3.1 markers and practical procedures.
 
 Thank you to the authors for putting any of this in writing at all.

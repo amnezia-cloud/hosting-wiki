@@ -32,7 +32,7 @@ Version 3.x added transport protection, which hides not just the handshake but t
 
 Obfuscation values are easier to generate than to invent:
 
-*   [architect.vai-rice.space](https://architect.vai-rice.space/)
+*   [architect.vai-rice.space](https://architect.vai-rice.space/amneziawg/)
 *   [voidwaifu.github.io/Special-Junk-Packet-List](https://voidwaifu.github.io/Special-Junk-Packet-List/) — the site has a button with filling instructions
 *   [spatiumstas.github.io/junker](https://spatiumstas.github.io/junker/)
 *   [sageptr.github.io/mini_quic_generator](https://sageptr.github.io/mini_quic_generator/)
@@ -58,7 +58,7 @@ If you mimic DNS, use port `53`. For web traffic (QUIC / HTTP3), use port `443`.
 
 Steps:
 
-1.  Generate the parameters at [architect.vai-rice.space](https://architect.vai-rice.space/).
+1.  Generate the parameters at [architect.vai-rice.space](https://architect.vai-rice.space/amneziawg/).
 2.  In the AmneziaVPN app open **“Server settings” → “AmneziaWG” → “AmneziaWG server settings”**.
 3.  Transfer the generated values into the matching fields manually.
 4.  Save the changes.
@@ -130,4 +130,4 @@ We sell a server, not a VPN service. Choosing obfuscation parameters and configu
 
 ## Sources {#sources}
 
-The practical procedures on this page come from **[Shidla's instructions](https://gitlab.com/ShidlaSGC/amn-instructions/)** — thank you for collecting and verifying this material. For the parameters themselves, see the reference **[how AmneziaWG works](/en/awg-parameters#source)**.
+The practical procedures on this page come from **[Shidla's AmneziaWG instructions](https://gitlab.com/ShidlaSGC/amn-instructions/-/blob/main/%D0%9F%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB%20AmneziaWG.md)** — thank you for collecting and verifying this material. For the parameters themselves, see the reference **[how AmneziaWG works](/en/awg-parameters#source)**.

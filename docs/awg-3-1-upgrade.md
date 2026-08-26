@@ -64,7 +64,7 @@ head:
 
 Порядок действий:
 
-1.  Сгенерируйте параметры на сайте **[architect.vai-rice.space/amneziawg](https://architect.vai-rice.space/amneziawg)**.
+1.  Сгенерируйте параметры на сайте **[architect.vai-rice.space/amneziawg](https://architect.vai-rice.space/amneziawg/)**.
 2.  В приложении AmneziaVPN откройте **«Настройки сервера» → «AmneziaWG» → «AmneziaWG настройки сервера»**.
 3.  Вручную перенесите все сгенерированные значения в соответствующие поля.
 4.  Сохраните изменения.
@@ -159,4 +159,4 @@ docker ps | grep amnezia
 
 ## Источники {#sources}
 
-Порядок обновления, откат и схема с переименованием контейнера взяты из **[инструкций Shidla](https://gitlab.com/ShidlaSGC/amn-instructions/)** — спасибо за собранный и проверенный материал. Разбор параметров генератора — в справочнике **[как устроен AmneziaWG](/awg-parameters#source)**.
+Порядок обновления, откат и схема с переименованием контейнера взяты из **[инструкций Shidla — «Протокол AmneziaWG»](https://gitlab.com/ShidlaSGC/amn-instructions/-/blob/main/%D0%9F%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB%20AmneziaWG.md)** — спасибо за собранный и проверенный материал. Разбор параметров генератора — в справочнике **[как устроен AmneziaWG](/awg-parameters#source)**.

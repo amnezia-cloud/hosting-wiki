@@ -60,7 +60,7 @@ We strongly recommend not leaving the parameters the container receives by defau
 
 Steps:
 
-1.  Generate the parameters at **[architect.vai-rice.space/amneziawg](https://architect.vai-rice.space/amneziawg)**.
+1.  Generate the parameters at **[architect.vai-rice.space/amneziawg](https://architect.vai-rice.space/amneziawg/)**.
 2.  In the AmneziaVPN app open **“Server settings” → “AmneziaWG” → “AmneziaWG server settings”**.
 3.  Transfer every generated value into the matching field manually.
 4.  Save the changes.
@@ -155,4 +155,4 @@ We sell a server, not a VPN service. Upgrading the protocol and choosing paramet
 
 ## Sources {#sources}
 
-The upgrade procedure, the rollback and the container-renaming trick come from **[Shidla's instructions](https://gitlab.com/ShidlaSGC/amn-instructions/)** — thank you for collecting and verifying this material. For the generator's parameters, see the reference **[how AmneziaWG works](/en/awg-parameters#source)**.
+The upgrade procedure, the rollback and the container-renaming trick come from **[Shidla's AmneziaWG instructions](https://gitlab.com/ShidlaSGC/amn-instructions/-/blob/main/%D0%9F%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB%20AmneziaWG.md)** — thank you for collecting and verifying this material. For the generator's parameters, see the reference **[how AmneziaWG works](/en/awg-parameters#source)**.

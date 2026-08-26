@@ -133,4 +133,9 @@ docker restart amnezia-xray && docker exec amnezia-xray xray -version
 
 This affects very old AmneziaVPN builds: the XRay protocol was installed by an outdated app version. A full reinstall is required — remove XRay from the server through the app (the “Management” menu) and install it again.
 
-Still no luck? Write to us and we will work it out together: **[Contacting Support](/en/support)**.
+::: warning Protocol tuning is outside hosting support
+We sell a server, not a VPN service. Choosing the masking domain, the fingerprint and the routing rules is on your side — see the **[scope of responsibility](/en/support#scope)**. This page shares what we and the community have collected, but we cannot debug individual configurations.
+
+*   Questions about the protocol and its parameters belong in the Amnezia community: **[Russian chat](https://t.me/amnezia_vpn)**, **[English](https://t.me/amnezia_vpn_en)**.
+*   Write to **[hosting support](/en/support)** when the server itself is the problem: it will not power on, is unreachable, or shows Bad State.
+:::

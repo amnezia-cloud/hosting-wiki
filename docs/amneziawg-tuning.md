@@ -32,7 +32,7 @@ head:
 
 Значения обфускации удобнее не придумывать, а генерировать:
 
-*   [architect.vai-rice.space](https://architect.vai-rice.space/)
+*   [architect.vai-rice.space](https://architect.vai-rice.space/amneziawg/)
 *   [voidwaifu.github.io/Special-Junk-Packet-List](https://voidwaifu.github.io/Special-Junk-Packet-List/) — на сайте есть кнопка с инструкцией по заполнению
 *   [spatiumstas.github.io/junker](https://spatiumstas.github.io/junker/)
 *   [sageptr.github.io/mini_quic_generator](https://sageptr.github.io/mini_quic_generator/)
@@ -58,7 +58,7 @@ I2 = <b 0xd300...>
 
 Порядок действий:
 
-1.  Сгенерируйте параметры на [architect.vai-rice.space](https://architect.vai-rice.space/).
+1.  Сгенерируйте параметры на [architect.vai-rice.space](https://architect.vai-rice.space/amneziawg/).
 2.  В приложении AmneziaVPN откройте **«Настройки сервера» → «AmneziaWG» → «AmneziaWG настройки сервера»**.
 3.  Перенесите сгенерированные значения в соответствующие поля вручную.
 4.  Сохраните изменения.
@@ -130,4 +130,4 @@ curl -O https://raw.githubusercontent.com/nastyagrifon/amnezia-backup/refs/heads
 
 ## Источники {#sources}
 
-Практические сценарии на этой странице взяты из **[инструкций Shidla](https://gitlab.com/ShidlaSGC/amn-instructions/)** — спасибо за собранный и проверенный материал. Разбор самих параметров — в справочнике **[как устроен AmneziaWG](/awg-parameters#source)**.
+Практические сценарии на этой странице взяты из **[инструкций Shidla — «Протокол AmneziaWG»](https://gitlab.com/ShidlaSGC/amn-instructions/-/blob/main/%D0%9F%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB%20AmneziaWG.md)** — спасибо за собранный и проверенный материал. Разбор самих параметров — в справочнике **[как устроен AmneziaWG](/awg-parameters#source)**.
