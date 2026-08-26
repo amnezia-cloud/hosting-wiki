@@ -106,7 +106,17 @@ wget -qO- https://raw.githubusercontent.com/VadimBoev/bbr/main/enable_bbr.sh | b
 
 ## Updating the XRay core {#core-update}
 
+::: info Only for a container deployed through AmneziaVPN
+Everything below applies to the `amnezia-xray` container that the AmneziaVPN app deploys. If XRay was installed some other way — by hand, with your own script, or through the **[3X-UI panel](/en/3x-ui)** — the container name and paths differ and these commands will not fit.
+:::
+
 The latest check was done with XRay-core `v26.3.27`.
+
+::: warning Compare the versions first — otherwise you may roll back
+This procedure installs the latest **release** core. Recent AmneziaVPN builds may ship a core that is newer than the latest release — a non-release build. Check your current version with the first command and compare it against the latest release: if yours is already newer, there is nothing to update and you would only move backwards.
+
+Exactly which app version this starts from is still being confirmed; presumably 5.0.1.5.
+:::
 
 ```bash
 # current core version
