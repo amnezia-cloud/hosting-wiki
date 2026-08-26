@@ -31,10 +31,10 @@ An index of every walkthrough. Each question has its own article — open the on
 
 | Question | In short |
 | :--- | :--- |
+| **[AmneziaWG: upgrading from 2.0 to 3.1](/en/awg-3-1-upgrade)** | Reinstalling the protocol, default parameters, rollback to 2.0 |
 | **[Which protocol to choose](/en/protocols)** | AmneziaWG for speed, XRay / VLESS to defeat blocking |
 | **[XRay: masking and tuning](/en/xray-tuning)** | A domain in your subnet, verification, fingerprint, BBR |
 | **[AmneziaWG: versions and tuning](/en/amneziawg-tuning)** | Versions 1.0 / 1.5 / 2.0, obfuscation parameters, subnet |
-| **[AmneziaWG: upgrading from 2.0 to 3.1](/en/awg-3-1-upgrade)** | Reinstalling the protocol, default parameters, rollback to 2.0 |
 | **[One server for multiple devices](/en/multiple-devices)** | Yes, up to 10 devices; one key each |
 | **[How much traffic the VPN uses](/en/traffic-usage)** | Every gigabyte passes through the server twice |
 

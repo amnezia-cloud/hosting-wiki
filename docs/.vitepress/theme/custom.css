@@ -87,6 +87,13 @@
   --vp-button-brand-border: transparent;
   --vp-button-brand-hover-border: transparent;
 
+  /* Красный акцент — только для баннера-предупреждения, вне брендовой палитры */
+  --amz-alert-bg: rgba(214, 31, 31, 0.07);
+  --amz-alert-bg-hover: rgba(214, 31, 31, 0.11);
+  --amz-alert-border: rgba(214, 31, 31, 0.32);
+  --amz-alert-accent: #c81e1e;
+  --amz-alert-chip-text: #ffffff;
+
   /* Футер — всегда тёмный (в нём светлый текст) */
   --amz-footer-bg: #0a0b0d;
 
@@ -142,6 +149,12 @@
   --vp-button-brand-active-bg: #00a82e;
   --vp-button-brand-text: #04140a;
   --vp-button-brand-hover-text: #04140a;
+
+  --amz-alert-bg: rgba(255, 90, 90, 0.1);
+  --amz-alert-bg-hover: rgba(255, 90, 90, 0.16);
+  --amz-alert-border: rgba(255, 90, 90, 0.34);
+  --amz-alert-accent: #ff6b6b;
+  --amz-alert-chip-text: #180506;
 
   --amz-footer-bg: #050608;
 }
@@ -443,6 +456,71 @@ body {
   border: 1px solid var(--vp-c-divider);
   border-radius: 6px;
   font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   8.2. КРАСНЫЙ БАННЕР (важная статья — над hero и над текстом страниц)
+   -------------------------------------------------------------------------- */
+.amz-banner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin: 0 0 28px;
+  padding: 14px 18px;
+  border: 1px solid var(--amz-alert-border);
+  border-left: 4px solid var(--amz-alert-accent);
+  border-radius: 12px;
+  background: var(--amz-alert-bg);
+  box-shadow: var(--amz-shadow-sm);
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.amz-banner:hover {
+  background: var(--amz-alert-bg-hover);
+  border-color: var(--amz-alert-accent);
+}
+.amz-banner__tag {
+  flex: none;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--amz-alert-accent);
+  color: var(--amz-alert-chip-text);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.amz-banner__body {
+  flex: 1 1 260px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.amz-banner__title {
+  font-weight: 700;
+  line-height: 1.35;
+}
+.amz-banner__lead {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--vp-c-text-2);
+}
+.amz-banner__cta {
+  flex: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--amz-alert-accent);
+  white-space: nowrap;
+}
+
+/* На главной баннер живёт над hero, вне колонки контента — задаём габариты сами. */
+.VPHome .amz-banner {
+  width: calc(100% - 48px);
+  max-width: 1152px;
+  margin: 32px auto 0;
 }
 
 /* --------------------------------------------------------------------------

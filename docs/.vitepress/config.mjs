@@ -116,6 +116,23 @@ export default defineConfig({
         ],
         sidebar: [
           {
+            text: 'Важное сейчас',
+            items: [
+              {
+                text: '🆙 AmneziaWG: с 2.0 на 3.1',
+                link: '/awg-3-1-upgrade',
+                collapsed: true,
+                items: [
+                  { text: 'Как перейти на 3.1', link: '/awg-3-1-upgrade#upgrade' },
+                  { text: 'Параметры по умолчанию', link: '/awg-3-1-upgrade#defaults' },
+                  { text: 'Что даёт генератор', link: '/awg-3-1-upgrade#parameters' },
+                  { text: 'Ограничения клиентов', link: '/awg-3-1-upgrade#clients' },
+                  { text: 'Откат на 2.0', link: '/awg-3-1-upgrade#rollback' }
+                ]
+              }
+            ]
+          },
+          {
             text: 'Новости',
             items: [{ text: '📰 Новости Amnezia Hosting', link: '/news' }]
           },
@@ -201,18 +218,6 @@ export default defineConfig({
                   { text: 'AWG 1.0 и 1.5', link: '/amneziawg-tuning#legacy' },
                   { text: 'AWG 2.0 и мимикрия', link: '/amneziawg-tuning#awg2' },
                   { text: 'Смена подсети', link: '/amneziawg-tuning#subnet' }
-                ]
-              },
-              {
-                text: '🆙 AmneziaWG: с 2.0 на 3.1',
-                link: '/awg-3-1-upgrade',
-                collapsed: true,
-                items: [
-                  { text: 'Как перейти на 3.1', link: '/awg-3-1-upgrade#upgrade' },
-                  { text: 'Параметры по умолчанию', link: '/awg-3-1-upgrade#defaults' },
-                  { text: 'Что даёт генератор', link: '/awg-3-1-upgrade#parameters' },
-                  { text: 'Ограничения клиентов', link: '/awg-3-1-upgrade#clients' },
-                  { text: 'Откат на 2.0', link: '/awg-3-1-upgrade#rollback' }
                 ]
               },
               {
@@ -394,6 +399,23 @@ export default defineConfig({
         ],
         sidebar: [
           {
+            text: 'Important right now',
+            items: [
+              {
+                text: '🆙 AmneziaWG: 2.0 to 3.1',
+                link: '/en/awg-3-1-upgrade',
+                collapsed: true,
+                items: [
+                  { text: 'Moving to 3.1', link: '/en/awg-3-1-upgrade#upgrade' },
+                  { text: 'Default parameters', link: '/en/awg-3-1-upgrade#defaults' },
+                  { text: 'What the generator does', link: '/en/awg-3-1-upgrade#parameters' },
+                  { text: 'Client limitations', link: '/en/awg-3-1-upgrade#clients' },
+                  { text: 'Rolling back to 2.0', link: '/en/awg-3-1-upgrade#rollback' }
+                ]
+              }
+            ]
+          },
+          {
             text: 'News',
             items: [{ text: '📰 Amnezia Hosting News', link: '/en/news' }]
           },
@@ -479,18 +501,6 @@ export default defineConfig({
                   { text: 'AWG 1.0 and 1.5', link: '/en/amneziawg-tuning#legacy' },
                   { text: 'AWG 2.0 and mimicry', link: '/en/amneziawg-tuning#awg2' },
                   { text: 'Changing the subnet', link: '/en/amneziawg-tuning#subnet' }
-                ]
-              },
-              {
-                text: '🆙 AmneziaWG: 2.0 to 3.1',
-                link: '/en/awg-3-1-upgrade',
-                collapsed: true,
-                items: [
-                  { text: 'Moving to 3.1', link: '/en/awg-3-1-upgrade#upgrade' },
-                  { text: 'Default parameters', link: '/en/awg-3-1-upgrade#defaults' },
-                  { text: 'What the generator does', link: '/en/awg-3-1-upgrade#parameters' },
-                  { text: 'Client limitations', link: '/en/awg-3-1-upgrade#clients' },
-                  { text: 'Rolling back to 2.0', link: '/en/awg-3-1-upgrade#rollback' }
                 ]
               },
               {
