@@ -11,6 +11,8 @@ head:
 
 The settings below are a technical best practice rather than a guarantee: they noticeably reduce how visible your traffic is to DPI and make the server's disguise plausible, but promising a hundred-percent bypass would not be honest.
 
+The app currently exposes two main XRay parameters — the **port** and the **masking site**. More are expected in version 4.9.0.0.
+
 ::: warning Re-issue the configs after any change
 Changing the port, the masking domain, or the fingerprint invalidates existing configurations. Hand out new ones to your users.
 :::
@@ -127,7 +129,39 @@ docker restart amnezia-xray && docker exec amnezia-xray xray -version
 
 1.  Check the core version and update it if needed — see **[Updating the core](#core-update)**.
 2.  Re-run the **[domain verification](#verify)**: it may have gone offline, changed its certificate, or moved behind a CDN.
-3.  If the checks pass, **switch the fingerprint from `chrome` to `firefox`** on the client. This helps most often: in the native XRay format (`.json`), in the AmneziaVPN settings, or in the `vless://` link (the `fp=firefox` parameter). In the 3X-UI panel it is the **uTLS** field: **[3X-UI Panel](/en/3x-ui#inbound)**.
+3.  If the checks pass, **switch the fingerprint from `chrome` to `firefox`** on the client. This helps most often; how exactly you do it depends on the key format — see the next section.
+
+## Switching the fingerprint from chrome to firefox {#fingerprint}
+
+The edit is always the same — the word `chrome` becomes `firefox` — but where you find it differs.
+
+### Native XRay format (a `.json` file) {#fp-json}
+
+Open the file in a text editor, find the line `"fingerprint": "chrome",`, replace `chrome` with `firefox`, save, and load the file into AmneziaVPN.
+
+### A `vless://` link {#fp-vless}
+
+The simplest case: it is just a string. Find `fp=chrome` in it, change it to `fp=firefox`, and add the new link to the app.
+
+### An AmneziaVPN key (`vpn://`) {#fp-vpn}
+
+A `vpn://` key is a packed config, so you cannot edit it by hand. There are two ways.
+
+**Option 1 — Windows only.** Download the official decoder [amnezia-vpn/config-decoder](https://github.com/amnezia-vpn/config-decoder/releases) (the `cfgview.exe` file) and run it.
+
+1.  Paste the `vpn://` link into the top field — the decoded config appears below.
+2.  Find `"fingerprint\": \"chrome\"` in the decoded text and change `chrome` to `firefox`.
+3.  The `vpn://` link in the top field updates itself — add it to AmneziaVPN.
+
+**Option 2 — universal, works anywhere.** Open **[architect.vai-rice.space/mergekeys](https://architect.vai-rice.space/mergekeys)**.
+
+1.  Paste your `vpn://` key and press the **JSON** button.
+2.  In the `"last_config"` line, find `"fingerprint\": \"chrome\"` and change `chrome` to `firefox`.
+3.  Export the modified `vpn://` — it is copied to your clipboard. Add it to AmneziaVPN.
+
+### The 3X-UI panel {#fp-3x-ui}
+
+Here the fingerprint is the **uTLS** field: **[3X-UI Panel](/en/3x-ui#inbound)**.
 
 ## Only the first user shows up in the app {#one-user}
 
@@ -139,3 +173,7 @@ We sell a server, not a VPN service. Choosing the masking domain, the fingerprin
 *   Questions about the protocol and its parameters belong in the Amnezia community: **[Russian chat](https://t.me/amnezia_vpn)**, **[English](https://t.me/amnezia_vpn_en)**.
 *   Write to **[hosting support](/en/support)** when the server itself is the problem: it will not power on, is unreachable, or shows Bad State.
 :::
+
+## Sources {#sources}
+
+The material on this page comes from **[Shidla's XRay instructions](https://gitlab.com/ShidlaSGC/amn-instructions/)** — thank you for collecting and verifying it.

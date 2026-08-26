@@ -142,6 +142,19 @@ export default defineConfig({
                   { text: 'Параметры по отдельности', link: '/awg-parameters#parameters' },
                   { text: 'Как выбрать MTU', link: '/awg-parameters#mtu' }
                 ]
+              },
+              {
+                text: '⚡ XRay (VLESS): маскировка и настройка',
+                link: '/xray-tuning',
+                collapsed: true,
+                items: [
+                  { text: 'Порт: всегда 443', link: '/xray-tuning#port' },
+                  { text: 'Домен маскировки', link: '/xray-tuning#domain' },
+                  { text: 'Проверка домена', link: '/xray-tuning#verify' },
+                  { text: 'Смена fingerprint', link: '/xray-tuning#fingerprint' },
+                  { text: 'Ускорение BBR', link: '/xray-tuning#bbr' },
+                  { text: 'Обновление ядра', link: '/xray-tuning#core-update' }
+                ]
               }
             ]
           },
@@ -207,18 +220,6 @@ export default defineConfig({
                   { text: 'Выдача ключа клиенту', link: '/3x-ui#client-key' },
                   { text: 'Блокировка рекламы и ру-доменов', link: '/3x-ui#routing' },
                   { text: 'Команды x-ui', link: '/3x-ui#cli' }
-                ]
-              },
-              {
-                text: '⚡ XRay: маскировка и настройка',
-                link: '/xray-tuning',
-                collapsed: true,
-                items: [
-                  { text: 'Домен маскировки', link: '/xray-tuning#domain' },
-                  { text: 'Проверка домена', link: '/xray-tuning#verify' },
-                  { text: 'Ускорение BBR', link: '/xray-tuning#bbr' },
-                  { text: 'Обновление ядра', link: '/xray-tuning#core-update' },
-                  { text: 'XRay перестал подключаться', link: '/xray-tuning#troubleshooting' }
                 ]
               },
               {
@@ -440,6 +441,19 @@ export default defineConfig({
                   { text: 'The parameters one by one', link: '/en/awg-parameters#parameters' },
                   { text: 'How to pick an MTU', link: '/en/awg-parameters#mtu' }
                 ]
+              },
+              {
+                text: '⚡ XRay (VLESS): masking and tuning',
+                link: '/en/xray-tuning',
+                collapsed: true,
+                items: [
+                  { text: 'Port: always 443', link: '/en/xray-tuning#port' },
+                  { text: 'Masking domain', link: '/en/xray-tuning#domain' },
+                  { text: 'Verifying the domain', link: '/en/xray-tuning#verify' },
+                  { text: 'Switching the fingerprint', link: '/en/xray-tuning#fingerprint' },
+                  { text: 'BBR acceleration', link: '/en/xray-tuning#bbr' },
+                  { text: 'Updating the core', link: '/en/xray-tuning#core-update' }
+                ]
               }
             ]
           },
@@ -505,18 +519,6 @@ export default defineConfig({
                   { text: 'Issuing a client key', link: '/en/3x-ui#client-key' },
                   { text: 'Blocking ads and RU domains', link: '/en/3x-ui#routing' },
                   { text: 'x-ui commands', link: '/en/3x-ui#cli' }
-                ]
-              },
-              {
-                text: '⚡ XRay: masking and tuning',
-                link: '/en/xray-tuning',
-                collapsed: true,
-                items: [
-                  { text: 'Masking domain', link: '/en/xray-tuning#domain' },
-                  { text: 'Verifying the domain', link: '/en/xray-tuning#verify' },
-                  { text: 'BBR acceleration', link: '/en/xray-tuning#bbr' },
-                  { text: 'Updating the core', link: '/en/xray-tuning#core-update' },
-                  { text: 'XRay stopped connecting', link: '/en/xray-tuning#troubleshooting' }
                 ]
               },
               {
