@@ -35,6 +35,7 @@ An index of every walkthrough. Each question has its own article — open the on
 | **[How AmneziaWG works](/en/awg-parameters)** | Versus WireGuard, versions 1.0–3.0, what must match, MTU |
 | **[Which protocol to choose](/en/protocols)** | AmneziaWG for speed, XRay / VLESS to defeat blocking |
 | **[XRay: masking and tuning](/en/xray-tuning)** | A domain in your subnet, verification, fingerprint, BBR |
+| **[Self-SNI for VLESS + Reality](/en/self-sni)** | Your own domain instead of someone else's: DuckDNS, nginx, Let's Encrypt, 3X-UI |
 | **[AmneziaWG: versions and tuning](/en/amneziawg-tuning)** | Versions 1.0 / 1.5 / 2.0, obfuscation parameters, subnet |
 | **[One server for multiple devices](/en/multiple-devices)** | Yes, up to 10 devices; one key each |
 | **[How much traffic the VPN uses](/en/traffic-usage)** | Every gigabyte passes through the server twice |

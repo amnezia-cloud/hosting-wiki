@@ -11,8 +11,6 @@ head:
 
 The settings below are a technical best practice rather than a guarantee: they noticeably reduce how visible your traffic is to DPI and make the server's disguise plausible, but promising a hundred-percent bypass would not be honest.
 
-The app currently exposes two main XRay parameters — the **port** and the **masking site**. More are expected in version 4.9.0.0.
-
 ::: warning Re-issue the configs after any change
 Changing the port, the masking domain, or the fingerprint invalidates existing configurations. Hand out new ones to your users.
 :::
@@ -26,6 +24,10 @@ Keep `443` — the standard port for encrypted web traffic. We disguise the VPN 
 Popular sites such as `google.com` or `github.com` actually reduce security: censorship systems see the mismatch — your server's IP (say `15.x.x.x`) and Google's real IP (`182.x.x.x`) live in completely different networks.
 
 The goal is a donor site that resides in the same subnet as your server. The **RealiTLScanner** utility helps with that.
+
+::: tip There is an option without a foreign domain
+You can stand up your own site on your own domain and mask behind that — then the IP, the domain and the certificate match by construction: **[Self-SNI for VLESS + Reality](/en/self-sni)**.
+:::
 
 ::: danger Scan only from your own computer
 Running the scanner from inside the VPS may look like network scanning to your host and get the server suspended. Work from your home machine.

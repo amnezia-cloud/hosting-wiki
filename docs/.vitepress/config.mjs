@@ -155,6 +155,21 @@ export default defineConfig({
                   { text: 'Ускорение BBR', link: '/xray-tuning#bbr' },
                   { text: 'Обновление ядра', link: '/xray-tuning#core-update' }
                 ]
+              },
+              {
+                text: '🔐 Self-SNI для VLESS + Reality',
+                link: '/self-sni',
+                collapsed: true,
+                items: [
+                  { text: 'Что это и зачем', link: '/self-sni#why' },
+                  { text: 'Бесплатный домен', link: '/self-sni#domain' },
+                  { text: 'Сайт-прикрытие', link: '/self-sni#decoy' },
+                  { text: 'Сертификат Let\'s Encrypt', link: '/self-sni#cert' },
+                  { text: 'Почему 443 не конфликтует', link: '/self-sni#ports' },
+                  { text: 'Reality в 3X-UI', link: '/self-sni#reality' },
+                  { text: 'Ссылка для клиента', link: '/self-sni#link' },
+                  { text: 'Частые ошибки', link: '/self-sni#errors' }
+                ]
               }
             ]
           },
@@ -453,6 +468,21 @@ export default defineConfig({
                   { text: 'Switching the fingerprint', link: '/en/xray-tuning#fingerprint' },
                   { text: 'BBR acceleration', link: '/en/xray-tuning#bbr' },
                   { text: 'Updating the core', link: '/en/xray-tuning#core-update' }
+                ]
+              },
+              {
+                text: '🔐 Self-SNI for VLESS + Reality',
+                link: '/en/self-sni',
+                collapsed: true,
+                items: [
+                  { text: 'What it is and why', link: '/en/self-sni#why' },
+                  { text: 'A free domain', link: '/en/self-sni#domain' },
+                  { text: 'The decoy site', link: '/en/self-sni#decoy' },
+                  { text: 'Let\'s Encrypt certificate', link: '/en/self-sni#cert' },
+                  { text: 'Why 443 does not clash', link: '/en/self-sni#ports' },
+                  { text: 'Reality in 3X-UI', link: '/en/self-sni#reality' },
+                  { text: 'The client link', link: '/en/self-sni#link' },
+                  { text: 'Common mistakes', link: '/en/self-sni#errors' }
                 ]
               }
             ]
