@@ -25,7 +25,7 @@ Open the `.conf` file in any text editor and look at the parameters:
 | **AWG Legacy 1.5** | everything from 1.0 plus the `I1`–`I5` parameters |
 | **AWG 2.0** | `H1`–`H4` are ranges, e.g. `H1 = 666067622-666092814`, plus the new `S3` and `S4` |
 
-Version 3.x added transport protection, which hides not just the handshake but the running tunnel as well. For the move and the rollback, see **[upgrading from 2.0 to 3.1](/en/awg-3-1-upgrade)**.
+Version 3.x added transport protection, which hides not just the handshake but the running tunnel as well. For the move and the rollback, see **[upgrading from 2.0 to 3.1](/en/awg-3-1-upgrade)**. For what each version added and what every parameter means, see the reference **[how AmneziaWG works](/en/awg-parameters)**.
 
 ## Parameter generators {#generators}
 

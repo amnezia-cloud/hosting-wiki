@@ -32,6 +32,7 @@ An index of every walkthrough. Each question has its own article — open the on
 | Question | In short |
 | :--- | :--- |
 | **[AmneziaWG: upgrading from 2.0 to 3.1](/en/awg-3-1-upgrade)** | Reinstalling the protocol, default parameters, rollback to 2.0 |
+| **[How AmneziaWG works](/en/awg-parameters)** | Versus WireGuard, versions 1.0–3.0, what must match, MTU |
 | **[Which protocol to choose](/en/protocols)** | AmneziaWG for speed, XRay / VLESS to defeat blocking |
 | **[XRay: masking and tuning](/en/xray-tuning)** | A domain in your subnet, verification, fingerprint, BBR |
 | **[AmneziaWG: versions and tuning](/en/amneziawg-tuning)** | Versions 1.0 / 1.5 / 2.0, obfuscation parameters, subnet |

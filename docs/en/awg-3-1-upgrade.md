@@ -17,11 +17,36 @@ If AmneziaWG 2.0 connects and works for you, there is no need to touch anything.
 
 ## How to move to 3.1 {#upgrade}
 
-There is no in-place upgrade: the container on the server is deployed from scratch. In the **AmneziaVPN** app:
+There is no in-place upgrade: the protocol is removed from the server and installed again, and the app deploys the current version of the container. Everything happens in the **AmneziaVPN** app — no SSH access to the server is needed.
 
-1.  Open **“Server settings” → “AmneziaWG”**.
-2.  **Remove the protocol** from the server.
-3.  **Install it again** — the app will deploy the current version of the container.
+### Step 1. Open the server settings {#step-1}
+
+In the server list, tap the **gear ⚙️** to the right of the server you want. The server's IP address is shown under its name — make sure it is the right one.
+
+### Step 2. Open the protocol {#step-2}
+
+The server page opens with the **Protocols**, **Services** and **Management** tabs. On the **Protocols** tab, tap the **AmneziaWG** row — the **›** arrow on the right.
+
+### Step 3. Remove the protocol {#step-3}
+
+The **AmneziaWG settings** screen has four entries:
+
+*   **AmneziaWG connection settings**
+*   **AmneziaWG server settings**
+*   **Clear profile**
+*   **Remove** (in red)
+
+Tap **Remove**. This deletes the AmneziaWG container from the server.
+
+::: danger Do not confuse this with “Clear profile”
+`Clear profile` only clears the connection profile on the device — the container on the server stays at its old version and no upgrade happens. **Remove** is the one you need.
+:::
+
+### Step 4. Install the protocol again {#step-4}
+
+Go back to the server list, tap the **gear ⚙️** again and pick **AmneziaWG** on the **Protocols** tab — this time to install it. The app will deploy the current version of the container.
+
+Once it is installed, go straight to the next section: changing the default parameters is not optional.
 
 ::: danger Old profiles will stop working
 Reinstalling the protocol makes previously issued configurations invalid. Generate and distribute new `.conf` files to your users — the old ones will not work on any device.
@@ -51,7 +76,7 @@ Changing the server parameters also invalidates every issued configuration. Re-i
 
 ## What the generator configures {#parameters}
 
-The generator assembles the configuration in groups. You do not have to understand all of it — the values are transferred into the app as they are — but it helps to know what each group is responsible for.
+The generator assembles the configuration in groups. You do not have to understand all of it — the values are transferred into the app as they are — but it helps to know what each group is responsible for. For a detailed breakdown of every parameter and which of them must match the server, see the reference **[how AmneziaWG works](/en/awg-parameters)**.
 
 | Group | What it controls |
 | :--- | :--- |

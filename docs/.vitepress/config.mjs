@@ -129,6 +129,18 @@ export default defineConfig({
                   { text: 'Ограничения клиентов', link: '/awg-3-1-upgrade#clients' },
                   { text: 'Откат на 2.0', link: '/awg-3-1-upgrade#rollback' }
                 ]
+              },
+              {
+                text: '🔬 Как устроен AmneziaWG',
+                link: '/awg-parameters',
+                collapsed: true,
+                items: [
+                  { text: 'Отличие от WireGuard', link: '/awg-parameters#vs-wireguard' },
+                  { text: 'Что добавила каждая версия', link: '/awg-parameters#versions' },
+                  { text: 'Что должно совпадать', link: '/awg-parameters#matching' },
+                  { text: 'Параметры по отдельности', link: '/awg-parameters#parameters' },
+                  { text: 'Как выбрать MTU', link: '/awg-parameters#mtu' }
+                ]
               }
             ]
           },
@@ -411,6 +423,18 @@ export default defineConfig({
                   { text: 'What the generator does', link: '/en/awg-3-1-upgrade#parameters' },
                   { text: 'Client limitations', link: '/en/awg-3-1-upgrade#clients' },
                   { text: 'Rolling back to 2.0', link: '/en/awg-3-1-upgrade#rollback' }
+                ]
+              },
+              {
+                text: '🔬 How AmneziaWG works',
+                link: '/en/awg-parameters',
+                collapsed: true,
+                items: [
+                  { text: 'Versus WireGuard', link: '/en/awg-parameters#vs-wireguard' },
+                  { text: 'What each version added', link: '/en/awg-parameters#versions' },
+                  { text: 'What must match', link: '/en/awg-parameters#matching' },
+                  { text: 'The parameters one by one', link: '/en/awg-parameters#parameters' },
+                  { text: 'How to pick an MTU', link: '/en/awg-parameters#mtu' }
                 ]
               }
             ]
