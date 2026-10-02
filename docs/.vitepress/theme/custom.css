@@ -357,8 +357,9 @@ body {
   .VPDoc.has-aside .content {
     flex-grow: 1;
   }
-  .VPDoc.has-aside .content-container {
-    max-width: 760px;
+  /* .container в селекторе — чтобы перебить scoped-правило VitePress (688px). */
+  .VPDoc.has-aside .container .content-container {
+    max-width: 1040px;
   }
 }
 
