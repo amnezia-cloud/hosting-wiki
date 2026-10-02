@@ -1,81 +1,10 @@
 ---
 layout: home
 title: Amnezia Hosting Wiki
-hero:
-  name: Amnezia Hosting Wiki
-  tagline: База знаний для клиентов Amnezia Hosting — как подключиться к серверу, настроить VPN и управлять хостингом.
-  actions:
-    - theme: brand
-      text: 🚀 Быстрый старт
-      link: /commands
-    - theme: alt
-      text: 👤 Личный кабинет
-      link: https://my.amnezia.host
-    - theme: alt
-      text: 💬 Поддержка в Telegram
-      link: https://t.me/amnezia_hosting_bot
-features:
-  - icon: 🚀
-    title: Быстрый старт
-    details: Первое подключение к серверу по SSH и базовые команды Linux.
-    link: /commands
-  - icon: 🖥️
-    title: Управление сервером
-    details: Личный кабинет, действия с сервером (Power On / Reset) и подключение по SSH.
-    link: /server-management
-  - icon: 🔁
-    title: Переход с Amnezia Premium
-    details: Перенесём остаток подписки на ваш сервер — помогаем на каждом шаге.
-    link: /premium-migration
-  - icon: 🔄
-    title: Переустановка ОС
-    details: Как вернуть сервер к чистой системе и почему это работает не на всех VPS.
-    link: /reinstall
-  - icon: 🛡️
-    title: Настройка VPN
-    details: Запуск личного VPN за три шага через приложение AmneziaVPN.
-    link: /vpn-setup
-  - icon: 🔌
-    title: Протоколы
-    details: AmneziaWG и XRay / VLESS Reality — чем отличаются и что выбрать.
-    link: /protocols
-  - icon: 📊
-    title: Панель 3X-UI
-    details: Веб-панель для управления ключами доступа и протоколами.
-    link: /3x-ui
-  - icon: 🔒
-    title: Безопасность сервера
-    details: UFW, смена порта SSH, fail2ban и базовый харденинг VPS.
-    link: /security
-  - icon: 🩺
-    title: Не подключается VPN
-    details: "Пошаговая диагностика: ошибка 305, проверка по SSH, блокировки провайдера."
-    link: /vpn-troubleshooting
-  - icon: ❓
-    title: Частые вопросы
-    details: Указатель по всем разборам — каждый вопрос отдельной статьёй.
-    link: /faq
-  - icon: 💬
-    title: Обращение в поддержку
-    details: Чеклист данных, готовый шаблон тикета и зона ответственности.
-    link: /support
+# Главная целиком рисуется компонентом AmzHome (theme/Home.js): плитки
+# разделов строятся из сайдбара в config.mjs. Без типографики .vp-doc —
+# у главной своя вёрстка.
+markdownStyles: false
 ---
 
-## С чего начать
-
-1. Зайдите в **[личный кабинет](https://my.amnezia.host)** — там выдаются данные сервера (IP, логин, пароль) и доступны действия с ним (перезагрузка, переустановка ОС).
-2. Подключитесь к серверу по SSH — раздел **[Быстрый старт](/commands)** объясняет, как это сделать, даже если вы никогда не работали с консолью.
-3. Установите приложение **[AmneziaVPN](https://amnezia.org)** и настройте VPN за три шага — раздел **[Настройка VPN](/vpn-setup)**.
-4. Если что-то пошло не так — загляните в **[FAQ](/faq)** или напишите в **[поддержку Telegram](https://t.me/amnezia_hosting_bot)**.
-
-::: tip Один сервер — весь набор возможностей
-Помимо VPN на сервере можно поднять защищённое хранилище файлов или сайт в сети Tor — всё через одно и то же приложение AmneziaVPN.
-:::
-
-## 🙌 Собрано вместе с сообществом
-
-Эта вики появилась не только силами поддержки. Пользователи Amnezia присылали рабочие настройки, скриншоты, разборы ошибок и правки к текстам — благодаря им инструкции описывают то, что реально происходит на серверах и в сетях провайдеров, а не идеальный сценарий.
-
-Спасибо всем, кто помогал. Если хотите добавить свой опыт — в конце каждой страницы есть кнопка **«Предложить правку»**, а вопросы и замечания можно писать в **[поддержку](/support)**.
-
-<p class="amz-credit">Отдельное спасибо <strong>Shidla</strong> за помощь с этой вики и за <a href="https://gitlab.com/ShidlaSGC/amn-instructions/" target="_blank" rel="noreferrer">инструкции по Amnezia</a>, из которых собраны наши страницы про AmneziaWG.</p>
+<AmzHome />

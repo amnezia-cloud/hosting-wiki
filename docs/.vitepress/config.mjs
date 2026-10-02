@@ -6,6 +6,10 @@ const socialLinks = [
 ]
 
 const SUPPORT_TELEGRAM = 'https://t.me/amnezia_hosting_bot'
+const TELEGRAM_CHANNEL = 'https://t.me/amneziahosting'
+const SITE = 'https://amnezia.host'
+// Зеркало сайта — на случай, если amnezia.host недоступен.
+const SITE_MIRROR = 'https://storage.googleapis.com/amnezia/my.host'
 
 // Футер строится под локаль: юридические страницы на amnezia.host живут
 // по локализованным адресам (/ru/… и /en/…). Рисует его theme/Footer.js —
@@ -16,9 +20,10 @@ const footerFor = (locale, labels) => ({
     {
       title: labels.products,
       links: [
-        { text: 'Amnezia VPN', link: 'https://amnezia.org' },
-        { text: 'Amnezia Hosting', link: 'https://amnezia.host' },
-        { text: labels.account, link: 'https://my.amnezia.host' }
+        { text: 'Amnezia Hosting', link: SITE },
+        { text: labels.mirror, link: SITE_MIRROR },
+        { text: labels.account, link: 'https://my.amnezia.host' },
+        { text: 'Amnezia VPN', link: 'https://amnezia.org' }
       ]
     },
     {
@@ -32,7 +37,8 @@ const footerFor = (locale, labels) => ({
     {
       title: labels.contacts,
       links: [
-        { text: 'Telegram', link: SUPPORT_TELEGRAM },
+        { text: labels.channel, link: TELEGRAM_CHANNEL },
+        { text: labels.bot, link: SUPPORT_TELEGRAM },
         { text: 'GitHub', link: 'https://github.com/amnezia-cloud/hosting-wiki' },
         { text: 'support@amnezia.host', link: 'mailto:support@amnezia.host' },
         { text: labels.abuse, link: 'mailto:abuse@amnezia.host', danger: true }
@@ -100,7 +106,12 @@ export default defineConfig({
     'hysteria2.md',
     'en/awg.md',
     'en/vless.md',
-    'en/hysteria2.md'
+    'en/hysteria2.md',
+    // Новости убраны из вики: страница и лента карточек (NewsCarousel.js,
+    // newsItems.js) лежат на месте — чтобы вернуть, уберите пути отсюда и
+    // восстановите пункт «Новости» в nav и sidebar.
+    'news.md',
+    'en/news.md'
   ],
 
   markdown: {
@@ -172,6 +183,9 @@ export default defineConfig({
           account: 'Личный кабинет',
           documents: 'Документы',
           contacts: 'Контакты',
+          mirror: 'Зеркало сайта',
+          channel: 'Telegram-канал',
+          bot: 'Бот поддержки',
           privacy: 'Политика конфиденциальности',
           refund: 'Политика возврата',
           terms: 'Пользовательское соглашение',
@@ -179,7 +193,6 @@ export default defineConfig({
         }),
         nav: [
           { text: 'Главная', link: '/' },
-          { text: 'Новости', link: '/news' },
           { text: 'Начало работы', link: '/commands' },
           { text: 'VPN и защита', link: '/vpn-setup' },
           { text: 'Помощь', link: '/faq' }
@@ -242,10 +255,6 @@ export default defineConfig({
                 ]
               }
             ]
-          },
-          {
-            text: 'Новости',
-            items: [{ text: '📰 Новости Amnezia Hosting', link: '/news' }]
           },
           {
             text: 'Начало работы',
@@ -491,6 +500,9 @@ export default defineConfig({
           account: 'Client area',
           documents: 'Documents',
           contacts: 'Contacts',
+          mirror: 'Website mirror',
+          channel: 'Telegram channel',
+          bot: 'Support bot',
           privacy: 'Privacy Policy',
           refund: 'Refund and Compensation Policy',
           terms: 'User Agreement',
@@ -498,7 +510,6 @@ export default defineConfig({
         }),
         nav: [
           { text: 'Home', link: '/en/' },
-          { text: 'News', link: '/en/news' },
           { text: 'Getting Started', link: '/en/commands' },
           { text: 'VPN & Security', link: '/en/vpn-setup' },
           { text: 'Help', link: '/en/faq' }
@@ -561,10 +572,6 @@ export default defineConfig({
                 ]
               }
             ]
-          },
-          {
-            text: 'News',
-            items: [{ text: '📰 Amnezia Hosting News', link: '/en/news' }]
           },
           {
             text: 'Getting Started',
