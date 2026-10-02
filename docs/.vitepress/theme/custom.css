@@ -1207,11 +1207,20 @@ a.amz-crumbs__link:hover,
   background: var(--amz-footer-bg);
   border-top: 1px solid var(--vp-c-divider);
 }
-/* На десктопе сайдбар зафиксирован до низа окна — футер ложится поверх него
-   (выше сайдбара с его z-index 25, но ниже шапки с 30). */
+/* На десктопе сайдбар и оглавление зафиксированы до низа окна. Когда футер
+   выезжает на экран, обе колонки укорачиваются на видимую часть футера
+   (--amz-footer-overlap считает index.js) — так они заканчиваются над ним,
+   а не прячут нижние пункты под него. z-index — страховка на кадр до
+   пересчёта: футер выше сайдбара (25), но ниже шапки (30). */
 @media (min-width: 960px) {
   .amz-footer {
     z-index: 26;
+  }
+  .VPSidebar {
+    bottom: var(--amz-footer-overlap, 0px) !important;
+  }
+  .VPDoc .aside .aside-container {
+    height: calc(100vh - var(--amz-footer-overlap, 0px));
   }
 }
 .amz-footer__inner {

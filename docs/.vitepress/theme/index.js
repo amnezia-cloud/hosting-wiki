@@ -47,6 +47,35 @@ function setupHeadingLinks() {
   })
 }
 
+// Сайдбар и оглавление зафиксированы до низа окна, а футер идёт в потоке
+// страницы. Без поправки футер наезжает на них, и нижние пункты меню
+// уходят под него — долистать до них уже нельзя. Поэтому сколько футера
+// видно на экране, на столько и укорачиваем обе колонки
+// (--amz-footer-overlap в custom.css).
+function setupFooterOverlap() {
+  let frame = 0
+  let last = -1
+
+  const update = () => {
+    frame = 0
+    const footer = document.querySelector('.amz-footer')
+    const top = footer ? footer.getBoundingClientRect().top : Infinity
+    const overlap = Math.max(0, Math.round(window.innerHeight - top))
+    if (overlap === last) return
+    last = overlap
+    document.documentElement.style.setProperty('--amz-footer-overlap', `${overlap}px`)
+  }
+  const schedule = () => {
+    if (!frame) frame = requestAnimationFrame(update)
+  }
+
+  window.addEventListener('scroll', schedule, { passive: true })
+  window.addEventListener('resize', schedule)
+  // Смена страницы меняет высоту контента без прокрутки.
+  new ResizeObserver(schedule).observe(document.body)
+  schedule()
+}
+
 export default {
   extends: DefaultTheme,
   Layout: () =>
@@ -75,6 +104,9 @@ export default {
     // Главная страница целиком (docs/index.md, docs/en/index.md).
     app.component('AmzHome', Home)
 
-    if (!import.meta.env.SSR) setupHeadingLinks()
+    if (!import.meta.env.SSR) {
+      setupHeadingLinks()
+      setupFooterOverlap()
+    }
   }
 }
