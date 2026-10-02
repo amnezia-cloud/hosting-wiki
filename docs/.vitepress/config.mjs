@@ -43,10 +43,10 @@ const footerFor = (locale, labels) => ({
     'LLC "AIMor", Yerevan, 2 Avetis Aharonyan St. Registration number: 264.110.1229448 · © 2026 Amnezia Hosting'
 })
 
-// Группы сайдбара сворачиваются, как разделы на docs.amnezia.org: открыта
-// первая группа и та, где лежит текущая страница (её VitePress раскрывает сам).
+// Все группы сайдбара изначально свёрнуты. VitePress сам раскрывает ту,
+// где лежит текущая страница, — иначе активный пункт было бы не видно.
 const collapsible = (groups) =>
-  groups.map((group, i) => ({ ...group, collapsed: i !== 0 }))
+  groups.map((group) => ({ ...group, collapsed: true }))
 
 // Каждый раздел статьи (от ## до следующего ##) оборачивается в карточку,
 // а сразу под # вставляется строка «Последнее обновление» — компонент

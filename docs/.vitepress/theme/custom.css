@@ -70,6 +70,9 @@
   --vp-sidebar-bg-color: var(--vp-c-bg);
   --vp-nav-bg-color: var(--vp-c-bg);
   --vp-nav-logo-height: 30px;
+  /* Раскладка на всю ширину окна: сайдбар у левого края, оглавление у правого.
+     Штатно VitePress держит всё в колонке 1440px по центру. */
+  --vp-layout-max-width: 100vw;
 
   /* Кастомные токены: карточки разделов, плашки, тени */
   --amz-card-bg: #f6f7f8;
@@ -346,6 +349,17 @@ body {
 .VPDocAsideOutline .outline-link:hover,
 .VPDocAsideOutline .outline-link.active {
   color: var(--vp-c-brand-1);
+}
+
+/* Колонка статьи забирает всё место между сайдбаром и оглавлением, поэтому
+   оглавление прижато к правому краю, а текст стоит по центру своей колонки. */
+@media (min-width: 1280px) {
+  .VPDoc.has-aside .content {
+    flex-grow: 1;
+  }
+  .VPDoc.has-aside .content-container {
+    max-width: 760px;
+  }
 }
 
 /* --------------------------------------------------------------------------
