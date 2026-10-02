@@ -1,6 +1,9 @@
 /* ==========================================================================
    AMNEZIA HOSTING WIKI — VitePress custom theme
-   Две темы: светлая (:root) и тёмная (.dark). Акцент — зелёный.
+   Раскладка повторяет базу знаний docs.amnezia.org: разделы статьи —
+   карточками, хлебные крошки над заголовком, дата обновления под ним,
+   плашки в шапке и сайдбаре, футер колонками. Акцент — зелёный бренд
+   Amnezia Hosting. Две темы: светлая (:root) и тёмная (.dark).
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -49,12 +52,12 @@
   --vp-c-brand-softer: rgba(0, 184, 51, 0.07);
 
   --vp-c-bg: #ffffff;
-  --vp-c-bg-alt: #f5f7f9;
-  --vp-c-bg-soft: #f1f3f5;
+  --vp-c-bg-alt: #ffffff;
+  --vp-c-bg-soft: #f3f4f6;
   --vp-c-bg-elv: #ffffff;
 
-  --vp-c-text-1: #1b1f24;
-  --vp-c-text-2: #48505b;
+  --vp-c-text-1: #16191d;
+  --vp-c-text-2: #454c56;
   --vp-c-text-3: #6b7280;
 
   --vp-c-divider: rgba(20, 24, 28, 0.1);
@@ -62,15 +65,22 @@
   --vp-c-gutter: rgba(20, 24, 28, 0.12);
 
   --vp-code-color: #0a7d29;
-  --vp-code-bg: #f0f3f6;
+  --vp-code-bg: #eef1f4;
 
-  /* Кастомные токены (стекло/поверхности/футер) */
+  --vp-sidebar-bg-color: var(--vp-c-bg);
+  --vp-nav-bg-color: var(--vp-c-bg);
+  --vp-nav-logo-height: 30px;
+
+  /* Кастомные токены: карточки разделов, плашки, тени */
+  --amz-card-bg: #f6f7f8;
+  --amz-card-border: rgba(20, 24, 28, 0.12);
+  --amz-pill: rgba(20, 24, 28, 0.05);
+  --amz-pill-strong: rgba(20, 24, 28, 0.08);
   --amz-surface: rgba(20, 24, 28, 0.025);
-  --amz-surface-hover: rgba(0, 184, 51, 0.08);
+  --amz-surface-hover: rgba(0, 184, 51, 0.07);
   --amz-glass-border: rgba(20, 24, 28, 0.1);
   --amz-shadow: 0 6px 26px rgba(20, 30, 24, 0.12);
   --amz-shadow-sm: 0 4px 16px rgba(20, 30, 24, 0.08);
-  --amz-bg-glow: radial-gradient(1200px 620px at 85% -8%, rgba(0, 184, 51, 0.09), transparent 60%);
 
   /* Hero */
   --vp-home-hero-name-color: transparent;
@@ -87,15 +97,14 @@
   --vp-button-brand-border: transparent;
   --vp-button-brand-hover-border: transparent;
 
-  /* Красный акцент — только для баннера-предупреждения, вне брендовой палитры */
+  /* Красный акцент — только для баннера-предупреждения и abuse-ссылки */
   --amz-alert-bg: rgba(214, 31, 31, 0.07);
   --amz-alert-bg-hover: rgba(214, 31, 31, 0.11);
   --amz-alert-border: rgba(214, 31, 31, 0.32);
   --amz-alert-accent: #c81e1e;
   --amz-alert-chip-text: #ffffff;
 
-  /* Футер — всегда тёмный (в нём светлый текст) */
-  --amz-footer-bg: #0a0b0d;
+  --amz-footer-bg: #f6f7f8;
 
   font-synthesis: none;
   /* Базовый шрифт вики совпадает с amnezia.host. Начертаний выше 700 в наборе
@@ -108,7 +117,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. ТЁМНАЯ ТЕМА
+   2. ТЁМНАЯ ТЕМА — почти чёрный фон, карточки на тон светлее
    -------------------------------------------------------------------------- */
 .dark {
   --vp-c-brand-1: #35f069;
@@ -117,28 +126,32 @@
   --vp-c-brand-soft: rgba(0, 230, 61, 0.16);
   --vp-c-brand-softer: rgba(0, 230, 61, 0.08);
 
-  --vp-c-bg: #0a0b0d;
-  --vp-c-bg-alt: #060709;
-  --vp-c-bg-soft: #12141a;
-  --vp-c-bg-elv: #12141a;
+  --vp-c-bg: #121314;
+  --vp-c-bg-alt: #121314;
+  --vp-c-bg-soft: #1d1e21;
+  --vp-c-bg-elv: #1d1e21;
 
-  --vp-c-text-1: #eceef2;
-  --vp-c-text-2: #c2c6ce;
-  --vp-c-text-3: #8b93a0;
+  --vp-c-text-1: #f1f2f4;
+  --vp-c-text-2: #c8cbd1;
+  --vp-c-text-3: #8d929b;
 
   --vp-c-divider: rgba(255, 255, 255, 0.1);
-  --vp-c-border: rgba(255, 255, 255, 0.14);
-  --vp-c-gutter: #050608;
+  --vp-c-border: rgba(255, 255, 255, 0.18);
+  --vp-c-gutter: #0b0c0d;
 
   --vp-code-color: #85e89d;
-  --vp-code-bg: #0d1117;
+  --vp-code-bg: #26282c;
+  --vp-code-block-bg: #141517;
 
+  --amz-card-bg: #1d1e21;
+  --amz-card-border: rgba(255, 255, 255, 0.16);
+  --amz-pill: rgba(255, 255, 255, 0.06);
+  --amz-pill-strong: rgba(255, 255, 255, 0.1);
   --amz-surface: rgba(255, 255, 255, 0.035);
-  --amz-surface-hover: rgba(0, 230, 61, 0.07);
-  --amz-glass-border: rgba(255, 255, 255, 0.1);
+  --amz-surface-hover: rgba(0, 230, 61, 0.06);
+  --amz-glass-border: rgba(255, 255, 255, 0.12);
   --amz-shadow: 0 6px 28px rgba(0, 0, 0, 0.5);
   --amz-shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.38);
-  --amz-bg-glow: radial-gradient(1200px 620px at 85% -8%, rgba(0, 230, 61, 0.08), transparent 60%);
 
   --vp-home-hero-name-background: linear-gradient(120deg, #00e63d 20%, #57ff88);
   --vp-home-hero-image-background-image: linear-gradient(-45deg, rgba(0, 230, 61, 0.5), rgba(0, 120, 40, 0.35));
@@ -156,7 +169,7 @@
   --amz-alert-accent: #ff6b6b;
   --amz-alert-chip-text: #180506;
 
-  --amz-footer-bg: #050608;
+  --amz-footer-bg: #0c0d0e;
 }
 
 /* --------------------------------------------------------------------------
@@ -167,9 +180,6 @@ html {
 }
 body {
   background-color: var(--vp-c-bg);
-  background-image: var(--amz-bg-glow);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
 }
 .vp-doc code,
 .vp-doc pre code {
@@ -177,10 +187,10 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   4. ВЕРХНЯЯ ПАНЕЛЬ (стекло)
+   4. ШАПКА: логотип | «База знаний», плашки разделов, поиск-«таблетка»
    -------------------------------------------------------------------------- */
 .VPNavBar {
-  background-color: color-mix(in srgb, var(--vp-c-bg) 80%, transparent) !important;
+  background-color: color-mix(in srgb, var(--vp-c-bg) 88%, transparent) !important;
   backdrop-filter: blur(12px) saturate(150%);
   -webkit-backdrop-filter: blur(12px) saturate(150%);
   border-bottom: 1px solid var(--vp-c-divider);
@@ -198,75 +208,214 @@ body {
 .VPNavBar .divider-line {
   background-color: transparent !important;
 }
-
-/* --------------------------------------------------------------------------
-   5. HERO
-   -------------------------------------------------------------------------- */
-.VPHero .name {
-  font-weight: 700;
-  letter-spacing: -0.02em;
+.VPNavBar.has-sidebar .title {
+  border-bottom: none !important;
 }
-.VPHero .text {
+
+/* Название сайта отделено от логотипа вертикальной чертой */
+.VPNavBarTitle .title {
+  font-size: 17px;
   font-weight: 700;
+}
+.VPNavBarTitle .logo {
+  margin-right: 14px;
+}
+.VPNavBarTitle .logo + span {
+  padding-left: 14px;
+  border-left: 1px solid var(--vp-c-border);
+  line-height: 26px;
+}
+
+/* Разделы — плашки, активный подсвечен фоном */
+.VPNavBar .menu .VPNavBarMenuLink {
+  margin: 0 2px;
+  padding: 0 14px;
+  line-height: 38px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--vp-c-text-1);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.VPNavBar .menu .VPNavBarMenuLink:hover {
+  background: var(--amz-pill);
   color: var(--vp-c-text-1);
 }
-.VPHero .tagline {
+.VPNavBar .menu .VPNavBarMenuLink.active {
+  background: var(--amz-pill-strong);
+  color: var(--vp-c-text-1);
+}
+
+/* Поиск — «таблетка» с рамкой */
+.VPNavBarSearch .DocSearch-Button {
+  background: transparent;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 999px;
+  transition: border-color 0.15s ease;
+}
+.VPNavBarSearch .DocSearch-Button:hover {
+  background: transparent;
+  border-color: var(--vp-c-brand-2);
+}
+
+/* На широком экране разделы — по центру шапки, поиск — справа, как на
+   docs.amnezia.org. Уже 1280px места не хватает, и остаётся штатный порядок. */
+@media (min-width: 1280px) {
+  .VPNavBar .content-body .menu {
+    order: -1;
+    margin: 0 auto;
+  }
+  .VPNavBar .content-body .search {
+    flex-grow: 0;
+    padding-left: 0;
+    padding-right: 8px;
+  }
+  .VPNavBarSearch .DocSearch-Button {
+    width: 220px;
+    height: 38px;
+    padding: 0 14px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. САЙДБАР: группы сворачиваются, активная страница — плашкой
+   -------------------------------------------------------------------------- */
+.VPSidebar {
+  border-right: 1px solid var(--vp-c-divider);
+}
+.VPSidebar .group + .group {
+  border-top: none;
+  padding-top: 0;
+}
+.VPSidebarItem.level-0 {
+  padding-bottom: 6px;
+}
+.VPSidebarItem.level-0 > .item > .text {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+.VPSidebarItem.level-0 > .items {
+  padding-bottom: 10px;
+}
+.VPSidebarItem .indicator {
+  display: none;
+}
+.VPSidebarItem.level-1 > .item {
+  padding: 0 10px 0 12px;
+  border-radius: 8px;
+  transition: background-color 0.15s ease;
+}
+.VPSidebarItem.level-1 > .item .text {
+  font-size: 14.5px;
+  color: var(--vp-c-text-1);
+}
+.VPSidebarItem.level-1 > .item:hover {
+  background: var(--amz-pill);
+}
+.VPSidebarItem.level-1.is-active > .item {
+  background: var(--amz-pill-strong);
+}
+.VPSidebarItem.is-active > .item .link > .text {
+  color: var(--vp-c-brand-1);
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   6. ОГЛАВЛЕНИЕ СПРАВА — длинные вопросы переносятся, а не обрезаются
+   -------------------------------------------------------------------------- */
+.VPDocAsideOutline .content {
+  border-left: 1px solid var(--vp-c-divider);
+}
+/* Маркер VitePress рассчитан на однострочные пункты — с переносами он
+   уезжает, поэтому активный пункт показываем только цветом. */
+.VPDocAsideOutline .outline-marker {
+  display: none;
+}
+.VPDocAsideOutline .outline-title {
+  font-size: 13px;
+  color: var(--vp-c-text-1);
+}
+.VPDocAsideOutline .outline-link {
+  padding: 5px 0;
+  font-size: 13px;
+  line-height: 1.45;
+  white-space: normal;
   color: var(--vp-c-text-2);
 }
-
-/* --------------------------------------------------------------------------
-   6. КАРТОЧКИ-ФИЧИ (стекло + анимация)
-   -------------------------------------------------------------------------- */
-.VPFeature {
-  background: var(--amz-surface) !important;
-  border: 1px solid var(--amz-glass-border) !important;
-  border-radius: 16px !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: transform 0.22s ease, border-color 0.22s ease,
-    box-shadow 0.22s ease, background 0.22s ease;
-}
-.VPFeature:hover {
-  transform: translateY(-5px);
-  border-color: var(--vp-c-brand-2) !important;
-  background: var(--amz-surface-hover) !important;
-  box-shadow: var(--amz-shadow), 0 0 0 1px var(--vp-c-brand-soft);
-}
-.VPFeature .icon {
-  background: var(--vp-c-brand-soft) !important;
-  border-radius: 12px !important;
-}
-.VPFeature .title {
-  font-weight: 700;
+.VPDocAsideOutline .outline-link:hover,
+.VPDocAsideOutline .outline-link.active {
+  color: var(--vp-c-brand-1);
 }
 
 /* --------------------------------------------------------------------------
-   7. КНОПКИ
+   7. ХЛЕБНЫЕ КРОШКИ И СТРОКА «ПОСЛЕДНЕЕ ОБНОВЛЕНИЕ»
    -------------------------------------------------------------------------- */
-.VPButton.brand {
-  box-shadow: 0 6px 20px var(--vp-c-brand-soft);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+.amz-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  margin: 0 0 24px;
+  font-size: 13px;
+  line-height: 1.4;
 }
-.VPButton.brand:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px var(--vp-c-brand-soft);
+.amz-crumbs__home {
+  display: inline-flex;
+  color: var(--vp-c-text-1);
+  transition: color 0.15s ease;
+}
+.amz-crumbs__sep {
+  color: var(--vp-c-text-3);
+}
+.amz-crumbs__link {
+  color: var(--vp-c-text-1);
+  transition: color 0.15s ease;
+}
+a.amz-crumbs__link:hover,
+.amz-crumbs__home:hover {
+  color: var(--vp-c-brand-1);
+}
+.amz-crumbs__current {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--amz-pill-strong);
+  color: var(--vp-c-brand-1);
+  font-weight: 500;
+}
+
+.vp-doc .amz-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0 32px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--vp-c-text-2);
+}
+.vp-doc .amz-meta svg {
+  flex: none;
 }
 
 /* --------------------------------------------------------------------------
    8. КОНТЕНТ
    -------------------------------------------------------------------------- */
 .vp-doc h1 {
+  font-size: 36px;
+  line-height: 1.25;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 .vp-doc h2 {
-  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.35;
+  font-weight: 600;
   border-top: none;
   padding-top: 1.4rem;
   margin-top: 2.6rem;
 }
 .vp-doc h3 {
-  font-weight: 700;
+  font-weight: 600;
 }
 .vp-doc a {
   font-weight: 600;
@@ -279,6 +428,28 @@ body {
 .green {
   color: var(--vp-c-brand-1);
   font-weight: 700;
+}
+
+/* Раздел статьи (## и всё до следующего ##) — карточка. Обёртку ставит
+   плагин amzSections в config.mjs. */
+.vp-doc .amz-section {
+  margin: 28px 0;
+  padding: 2px 32px 26px;
+  background: var(--amz-card-bg);
+  border: 1px solid var(--amz-card-border);
+  border-radius: 20px;
+}
+.vp-doc .amz-section > h2:first-child {
+  margin: 24px 0 16px;
+  padding-top: 0;
+}
+.vp-doc .amz-section > :last-child {
+  margin-bottom: 0;
+}
+/* Вложенные блоки в карточке — на тон темнее, чтобы не сливались с ней */
+.vp-doc .amz-section .custom-block,
+.vp-doc .amz-section details.details {
+  box-shadow: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -341,11 +512,9 @@ body {
   flex: 0 0 320px;
   scroll-snap-align: start;
   padding: 18px 20px;
-  background: var(--amz-surface);
-  border: 1px solid var(--amz-glass-border);
+  background: var(--amz-card-bg);
+  border: 1px solid var(--amz-card-border);
   border-radius: 16px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
 }
 .amz-news__card:hover {
@@ -448,12 +617,10 @@ body {
 .vp-doc div[class*="language-"] {
   border-radius: 12px;
   border: 1px solid var(--vp-c-divider);
-  box-shadow: var(--amz-shadow-sm);
 }
 .vp-doc :not(pre) > code {
   color: var(--vp-code-color);
   background: var(--vp-code-bg);
-  border: 1px solid var(--vp-c-divider);
   border-radius: 6px;
   font-weight: 600;
 }
@@ -470,9 +637,8 @@ body {
   padding: 14px 18px;
   border: 1px solid var(--amz-alert-border);
   border-left: 4px solid var(--amz-alert-accent);
-  border-radius: 12px;
+  border-radius: 14px;
   background: var(--amz-alert-bg);
-  box-shadow: var(--amz-shadow-sm);
   color: var(--vp-c-text-1);
   text-decoration: none;
   transition: background 0.15s ease, border-color 0.15s ease;
@@ -530,9 +696,6 @@ body {
   border-radius: 12px;
   border-width: 1px;
   border-style: solid;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: var(--amz-shadow-sm);
 }
 .vp-doc .custom-block.tip {
   border-color: var(--vp-c-brand-soft);
@@ -572,57 +735,133 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   11. САЙДБАР
+   11. ГЛАВНАЯ: HERO И КАРТОЧКИ-ФИЧИ
    -------------------------------------------------------------------------- */
-.VPSidebarItem.level-0 > .item > .text {
+.VPHero .name {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.VPHero .text {
+  font-weight: 700;
+  color: var(--vp-c-text-1);
+}
+.VPHero .tagline {
+  color: var(--vp-c-text-2);
+}
+.VPFeature {
+  background: var(--amz-card-bg) !important;
+  border: 1px solid var(--amz-card-border) !important;
+  border-radius: 20px !important;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.VPFeature:hover {
+  transform: translateY(-4px);
+  border-color: var(--vp-c-brand-2) !important;
+  box-shadow: var(--amz-shadow), 0 0 0 1px var(--vp-c-brand-soft);
+}
+.VPFeature .icon {
+  background: var(--amz-pill-strong) !important;
+  border-radius: 12px !important;
+}
+.VPFeature .title {
+  font-weight: 700;
+}
+.VPButton.brand {
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+.VPButton.brand:hover {
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   12. НИЗ СТАТЬИ: «предложить правку», «Назад / Вперёд», кнопки помощи
+   -------------------------------------------------------------------------- */
+/* Дата обновления уже стоит под заголовком — внизу её не дублируем. */
+.VPDocFooter .last-updated {
+  display: none;
+}
+.VPDocFooter .edit-info {
+  padding-top: 20px;
+}
+.VPDocFooter .prev-next {
+  border-top: none;
+  padding-top: 20px;
+  gap: 16px;
+}
+.VPDocFooter .pager-link {
+  padding: 14px 20px;
+  border: 1px solid var(--amz-card-border);
+  border-radius: 14px;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.VPDocFooter .pager-link:hover {
+  border-color: var(--vp-c-brand-2);
+  background: var(--amz-surface-hover);
+}
+.VPDocFooter .pager-link .desc {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--vp-c-text-1);
+}
+.VPDocFooter .pager-link.prev .desc::before {
+  content: "← ";
   color: var(--vp-c-text-3);
-  text-transform: uppercase;
-  font-size: 0.68rem;
-  letter-spacing: 0.07em;
-  font-weight: 700;
 }
-.VPSidebarItem.is-active > .item .link .text {
-  color: var(--vp-c-brand-1);
+.VPDocFooter .pager-link.next .desc::after {
+  content: " →";
+  color: var(--vp-c-text-3);
+}
+.VPDocFooter .pager-link .title {
+  font-size: 16px;
   font-weight: 700;
+  color: var(--vp-c-brand-1);
 }
 
-/* --------------------------------------------------------------------------
-   12. ФУТЕР (штатный VitePress) — контакты и юр. информация
-   -------------------------------------------------------------------------- */
-.VPFooter {
-  background: var(--vp-c-bg-alt);
-  border-top: 1px solid var(--vp-c-divider);
+.amz-help {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
 }
-.VPFooter .container {
-  max-width: 1152px;
-}
-.VPFooter .message,
-.VPFooter .copyright {
-  color: var(--vp-c-text-2);
-  line-height: 2;
-  font-size: 0.8rem;
-}
-.VPFooter .message a {
-  color: var(--vp-c-text-2);
-  font-weight: 600;
+.amz-help__card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: var(--amz-card-bg);
+  color: var(--vp-c-text-1);
+  font-weight: 700;
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: border-color 0.15s ease, transform 0.15s ease;
 }
-.VPFooter .message a:hover {
+.amz-help__card:hover {
+  border-color: var(--vp-c-brand-2);
+  transform: translateY(-1px);
+}
+.amz-help__icon {
+  flex: none;
+}
+.amz-help__icon--faq {
   color: var(--vp-c-brand-1);
 }
+.amz-help__text {
+  flex: 1;
+  text-align: center;
+}
+.amz-help__arrow {
+  flex: none;
+  color: var(--vp-c-text-3);
+}
 
-/* --------------------------------------------------------------------------
-   12.1. БЛОК ОБРАТНОЙ СВЯЗИ (в конце страницы)
-   -------------------------------------------------------------------------- */
+/* Блок обратной связи */
 .amz-feedback {
   margin: 3rem 0 0;
   padding: 20px 22px;
-  background: var(--amz-surface);
-  border: 1px solid var(--amz-glass-border);
-  border-radius: 14px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: var(--amz-card-bg);
+  border: 1px solid var(--amz-card-border);
+  border-radius: 20px;
 }
 .amz-feedback__title {
   margin: 0;
@@ -677,7 +916,94 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   13. СКРОЛЛБАР
+   13. ФУТЕР (theme/Footer.js): логотип, колонки ссылок, юр. строка
+   -------------------------------------------------------------------------- */
+.amz-footer {
+  position: relative;
+  padding: 48px 24px 28px;
+  background: var(--amz-footer-bg);
+  border-top: 1px solid var(--vp-c-divider);
+}
+/* На десктопе сайдбар зафиксирован до низа окна — футер ложится поверх него
+   (выше сайдбара с его z-index 25, но ниже шапки с 30). */
+@media (min-width: 960px) {
+  .amz-footer {
+    z-index: 26;
+  }
+}
+.amz-footer__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 32px;
+  max-width: 1152px;
+  margin: 0 auto;
+}
+.amz-footer__brand {
+  display: inline-flex;
+  align-items: center;
+  align-self: start;
+  gap: 14px;
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+}
+.amz-footer__brand img {
+  border-radius: 14px;
+}
+.amz-footer__brand-name {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.amz-footer__brand-name span {
+  margin-left: 6px;
+  color: var(--vp-c-brand-1);
+}
+.amz-footer__cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.amz-footer__title {
+  margin: 0 0 16px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--vp-c-text-3);
+}
+.amz-footer ul {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.amz-footer__link {
+  font-size: 15px;
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 0.15s ease;
+}
+.amz-footer__link:hover {
+  color: var(--vp-c-brand-1);
+}
+.amz-footer__link--danger,
+.amz-footer__link--danger:hover {
+  color: var(--amz-alert-accent);
+}
+.amz-footer__copyright {
+  max-width: 1152px;
+  margin: 36px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--vp-c-divider);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--vp-c-text-3);
+}
+
+/* --------------------------------------------------------------------------
+   14. СКРОЛЛБАР
    -------------------------------------------------------------------------- */
 /* Firefox */
 html {
@@ -711,7 +1037,7 @@ html {
 }
 
 /* --------------------------------------------------------------------------
-   14. ПЛАВНЫЕ АНИМАЦИИ
+   15. ПЛАВНЫЕ АНИМАЦИИ
    -------------------------------------------------------------------------- */
 @keyframes amz-fade-up {
   from {
@@ -751,26 +1077,44 @@ html {
 .VPFeatures .items .item:nth-child(n + 13) .VPFeature { animation-delay: 0.65s; }
 
 /* --------------------------------------------------------------------------
-   15. МОБИЛЬНАЯ АДАПТАЦИЯ
+   16. МОБИЛЬНАЯ АДАПТАЦИЯ
    -------------------------------------------------------------------------- */
-@media (max-width: 640px) {
-  .amz-footer {
-    padding: 32px 20px 28px;
-  }
-  .amz-footer__cols {
+@media (max-width: 768px) {
+  .amz-footer__inner {
     grid-template-columns: 1fr;
-    gap: 1.6rem;
   }
+}
+@media (max-width: 640px) {
   .vp-doc h1 {
-    font-size: 1.7rem;
+    font-size: 1.75rem;
+  }
+  .vp-doc .amz-section {
+    margin: 20px 0;
+    padding: 2px 18px 20px;
+    border-radius: 16px;
+  }
+  /* VitePress растягивает код на мобильных до краёв экрана отрицательными
+     отступами — внутри карточки это вылезает за рамку. */
+  .vp-doc .amz-section div[class*="language-"] {
+    margin: 16px 0;
+    border-radius: 10px;
   }
   .vp-doc table {
     font-size: 0.82rem;
   }
+  .amz-help {
+    grid-template-columns: 1fr;
+  }
+  .amz-footer {
+    padding: 36px 20px 24px;
+  }
+  .amz-footer__cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 /* --------------------------------------------------------------------------
-   16. reduce-motion
+   17. reduce-motion
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {

@@ -8,21 +8,82 @@ const socialLinks = [
 const SUPPORT_TELEGRAM = 'https://t.me/amnezia_hosting_bot'
 
 // Футер строится под локаль: юридические страницы на amnezia.host живут
-// по локализованным адресам (/ru/… и /en/…).
+// по локализованным адресам (/ru/… и /en/…). Рисует его theme/Footer.js —
+// колонками, на всю ширину, в том числе на страницах с сайдбаром
+// (штатный VPFooter там скрыт).
 const footerFor = (locale, labels) => ({
-  message: [
-    '<a href="https://amnezia.org" target="_blank" rel="noreferrer">Amnezia VPN</a>',
-    '<a href="https://amnezia.host" target="_blank" rel="noreferrer">Amnezia Hosting</a>',
-    `<a href="https://amnezia.host/${locale}/privacy-policy" target="_blank" rel="noreferrer">${labels.privacy}</a>`,
-    `<a href="https://amnezia.host/${locale}/refund-policy" target="_blank" rel="noreferrer">${labels.refund}</a>`,
-    `<a href="https://amnezia.host/${locale}/terms-of-use" target="_blank" rel="noreferrer">${labels.terms}</a>`,
-    `<a href="${SUPPORT_TELEGRAM}" target="_blank" rel="noreferrer">Telegram</a>`,
-    '<a href="mailto:support@amnezia.host">support@amnezia.host</a>',
-    `<a href="mailto:abuse@amnezia.host" style="color:#ff5a5a">${labels.abuse}</a>`
-  ].join('&nbsp;&nbsp;·&nbsp;&nbsp;'),
+  columns: [
+    {
+      title: labels.products,
+      links: [
+        { text: 'Amnezia VPN', link: 'https://amnezia.org' },
+        { text: 'Amnezia Hosting', link: 'https://amnezia.host' },
+        { text: labels.account, link: 'https://my.amnezia.host' }
+      ]
+    },
+    {
+      title: labels.documents,
+      links: [
+        { text: labels.privacy, link: `https://amnezia.host/${locale}/privacy-policy` },
+        { text: labels.refund, link: `https://amnezia.host/${locale}/refund-policy` },
+        { text: labels.terms, link: `https://amnezia.host/${locale}/terms-of-use` }
+      ]
+    },
+    {
+      title: labels.contacts,
+      links: [
+        { text: 'Telegram', link: SUPPORT_TELEGRAM },
+        { text: 'GitHub', link: 'https://github.com/amnezia-cloud/hosting-wiki' },
+        { text: 'support@amnezia.host', link: 'mailto:support@amnezia.host' },
+        { text: labels.abuse, link: 'mailto:abuse@amnezia.host', danger: true }
+      ]
+    }
+  ],
   copyright:
     'LLC "AIMor", Yerevan, 2 Avetis Aharonyan St. Registration number: 264.110.1229448 · © 2026 Amnezia Hosting'
 })
+
+// Группы сайдбара сворачиваются, как разделы на docs.amnezia.org: открыта
+// первая группа и та, где лежит текущая страница (её VitePress раскрывает сам).
+const collapsible = (groups) =>
+  groups.map((group, i) => ({ ...group, collapsed: i !== 0 }))
+
+// Каждый раздел статьи (от ## до следующего ##) оборачивается в карточку,
+// а сразу под # вставляется строка «Последнее обновление» — компонент
+// AmzPageMeta из theme/PageMeta.js. Трогаем только токены верхнего уровня,
+// чтобы ## внутри ::: контейнеров и списков не рвали разметку.
+function amzSections(md) {
+  md.core.ruler.push('amz_sections', (state) => {
+    const fm = state.env.frontmatter || {}
+    if (fm.sections === false) return
+
+    const html = (content) => {
+      const token = new state.Token('html_block', '', 0)
+      token.content = content
+      return token
+    }
+
+    const out = []
+    let open = false
+    let metaInserted = fm.layout === 'home'
+
+    for (const token of state.tokens) {
+      if (token.type === 'heading_open' && token.tag === 'h2' && token.level === 0) {
+        if (open) out.push(html('</section>\n'))
+        out.push(html('<section class="amz-section">\n'))
+        open = true
+      }
+      out.push(token)
+      if (!metaInserted && token.type === 'heading_close' && token.tag === 'h1' && token.level === 0) {
+        out.push(html('<AmzPageMeta />\n'))
+        metaInserted = true
+      }
+    }
+    if (open) out.push(html('</section>\n'))
+
+    state.tokens = out
+  })
+}
 
 export default defineConfig({
   title: 'Amnezia Hosting Wiki',
@@ -41,6 +102,10 @@ export default defineConfig({
     'en/vless.md',
     'en/hysteria2.md'
   ],
+
+  markdown: {
+    config: (md) => md.use(amzSections)
+  },
 
   appearance: 'dark', // по умолчанию тёмная тема, доступен переключатель на светлую
   lastUpdated: true,
@@ -101,7 +166,12 @@ export default defineConfig({
       label: 'Русский',
       lang: 'ru',
       themeConfig: {
-        footer: footerFor('ru', {
+        siteTitle: 'База знаний',
+        amzFooter: footerFor('ru', {
+          products: 'Продукты',
+          account: 'Личный кабинет',
+          documents: 'Документы',
+          contacts: 'Контакты',
           privacy: 'Политика конфиденциальности',
           refund: 'Политика возврата',
           terms: 'Пользовательское соглашение',
@@ -114,7 +184,7 @@ export default defineConfig({
           { text: 'VPN и защита', link: '/vpn-setup' },
           { text: 'Помощь', link: '/faq' }
         ],
-        sidebar: [
+        sidebar: collapsible([
           {
             text: 'Важное сейчас',
             items: [
@@ -396,7 +466,7 @@ export default defineConfig({
               }
             ]
           }
-        ],
+        ]),
         outline: { level: [2, 3], label: 'На этой странице' },
         editLink: {
           pattern: 'https://github.com/amnezia-cloud/hosting-wiki/edit/main/docs/:path',
@@ -415,7 +485,12 @@ export default defineConfig({
       lang: 'en-US',
       link: '/en/',
       themeConfig: {
-        footer: footerFor('en', {
+        siteTitle: 'Knowledge base',
+        amzFooter: footerFor('en', {
+          products: 'Products',
+          account: 'Client area',
+          documents: 'Documents',
+          contacts: 'Contacts',
           privacy: 'Privacy Policy',
           refund: 'Refund and Compensation Policy',
           terms: 'User Agreement',
@@ -428,7 +503,7 @@ export default defineConfig({
           { text: 'VPN & Security', link: '/en/vpn-setup' },
           { text: 'Help', link: '/en/faq' }
         ],
-        sidebar: [
+        sidebar: collapsible([
           {
             text: 'Important right now',
             items: [
@@ -710,7 +785,7 @@ export default defineConfig({
               }
             ]
           }
-        ],
+        ]),
         outline: { level: [2, 3], label: 'On this page' },
         editLink: {
           pattern: 'https://github.com/amnezia-cloud/hosting-wiki/edit/main/docs/:path',
