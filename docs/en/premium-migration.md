@@ -52,8 +52,7 @@ If the subscription is switched off before the transfer, calculating the remaind
 
 1.  Connect to the server over SSH — **[Quick Start](/en/commands)** explains it from scratch.
 2.  Set up the VPN in three steps from the app — **[VPN Setup](/en/vpn-setup)**.
-3.  Need separate keys for family or your own devices? The panel makes it easy: **[3X-UI](/en/3x-ui)**.
-4.  A couple of minutes on basic hardening — **[Server Security](/en/security)**.
+3.  A couple of minutes on basic hardening — **[Server Security](/en/security)**.
 
 ## Common questions about the move {#faq}
 

@@ -59,7 +59,7 @@ Save whatever you will want to restore:
     ```bash
     apt update && apt upgrade -y
     ```
-6.  Set up the VPN again — **[VPN Setup](/en/vpn-setup)** or the **[3X-UI panel](/en/3x-ui)**.
+6.  Set up the VPN again — **[VPN Setup](/en/vpn-setup)**.
 
 ## Older servers: replacement through support {#legacy}
 

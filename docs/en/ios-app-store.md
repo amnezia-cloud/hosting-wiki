@@ -29,7 +29,7 @@ If the app is not on the device, we recommend our alternative app **DefaultVPN**
 
 ### Connect to your own server with another client {#other-clients}
 
-For **your own VPS** the Amnezia app is not required: keys issued through the 3X-UI panel work in any client that supports VLESS — on iOS that means Streisand, FoXray, Shadowrocket, or V2Box. How to issue such a key — **[3X-UI Panel](/en/3x-ui#client-key)**.
+For **your own VPS** the Amnezia app is not required: keys issued through the 3X-UI panel work in any client that supports VLESS — on iOS that means Streisand, FoXray, Shadowrocket, or V2Box.
 
 ## Why the app is missing from the store {#why-hidden}
 

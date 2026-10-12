@@ -37,8 +37,6 @@ Ideal for daily use, high-definition streaming, online gaming (low latency/ping)
 
 Highly recommended as the primary protocol in regions with strict internet censorship, or as a reliable backup option if AmneziaWG fails to connect.
 
-📖 Set up VLESS + Reality manually through the web panel: **[3X-UI Panel](/en/3x-ui)**
-
 ## 📊 Protocol Comparison Matrix
 
 | Feature | AmneziaWG (AWG) | XRay / VLESS (Reality) |

@@ -191,7 +191,7 @@ sudo ufw enable && sudo ufw status
 The SSH port must be allowed **before** the firewall is enabled. Skip that and you lose access to the server.
 :::
 
-A rule of thumb when changing protocols: added a new protocol in AmneziaVPN or changed a port? Open it in UFW (`sudo ufw allow PORT`). Close old unused ports (`sudo ufw delete allow PORT`) and reload the firewall (`sudo ufw reload`). The 3X-UI panel port needs opening too — see **[3X-UI Panel](/en/3x-ui#credentials-panel)**.
+A rule of thumb when changing protocols: added a new protocol in AmneziaVPN or changed a port? Open it in UFW (`sudo ufw allow PORT`). Close old unused ports (`sudo ufw delete allow PORT`) and reload the firewall (`sudo ufw reload`). The 3X-UI panel port needs opening too.
 
 ## 6. Brute-force protection: fail2ban {#fail2ban}
 

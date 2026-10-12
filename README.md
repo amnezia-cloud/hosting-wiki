@@ -31,7 +31,6 @@
 | [🔁 Переход с Amnezia Premium](https://wiki.amnezia.host/premium-migration.html) | Перенос остатка подписки на свой VPS |
 | [🖥️ Управление сервером](https://wiki.amnezia.host/server-management.html) | Личный кабинет, действия с сервером, ресурсы |
 | [🛡️ Настройка VPN](https://wiki.amnezia.host/vpn-setup.html) | Запуск VPN через приложение AmneziaVPN |
-| [📊 Панель 3X-UI](https://wiki.amnezia.host/3x-ui.html) | VLESS + Reality на 443, выдача ключей, блокировки |
 | [⚡ XRay и 🛡️ AmneziaWG](https://wiki.amnezia.host/xray-tuning.html) | Маскировка, домены-доноры, версии AWG и обфускация |
 | [🩺 Диагностика](https://wiki.amnezia.host/vpn-troubleshooting.html) | Ошибки 20x / 30x, блокировки провайдера, «нет интернета» |
 | [🔒 Безопасность сервера](https://wiki.amnezia.host/security.html) | UFW, порт SSH, ключи, fail2ban |

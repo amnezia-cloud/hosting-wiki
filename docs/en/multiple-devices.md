@@ -16,7 +16,7 @@ head:
 | Method | What to do |
 | :--- | :--- |
 | **AmneziaVPN app** | Export the configuration or QR code in the server settings and import it on the other device — see **[VPN Setup](/en/vpn-setup)** |
-| **3X-UI panel** | Add a separate client (**Operations → Add Client**) and issue its `vless://` link — see **[Issuing a client key](/en/3x-ui#client-key)** |
+| **3X-UI panel** | Add a separate client (**Operations → Add Client**) and issue its `vless://` link |
 
 ## Why one key per device {#separate-keys}
 

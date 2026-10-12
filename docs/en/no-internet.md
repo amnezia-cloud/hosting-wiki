@@ -21,7 +21,7 @@ Antivirus suites, firewalls, and ad blockers (AdGuard and similar) often filter 
 
 ## 3. Blocking rules on the server {#server-rules}
 
-If you configured the server through the 3X-UI panel and enabled blocking for the `.ru`, `.su`, `.рф` zones or the `RU Russia` list, Russian sites will not open through the VPN — that is the rules working as intended. Review the list in **Xray Configs → Basic Routing**: **[Blocking ads and RU domains](/en/3x-ui#routing)**.
+If you configured the server through the 3X-UI panel and enabled blocking for the `.ru`, `.su`, `.рф` zones or the `RU Russia` list, Russian sites will not open through the VPN — that is the rules working as intended. Review the list in **Xray Configs → Basic Routing**.
 
 ## 4. Outdated client or broken configuration {#reinstall-protocol}
 

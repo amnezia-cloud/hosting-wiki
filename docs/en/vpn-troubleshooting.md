@@ -53,7 +53,7 @@ What to do:
 
 1.  **Change the network** — home Wi-Fi instead of mobile data, a different carrier, a hotspot from another phone. If it works on another network, the first ISP is filtering.
 2.  **Switch to a stealthier protocol** — XRay/VLESS disguises itself as ordinary HTTPS traffic: **[AmneziaWG stopped working](/en/awg-to-xray)**.
-3.  **Change the port** — if 443 is throttled, try 8443 or 80: **[3X-UI Panel](/en/3x-ui#inbound)**.
+3.  **Change the port** — if 443 is throttled, try 8443 or 80.
 4.  **Request an IP change** through support if your server's address is blocked specifically.
 
 If the problem only occurs on mobile data during a drone-threat alert, see **[Mobile restrictions and whitelists](/en/mobile-restrictions)**.
@@ -63,7 +63,7 @@ If the problem only occurs on mobile data during a drone-threat alert, see **[Mo
 The button turns green and sites still do not open — the server is reachable, so the tunnel configuration is at fault:
 
 *   check that **two VPNs are not installed at once** (the second one hijacks the routes) and that an antivirus or AdGuard is not blocking traffic;
-*   review the blocking rules in 3X-UI: with the `.ru` / `RU Russia` zones enabled, Russian sites will not open through the VPN — **[Blocking Russian domains](/en/3x-ui#routing)**;
+*   review the blocking rules in 3X-UI: with the `.ru` / `RU Russia` zones enabled, Russian sites will not open through the VPN;
 *   reinstall the protocol in the app after updating the client to the latest version;
 *   a separate case is services that reject data-center traffic themselves: **[Gemini via VPN](/en/gemini)**.
 

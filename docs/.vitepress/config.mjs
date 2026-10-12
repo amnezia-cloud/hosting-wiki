@@ -111,7 +111,12 @@ export default defineConfig({
     // newsItems.js) лежат на месте — чтобы вернуть, уберите пути отсюда и
     // восстановите пункт «Новости» в nav и sidebar.
     'news.md',
-    'en/news.md'
+    'en/news.md',
+    // Панель 3X-UI скрыта: статья и картинки (public/img/3x-ui) лежат на месте —
+    // чтобы вернуть, уберите пути отсюда, восстановите пункт в sidebar
+    // (раздел «VPN и защита») и ссылки на /3x-ui в статьях.
+    '3x-ui.md',
+    'en/3x-ui.md'
   ],
 
   markdown: {
@@ -303,19 +308,6 @@ export default defineConfig({
             items: [
               { text: '🛡️ Настройка VPN', link: '/vpn-setup' },
               { text: '🔌 Протоколы', link: '/protocols' },
-              {
-                text: '📊 Панель 3X-UI',
-                link: '/3x-ui',
-                collapsed: true,
-                items: [
-                  { text: 'Установка панели', link: '/3x-ui#install' },
-                  { text: 'Порт и данные для входа', link: '/3x-ui#credentials-panel' },
-                  { text: 'Inbound: VLESS + Reality', link: '/3x-ui#inbound' },
-                  { text: 'Выдача ключа клиенту', link: '/3x-ui#client-key' },
-                  { text: 'Блокировка рекламы и ру-доменов', link: '/3x-ui#routing' },
-                  { text: 'Команды x-ui', link: '/3x-ui#cli' }
-                ]
-              },
               {
                 text: '🛡️ AmneziaWG: версии и настройка',
                 link: '/amneziawg-tuning',
@@ -620,19 +612,6 @@ export default defineConfig({
             items: [
               { text: '🛡️ VPN Setup', link: '/en/vpn-setup' },
               { text: '🔌 Protocols', link: '/en/protocols' },
-              {
-                text: '📊 3X-UI Panel',
-                link: '/en/3x-ui',
-                collapsed: true,
-                items: [
-                  { text: 'Installing the panel', link: '/en/3x-ui#install' },
-                  { text: 'Port and credentials', link: '/en/3x-ui#credentials-panel' },
-                  { text: 'Inbound: VLESS + Reality', link: '/en/3x-ui#inbound' },
-                  { text: 'Issuing a client key', link: '/en/3x-ui#client-key' },
-                  { text: 'Blocking ads and RU domains', link: '/en/3x-ui#routing' },
-                  { text: 'x-ui commands', link: '/en/3x-ui#cli' }
-                ]
-              },
               {
                 text: '🛡️ AmneziaWG: versions and tuning',
                 link: '/en/amneziawg-tuning',

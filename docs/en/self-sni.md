@@ -137,7 +137,7 @@ The site never occupies 443 and never competes with Xray for it — it does not 
 
 ## Step 5. Configure Reality in 3X-UI {#reality}
 
-Panel → **Inbounds** → **Add Inbound** (or edit an existing one → the “Security” tab). For the panel itself, see **[3X-UI Panel](/en/3x-ui)**.
+Panel → **Inbounds** → **Add Inbound** (or edit an existing one → the “Security” tab).
 
 | Field | Value |
 | :--- | :--- |

@@ -42,8 +42,6 @@ Change one thing at a time:
 | **SNI** | `2gis.ru`, `pochta.ru` | masking as `ya.ru` does not pass DPI |
 | **Network** | another carrier, wired internet | to find out whose network filters traffic |
 
-For manual setup with full control over ports, keys, and the masking domain, use the web panel: **[3X-UI Panel](/en/3x-ui)** and its **[alternative ports](/en/3x-ui#inbound)** section.
-
 ## Why XRay is more resilient {#why}
 
 | | AmneziaWG | XRay / VLESS + Reality |
