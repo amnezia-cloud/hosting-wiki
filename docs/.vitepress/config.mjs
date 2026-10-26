@@ -417,6 +417,12 @@ export default defineConfig({
           {
             text: 'Сервер и доступ',
             items: [
+              { text: '👥 Выдача и отзыв доступа к VPN', link: '/share-connection' },
+              { text: '⚙️ Управление VPN-протоколами', link: '/install-configure-protocols' },
+              { text: '🔌 SOCKS5-прокси', link: '/socks5-proxy-server' },
+              { text: '🌐 AmneziaDNS на сервере', link: '/change-dns' },
+              { text: '📁 Файловое хранилище SFTP', link: '/sftp' },
+              { text: '🧅 Сайт в сети Tor', link: '/create-tor-website' },
               { text: '🔑 Смена пароля root', link: '/root-password' },
               { text: '🛑 Сервер в Bad State', link: '/broken-state' },
               {
@@ -721,6 +727,12 @@ export default defineConfig({
           {
             text: 'Server and access',
             items: [
+              { text: '👥 Share and revoke VPN access', link: '/en/share-connection' },
+              { text: '⚙️ Configure VPN protocols', link: '/en/install-configure-protocols' },
+              { text: '🔌 Set up a SOCKS5 proxy', link: '/en/socks5-proxy-server' },
+              { text: '🌐 Set up AmneziaDNS', link: '/en/change-dns' },
+              { text: '📁 Set up SFTP file storage', link: '/en/sftp' },
+              { text: '🧅 Host a site on Tor', link: '/en/create-tor-website' },
               { text: '🔑 Changing the root password', link: '/en/root-password' },
               { text: '🛑 Server in Bad State', link: '/en/broken-state' },
               {

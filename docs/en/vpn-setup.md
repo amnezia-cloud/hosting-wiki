@@ -1,62 +1,125 @@
 ---
-title: "How to Launch Your Own VPN"
-description: "Three steps: add the server to the AmneziaVPN app, install a protocol, and connect."
+title: "Set up a VPN on your own server"
+description: "Set up a VPN with AmneziaVPN, choose a protocol, or restore access to a server you've already configured."
 head:
   - - meta
     - name: keywords
-      content: "vpn setup, amneziavpn, own vpn, connection, protocol, installation, three steps, configuration"
+      content: "vpn setup, amneziavpn, own vpn, self-hosted, server installation, amneziawg, ssh"
 ---
 
-# 🛡️ How to Launch Your Own <span class="green">VPN</span>
+# Set up a VPN on your own server
 
-Three simple steps to create your own personal VPN on a virtual private server.
+If you don't have a server yet, choose a VPS that fits your needs from [Amnezia Hosting](https://amnezia.host/). All Amnezia Hosting servers meet AmneziaVPN's setup requirements. You can compare server specifications when choosing a plan.
 
-::: info Important
-If you received a ready-to-use key through *Amnezia Free* or *Amnezia Premium* services, you do not need to buy your own server. Simply open the received configuration file using the official Amnezia application.
+Use the **AmneziaVPN** app to set up a VPN on a **Linux** server you own or rent. You won't need to enter any terminal commands.
+
+Before you start, have your server's IP address, username, and password or SSH private key ready.
+
+::: warning Servers from other hosting providers
+Check the [server requirements](https://docs.amnezia.org/documentation/supported-linux-os-for-vps) before you start. Installation may fail if your server doesn't meet them.
 :::
 
-## 1️⃣ Step 1. Purchase a Virtual Private Server (VPS)
-
-If you do not have your own server yet, you need to purchase one. When choosing a hosting provider, look for the following technical criteria:
-
-*   **Operating System:** Linux (Ubuntu 22.04 or Debian 12 recommended).
-*   **CPU Architecture:** x86-64.
-*   **Virtualization:** Strictly **KVM**.
-*   **Network:** IPv4 address support is mandatory.
-*   **RAM:** At least 1 GB (2 GB recommended).
-*   **Software:** Pre-installed software and control panels are not required.
-
-::: danger Attention: Incompatible Hostings
-Servers from **Reg.ru** and **Yandex Cloud** are technically not compatible with automatic VPN installation via the Amnezia app!
+::: danger Incompatible hosting providers
+The [Amnezia setup guide](https://amnezia.org/en/starter-guide) lists servers from **Reg.ru** and **Yandex Cloud** as incompatible with VPN installation through **AmneziaVPN**.
 :::
 
-::: warning Please Note
-Third-party hosting providers are mentioned as examples only. We are not responsible for the quality of services provided by these companies or any potential technical risks. Most international VPS providers currently support payment with Russian bank cards and cryptocurrency.
+## Set up your VPN
+
+::: warning Update the app
+Update **AmneziaVPN** to the latest version before setting up or making changes to a self-hosted server. Updates improve AmneziaWG, fix bugs, and make connections more stable.
 :::
 
-## 2️⃣ Step 2. Get Access Credentials
+1. Download and install **AmneziaVPN** from the [official download page](https://amnezia.org/en/downloads) ([mirror](https://storage.googleapis.com/amnezia/amnezia.org?m-path=/en/downloads)) or the [latest stable release on GitHub](https://github.com/amnezia-vpn/amnezia-client/releases/latest). If you already have the app, update it.
+2. Open **AmneziaVPN**. Click **➕**, or **Let's get started** if you haven't added any connections yet.
+3. Select **Self-hosted VPN**.
+4. Enter your server's login details
 
-After successful order and activation of your server, you will receive an information email sent to the address used during registration on the hosting provider's website.
+   Once you've purchased a server, you'll find its login details in your [**Amnezia Hosting account**](https://my.amnezia.host/). Sign in with the email address and password you used to create your account.
 
-**We will need three parameters from this email for the configuration:**
+   You'll need:
 
-1.  **IP Address** of the server
-2.  **Username** (User name / User ID, usually `root`)
-3.  **Password**
+   - **Server IP address [:port]**. If the server uses an SSH port other than `22`, add the port after a colon, for example `203.0.113.10:2221`.
+   - **SSH Username** — for example, `root` or a user with **sudo** privileges who can run commands as an administrator.
+   - **Password or SSH private key**.
 
-::: warning What if you didn't receive the email?
-Some hosting providers do not send passwords via email for security reasons. In this case, all server credentials can be found inside your personal account dashboard on the hosting website. If you have trouble finding your data, please contact their technical support.
+   Click **Continue**.
+
+   ![Adding a server: select Self-hosted VPN and enter your server's login details](/img/vpn-setup/en_vpn_setup_1.png)
+
+5. Choose an installation type and click **Continue**:
+
+   - **Automatic** installs **AmneziaWG** only. You can add other protocols later.
+
+     ![Automatic AmneziaWG setup and the new VPN connection](/img/vpn-setup/en_vpn_setup_2.png)
+
+   - **Manual** lets you choose which protocol to install. Select a protocol and click **Install**. You can add other protocols later.
+
+     ![Manual setup: select XRay and install it on the server](/img/vpn-setup/en_vpn_setup_3.png)
+
+When setup is complete, the app creates a VPN connection with **full access** to your server. The connection is ready to use.
+
+::: tip Choose an AmneziaWG port below 9999
+By default, **AmneziaWG** uses a randomly assigned port. Some internet providers block UDP traffic on high ports. After installation, we recommend switching to an unused port below `9999`, such as `585` or `1234`. Make sure no other service on the server is using that port.
+
+If your VPN isn't working, see the [AmneziaWG troubleshooting guide](https://docs.amnezia.org/troubleshooting/self-hosted-amneziawg-not-working).
+
+![Changing and saving the AmneziaWG port in the server settings](/img/vpn-setup/en_vpn_setup_8.png)
 :::
 
-## 3️⃣ Step 3. Installation and Launch via AmneziaVPN
+To connect another device or give someone access to your VPN, see [Share and revoke VPN access](/en/share-connection).
 
-1.  Download and install the official **AmneziaVPN** client for your operating system (Windows, macOS, Linux, iOS, or Android).
-2.  Launch the app on your device.
-3.  Click the button **"I have connection data"**.
-4.  In the menu that appears, select **"Configure your server"**.
-5.  Enter your server credentials: IP address, username, and password.
-6.  Click **"Continue"** and follow the automatic interactive prompts inside the app.
+## If you clicked “Skip setup” {#if-you-clicked-skip-setup}
 
-## 📘 Additional Resources
+Clicking **Skip setup** adds an empty connection without running any commands on the server.
 
-You can find more detailed information about traffic obfuscation methods, available connection protocols, and advanced application features in other sections of our documentation.
+Use this option if the server already has a VPN installed through AmneziaVPN. It lets you add a connection with full access without a backup file or a full-access key.
+
+![Skipping setup creates a connection with no VPN protocol installed](/img/vpn-setup/en_vpn_setup_6.png)
+
+**VPN is already installed on the server**
+
+1. Click any connection name.
+2. Click **⚙️** next to your server.
+3. Open the **Management** tab and select **Check the server for previously installed Amnezia services**.
+
+The app updates the connection to show the VPN protocols and services already installed on the server.
+
+![The option to check for installed Amnezia services on the Management tab](/img/vpn-setup/en_vpn_setup_7.png)
+
+**You skipped setup by mistake on a fresh server**
+
+1. Click any connection name.
+2. Click **⚙️** next to your server. You'll see a list of protocols you can install.
+3. Click **📥** next to the protocol you want, then click **Install**.
+
+![Installing AmneziaWG after skipping setup](/img/vpn-setup/en_vpn_setup_4.png)
+
+*Installing AmneziaWG after skipping setup.*
+
+Once installation is complete, you can use the connection to access the VPN and manage the server.
+
+You can install other protocols in the same way:
+
+![Adding XRay to a server that already has AmneziaWG installed](/img/vpn-setup/en_vpn_setup_5.png)
+
+*Adding XRay as another VPN protocol.*
+
+## What you can do with the connection
+
+With full access, you can connect to the VPN and manage your server in AmneziaVPN:
+
+- [share and revoke VPN access](/en/share-connection);
+- [manage VPN protocols](/en/install-configure-protocols);
+- [install a SOCKS5 proxy](/en/socks5-proxy-server);
+- [set up AmneziaDNS on the server](/en/change-dns);
+- [store and transfer files over SFTP](/en/sftp);
+- [host a website on Tor](/en/create-tor-website).
+
+## Other guides
+
+- [Troubleshoot a self-hosted AmneziaWG connection](https://docs.amnezia.org/troubleshooting/self-hosted-amneziawg-not-working).
+- [Self-hosted FAQ](https://docs.amnezia.org/faq#self-hosted-faq).
+- [Split tunneling](https://docs.amnezia.org/documentation/instructions/vpn-split-tunneling).
+- [Set up a VPN on Android TV](https://docs.amnezia.org/documentation/instructions/android_tv_connect).
+- [Set up a VPN on a Keenetic router](https://docs.amnezia.org/documentation/instructions/keenetic-os-awg).
+- [Set up a VPN on an OpenWrt router](https://docs.amnezia.org/documentation/instructions/openwrt-os-awg).
