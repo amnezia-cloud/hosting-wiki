@@ -206,7 +206,7 @@ export default defineConfig({
           {
             text: 'Важное сейчас',
             items: [
-              { text: 'Как обновить сервер', link: '/update-server' },
+              { text: 'Как обновить сервер из-за уязвимости CVE-2026-98432', link: '/update-server' },
               {
                 text: '🆙 AmneziaWG: с 2.0 на 3.1',
                 link: '/awg-3-1-upgrade',
@@ -517,7 +517,7 @@ export default defineConfig({
           {
             text: 'Important right now',
             items: [
-              { text: 'How to update your server', link: '/en/update-server' },
+              { text: 'Updating Your Server to Address CVE-2026-98432', link: '/en/update-server' },
               {
                 text: '🆙 AmneziaWG: 2.0 to 3.1',
                 link: '/en/awg-3-1-upgrade',
