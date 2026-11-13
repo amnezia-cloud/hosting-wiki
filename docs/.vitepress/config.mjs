@@ -310,6 +310,20 @@ export default defineConfig({
               { text: '🛡️ Настройка VPN', link: '/vpn-setup' },
               { text: '🔌 Протоколы', link: '/protocols' },
               {
+                text: '🛠️ AmneziaWG: обфускация через Architect',
+                link: '/amneziawg-architect',
+                collapsed: true,
+                items: [
+                  { text: 'Что понадобится', link: '/amneziawg-architect#s1' },
+                  { text: 'Установка AmneziaWG', link: '/amneziawg-architect#s4' },
+                  { text: 'Настройки в Architect', link: '/amneziawg-architect#s6' },
+                  { text: 'Перенос в приложение', link: '/amneziawg-architect#s7' },
+                  { text: 'Проверка и раздача', link: '/amneziawg-architect#s8' },
+                  { text: 'Если что-то не работает', link: '/amneziawg-architect#s9' },
+                  { text: 'Шпаргалка', link: '/amneziawg-architect#s10' }
+                ]
+              },
+              {
                 text: '🛡️ AmneziaWG: версии и настройка',
                 link: '/amneziawg-tuning',
                 collapsed: true,
@@ -620,6 +634,20 @@ export default defineConfig({
             items: [
               { text: '🛡️ VPN Setup', link: '/en/vpn-setup' },
               { text: '🔌 Protocols', link: '/en/protocols' },
+              {
+                text: '🛠️ AmneziaWG: obfuscation with Architect',
+                link: '/en/amneziawg-architect',
+                collapsed: true,
+                items: [
+                  { text: 'What you need', link: '/en/amneziawg-architect#s1' },
+                  { text: 'Install AmneziaWG', link: '/en/amneziawg-architect#s4' },
+                  { text: 'Architect settings', link: '/en/amneziawg-architect#s6' },
+                  { text: 'Transfer to the app', link: '/en/amneziawg-architect#s7' },
+                  { text: 'Check and share', link: '/en/amneziawg-architect#s8' },
+                  { text: 'Troubleshooting', link: '/en/amneziawg-architect#s9' },
+                  { text: 'Quick reference', link: '/en/amneziawg-architect#s10' }
+                ]
+              },
               {
                 text: '🛡️ AmneziaWG: versions and tuning',
                 link: '/en/amneziawg-tuning',
