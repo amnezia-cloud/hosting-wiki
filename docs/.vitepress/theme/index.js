@@ -2,7 +2,7 @@ import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import Feedback from './Feedback.js'
 import NewsCarousel from './NewsCarousel.js'
-import Banner from './Banner.js'
+// import Banner from './Banner.js' — баннер выключен, см. слоты ниже
 import Breadcrumbs from './Breadcrumbs.js'
 import PageMeta, { pageUrl, copyText } from './PageMeta.js'
 import HelpLinks from './HelpLinks.js'
@@ -82,13 +82,10 @@ export default {
   extends: DefaultTheme,
   Layout: () =>
     h(DefaultTheme.Layout, null, {
-      // Красный баннер: над главной и над текстом на всех остальных
-      // страницах. Намеренно в потоке контента, а не фиксирован сверху —
-      // фиксированный баннер пришлось бы согласовывать по высоте с шапкой,
-      // и на узких экранах, где текст переносится, они бы перекрывались.
-      'home-hero-before': () => h(Banner),
-      // Над текстом страницы: сначала хлебные крошки, под ними баннер.
-      'doc-before': () => [h(Breadcrumbs), h(Banner)],
+      // Красный баннер (Banner.js) сейчас выключен. Чтобы вернуть:
+      // 'home-hero-before': () => h(Banner) и h(Banner) после крошек в 'doc-before'.
+      // Над текстом страницы — хлебные крошки.
+      'doc-before': () => h(Breadcrumbs),
       // Блок «предложить правку» — перед «Назад / Вперёд», чтобы пагинация
       // и кнопки помощи под ней стояли вместе, как на docs.amnezia.org.
       'doc-footer-before': () => h(Feedback),
