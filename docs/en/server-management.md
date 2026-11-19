@@ -61,12 +61,20 @@ For the security of all hosting clients, the option to change the IP address you
 
 ## 📊 4. Dedicated Technical Resources {#resources}
 
-Your server is guaranteed the following capacity, which is not shared with other users. It is enough for stable VPN performance with up to 10 devices connected at once:
+Your server is guaranteed the capacity of your plan, which is not shared with other users:
 
-*   🧠 **Processor:** 1 dedicated CPU core (1 × 2.2 GHz)
-*   ⚡ **RAM:** 1 GB RAM
-*   🌐 **Network:** Up to 100 MB/s channel, unlimited traffic
-*   💾 **Storage:** 10 GB of fast SSD disk space
+| Plan | CPU | Memory | Storage (SSD) | Bandwidth |
+| :--- | :--- | :--- | :--- | :--- |
+| **Start** | 1 vCPU | 1 GB | 20 GB | 100 Mbps |
+| **Basic** | 1 vCPU | 2 GB | 20 GB | 100 Mbps |
+| **Advanced** | 2 vCPU | 4 GB | 40 GB | 200 Mbps |
+| **Pro** | 4 vCPU | 4 GB | 80 GB | 300 Mbps |
+| **Pro Plus** | 4 vCPU | 8 GB | 80 GB | 300 Mbps |
+| **Power** | 8 vCPU | 8 GB | 160 GB | 500 Mbps |
+| **Max** | 8 vCPU | 16 GB | 160 GB | 1 Gbps |
+| **Ultra** | 16 vCPU | 32 GB | 200 GB | 1 Gbps |
+
+How many people each plan comfortably handles is on **[Which plan to choose](/en/choose-plan)**. Running short on resources? You can change the plan in a couple of minutes, keeping your data and IP: **[Changing the plan](/en/change-plan)**.
 
 ## 📖 5. Detailed Connection Instructions (For Beginners) {#ssh}
 
