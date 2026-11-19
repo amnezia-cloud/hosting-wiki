@@ -37,7 +37,7 @@ An index of every walkthrough. Each question has its own article — open the on
 | **[XRay: masking and tuning](/en/xray-tuning)** | A domain in your subnet, verification, fingerprint, BBR |
 | **[Self-SNI for VLESS + Reality](/en/self-sni)** | Your own domain instead of someone else's: DuckDNS, nginx, Let's Encrypt, 3X-UI |
 | **[AmneziaWG: versions and tuning](/en/amneziawg-tuning)** | Versions 1.0 / 1.5 / 2.0, obfuscation parameters, subnet |
-| **[One server for multiple devices](/en/multiple-devices)** | Yes, up to 10 devices; one key each |
+| **[One server for multiple devices](/en/multiple-devices)** | Yes: from 5 people on Start to 120 on Ultra; one key each |
 | **[How much traffic the VPN uses](/en/traffic-usage)** | Every gigabyte passes through the server twice |
 
 ## 🖥️ Server and access {#server}
@@ -56,7 +56,7 @@ An index of every walkthrough. Each question has its own article — open the on
 | :--- | :--- |
 | **[How to pay for the hosting](/en/payment)** | FreeKassa, YooKassa, Stripe |
 | **[How to get a refund](/en/refund)** | Terms depend on the ordered period |
-| **[How to change my plan](/en/change-plan)** | There are no other plans right now |
+| **[How to change my plan](/en/change-plan)** | Any time, in a couple of minutes; data and IP are kept |
 | **[How to change the billing period](/en/billing-period)** | Through support: Telegram or a ticket |
 | **[Moving from Amnezia Premium](/en/premium-migration)** | We carry the remaining subscription over to your own server |
 
