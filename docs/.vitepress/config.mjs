@@ -455,6 +455,7 @@ export default defineConfig({
           {
             text: 'Оплата и тарифы',
             items: [
+              { text: 'Какой тариф выбрать', link: '/choose-plan' },
               { text: '💳 Как оплатить хостинг', link: '/payment' },
               { text: '↩️ Возврат средств', link: '/refund' },
               { text: '📦 Изменение тарифа', link: '/change-plan' },

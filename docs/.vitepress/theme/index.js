@@ -8,6 +8,8 @@ import PageMeta, { pageUrl, copyText } from './PageMeta.js'
 import HelpLinks from './HelpLinks.js'
 import Footer from './Footer.js'
 import Home from './Home.js'
+import PlanGuide from './components/plan-guide/PlanGuide.vue'
+import PlanCta from './components/plan-guide/PlanCta.vue'
 import './custom.css'
 
 // Клик по заголовку раздела копирует ссылку на него. Кириллица в якоре
@@ -103,6 +105,9 @@ export default {
     app.component('AmzPageMeta', PageMeta)
     // Главная страница целиком (docs/index.md, docs/en/index.md).
     app.component('AmzHome', Home)
+    // Страница «Какой тариф выбрать» (docs/choose-plan.md).
+    app.component('PlanGuide', PlanGuide)
+    app.component('PlanCta', PlanCta)
 
     if (!import.meta.env.SSR) {
       setupHeadingLinks()
