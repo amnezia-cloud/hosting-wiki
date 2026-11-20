@@ -433,6 +433,18 @@ export default defineConfig({
             text: 'Сервер и доступ',
             items: [
               { text: '👥 Выдача и отзыв доступа к VPN', link: '/share-connection' },
+              {
+                text: '🔀 Каскад',
+                link: '/cascade',
+                collapsed: true,
+                items: [
+                  { text: 'Как это работает', link: '/cascade#how' },
+                  { text: 'Пошаговая настройка', link: '/cascade#setup' },
+                  { text: 'Шпаргалка', link: '/cascade#cheat' },
+                  { text: 'Статусы', link: '/cascade#status' },
+                  { text: 'Частые вопросы', link: '/cascade#faq' }
+                ]
+              },
               { text: '⚙️ Управление VPN-протоколами', link: '/install-configure-protocols' },
               { text: '🔌 SOCKS5-прокси', link: '/socks5-proxy-server' },
               { text: '🌐 AmneziaDNS на сервере', link: '/change-dns' },
