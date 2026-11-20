@@ -375,8 +375,10 @@ export default defineConfig({
                 items: [
                   { text: 'Симптомы', link: '/awg-to-xray#symptoms' },
                   { text: 'Решение по шагам', link: '/awg-to-xray#fix' },
-                  { text: 'Запасные порты и SNI', link: '/awg-to-xray#fallback' },
-                  { text: 'Почему XRay устойчивее', link: '/awg-to-xray#why' }
+                  { text: 'Какой SNI выбрать', link: '/awg-to-xray#sni' },
+                  { text: 'Fingerprint: firefox', link: '/awg-to-xray#fingerprint' },
+                  { text: 'Если не заработало', link: '/awg-to-xray#fallback' },
+                  { text: 'AmneziaWG и XRay', link: '/awg-to-xray#why' }
                 ]
               },
               {
