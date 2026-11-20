@@ -771,6 +771,18 @@ export default defineConfig({
             text: 'Server and access',
             items: [
               { text: '👥 Share and revoke VPN access', link: '/en/share-connection' },
+                            {
+                text: '🔀 Cascade',
+                link: '/en/cascade',
+                collapsed: true,
+                items: [
+                  { text: 'How it works', link: '/en/cascade#how' },
+                  { text: 'Step-by-step setup', link: '/en/cascade#setup' },
+                  { text: 'Cheat sheet', link: '/en/cascade#cheat' },
+                  { text: 'Statuses', link: '/en/cascade#status' },
+                  { text: 'FAQ', link: '/en/cascade#faq' }
+                ]
+              },
               { text: '⚙️ Configure VPN protocols', link: '/en/install-configure-protocols' },
               { text: '🔌 Set up a SOCKS5 proxy', link: '/en/socks5-proxy-server' },
               { text: '🌐 Set up AmneziaDNS', link: '/en/change-dns' },
