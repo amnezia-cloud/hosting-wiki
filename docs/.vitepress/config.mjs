@@ -208,6 +208,20 @@ export default defineConfig({
             items: [
               { text: 'Как обновить сервер из-за уязвимости CVE-2026-98432', link: '/update-server' },
               {
+                text: '🚦 Раздельное туннелирование',
+                link: '/split-tunneling',
+                collapsed: true,
+                items: [
+                  { text: 'Зачем это нужно', link: '/split-tunneling#why' },
+                  { text: 'Какой список скачать', link: '/split-tunneling#lists' },
+                  { text: 'Настройка по сайтам', link: '/split-tunneling#sites' },
+                  { text: 'Настройка по приложениям', link: '/split-tunneling#apps' },
+                  { text: 'Свой список на iplist', link: '/split-tunneling#iplist' },
+                  { text: 'Как проверить', link: '/split-tunneling#check' },
+                  { text: 'Частые вопросы', link: '/split-tunneling#faq' }
+                ]
+              },
+              {
                 text: '🆙 AmneziaWG: с 2.0 на 3.1',
                 link: '/awg-3-1-upgrade',
                 collapsed: true,
