@@ -1528,3 +1528,304 @@ html {
     transition: none !important;
   }
 }
+
+/* ==========================================================================
+   КУБИК «НАШ САЙТ» В ШАПКЕ И КНОПКИ НА ГЛАВНОЙ
+   Блок дописан в конец файла и переопределяет прежний вид ссылок главной.
+   ========================================================================== */
+/* Плашка «Наш сайт» с кубиком (theme/HostCube.js) — в шапке на всех страницах.
+   На главной поиск в шапке скрыт: там есть большой поиск по центру. Скрыт
+   только визуально — на него опираются большой поиск и сочетание Ctrl+K. */
+.VPNavBar:has(.amz-host.is-home) .search {
+  display: none;
+}
+.amz-host {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 38px;
+  margin-right: 8px;
+  padding: 0 16px 0 14px;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 999px;
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.2s ease;
+}
+.amz-host:hover {
+  border-color: var(--vp-c-brand-2);
+}
+.amz-host__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.amz-host__title {
+  font-size: 12px;
+  font-weight: 600;
+}
+.amz-host__url {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--vp-c-brand-1);
+}
+.amz-host__tip {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  z-index: 30;
+  padding: 5px 11px;
+  border-radius: 8px;
+  background: var(--vp-c-text-1);
+  color: var(--vp-c-bg);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.amz-host__tip::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: 5px solid transparent;
+  border-bottom-color: var(--vp-c-text-1);
+}
+.amz-host.is-tip .amz-host__tip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+/* Рядом с поиском места меньше: на узких экранах остаётся только кубик. */
+@media (max-width: 1439px) {
+  .amz-host:not(.is-home) {
+    padding: 0 11px;
+  }
+  .amz-host:not(.is-home) .amz-host__text {
+    display: none;
+  }
+}
+@media (max-width: 1099px) {
+  .amz-host.is-home {
+    padding: 0 11px;
+  }
+  .amz-host.is-home .amz-host__text {
+    display: none;
+  }
+}
+/* Планшеты и телефоны: рядом с меню и поиском места нет — кубик только на главной. */
+@media (max-width: 1023px) {
+  .amz-host:not(.is-home) {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .amz-host {
+    padding: 0 11px;
+  }
+  .amz-host__text,
+  .amz-host__tip {
+    display: none;
+  }
+}
+
+/* Кубик: 8 «серверных» блоков — графитовые грани с мигающими огоньками.
+   Медленно вращается, слои по очереди поворачиваются (как у кубика Рубика),
+   блоки по одному всплывают. */
+.amz-cube {
+  --s: 26px;
+  --c: calc(var(--s) / 2);
+  --gap: calc(var(--s) * 0.035);
+  --spin: 16s;
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: var(--s);
+  height: var(--s);
+  perspective: calc(var(--s) * 8);
+}
+.amz-cube__rot,
+.amz-cube__layer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.amz-cube__rot {
+  animation: amz-cube-spin var(--spin) linear infinite;
+}
+.amz-cube__layer--top {
+  animation: amz-cube-twist 5s cubic-bezier(0.6, 0.05, 0.3, 1) infinite;
+}
+.amz-cube__layer--bottom {
+  animation: amz-cube-twist 5s cubic-bezier(0.6, 0.05, 0.3, 1) infinite reverse;
+  animation-delay: -2.5s;
+}
+.amz-cube__shadow {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: calc(var(--s) * -0.16);
+  height: calc(var(--s) * 0.16);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.32), transparent);
+}
+.dark .amz-cube__shadow {
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.7), transparent);
+}
+.amz-cube__cell {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--c);
+  height: var(--c);
+  transform-style: preserve-3d;
+  transform: translate3d(var(--x), var(--y), var(--z));
+  animation: amz-cube-pop 10s ease-in-out infinite;
+  animation-delay: var(--d);
+}
+.amz-cube__f {
+  --depth: calc(var(--c) / 2 - var(--gap));
+  position: absolute;
+  inset: var(--gap);
+  border: 0.8px solid rgba(0, 230, 61, 0.55);
+  border-radius: calc(var(--s) * 0.045);
+  background: linear-gradient(160deg, #2a332f, #1c2321);
+  backface-visibility: hidden;
+}
+/* Огонёк */
+.amz-cube__f::before {
+  content: "";
+  position: absolute;
+  top: 18%;
+  left: 18%;
+  width: 22%;
+  height: 22%;
+  border-radius: 50%;
+  background: #00e63d;
+  box-shadow: 0 0 4px #00e63d;
+  animation: amz-cube-blink 2.4s steps(2, jump-none) infinite;
+}
+/* Прорезь, как на передней панели сервера */
+.amz-cube__f::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 22%;
+  height: 8%;
+  border-radius: 2px;
+  background: rgba(0, 230, 61, 0.35);
+}
+.amz-cube__cell:nth-child(2n) .amz-cube__f::before {
+  animation-delay: -0.8s;
+}
+.amz-cube__cell:nth-child(3n) .amz-cube__f::before {
+  animation-delay: -1.6s;
+  background: #7dffa3;
+}
+.amz-cube__f--front { transform: translateZ(var(--depth)); }
+.amz-cube__f--right { transform: rotateY(90deg) translateZ(var(--depth)); }
+.amz-cube__f--back { transform: rotateY(180deg) translateZ(var(--depth)); }
+.amz-cube__f--left { transform: rotateY(-90deg) translateZ(var(--depth)); }
+.amz-cube__f--top {
+  transform: rotateX(90deg) translateZ(var(--depth));
+  background: linear-gradient(160deg, #3a4641, #2a332f);
+}
+.amz-cube__f--bottom { transform: rotateX(-90deg) translateZ(var(--depth)); }
+@keyframes amz-cube-spin {
+  from { transform: rotateX(-26deg) rotateY(0deg); }
+  to { transform: rotateX(-26deg) rotateY(-360deg); }
+}
+/* Поворот слоя на четверть оборота; кубик симметричный, поэтому
+   возврат в начало незаметен и вращение выглядит бесконечным. */
+@keyframes amz-cube-twist {
+  0%, 55% { transform: rotateY(0deg); }
+  75%, 100% { transform: rotateY(90deg); }
+}
+@keyframes amz-cube-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+/* «Всплывание»: маленький кубик выезжает по своей диагонали и возвращается */
+@keyframes amz-cube-pop {
+  0%, 72%, 100% { transform: translate3d(var(--x), var(--y), var(--z)); }
+  78%, 86% {
+    transform: translate3d(calc(var(--x) + var(--px)), calc(var(--y) + var(--py)), calc(var(--z) + var(--pz)));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .amz-cube__rot,
+  .amz-cube__layer,
+  .amz-cube__cell,
+  .amz-cube__f::before {
+    animation: none;
+  }
+  .amz-cube__rot {
+    transform: rotateX(-26deg) rotateY(-35deg);
+  }
+}
+
+/* Ссылки под заголовком главной: кнопки и строка зеркал */
+.amz-home__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.amz-home__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid var(--amz-card-border);
+  border-radius: 12px;
+  background: var(--amz-tile-bg);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.amz-home__link .amz-home__link-icon {
+  color: var(--vp-c-brand-1);
+}
+.amz-home__link:hover {
+  border-color: var(--vp-c-brand-1);
+}
+/* Главная кнопка — «Личный кабинет» */
+.amz-home__link.is-primary {
+  border-color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-1);
+  color: #06210f;
+}
+.amz-home__link.is-primary .amz-home__link-icon {
+  color: #06210f;
+}
+.amz-home__link.is-primary:hover {
+  background: var(--vp-c-brand-2);
+  border-color: var(--vp-c-brand-2);
+}
+/* Строка зеркал под кнопками */
+.amz-home__mirrors {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--vp-c-text-3);
+}
+.amz-home__mirrors a {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+}
+.amz-home__mirrors a:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.amz-home__link:hover {
+  opacity: 1;
+}
