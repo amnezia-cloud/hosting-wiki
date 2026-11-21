@@ -266,7 +266,6 @@ export default defineConfig({
                   { text: 'Частые вопросы', link: '/split-tunneling#faq' }
                 ]
               },
-              { text: '☁️ Какой тариф выбрать', link: '/choose-plan' },
               { text: '👥 Выдача и отзыв доступа к VPN', link: '/share-connection' },
               { text: '👥 Несколько устройств', link: '/multiple-devices' },
               {
@@ -636,7 +635,6 @@ export default defineConfig({
                 ]
               },
               { text: '🛡️ VPN Setup', link: '/en/vpn-setup' },
-              { text: '☁️ Which plan to choose', link: '/en/choose-plan' },
               { text: '👥 Share and revoke VPN access', link: '/en/share-connection' },
               { text: '👥 Multiple devices', link: '/en/multiple-devices' },
               {
