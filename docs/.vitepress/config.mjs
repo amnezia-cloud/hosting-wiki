@@ -597,68 +597,30 @@ export default defineConfig({
           { text: 'VPN & Security', link: '/en/vpn-setup' },
           { text: 'Help', link: '/en/faq' }
         ],
+        // Same structure as the Russian menu: the home field sets how a section
+        // looks on the home page (see the comment above the Russian sidebar).
         sidebar: collapsible([
           {
             text: 'Important right now',
+            home: 'important',
+            homeIcon: '🚨',
+            homeLead: 'Do this first',
             items: [
-              { text: 'Updating Your Server to Address CVE-2026-98432', link: '/en/update-server' },
               {
-                text: '🆙 AmneziaWG: 2.0 to 3.1',
-                link: '/en/awg-3-1-upgrade',
-                collapsed: true,
-                items: [
-                  { text: 'Moving to 3.1', link: '/en/awg-3-1-upgrade#upgrade' },
-                  { text: 'Default parameters', link: '/en/awg-3-1-upgrade#defaults' },
-                  { text: 'What the generator does', link: '/en/awg-3-1-upgrade#parameters' },
-                  { text: 'Client limitations', link: '/en/awg-3-1-upgrade#clients' },
-                  { text: '3.1 alongside a working 2.0', link: '/en/awg-3-1-upgrade#keep-2-0' },
-                  { text: 'Rolling back to 2.0', link: '/en/awg-3-1-upgrade#rollback' }
-                ]
+                text: '🚨 Server update: CVE-2026-98432',
+                link: '/en/update-server',
+                homeText: '🚨 Update your server: CVE-2026-98432 vulnerability',
+                badge: 'Urgent',
+                hot: true
               },
-              {
-                text: '🔬 How AmneziaWG works',
-                link: '/en/awg-parameters',
-                collapsed: true,
-                items: [
-                  { text: 'Versus WireGuard', link: '/en/awg-parameters#vs-wireguard' },
-                  { text: 'What each version added', link: '/en/awg-parameters#versions' },
-                  { text: 'What must match', link: '/en/awg-parameters#matching' },
-                  { text: 'The parameters one by one', link: '/en/awg-parameters#parameters' },
-                  { text: 'How to pick an MTU', link: '/en/awg-parameters#mtu' }
-                ]
-              },
-              {
-                text: '⚡ XRay (VLESS): masking and tuning',
-                link: '/en/xray-tuning',
-                collapsed: true,
-                items: [
-                  { text: 'Port: always 443', link: '/en/xray-tuning#port' },
-                  { text: 'Masking domain', link: '/en/xray-tuning#domain' },
-                  { text: 'Verifying the domain', link: '/en/xray-tuning#verify' },
-                  { text: 'Switching the fingerprint', link: '/en/xray-tuning#fingerprint' },
-                  { text: 'BBR acceleration', link: '/en/xray-tuning#bbr' },
-                  { text: 'Updating the core', link: '/en/xray-tuning#core-update' }
-                ]
-              },
-              {
-                text: '🔐 Self-SNI for VLESS + Reality',
-                link: '/en/self-sni',
-                collapsed: true,
-                items: [
-                  { text: 'What it is and why', link: '/en/self-sni#why' },
-                  { text: 'A free domain', link: '/en/self-sni#domain' },
-                  { text: 'The decoy site', link: '/en/self-sni#decoy' },
-                  { text: 'Let\'s Encrypt certificate', link: '/en/self-sni#cert' },
-                  { text: 'Why 443 does not clash', link: '/en/self-sni#ports' },
-                  { text: 'Reality in 3X-UI', link: '/en/self-sni#reality' },
-                  { text: 'The client link', link: '/en/self-sni#link' },
-                  { text: 'Common mistakes', link: '/en/self-sni#errors' }
-                ]
-              }
+              { text: '🔀 Cascade', link: '/en/cascade', homeText: '🔀 Cascade: VPN works again without changing the server', badge: 'New' }
             ]
           },
           {
-            text: 'Getting Started',
+            text: 'Just getting started',
+            home: 'column',
+            homeIcon: '🚀',
+            homeLead: 'Step by step from purchase to your first connection',
             items: [
               { text: '🚀 Quick Start', link: '/en/commands' },
               {
@@ -672,6 +634,10 @@ export default defineConfig({
                   { text: 'Premium switch-off', link: '/en/premium-migration#premium-off' }
                 ]
               },
+              { text: '🛡️ VPN Setup', link: '/en/vpn-setup' },
+              { text: '☁️ Which plan to choose', link: '/en/choose-plan' },
+              { text: '👥 Share and revoke VPN access', link: '/en/share-connection' },
+              { text: '👥 Multiple devices', link: '/en/multiple-devices' },
               {
                 text: '🖥️ Server Management',
                 link: '/en/server-management',
@@ -684,70 +650,15 @@ export default defineConfig({
                   { text: 'Connecting via SSH', link: '/en/server-management#ssh' },
                   { text: 'Commands Cheat Sheet', link: '/en/server-management#commands' }
                 ]
-              },
-              {
-                text: '🔄 Reinstalling the OS',
-                link: '/en/reinstall',
-                collapsed: true,
-                items: [
-                  { text: 'Check the issue date', link: '/en/reinstall#check' },
-                  { text: 'What a reinstall does', link: '/en/reinstall#what-happens' },
-                  { text: 'Before you reinstall', link: '/en/reinstall#before' },
-                  { text: 'Step by step', link: '/en/reinstall#how' },
-                  { text: 'Older servers: replacement', link: '/en/reinstall#legacy' }
-                ]
               }
             ]
           },
           {
-            text: 'VPN & Security',
-            items: [
-              { text: '🛡️ VPN Setup', link: '/en/vpn-setup' },
-              { text: '🔌 Protocols', link: '/en/protocols' },
-              {
-                text: '🛠️ AmneziaWG: obfuscation with Architect',
-                link: '/en/amneziawg-architect',
-                collapsed: true,
-                items: [
-                  { text: 'What you need', link: '/en/amneziawg-architect#s1' },
-                  { text: 'Install AmneziaWG', link: '/en/amneziawg-architect#s4' },
-                  { text: 'Architect settings', link: '/en/amneziawg-architect#s6' },
-                  { text: 'Transfer to the app', link: '/en/amneziawg-architect#s7' },
-                  { text: 'Check and share', link: '/en/amneziawg-architect#s8' },
-                  { text: 'Troubleshooting', link: '/en/amneziawg-architect#s9' },
-                  { text: 'Quick reference', link: '/en/amneziawg-architect#s10' }
-                ]
-              },
-              {
-                text: '🛡️ AmneziaWG: versions and tuning',
-                link: '/en/amneziawg-tuning',
-                collapsed: true,
-                items: [
-                  { text: 'Telling the version', link: '/en/amneziawg-tuning#version' },
-                  { text: 'Parameter generators', link: '/en/amneziawg-tuning#generators' },
-                  { text: 'AWG 1.0 and 1.5', link: '/en/amneziawg-tuning#legacy' },
-                  { text: 'AWG 2.0 and mimicry', link: '/en/amneziawg-tuning#awg2' },
-                  { text: 'Installing legacy 1.0 / 1.5', link: '/en/amneziawg-tuning#legacy-install' },
-                  { text: 'Backing up containers', link: '/en/amneziawg-tuning#backup' },
-                  { text: 'Changing the subnet', link: '/en/amneziawg-tuning#subnet' }
-                ]
-              },
-              {
-                text: '🔒 Server Security',
-                link: '/en/security',
-                collapsed: true,
-                items: [
-                  { text: 'A separate user', link: '/en/security#user' },
-                  { text: 'Changing the SSH port', link: '/en/security#ssh-port' },
-                  { text: 'Key-based login', link: '/en/security#ssh-keys' },
-                  { text: 'UFW firewall', link: '/en/security#ufw' },
-                  { text: 'fail2ban', link: '/en/security#fail2ban' }
-                ]
-              }
-            ]
-          },
-          {
-            text: 'Connection and VPN',
+            text: 'Something is not working',
+            home: 'column',
+            homeIcon: '🩺',
+            homeLead: 'Troubleshooting by symptom',
+            homeAccent: true,
             items: [
               {
                 text: '🩺 VPN not connecting',
@@ -785,6 +696,17 @@ export default defineConfig({
                 ]
               },
               {
+                text: '🍎 AmneziaVPN on iOS in Russia',
+                link: '/en/ios-app-store',
+                collapsed: true,
+                items: [
+                  { text: 'The easy things first', link: '/en/ios-app-store#quick-options' },
+                  { text: 'Why it is missing', link: '/en/ios-app-store#why-hidden' },
+                  { text: 'A new Apple account', link: '/en/ios-app-store#new-account' },
+                  { text: 'Changing the region', link: '/en/ios-app-store#change-region' }
+                ]
+              },
+              {
                 text: '🐳 20x errors (Docker)',
                 link: '/en/error-20x',
                 collapsed: true,
@@ -807,28 +729,99 @@ export default defineConfig({
                   { text: 'SSH key format', link: '/en/error-30x#ssh-keys' }
                 ]
               },
-              {
-                text: '🍎 AmneziaVPN on iOS in Russia',
-                link: '/en/ios-app-store',
-                collapsed: true,
-                items: [
-                  { text: 'The easy things first', link: '/en/ios-app-store#quick-options' },
-                  { text: 'Why it is missing', link: '/en/ios-app-store#why-hidden' },
-                  { text: 'A new Apple account', link: '/en/ios-app-store#new-account' },
-                  { text: 'Changing the region', link: '/en/ios-app-store#change-region' }
-                ]
-              },
-              { text: '🤖 Gemini via VPN', link: '/en/gemini' },
-              { text: '▶️ YouTube ads', link: '/en/youtube-ads' },
-              { text: '👥 Multiple devices', link: '/en/multiple-devices' },
-              { text: '📊 Traffic usage', link: '/en/traffic-usage' }
+              { text: '🛑 Server in Bad State', link: '/en/broken-state' }
             ]
           },
           {
-            text: 'Server and access',
+            text: 'Advanced',
+            home: 'column',
+            homeIcon: '⚙️',
+            homeLead: 'Protocols, masking and services on your server',
             items: [
-              { text: '👥 Share and revoke VPN access', link: '/en/share-connection' },
-                            {
+              { text: '🔌 Protocols', link: '/en/protocols' },
+              { text: '⚙️ Configure VPN protocols', link: '/en/install-configure-protocols' },
+              {
+                text: '🔬 How AmneziaWG works',
+                link: '/en/awg-parameters',
+                collapsed: true,
+                items: [
+                  { text: 'Versus WireGuard', link: '/en/awg-parameters#vs-wireguard' },
+                  { text: 'What each version added', link: '/en/awg-parameters#versions' },
+                  { text: 'What must match', link: '/en/awg-parameters#matching' },
+                  { text: 'The parameters one by one', link: '/en/awg-parameters#parameters' },
+                  { text: 'How to pick an MTU', link: '/en/awg-parameters#mtu' }
+                ]
+              },
+              {
+                text: '🛡️ AmneziaWG: versions and tuning',
+                link: '/en/amneziawg-tuning',
+                collapsed: true,
+                items: [
+                  { text: 'Telling the version', link: '/en/amneziawg-tuning#version' },
+                  { text: 'Parameter generators', link: '/en/amneziawg-tuning#generators' },
+                  { text: 'AWG 1.0 and 1.5', link: '/en/amneziawg-tuning#legacy' },
+                  { text: 'AWG 2.0 and mimicry', link: '/en/amneziawg-tuning#awg2' },
+                  { text: 'Installing legacy 1.0 / 1.5', link: '/en/amneziawg-tuning#legacy-install' },
+                  { text: 'Backing up containers', link: '/en/amneziawg-tuning#backup' },
+                  { text: 'Changing the subnet', link: '/en/amneziawg-tuning#subnet' }
+                ]
+              },
+              {
+                text: '🆙 AmneziaWG: 2.0 to 3.1',
+                link: '/en/awg-3-1-upgrade',
+                collapsed: true,
+                items: [
+                  { text: 'Moving to 3.1', link: '/en/awg-3-1-upgrade#upgrade' },
+                  { text: 'Default parameters', link: '/en/awg-3-1-upgrade#defaults' },
+                  { text: 'What the generator does', link: '/en/awg-3-1-upgrade#parameters' },
+                  { text: 'Client limitations', link: '/en/awg-3-1-upgrade#clients' },
+                  { text: '3.1 alongside a working 2.0', link: '/en/awg-3-1-upgrade#keep-2-0' },
+                  { text: 'Rolling back to 2.0', link: '/en/awg-3-1-upgrade#rollback' }
+                ]
+              },
+              {
+                text: '🛠️ AmneziaWG: obfuscation with Architect',
+                link: '/en/amneziawg-architect',
+                collapsed: true,
+                items: [
+                  { text: 'What you need', link: '/en/amneziawg-architect#s1' },
+                  { text: 'Install AmneziaWG', link: '/en/amneziawg-architect#s4' },
+                  { text: 'Architect settings', link: '/en/amneziawg-architect#s6' },
+                  { text: 'Transfer to the app', link: '/en/amneziawg-architect#s7' },
+                  { text: 'Check and share', link: '/en/amneziawg-architect#s8' },
+                  { text: 'Troubleshooting', link: '/en/amneziawg-architect#s9' },
+                  { text: 'Quick reference', link: '/en/amneziawg-architect#s10' }
+                ]
+              },
+              {
+                text: '⚡ XRay (VLESS): masking and tuning',
+                link: '/en/xray-tuning',
+                collapsed: true,
+                items: [
+                  { text: 'Port: always 443', link: '/en/xray-tuning#port' },
+                  { text: 'Masking domain', link: '/en/xray-tuning#domain' },
+                  { text: 'Verifying the domain', link: '/en/xray-tuning#verify' },
+                  { text: 'Switching the fingerprint', link: '/en/xray-tuning#fingerprint' },
+                  { text: 'BBR acceleration', link: '/en/xray-tuning#bbr' },
+                  { text: 'Updating the core', link: '/en/xray-tuning#core-update' }
+                ]
+              },
+              {
+                text: '🔐 Self-SNI for VLESS + Reality',
+                link: '/en/self-sni',
+                collapsed: true,
+                items: [
+                  { text: 'What it is and why', link: '/en/self-sni#why' },
+                  { text: 'A free domain', link: '/en/self-sni#domain' },
+                  { text: 'The decoy site', link: '/en/self-sni#decoy' },
+                  { text: 'Let\'s Encrypt certificate', link: '/en/self-sni#cert' },
+                  { text: 'Why 443 does not clash', link: '/en/self-sni#ports' },
+                  { text: 'Reality in 3X-UI', link: '/en/self-sni#reality' },
+                  { text: 'The client link', link: '/en/self-sni#link' },
+                  { text: 'Common mistakes', link: '/en/self-sni#errors' }
+                ]
+              },
+              {
                 text: '🔀 Cascade',
                 link: '/en/cascade',
                 collapsed: true,
@@ -840,13 +833,41 @@ export default defineConfig({
                   { text: 'FAQ', link: '/en/cascade#faq' }
                 ]
               },
-              { text: '⚙️ Configure VPN protocols', link: '/en/install-configure-protocols' },
               { text: '🔌 Set up a SOCKS5 proxy', link: '/en/socks5-proxy-server' },
               { text: '🌐 Set up AmneziaDNS', link: '/en/change-dns' },
               { text: '📁 Set up SFTP file storage', link: '/en/sftp' },
-              { text: '🧅 Host a site on Tor', link: '/en/create-tor-website' },
+              { text: '🧅 Host a site on Tor', link: '/en/create-tor-website' }
+            ]
+          },
+          {
+            text: 'Server',
+            items: [
+              { text: '🚨 Server update: CVE-2026-98432', link: '/en/update-server' },
+              {
+                text: '🔒 Server Security',
+                link: '/en/security',
+                collapsed: true,
+                items: [
+                  { text: 'A separate user', link: '/en/security#user' },
+                  { text: 'Changing the SSH port', link: '/en/security#ssh-port' },
+                  { text: 'Key-based login', link: '/en/security#ssh-keys' },
+                  { text: 'UFW firewall', link: '/en/security#ufw' },
+                  { text: 'fail2ban', link: '/en/security#fail2ban' }
+                ]
+              },
               { text: '🔑 Changing the root password', link: '/en/root-password' },
-              { text: '🛑 Server in Bad State', link: '/en/broken-state' },
+              {
+                text: '🔄 Reinstalling the OS',
+                link: '/en/reinstall',
+                collapsed: true,
+                items: [
+                  { text: 'Check the issue date', link: '/en/reinstall#check' },
+                  { text: 'What a reinstall does', link: '/en/reinstall#what-happens' },
+                  { text: 'Before you reinstall', link: '/en/reinstall#before' },
+                  { text: 'Step by step', link: '/en/reinstall#how' },
+                  { text: 'Older servers: replacement', link: '/en/reinstall#legacy' }
+                ]
+              },
               {
                 text: '🌍 Server geolocation',
                 link: '/en/geolocation',
@@ -860,9 +881,16 @@ export default defineConfig({
             ]
           },
           {
+            text: 'Useful',
+            items: [
+              { text: '🤖 Gemini via VPN', link: '/en/gemini' },
+              { text: '▶️ YouTube ads', link: '/en/youtube-ads' },
+              { text: '📊 Traffic usage', link: '/en/traffic-usage' }
+            ]
+          },
+          {
             text: 'Billing and plans',
             items: [
-              { text: 'Which plan to choose', link: '/en/choose-plan' },
               { text: '💳 How to pay', link: '/en/payment' },
               { text: '↩️ Refunds', link: '/en/refund' },
               { text: '📦 Changing the plan', link: '/en/change-plan' },
@@ -871,6 +899,7 @@ export default defineConfig({
           },
           {
             text: 'Help',
+            home: 'hidden',
             items: [
               {
                 text: '❓ Frequently asked questions',
