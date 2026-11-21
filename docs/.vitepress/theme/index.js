@@ -8,6 +8,7 @@ import PageMeta, { pageUrl, copyText } from './PageMeta.js'
 import HelpLinks from './HelpLinks.js'
 import Footer from './Footer.js'
 import Home from './Home.js'
+import HostCube from './HostCube.js'
 import PlanGuide from './components/plan-guide/PlanGuide.vue'
 import PlanCta from './components/plan-guide/PlanCta.vue'
 import './custom.css'
@@ -86,6 +87,7 @@ export default {
       // 'home-hero-before': () => h(Banner) и h(Banner) после крошек в 'doc-before'.
       // Над текстом страницы — хлебные крошки.
       'doc-before': () => h(Breadcrumbs),
+      'nav-bar-content-before': () => h(HostCube),
       // Блок «предложить правку» — перед «Назад / Вперёд», чтобы пагинация
       // и кнопки помощи под ней стояли вместе, как на docs.amnezia.org.
       'doc-footer-before': () => h(Feedback),
