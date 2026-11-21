@@ -2,14 +2,20 @@ import { h, reactive } from 'vue'
 import { useData, withBase } from 'vitepress'
 
 // Главная в духе docs.amnezia.org: заголовок, строка полезных ссылок, большой
-// поиск, плитки разделов и плашка поддержки. Плитки строятся из сайдбара —
+// поиск, колонки и плитки разделов, плашка поддержки. Всё строится из сайдбара —
 // новая статья в меню сама появится и на главной.
 //
-// Плитка показывает до пяти ссылок. Если их больше — четыре и кнопку «Ещё N»,
-// которая раскрывает остальные.
+// Вид раздела задаёт поле home в config.mjs:
+//   'important' — красная колонка «Важное сейчас», высота по содержимому;
+//   'column'    — большая колонка; колонки в ряду одной высоты, до COLUMN_LINES
+//                 ссылок, остальное под кнопкой «Ещё N»;
+//   'hidden'    — раздел не показывается на главной;
+//   без home    — плитка: до MAX_LINES ссылок, иначе четыре и «Ещё N».
+// Статьи из «Важное сейчас» получают такую же метку и в своих разделах.
 
 const SUPPORT = 'https://t.me/amnezia_hosting_bot'
 const MAX_LINES = 5
+const COLUMN_LINES = 8
 
 const icon = (d) =>
   h('svg', { class: 'amz-home__link-icon', viewBox: '0 0 24 24', width: 15, height: 15, 'aria-hidden': 'true' }, [
@@ -101,31 +107,86 @@ export default {
       const t = lang.value && lang.value.startsWith('en') ? STRINGS.en : STRINGS.ru
       const groups = theme.value.sidebar || []
 
-      const tile = (group, index) => {
-        const items = (group.items || []).filter((item) => item.link)
-        const open = expanded[index]
-        const overflow = items.length > MAX_LINES
-        const shown = overflow && !open ? items.slice(0, MAX_LINES - 1) : items
+      const important = groups.find((g) => g.home === 'important')
+      const columns = groups.filter((g) => g.home === 'column')
+      const tiles = groups.filter((g) => !g.home)
 
-        return h('section', { class: 'amz-home__tile' }, [
-          h('h2', { class: 'amz-home__tile-title' }, group.text),
-          h('ul', { class: 'amz-home__tile-list' }, [
-            ...shown.map((item) =>
-              h('li', null, [h('a', { href: withBase(item.link) }, item.text)])
-            ),
-            overflow
-              ? h('li', null, [
-                  h('button', {
-                    type: 'button',
-                    class: 'amz-home__more',
-                    'aria-expanded': open ? 'true' : 'false',
-                    onClick: () => { expanded[index] = !open }
-                  }, open ? t.less : t.more(items.length - (MAX_LINES - 1)))
-                ])
-              : null
-          ])
-        ])
+      // Метки «Срочно» / «Новое» для статей из «Важное сейчас» во всех разделах.
+      const marks = {}
+      if (important) {
+        for (const item of important.items || []) {
+          if (item.link && item.badge) marks[item.link] = item
+        }
       }
+      const badge = (item, cls) =>
+        item && item.badge
+          ? h('span', { class: [cls, item.hot ? 'is-hot' : null] }, item.badge)
+          : null
+
+      const link = (item) =>
+        h('li', null, [
+          h('a', { href: withBase(item.link) }, [item.text, badge(marks[item.link], 'amz-home__mark')])
+        ])
+
+      // Ссылки с кнопкой «Ещё N»: если ссылок больше limit, видно limit - 1.
+      const list = (key, items, limit, listClass) => {
+        const open = expanded[key]
+        const overflow = items.length > limit
+        const shown = overflow && !open ? items.slice(0, limit - 1) : items
+        return [
+          h('ul', { class: listClass }, shown.map(link)),
+          overflow
+            ? h('button', {
+                type: 'button',
+                class: 'amz-home__more',
+                'aria-expanded': open ? 'true' : 'false',
+                onClick: () => { expanded[key] = !open }
+              }, open ? t.less : t.more(items.length - (limit - 1)))
+            : null
+        ]
+      }
+
+      const links = (group) => (group.items || []).filter((item) => item.link)
+
+      const tile = (group) =>
+        h('section', { class: 'amz-home__tile' }, [
+          h('h2', { class: 'amz-home__tile-title' }, group.text),
+          ...list('tile:' + group.text, links(group), MAX_LINES, 'amz-home__tile-list')
+        ])
+
+      const columnHead = (group) => [
+        group.homeIcon ? h('div', { class: 'amz-home__col-icon', 'aria-hidden': 'true' }, group.homeIcon) : null,
+        h('h2', { class: 'amz-home__col-title' }, group.text),
+        group.homeLead ? h('p', { class: 'amz-home__col-lead' }, group.homeLead) : null
+      ]
+
+      const column = (group) =>
+        h('section', { class: ['amz-home__col', group.homeAccent ? 'is-accent' : null] }, [
+          ...columnHead(group),
+          ...list('col:' + group.text, links(group), COLUMN_LINES, 'amz-home__col-list')
+        ])
+
+      const importantColumn = (group) =>
+        h('section', { class: 'amz-home__col is-important' }, [
+          ...columnHead(group),
+          h('ul', { class: 'amz-home__col-list' },
+            links(group).map((item) =>
+              h('li', null, [
+                h('a', { href: withBase(item.link) }, [
+                  badge(item, 'amz-home__badge'),
+                  h('span', { class: 'amz-home__important-text' }, item.homeText || item.text)
+                ])
+              ])
+            )
+          )
+        ])
+
+      const paths = important || columns.length
+        ? h('div', { class: 'amz-home__paths' }, [
+            important ? importantColumn(important) : null,
+            ...columns.map(column)
+          ])
+        : null
 
       return h('div', { class: 'amz-home' }, [
         h('header', { class: 'amz-home__hero' }, [
@@ -142,7 +203,8 @@ export default {
             h('kbd', { class: 'amz-home__search-key' }, 'Ctrl K')
           ])
         ]),
-        h('div', { class: 'amz-home__tiles' }, groups.map(tile)),
+        paths,
+        tiles.length ? h('div', { class: 'amz-home__tiles' }, tiles.map(tile)) : null,
         h('aside', { class: 'amz-home__help' }, [
           TELEGRAM_ICON,
           h('div', { class: 'amz-home__help-body' }, [
