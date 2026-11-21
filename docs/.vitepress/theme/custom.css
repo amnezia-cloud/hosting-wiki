@@ -968,6 +968,127 @@ a.amz-crumbs__link:hover,
   opacity: 0.8;
 }
 
+/* Колонки главной: «Важное сейчас» (красная) + большие разделы (home: 'column').
+   Большие колонки в ряду одной высоты, «Важное» — по своему содержимому. */
+.amz-home__paths {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) repeat(3, minmax(0, 1.15fr));
+  gap: 16px;
+  margin-top: 40px;
+  align-items: stretch;
+}
+.amz-home__paths + .amz-home__tiles {
+  margin-top: 16px;
+}
+.amz-home__col {
+  display: flex;
+  flex-direction: column;
+  padding: 22px 22px 18px;
+  border: 1px solid var(--amz-card-border);
+  border-radius: 18px;
+  background: var(--amz-tile-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.amz-home__col:hover {
+  border-color: var(--vp-c-brand-2);
+}
+.amz-home__col.is-accent {
+  border-color: var(--vp-c-brand-1);
+  box-shadow: inset 0 0 0 1px var(--vp-c-brand-1);
+  background: linear-gradient(180deg, var(--vp-c-brand-soft), transparent 45%), var(--amz-tile-bg);
+}
+.amz-home__col.is-important {
+  align-self: start;
+  border-color: rgba(244, 63, 94, 0.6);
+  box-shadow: inset 0 0 0 1px rgba(244, 63, 94, 0.6);
+  background: linear-gradient(180deg, rgba(244, 63, 94, 0.13), transparent 50%), var(--amz-tile-bg);
+}
+.amz-home__col.is-important:hover {
+  border-color: rgba(244, 63, 94, 0.9);
+}
+.amz-home__col-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+.amz-home__col-title {
+  margin: 10px 0 2px;
+  padding: 0;
+  border: 0;
+  font-size: 20px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--vp-c-text-1);
+}
+.amz-home__col.is-important .amz-home__col-title {
+  color: #e11d48;
+}
+.dark .amz-home__col.is-important .amz-home__col-title {
+  color: #fb7185;
+}
+.amz-home__col-lead {
+  margin: 0 0 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--vp-c-text-2);
+}
+.amz-home__col-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.amz-home__col-list li {
+  border-top: 1px solid var(--vp-c-divider);
+}
+.amz-home__col-list a {
+  display: block;
+  padding: 8px 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--vp-c-text-1);
+  transition: color 0.15s ease;
+}
+.amz-home__col-list a:hover {
+  color: var(--vp-c-brand-1);
+}
+.amz-home__col .amz-home__more {
+  margin-top: 10px;
+}
+.amz-home__important-text {
+  display: block;
+}
+
+/* Метки «Срочно» / «Новое»: в «Важное сейчас» над текстом, в разделах — после него. */
+.amz-home__badge,
+.amz-home__mark {
+  display: inline-block;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: 700;
+  white-space: nowrap;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+}
+.amz-home__badge {
+  margin-bottom: 4px;
+}
+.amz-home__mark {
+  margin-left: 6px;
+  vertical-align: 1px;
+}
+.amz-home__badge.is-hot,
+.amz-home__mark.is-hot {
+  background: rgba(244, 63, 94, 0.16);
+  color: #e11d48;
+}
+.dark .amz-home__badge.is-hot,
+.dark .amz-home__mark.is-hot {
+  color: #fb7185;
+}
+
 .amz-home__help {
   display: flex;
   align-items: center;
@@ -1029,6 +1150,11 @@ a.amz-crumbs__link:hover,
   font-weight: 500;
 }
 
+@media (max-width: 1100px) {
+  .amz-home__paths {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 @media (max-width: 960px) {
   .amz-home__tiles {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1041,8 +1167,12 @@ a.amz-crumbs__link:hover,
   .amz-home__title {
     font-size: 36px;
   }
-  .amz-home__tiles {
+  .amz-home__tiles,
+  .amz-home__paths {
     grid-template-columns: 1fr;
+  }
+  .amz-home__col.is-important {
+    align-self: stretch;
   }
   .amz-home__search-key {
     display: none;
