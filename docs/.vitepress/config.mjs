@@ -524,6 +524,7 @@ export default defineConfig({
           {
             text: 'Оплата и тарифы',
             items: [
+              { text: '☁️ Какой тариф выбрать', link: '/choose-plan' },
               { text: '💳 Как оплатить хостинг', link: '/payment' },
               { text: '↩️ Возврат средств', link: '/refund' },
               { text: '📦 Изменение тарифа', link: '/change-plan' },
@@ -891,6 +892,7 @@ export default defineConfig({
           {
             text: 'Billing and plans',
             items: [
+              { text: '☁️ Which plan to choose', link: '/en/choose-plan' },
               { text: '💳 How to pay', link: '/en/payment' },
               { text: '↩️ Refunds', link: '/en/refund' },
               { text: '📦 Changing the plan', link: '/en/change-plan' },
