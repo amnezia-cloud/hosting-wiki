@@ -26,18 +26,27 @@ const ICONS = {
   site: 'M3 10.5 12 4l9 6.5M5 9v10h14V9M10 19v-5h4v5',
   mirror: 'M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1',
   channel: 'M21 4 3 11l6 2.5M21 4l-3.5 16-8.5-6.5M21 4 9 13.5V19l3-3',
-  account: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 20a8 8 0 0 1 16 0'
+  account: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 20a8 8 0 0 1 16 0',
+  bot: 'M4 6h16v10H8l-4 4z'
 }
+
+// Зеркала на случай, если сайты не открываются.
+const MIRROR = 'https://storage.googleapis.com/amnezia/'
 
 const STRINGS = {
   ru: {
     title: 'База знаний',
     lead: 'Как подключиться к серверу Amnezia Hosting, настроить свой VPN и разобраться, если что-то не работает.',
+    // Главная кнопка, рядом обычные ссылки, ниже — строка зеркал.
+    primary: { icon: 'account', text: 'Личный кабинет', link: 'https://my.amnezia.host' },
     links: [
-      { icon: 'site', text: 'Сайт Amnezia Hosting', link: 'https://amnezia.host' },
-      { icon: 'mirror', text: 'Зеркало сайта', link: 'https://storage.googleapis.com/amnezia/my.host' },
       { icon: 'channel', text: 'Telegram-канал', link: 'https://t.me/amneziahosting' },
-      { icon: 'account', text: 'Личный кабинет', link: 'https://my.amnezia.host' }
+      { icon: 'bot', text: 'Бот поддержки', link: SUPPORT }
+    ],
+    mirrorsLead: 'Сайт не открывается? Зеркала:',
+    mirrors: [
+      { text: 'кабинет', link: MIRROR + 'my.host' },
+      { text: 'хостинг', link: MIRROR + 'host' }
     ],
     search: 'Поиск по базе знаний…',
     more: (n) => `Ещё ${n}`,
@@ -56,11 +65,15 @@ const STRINGS = {
   en: {
     title: 'Knowledge base',
     lead: 'How to connect to your Amnezia Hosting server, set up your own VPN and sort things out when something breaks.',
+    primary: { icon: 'account', text: 'Client area', link: 'https://my.amnezia.host' },
     links: [
-      { icon: 'site', text: 'Amnezia Hosting website', link: 'https://amnezia.host' },
-      { icon: 'mirror', text: 'Website mirror', link: 'https://storage.googleapis.com/amnezia/my.host' },
       { icon: 'channel', text: 'Telegram channel', link: 'https://t.me/amneziahosting' },
-      { icon: 'account', text: 'Client area', link: 'https://my.amnezia.host' }
+      { icon: 'bot', text: 'Support bot', link: SUPPORT }
+    ],
+    mirrorsLead: 'Website not opening? Mirrors:',
+    mirrors: [
+      { text: 'client area', link: MIRROR + 'my.host' },
+      { text: 'hosting', link: MIRROR + 'host' }
     ],
     search: 'Search the knowledge base…',
     more: (n) => `${n} more`,
@@ -192,11 +205,20 @@ export default {
         h('header', { class: 'amz-home__hero' }, [
           h('h1', { class: 'amz-home__title' }, t.title),
           h('p', { class: 'amz-home__lead' }, t.lead),
-          h('nav', { class: 'amz-home__links' },
-            t.links.map((l) =>
+          h('nav', { class: 'amz-home__links' }, [
+            h('a', { class: 'amz-home__link is-primary', href: t.primary.link, ...external }, [icon(ICONS[t.primary.icon]), t.primary.text]),
+            ...t.links.map((l) =>
               h('a', { class: 'amz-home__link', href: l.link, ...external }, [icon(ICONS[l.icon]), l.text])
             )
-          ),
+          ]),
+          h('p', { class: 'amz-home__mirrors' }, [
+            t.mirrorsLead,
+            ' ',
+            ...t.mirrors.flatMap((m, i) => [
+              i ? ' · ' : null,
+              h('a', { href: m.link, ...external }, m.text)
+            ])
+          ]),
           h('button', { type: 'button', class: 'amz-home__search', onClick: openSearch }, [
             SEARCH_ICON,
             h('span', { class: 'amz-home__search-text' }, t.search),
