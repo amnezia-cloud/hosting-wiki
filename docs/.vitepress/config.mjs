@@ -215,7 +215,7 @@ export default defineConfig({
             text: 'Важное сейчас',
             home: 'important',
             homeIcon: '🚨',
-            homeLead: 'Сделайте это в первую очередь',
+            homeLead: 'Пункты с пометкой «Срочно» выполните в первую очередь',
             items: [
               {
                 text: '🚨 Обновление сервера: CVE-2026-98432',
@@ -604,7 +604,7 @@ export default defineConfig({
             text: 'Important right now',
             home: 'important',
             homeIcon: '🚨',
-            homeLead: 'Do this first',
+            homeLead: 'Do items marked “Urgent” first',
             items: [
               {
                 text: '🚨 Server update: CVE-2026-98432',
