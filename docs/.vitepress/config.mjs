@@ -525,9 +525,9 @@ export default defineConfig({
             items: [
               { text: '☁️ Какой тариф выбрать', link: '/choose-plan' },
               { text: '💳 Как оплатить хостинг', link: '/payment' },
-              { text: '↩️ Возврат средств', link: '/refund' },
               { text: '📦 Изменение тарифа', link: '/change-plan' },
-              { text: '🗓️ Период оплаты', link: '/billing-period' }
+              { text: '🗓️ Период оплаты', link: '/billing-period' },
+              { text: '↩️ Возврат средств', link: '/refund' }
             ]
           },
           {
@@ -892,9 +892,9 @@ export default defineConfig({
             items: [
               { text: '☁️ Which plan to choose', link: '/en/choose-plan' },
               { text: '💳 How to pay', link: '/en/payment' },
-              { text: '↩️ Refunds', link: '/en/refund' },
               { text: '📦 Changing the plan', link: '/en/change-plan' },
-              { text: '🗓️ Billing period', link: '/en/billing-period' }
+              { text: '🗓️ Billing period', link: '/en/billing-period' },
+              { text: '↩️ Refunds', link: '/en/refund' }
             ]
           },
           {
