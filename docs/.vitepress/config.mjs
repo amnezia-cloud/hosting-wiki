@@ -202,11 +202,56 @@ export default defineConfig({
           { text: 'VPN и защита', link: '/vpn-setup' },
           { text: 'Помощь', link: '/faq' }
         ],
+        // Раздел меню = блок на главной (theme/Home.js). Поле home задаёт вид:
+        //   'important' — красная колонка «Важное сейчас»: пункты с badge
+        //                 (hot: true — красная метка) и homeText — текст для главной.
+        //                 Те же статьи в своих разделах получают такую же метку;
+        //   'column'    — большая колонка (homeIcon, homeLead, homeAccent — зелёная рамка);
+        //   'hidden'    — не показывать на главной;
+        //   без home    — маленькая карточка внизу.
+        // Чтобы статья перестала быть «важной», уберите её из «Важное сейчас».
         sidebar: collapsible([
           {
             text: 'Важное сейчас',
+            home: 'important',
+            homeIcon: '🚨',
+            homeLead: 'Сделайте это в первую очередь',
             items: [
-              { text: 'Как обновить сервер из-за уязвимости CVE-2026-98432', link: '/update-server' },
+              {
+                text: '🚨 Обновление сервера: CVE-2026-98432',
+                link: '/update-server',
+                homeText: '🚨 Обновите сервер: уязвимость CVE-2026-98432',
+                badge: 'Срочно',
+                hot: true
+              },
+              { text: '🔀 Каскад', link: '/cascade', homeText: '🔀 Каскад: VPN снова работает без смены сервера', badge: 'Новое' },
+              {
+                text: '🚦 Раздельное туннелирование',
+                link: '/split-tunneling',
+                homeText: '🚦 Раздельное туннелирование — настройте сразу',
+                badge: 'Новое'
+              }
+            ]
+          },
+          {
+            text: 'Я только начинаю',
+            home: 'column',
+            homeIcon: '🚀',
+            homeLead: 'Пошагово от покупки до первого подключения',
+            items: [
+              { text: '🚀 Быстрый старт', link: '/commands' },
+              {
+                text: '🔁 Переход с Amnezia Premium',
+                link: '/premium-migration',
+                collapsed: true,
+                items: [
+                  { text: 'Создайте аккаунт', link: '/premium-migration#account' },
+                  { text: 'Тикет на перенос', link: '/premium-migration#ticket' },
+                  { text: 'Активация сервера', link: '/premium-migration#activation' },
+                  { text: 'Отключение Premium', link: '/premium-migration#premium-off' }
+                ]
+              },
+              { text: '🛡️ Настройка VPN', link: '/vpn-setup' },
               {
                 text: '🚦 Раздельное туннелирование',
                 link: '/split-tunneling',
@@ -221,76 +266,9 @@ export default defineConfig({
                   { text: 'Частые вопросы', link: '/split-tunneling#faq' }
                 ]
               },
-              {
-                text: '🆙 AmneziaWG: с 2.0 на 3.1',
-                link: '/awg-3-1-upgrade',
-                collapsed: true,
-                items: [
-                  { text: 'Как перейти на 3.1', link: '/awg-3-1-upgrade#upgrade' },
-                  { text: 'Параметры по умолчанию', link: '/awg-3-1-upgrade#defaults' },
-                  { text: 'Что даёт генератор', link: '/awg-3-1-upgrade#parameters' },
-                  { text: 'Ограничения клиентов', link: '/awg-3-1-upgrade#clients' },
-                  { text: '3.1 рядом с работающим 2.0', link: '/awg-3-1-upgrade#keep-2-0' },
-                  { text: 'Откат на 2.0', link: '/awg-3-1-upgrade#rollback' }
-                ]
-              },
-              {
-                text: '🔬 Как устроен AmneziaWG',
-                link: '/awg-parameters',
-                collapsed: true,
-                items: [
-                  { text: 'Отличие от WireGuard', link: '/awg-parameters#vs-wireguard' },
-                  { text: 'Что добавила каждая версия', link: '/awg-parameters#versions' },
-                  { text: 'Что должно совпадать', link: '/awg-parameters#matching' },
-                  { text: 'Параметры по отдельности', link: '/awg-parameters#parameters' },
-                  { text: 'Как выбрать MTU', link: '/awg-parameters#mtu' }
-                ]
-              },
-              {
-                text: '⚡ XRay (VLESS): маскировка и настройка',
-                link: '/xray-tuning',
-                collapsed: true,
-                items: [
-                  { text: 'Порт: всегда 443', link: '/xray-tuning#port' },
-                  { text: 'Домен маскировки', link: '/xray-tuning#domain' },
-                  { text: 'Проверка домена', link: '/xray-tuning#verify' },
-                  { text: 'Смена fingerprint', link: '/xray-tuning#fingerprint' },
-                  { text: 'Ускорение BBR', link: '/xray-tuning#bbr' },
-                  { text: 'Обновление ядра', link: '/xray-tuning#core-update' }
-                ]
-              },
-              {
-                text: '🔐 Self-SNI для VLESS + Reality',
-                link: '/self-sni',
-                collapsed: true,
-                items: [
-                  { text: 'Что это и зачем', link: '/self-sni#why' },
-                  { text: 'Бесплатный домен', link: '/self-sni#domain' },
-                  { text: 'Сайт-прикрытие', link: '/self-sni#decoy' },
-                  { text: 'Сертификат Let\'s Encrypt', link: '/self-sni#cert' },
-                  { text: 'Почему 443 не конфликтует', link: '/self-sni#ports' },
-                  { text: 'Reality в 3X-UI', link: '/self-sni#reality' },
-                  { text: 'Ссылка для клиента', link: '/self-sni#link' },
-                  { text: 'Частые ошибки', link: '/self-sni#errors' }
-                ]
-              }
-            ]
-          },
-          {
-            text: 'Начало работы',
-            items: [
-              { text: '🚀 Быстрый старт', link: '/commands' },
-              {
-                text: '🔁 Переход с Amnezia Premium',
-                link: '/premium-migration',
-                collapsed: true,
-                items: [
-                  { text: 'Создайте аккаунт', link: '/premium-migration#account' },
-                  { text: 'Тикет на перенос', link: '/premium-migration#ticket' },
-                  { text: 'Активация сервера', link: '/premium-migration#activation' },
-                  { text: 'Отключение Premium', link: '/premium-migration#premium-off' }
-                ]
-              },
+              { text: '☁️ Какой тариф выбрать', link: '/choose-plan' },
+              { text: '👥 Выдача и отзыв доступа к VPN', link: '/share-connection' },
+              { text: '👥 Несколько устройств', link: '/multiple-devices' },
               {
                 text: '🖥️ Управление сервером',
                 link: '/server-management',
@@ -303,70 +281,15 @@ export default defineConfig({
                   { text: 'Подключение по SSH', link: '/server-management#ssh' },
                   { text: 'Шпаргалка по командам', link: '/server-management#commands' }
                 ]
-              },
-              {
-                text: '🔄 Переустановка ОС',
-                link: '/reinstall',
-                collapsed: true,
-                items: [
-                  { text: 'Проверьте дату выдачи', link: '/reinstall#check' },
-                  { text: 'Что происходит', link: '/reinstall#what-happens' },
-                  { text: 'Перед переустановкой', link: '/reinstall#before' },
-                  { text: 'Порядок действий', link: '/reinstall#how' },
-                  { text: 'Старые серверы: замена', link: '/reinstall#legacy' }
-                ]
               }
             ]
           },
           {
-            text: 'VPN и защита',
-            items: [
-              { text: '🛡️ Настройка VPN', link: '/vpn-setup' },
-              { text: '🔌 Протоколы', link: '/protocols' },
-              {
-                text: '🛠️ AmneziaWG: обфускация через Architect',
-                link: '/amneziawg-architect',
-                collapsed: true,
-                items: [
-                  { text: 'Что понадобится', link: '/amneziawg-architect#s1' },
-                  { text: 'Установка AmneziaWG', link: '/amneziawg-architect#s4' },
-                  { text: 'Настройки в Architect', link: '/amneziawg-architect#s6' },
-                  { text: 'Перенос в приложение', link: '/amneziawg-architect#s7' },
-                  { text: 'Проверка и раздача', link: '/amneziawg-architect#s8' },
-                  { text: 'Если что-то не работает', link: '/amneziawg-architect#s9' },
-                  { text: 'Шпаргалка', link: '/amneziawg-architect#s10' }
-                ]
-              },
-              {
-                text: '🛡️ AmneziaWG: версии и настройка',
-                link: '/amneziawg-tuning',
-                collapsed: true,
-                items: [
-                  { text: 'Как определить версию', link: '/amneziawg-tuning#version' },
-                  { text: 'Генераторы параметров', link: '/amneziawg-tuning#generators' },
-                  { text: 'AWG 1.0 и 1.5', link: '/amneziawg-tuning#legacy' },
-                  { text: 'AWG 2.0 и мимикрия', link: '/amneziawg-tuning#awg2' },
-                  { text: 'Установка legacy 1.0 / 1.5', link: '/amneziawg-tuning#legacy-install' },
-                  { text: 'Резервное копирование', link: '/amneziawg-tuning#backup' },
-                  { text: 'Смена подсети', link: '/amneziawg-tuning#subnet' }
-                ]
-              },
-              {
-                text: '🔒 Безопасность сервера',
-                link: '/security',
-                collapsed: true,
-                items: [
-                  { text: 'Отдельный пользователь', link: '/security#user' },
-                  { text: 'Смена порта SSH', link: '/security#ssh-port' },
-                  { text: 'Вход по SSH-ключу', link: '/security#ssh-keys' },
-                  { text: 'Файрвол UFW', link: '/security#ufw' },
-                  { text: 'fail2ban', link: '/security#fail2ban' }
-                ]
-              }
-            ]
-          },
-          {
-            text: 'Подключение и VPN',
+            text: 'Что-то не работает',
+            home: 'column',
+            homeIcon: '🩺',
+            homeLead: 'Диагностика по симптомам',
+            homeAccent: true,
             items: [
               {
                 text: '🩺 Не подключается VPN',
@@ -406,6 +329,17 @@ export default defineConfig({
                 ]
               },
               {
+                text: '🍎 AmneziaVPN на iOS в России',
+                link: '/ios-app-store',
+                collapsed: true,
+                items: [
+                  { text: 'Сначала простое', link: '/ios-app-store#quick-options' },
+                  { text: 'Почему нет в магазине', link: '/ios-app-store#why-hidden' },
+                  { text: 'Новый аккаунт Apple', link: '/ios-app-store#new-account' },
+                  { text: 'Смена региона', link: '/ios-app-store#change-region' }
+                ]
+              },
+              {
                 text: '🐳 Ошибки 20x (Docker)',
                 link: '/error-20x',
                 collapsed: true,
@@ -428,27 +362,98 @@ export default defineConfig({
                   { text: 'Формат SSH-ключа', link: '/error-30x#ssh-keys' }
                 ]
               },
-              {
-                text: '🍎 AmneziaVPN на iOS в России',
-                link: '/ios-app-store',
-                collapsed: true,
-                items: [
-                  { text: 'Сначала простое', link: '/ios-app-store#quick-options' },
-                  { text: 'Почему нет в магазине', link: '/ios-app-store#why-hidden' },
-                  { text: 'Новый аккаунт Apple', link: '/ios-app-store#new-account' },
-                  { text: 'Смена региона', link: '/ios-app-store#change-region' }
-                ]
-              },
-              { text: '🤖 Gemini через VPN', link: '/gemini' },
-              { text: '▶️ Реклама на YouTube', link: '/youtube-ads' },
-              { text: '👥 Несколько устройств', link: '/multiple-devices' },
-              { text: '📊 Расход трафика', link: '/traffic-usage' }
+              { text: '🛑 Сервер в Bad State', link: '/broken-state' }
             ]
           },
           {
-            text: 'Сервер и доступ',
+            text: 'Для продвинутых',
+            home: 'column',
+            homeIcon: '⚙️',
+            homeLead: 'Протоколы, маскировка и сервисы на сервере',
             items: [
-              { text: '👥 Выдача и отзыв доступа к VPN', link: '/share-connection' },
+              { text: '🔌 Протоколы', link: '/protocols' },
+              { text: '⚙️ Управление VPN-протоколами', link: '/install-configure-protocols' },
+              {
+                text: '🔬 Как устроен AmneziaWG',
+                link: '/awg-parameters',
+                collapsed: true,
+                items: [
+                  { text: 'Отличие от WireGuard', link: '/awg-parameters#vs-wireguard' },
+                  { text: 'Что добавила каждая версия', link: '/awg-parameters#versions' },
+                  { text: 'Что должно совпадать', link: '/awg-parameters#matching' },
+                  { text: 'Параметры по отдельности', link: '/awg-parameters#parameters' },
+                  { text: 'Как выбрать MTU', link: '/awg-parameters#mtu' }
+                ]
+              },
+              {
+                text: '🛡️ AmneziaWG: версии и настройка',
+                link: '/amneziawg-tuning',
+                collapsed: true,
+                items: [
+                  { text: 'Как определить версию', link: '/amneziawg-tuning#version' },
+                  { text: 'Генераторы параметров', link: '/amneziawg-tuning#generators' },
+                  { text: 'AWG 1.0 и 1.5', link: '/amneziawg-tuning#legacy' },
+                  { text: 'AWG 2.0 и мимикрия', link: '/amneziawg-tuning#awg2' },
+                  { text: 'Установка legacy 1.0 / 1.5', link: '/amneziawg-tuning#legacy-install' },
+                  { text: 'Резервное копирование', link: '/amneziawg-tuning#backup' },
+                  { text: 'Смена подсети', link: '/amneziawg-tuning#subnet' }
+                ]
+              },
+              {
+                text: '🆙 AmneziaWG: с 2.0 на 3.1',
+                link: '/awg-3-1-upgrade',
+                collapsed: true,
+                items: [
+                  { text: 'Как перейти на 3.1', link: '/awg-3-1-upgrade#upgrade' },
+                  { text: 'Параметры по умолчанию', link: '/awg-3-1-upgrade#defaults' },
+                  { text: 'Что даёт генератор', link: '/awg-3-1-upgrade#parameters' },
+                  { text: 'Ограничения клиентов', link: '/awg-3-1-upgrade#clients' },
+                  { text: '3.1 рядом с работающим 2.0', link: '/awg-3-1-upgrade#keep-2-0' },
+                  { text: 'Откат на 2.0', link: '/awg-3-1-upgrade#rollback' }
+                ]
+              },
+              {
+                text: '🛠️ AmneziaWG: обфускация через Architect',
+                link: '/amneziawg-architect',
+                collapsed: true,
+                items: [
+                  { text: 'Что понадобится', link: '/amneziawg-architect#s1' },
+                  { text: 'Установка AmneziaWG', link: '/amneziawg-architect#s4' },
+                  { text: 'Настройки в Architect', link: '/amneziawg-architect#s6' },
+                  { text: 'Перенос в приложение', link: '/amneziawg-architect#s7' },
+                  { text: 'Проверка и раздача', link: '/amneziawg-architect#s8' },
+                  { text: 'Если что-то не работает', link: '/amneziawg-architect#s9' },
+                  { text: 'Шпаргалка', link: '/amneziawg-architect#s10' }
+                ]
+              },
+              {
+                text: '⚡ XRay (VLESS): маскировка и настройка',
+                link: '/xray-tuning',
+                collapsed: true,
+                items: [
+                  { text: 'Порт: всегда 443', link: '/xray-tuning#port' },
+                  { text: 'Домен маскировки', link: '/xray-tuning#domain' },
+                  { text: 'Проверка домена', link: '/xray-tuning#verify' },
+                  { text: 'Смена fingerprint', link: '/xray-tuning#fingerprint' },
+                  { text: 'Ускорение BBR', link: '/xray-tuning#bbr' },
+                  { text: 'Обновление ядра', link: '/xray-tuning#core-update' }
+                ]
+              },
+              {
+                text: '🔐 Self-SNI для VLESS + Reality',
+                link: '/self-sni',
+                collapsed: true,
+                items: [
+                  { text: 'Что это и зачем', link: '/self-sni#why' },
+                  { text: 'Бесплатный домен', link: '/self-sni#domain' },
+                  { text: 'Сайт-прикрытие', link: '/self-sni#decoy' },
+                  { text: 'Сертификат Let\'s Encrypt', link: '/self-sni#cert' },
+                  { text: 'Почему 443 не конфликтует', link: '/self-sni#ports' },
+                  { text: 'Reality в 3X-UI', link: '/self-sni#reality' },
+                  { text: 'Ссылка для клиента', link: '/self-sni#link' },
+                  { text: 'Частые ошибки', link: '/self-sni#errors' }
+                ]
+              },
               {
                 text: '🔀 Каскад',
                 link: '/cascade',
@@ -461,13 +466,41 @@ export default defineConfig({
                   { text: 'Частые вопросы', link: '/cascade#faq' }
                 ]
               },
-              { text: '⚙️ Управление VPN-протоколами', link: '/install-configure-protocols' },
               { text: '🔌 SOCKS5-прокси', link: '/socks5-proxy-server' },
               { text: '🌐 AmneziaDNS на сервере', link: '/change-dns' },
               { text: '📁 Файловое хранилище SFTP', link: '/sftp' },
-              { text: '🧅 Сайт в сети Tor', link: '/create-tor-website' },
+              { text: '🧅 Сайт в сети Tor', link: '/create-tor-website' }
+            ]
+          },
+          {
+            text: 'Сервер',
+            items: [
+              { text: '🚨 Обновление сервера: CVE-2026-98432', link: '/update-server' },
+              {
+                text: '🔒 Безопасность сервера',
+                link: '/security',
+                collapsed: true,
+                items: [
+                  { text: 'Отдельный пользователь', link: '/security#user' },
+                  { text: 'Смена порта SSH', link: '/security#ssh-port' },
+                  { text: 'Вход по SSH-ключу', link: '/security#ssh-keys' },
+                  { text: 'Файрвол UFW', link: '/security#ufw' },
+                  { text: 'fail2ban', link: '/security#fail2ban' }
+                ]
+              },
               { text: '🔑 Смена пароля root', link: '/root-password' },
-              { text: '🛑 Сервер в Bad State', link: '/broken-state' },
+              {
+                text: '🔄 Переустановка ОС',
+                link: '/reinstall',
+                collapsed: true,
+                items: [
+                  { text: 'Проверьте дату выдачи', link: '/reinstall#check' },
+                  { text: 'Что происходит', link: '/reinstall#what-happens' },
+                  { text: 'Перед переустановкой', link: '/reinstall#before' },
+                  { text: 'Порядок действий', link: '/reinstall#how' },
+                  { text: 'Старые серверы: замена', link: '/reinstall#legacy' }
+                ]
+              },
               {
                 text: '🌍 Геолокация сервера',
                 link: '/geolocation',
@@ -481,9 +514,16 @@ export default defineConfig({
             ]
           },
           {
+            text: 'Полезное',
+            items: [
+              { text: '🤖 Gemini через VPN', link: '/gemini' },
+              { text: '▶️ Реклама на YouTube', link: '/youtube-ads' },
+              { text: '📊 Расход трафика', link: '/traffic-usage' }
+            ]
+          },
+          {
             text: 'Оплата и тарифы',
             items: [
-              { text: '☁️ Какой тариф выбрать', link: '/choose-plan' },
               { text: '💳 Как оплатить хостинг', link: '/payment' },
               { text: '↩️ Возврат средств', link: '/refund' },
               { text: '📦 Изменение тарифа', link: '/change-plan' },
@@ -492,6 +532,7 @@ export default defineConfig({
           },
           {
             text: 'Помощь',
+            home: 'hidden',
             items: [
               {
                 text: '❓ Частые вопросы',
