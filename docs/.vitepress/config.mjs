@@ -389,19 +389,6 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🆙 AmneziaWG: с 2.0 на 3.1',
-                link: '/awg-3-1-upgrade',
-                collapsed: true,
-                items: [
-                  { text: 'Как перейти на 3.1', link: '/awg-3-1-upgrade#upgrade' },
-                  { text: 'Параметры по умолчанию', link: '/awg-3-1-upgrade#defaults' },
-                  { text: 'Что даёт генератор', link: '/awg-3-1-upgrade#parameters' },
-                  { text: 'Ограничения клиентов', link: '/awg-3-1-upgrade#clients' },
-                  { text: '3.1 рядом с работающим 2.0', link: '/awg-3-1-upgrade#keep-2-0' },
-                  { text: 'Откат на 2.0', link: '/awg-3-1-upgrade#rollback' }
-                ]
-              },
-              {
                 text: '🛠️ AmneziaWG: обфускация через Architect',
                 link: '/amneziawg-architect',
                 collapsed: true,
@@ -505,7 +492,20 @@ export default defineConfig({
           {
             text: 'Справочная информация',
             items: [
-                            {
+                                          {
+                text: '🆙 AmneziaWG: с 2.0 на 3.1',
+                link: '/awg-3-1-upgrade',
+                collapsed: true,
+                items: [
+                  { text: 'Как перейти на 3.1', link: '/awg-3-1-upgrade#upgrade' },
+                  { text: 'Параметры по умолчанию', link: '/awg-3-1-upgrade#defaults' },
+                  { text: 'Что даёт генератор', link: '/awg-3-1-upgrade#parameters' },
+                  { text: 'Ограничения клиентов', link: '/awg-3-1-upgrade#clients' },
+                  { text: '3.1 рядом с работающим 2.0', link: '/awg-3-1-upgrade#keep-2-0' },
+                  { text: 'Откат на 2.0', link: '/awg-3-1-upgrade#rollback' }
+                ]
+              },
+              {
                 text: '🔁 Переход с Amnezia Premium',
                 link: '/premium-migration',
                 collapsed: true,
@@ -757,19 +757,6 @@ export default defineConfig({
                 ]
               },
               {
-                text: '🆙 AmneziaWG: 2.0 to 3.1',
-                link: '/en/awg-3-1-upgrade',
-                collapsed: true,
-                items: [
-                  { text: 'Moving to 3.1', link: '/en/awg-3-1-upgrade#upgrade' },
-                  { text: 'Default parameters', link: '/en/awg-3-1-upgrade#defaults' },
-                  { text: 'What the generator does', link: '/en/awg-3-1-upgrade#parameters' },
-                  { text: 'Client limitations', link: '/en/awg-3-1-upgrade#clients' },
-                  { text: '3.1 alongside a working 2.0', link: '/en/awg-3-1-upgrade#keep-2-0' },
-                  { text: 'Rolling back to 2.0', link: '/en/awg-3-1-upgrade#rollback' }
-                ]
-              },
-              {
                 text: '🛠️ AmneziaWG: obfuscation with Architect',
                 link: '/en/amneziawg-architect',
                 collapsed: true,
@@ -873,7 +860,20 @@ export default defineConfig({
           {
             text: 'Reference information',
             items: [
-                            {
+                                          {
+                text: '🆙 AmneziaWG: 2.0 to 3.1',
+                link: '/en/awg-3-1-upgrade',
+                collapsed: true,
+                items: [
+                  { text: 'Moving to 3.1', link: '/en/awg-3-1-upgrade#upgrade' },
+                  { text: 'Default parameters', link: '/en/awg-3-1-upgrade#defaults' },
+                  { text: 'What the generator does', link: '/en/awg-3-1-upgrade#parameters' },
+                  { text: 'Client limitations', link: '/en/awg-3-1-upgrade#clients' },
+                  { text: '3.1 alongside a working 2.0', link: '/en/awg-3-1-upgrade#keep-2-0' },
+                  { text: 'Rolling back to 2.0', link: '/en/awg-3-1-upgrade#rollback' }
+                ]
+              },
+              {
                 text: '🔁 Moving from Amnezia Premium',
                 link: '/en/premium-migration',
                 collapsed: true,
