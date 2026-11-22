@@ -505,6 +505,17 @@ export default defineConfig({
           {
             text: 'Справочная информация',
             items: [
+                            {
+                text: '🔁 Переход с Amnezia Premium',
+                link: '/premium-migration',
+                collapsed: true,
+                items: [
+                  { text: 'Создайте аккаунт', link: '/premium-migration#account' },
+                  { text: 'Тикет на перенос', link: '/premium-migration#ticket' },
+                  { text: 'Активация сервера', link: '/premium-migration#activation' },
+                  { text: 'Отключение Premium', link: '/premium-migration#premium-off' }
+                ]
+              },
               { text: '🤖 Gemini через VPN', link: '/gemini' },
               { text: '▶️ Реклама на YouTube', link: '/youtube-ads' },
               { text: '📊 Расход трафика', link: '/traffic-usage' }
@@ -862,6 +873,17 @@ export default defineConfig({
           {
             text: 'Reference information',
             items: [
+                            {
+                text: '🔁 Moving from Amnezia Premium',
+                link: '/en/premium-migration',
+                collapsed: true,
+                items: [
+                  { text: 'Create an account', link: '/en/premium-migration#account' },
+                  { text: 'Transfer ticket', link: '/en/premium-migration#ticket' },
+                  { text: 'Server activation', link: '/en/premium-migration#activation' },
+                  { text: 'Premium switch-off', link: '/en/premium-migration#premium-off' }
+                ]
+              },
               { text: '🤖 Gemini via VPN', link: '/en/gemini' },
               { text: '▶️ YouTube ads', link: '/en/youtube-ads' },
               { text: '📊 Traffic usage', link: '/en/traffic-usage' }
