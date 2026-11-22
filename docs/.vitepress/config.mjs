@@ -240,17 +240,7 @@ export default defineConfig({
             homeLead: 'Пошагово от покупки до первого подключения',
             items: [
               { text: '🚀 Быстрый старт', link: '/commands' },
-              {
-                text: '🔁 Переход с Amnezia Premium',
-                link: '/premium-migration',
-                collapsed: true,
-                items: [
-                  { text: 'Создайте аккаунт', link: '/premium-migration#account' },
-                  { text: 'Тикет на перенос', link: '/premium-migration#ticket' },
-                  { text: 'Активация сервера', link: '/premium-migration#activation' },
-                  { text: 'Отключение Premium', link: '/premium-migration#premium-off' }
-                ]
-              },
+
               { text: '🛡️ Настройка VPN', link: '/vpn-setup' },
               {
                 text: '🚦 Раздельное туннелирование',
@@ -513,7 +503,7 @@ export default defineConfig({
             ]
           },
           {
-            text: 'Полезное',
+            text: 'Справочная информация',
             items: [
               { text: '🤖 Gemini через VPN', link: '/gemini' },
               { text: '▶️ Реклама на YouTube', link: '/youtube-ads' },
@@ -623,17 +613,7 @@ export default defineConfig({
             homeLead: 'Step by step from purchase to your first connection',
             items: [
               { text: '🚀 Quick Start', link: '/en/commands' },
-              {
-                text: '🔁 Moving from Amnezia Premium',
-                link: '/en/premium-migration',
-                collapsed: true,
-                items: [
-                  { text: 'Create an account', link: '/en/premium-migration#account' },
-                  { text: 'Transfer ticket', link: '/en/premium-migration#ticket' },
-                  { text: 'Server activation', link: '/en/premium-migration#activation' },
-                  { text: 'Premium switch-off', link: '/en/premium-migration#premium-off' }
-                ]
-              },
+
               { text: '🛡️ VPN Setup', link: '/en/vpn-setup' },
               { text: '👥 Share and revoke VPN access', link: '/en/share-connection' },
               { text: '👥 Multiple devices', link: '/en/multiple-devices' },
@@ -880,7 +860,7 @@ export default defineConfig({
             ]
           },
           {
-            text: 'Useful',
+            text: 'Reference information',
             items: [
               { text: '🤖 Gemini via VPN', link: '/en/gemini' },
               { text: '▶️ YouTube ads', link: '/en/youtube-ads' },
