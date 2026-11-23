@@ -115,11 +115,11 @@ Yours will be different. Just enter them in the same places as shown in this gui
 ::: details Server not added to the app yet? Do this first
 In Amnezia VPN, tap **«+»**, enter the server IP address, the username `root`, and the password from the server card in your account. Choose the **Automatic** installation and wait for it to finish — the app will install the AmneziaWG protocol.
 
-<figure class="cz-shot"><img src="/img/cascade/01.webp" alt="Login details (2) come from the server card in your account and go into the app (1)" loading="lazy"><figcaption>Login details (2) come from the server card in your account and go into the app (1)</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/01.webp" alt="Login details (2) come from the server card in your account and go into the app (1)" decoding="async"><figcaption>Login details (2) come from the server card in your account and go into the app (1)</figcaption></figure>
 
-<div class="cz-row cz-row-3"><figure class="cz-shot"><img src="/img/cascade/02.webp" alt="Choose “Automatic”" loading="lazy"><figcaption>Choose “Automatic”</figcaption></figure><figure class="cz-shot"><img src="/img/cascade/03.webp" alt="Installing AmneziaWG" loading="lazy"><figcaption>Installing AmneziaWG</figcaption></figure></div>
+<div class="cz-row cz-row-3"><figure class="cz-shot"><img src="/img/cascade/02.webp" alt="Choose “Automatic”" decoding="async"><figcaption>Choose “Automatic”</figcaption></figure><figure class="cz-shot"><img src="/img/cascade/03.webp" alt="Installing AmneziaWG" decoding="async"><figcaption>Installing AmneziaWG</figcaption></figure></div>
 
-<figure class="cz-shot"><img src="/img/cascade/04.webp" alt="Server added, the VPN connects directly" loading="lazy"><figcaption>Server added, the VPN connects directly</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/04.webp" alt="Server added, the VPN connects directly" decoding="async"><figcaption>Server added, the VPN connects directly</figcaption></figure>
 
 If the server IP is already unreachable from your region, skip this: the server will be added through Cascade in step 4.
 :::
@@ -128,7 +128,7 @@ If the server IP is already unreachable from your region, skip this: the server 
 
 In the app, open the server settings → **AmneziaWG** → **AmneziaWG server settings**. Note the number in the **Port** field — `44212` in this example.
 
-<div class="cz-row cz-row-1"><figure class="cz-shot"><img src="/img/cascade/06-app.webp" alt="The AmneziaWG protocol port on your server" loading="lazy"><figcaption>The AmneziaWG protocol port on your server</figcaption></figure></div>
+<div class="cz-row cz-row-1"><figure class="cz-shot"><img src="/img/cascade/06-app.webp" alt="The AmneziaWG protocol port on your server" decoding="async"><figcaption>The AmneziaWG protocol port on your server</figcaption></figure></div>
 
 ### Set up Cascade in your account {#cz-step-2}
 
@@ -140,15 +140,15 @@ Open the **Cascade** service and go to the **Management** tab. Your VPN address 
 
 Click **Save**.
 
-<figure class="cz-shot"><img src="/img/cascade/05.webp" alt="The empty Cascade form: fill in the fields (1), then save (2)" loading="lazy"><figcaption>The empty Cascade form: fill in the fields (1), then save (2)</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/05.webp" alt="The empty Cascade form: fill in the fields (1), then save (2)" decoding="async"><figcaption>The empty Cascade form: fill in the fields (1), then save (2)</figcaption></figure>
 
-<figure class="cz-shot"><img src="/img/cascade/06-panel.webp" alt="A filled-in form" loading="lazy"><figcaption>A filled-in form</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/06-panel.webp" alt="A filled-in form" decoding="async"><figcaption>A filled-in form</figcaption></figure>
 
 ### Wait for the “Active” status {#cz-step-3}
 
 Two lines with a status will appear to the right of the fields. Cascade usually turns on within a few seconds.
 
-<div class="cz-row cz-row-2 cz-row-panel"><figure class="cz-shot"><img src="/img/cascade/07.webp" alt="“Applying” — setup in progress" loading="lazy"><figcaption>“Applying” — setup in progress</figcaption></figure><figure class="cz-shot"><img src="/img/cascade/08.webp" alt="“Active” — ready to connect" loading="lazy"><figcaption>“Active” — ready to connect</figcaption></figure></div>
+<div class="cz-row cz-row-2 cz-row-panel"><figure class="cz-shot"><img src="/img/cascade/07.webp" alt="“Applying” — setup in progress" decoding="async"><figcaption>“Applying” — setup in progress</figcaption></figure><figure class="cz-shot"><img src="/img/cascade/08.webp" alt="“Active” — ready to connect" decoding="async"><figcaption>“Active” — ready to connect</figcaption></figure></div>
 
 Each line shows where Cascade forwards connections. For example, `198.51.100.24:35495 → 192.0.2.147:44212` means: everything that arrives at the Cascade address on port `35495` goes to your server on port `44212`.
 
@@ -173,9 +173,9 @@ In Amnezia VPN, tap **«+»** and fill in:
 
 Tap **Continue**, choose **Automatic**, and wait for it to finish.
 
-<figure class="cz-shot"><img src="/img/cascade/09.webp" alt="The address field (1) gets the Cascade SSH address and the port from the TCP line (2)" loading="lazy"><figcaption>The address field (1) gets the Cascade SSH address and the port from the TCP line (2)</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/09.webp" alt="The address field (1) gets the Cascade SSH address and the port from the TCP line (2)" decoding="async"><figcaption>The address field (1) gets the Cascade SSH address and the port from the TCP line (2)</figcaption></figure>
 
-<div class="cz-row cz-row-2"><figure class="cz-shot"><img src="/img/cascade/10.webp" alt="Choose “Automatic”" loading="lazy"><figcaption>Choose “Automatic”</figcaption></figure><figure class="cz-shot"><img src="/img/cascade/11.webp" alt="The app connects to the server through Cascade" loading="lazy"><figcaption>The app connects to the server through Cascade</figcaption></figure></div>
+<div class="cz-row cz-row-2"><figure class="cz-shot"><img src="/img/cascade/10.webp" alt="Choose “Automatic”" decoding="async"><figcaption>Choose “Automatic”</figcaption></figure><figure class="cz-shot"><img src="/img/cascade/11.webp" alt="The app connects to the server through Cascade" decoding="async"><figcaption>The app connects to the server through Cascade</figcaption></figure></div>
 
 ### Enter Cascade in the AmneziaWG settings {#cz-step-5}
 
@@ -186,9 +186,9 @@ Open this server's settings → **AmneziaWG** → **AmneziaWG server settings** 
 
 Tap **Save**.
 
-<div class="cz-row cz-row-1"><figure class="cz-shot"><img src="/img/cascade/12.webp" alt="You need the second item — “AmneziaWG server settings”" loading="lazy"><figcaption>You need the second item — “AmneziaWG server settings”</figcaption></figure></div>
+<div class="cz-row cz-row-1"><figure class="cz-shot"><img src="/img/cascade/12.webp" alt="You need the second item — “AmneziaWG server settings”" decoding="async"><figcaption>You need the second item — “AmneziaWG server settings”</figcaption></figure></div>
 
-<figure class="cz-shot"><img src="/img/cascade/13.webp" alt="Cascade endpoint and Cascade port (1) come from your account: the VPN address (3) and the port from the UDP line (2)" loading="lazy"><figcaption>Cascade endpoint and Cascade port (1) come from your account: the VPN address (3) and the port from the UDP line (2)</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/13.webp" alt="Cascade endpoint and Cascade port (1) come from your account: the VPN address (3) and the port from the UDP line (2)" decoding="async"><figcaption>Cascade endpoint and Cascade port (1) come from your account: the VPN address (3) and the port from the UDP line (2)</figcaption></figure>
 
 ::: danger Keys you have already shared will not change
 Only connections created after saving will work through Cascade. If other people use your server, share access with them again — see [below](#share).
@@ -198,9 +198,9 @@ Only connections created after saving will work through Cascade. If other people
 
 Tap **Connect**. Then open any IP-check website, for example 2ip.io: it should show **your server's IP**. That means traffic goes through Cascade to your server and from there to the internet.
 
-<figure class="cz-shot"><img src="/img/cascade/14.webp" alt="The VPN is connected through Cascade" loading="lazy"><figcaption>The VPN is connected through Cascade</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/14.webp" alt="The VPN is connected through Cascade" decoding="async"><figcaption>The VPN is connected through Cascade</figcaption></figure>
 
-<figure class="cz-shot"><img src="/img/cascade/15.webp" alt="The website sees your server’s IP — everything works" loading="lazy"><figcaption>The website sees your server’s IP — everything works</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/15.webp" alt="The website sees your server’s IP — everything works" decoding="async"><figcaption>The website sees your server’s IP — everything works</figcaption></figure>
 
 ## Cheat sheet: what goes where {#cheat}
 
