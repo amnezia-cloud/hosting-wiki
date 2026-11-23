@@ -241,7 +241,7 @@ ssh -p 38906 root@203.0.113.89
 <div class="cz-cta">
 <span class="cz-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
 <div class="cz-cta-text"><h2 id="get-cascade" class="cz-cta-title">Ещё нет Каскада?</h2><span>Подключите заранее, чтобы не потерять доступ к серверу</span></div>
-<a class="cz-cta-btn" href="https://amnezia.host/ru/cascade" target="_blank" rel="noreferrer">Подключить Каскад <span aria-hidden="true">→</span></a>
+<a class="cz-cta-btn" href="https://storage.googleapis.com/amnezia/host?m-path=/ru/cascade" target="_blank" rel="noreferrer">Подключить Каскад <span aria-hidden="true">→</span></a>
 </div>
 
 <section class="cz-cta-after">
