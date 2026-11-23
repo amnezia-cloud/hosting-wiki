@@ -115,11 +115,11 @@ onUnmounted(() => detach && detach())
 ::: details Сервер ещё не добавлен в приложение? Сначала сделайте это
 В Amnezia VPN нажмите **«+»**, введите IP-адрес сервера, логин `root` и пароль из карточки сервера в личном кабинете. Выберите **«Автоматическая»** установку и дождитесь окончания — приложение установит протокол AmneziaWG.
 
-<figure class="cz-shot"><img src="/img/cascade/01.webp" alt="Данные для входа (2) берутся из карточки сервера в личном кабинете и вводятся в приложение (1)" loading="lazy"><figcaption>Данные для входа (2) берутся из карточки сервера в личном кабинете и вводятся в приложение (1)</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/01.webp" alt="Данные для входа (2) берутся из карточки сервера в личном кабинете и вводятся в приложение (1)" decoding="async"><figcaption>Данные для входа (2) берутся из карточки сервера в личном кабинете и вводятся в приложение (1)</figcaption></figure>
 
-<div class="cz-row cz-row-3"><figure class="cz-shot"><img src="/img/cascade/02.webp" alt="Выберите «Автоматическая»" loading="lazy"><figcaption>Выберите «Автоматическая»</figcaption></figure><figure class="cz-shot"><img src="/img/cascade/03.webp" alt="Установка AmneziaWG" loading="lazy"><figcaption>Установка AmneziaWG</figcaption></figure></div>
+<div class="cz-row cz-row-3"><figure class="cz-shot"><img src="/img/cascade/02.webp" alt="Выберите «Автоматическая»" decoding="async"><figcaption>Выберите «Автоматическая»</figcaption></figure><figure class="cz-shot"><img src="/img/cascade/03.webp" alt="Установка AmneziaWG" decoding="async"><figcaption>Установка AmneziaWG</figcaption></figure></div>
 
-<figure class="cz-shot"><img src="/img/cascade/04.webp" alt="Сервер добавлен, VPN подключается напрямую" loading="lazy"><figcaption>Сервер добавлен, VPN подключается напрямую</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/04.webp" alt="Сервер добавлен, VPN подключается напрямую" decoding="async"><figcaption>Сервер добавлен, VPN подключается напрямую</figcaption></figure>
 
 Если IP сервера уже недоступен из вашего региона, этот шаг можно пропустить: сервер добавится через Каскад на шаге 4.
 :::
@@ -128,7 +128,7 @@ onUnmounted(() => detach && detach())
 
 В приложении откройте настройки сервера → **AmneziaWG** → **AmneziaWG настройки сервера**. Запомните число в поле **«Порт»** — в примере это `44212`.
 
-<div class="cz-row cz-row-1"><figure class="cz-shot"><img src="/img/cascade/06-app.webp" alt="Порт протокола AmneziaWG на вашем сервере" loading="lazy"><figcaption>Порт протокола AmneziaWG на вашем сервере</figcaption></figure></div>
+<div class="cz-row cz-row-1"><figure class="cz-shot"><img src="/img/cascade/06-app.webp" alt="Порт протокола AmneziaWG на вашем сервере" decoding="async"><figcaption>Порт протокола AmneziaWG на вашем сервере</figcaption></figure></div>
 
 ### Настройте Каскад в личном кабинете {#cz-step-2}
 
@@ -140,15 +140,15 @@ onUnmounted(() => detach && detach())
 
 Нажмите **«Сохранить»**.
 
-<figure class="cz-shot"><img src="/img/cascade/05.webp" alt="Пустая форма Каскада: сначала заполните поля (1), затем сохраните (2)" loading="lazy"><figcaption>Пустая форма Каскада: сначала заполните поля (1), затем сохраните (2)</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/05.webp" alt="Пустая форма Каскада: сначала заполните поля (1), затем сохраните (2)" decoding="async"><figcaption>Пустая форма Каскада: сначала заполните поля (1), затем сохраните (2)</figcaption></figure>
 
-<figure class="cz-shot"><img src="/img/cascade/06-panel.webp" alt="Пример заполненной формы" loading="lazy"><figcaption>Пример заполненной формы</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/06-panel.webp" alt="Пример заполненной формы" decoding="async"><figcaption>Пример заполненной формы</figcaption></figure>
 
 ### Дождитесь статуса «Активен» {#cz-step-3}
 
 Справа от полей появятся две строки и статус. Обычно Каскад включается за несколько секунд.
 
-<div class="cz-row cz-row-2 cz-row-panel"><figure class="cz-shot"><img src="/img/cascade/07.webp" alt="«Применяется» — настройка идёт" loading="lazy"><figcaption>«Применяется» — настройка идёт</figcaption></figure><figure class="cz-shot"><img src="/img/cascade/08.webp" alt="«Активен» — можно подключаться" loading="lazy"><figcaption>«Активен» — можно подключаться</figcaption></figure></div>
+<div class="cz-row cz-row-2 cz-row-panel"><figure class="cz-shot"><img src="/img/cascade/07.webp" alt="«Применяется» — настройка идёт" decoding="async"><figcaption>«Применяется» — настройка идёт</figcaption></figure><figure class="cz-shot"><img src="/img/cascade/08.webp" alt="«Активен» — можно подключаться" decoding="async"><figcaption>«Активен» — можно подключаться</figcaption></figure></div>
 
 Каждая строка показывает, куда Каскад пересылает подключения. Например, `198.51.100.24:35495 → 192.0.2.147:44212` значит: всё, что приходит на адрес Каскада и порт `35495`, уходит на ваш сервер, порт `44212`.
 
@@ -173,9 +173,9 @@ onUnmounted(() => detach && detach())
 
 Нажмите **«Продолжить»**, выберите **«Автоматическая»** и дождитесь окончания.
 
-<figure class="cz-shot"><img src="/img/cascade/09.webp" alt="В поле адреса (1) — адрес SSH Каскада и порт из строки TCP (2)" loading="lazy"><figcaption>В поле адреса (1) — адрес SSH Каскада и порт из строки TCP (2)</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/09.webp" alt="В поле адреса (1) — адрес SSH Каскада и порт из строки TCP (2)" decoding="async"><figcaption>В поле адреса (1) — адрес SSH Каскада и порт из строки TCP (2)</figcaption></figure>
 
-<div class="cz-row cz-row-2"><figure class="cz-shot"><img src="/img/cascade/10.webp" alt="Выберите «Автоматическая»" loading="lazy"><figcaption>Выберите «Автоматическая»</figcaption></figure><figure class="cz-shot"><img src="/img/cascade/11.webp" alt="Приложение подключается к серверу через Каскад" loading="lazy"><figcaption>Приложение подключается к серверу через Каскад</figcaption></figure></div>
+<div class="cz-row cz-row-2"><figure class="cz-shot"><img src="/img/cascade/10.webp" alt="Выберите «Автоматическая»" decoding="async"><figcaption>Выберите «Автоматическая»</figcaption></figure><figure class="cz-shot"><img src="/img/cascade/11.webp" alt="Приложение подключается к серверу через Каскад" decoding="async"><figcaption>Приложение подключается к серверу через Каскад</figcaption></figure></div>
 
 ### Укажите Каскад в настройках AmneziaWG {#cz-step-5}
 
@@ -186,9 +186,9 @@ onUnmounted(() => detach && detach())
 
 Нажмите **«Сохранить»**.
 
-<div class="cz-row cz-row-1"><figure class="cz-shot"><img src="/img/cascade/12.webp" alt="Нужен второй пункт — «AmneziaWG настройки сервера»" loading="lazy"><figcaption>Нужен второй пункт — «AmneziaWG настройки сервера»</figcaption></figure></div>
+<div class="cz-row cz-row-1"><figure class="cz-shot"><img src="/img/cascade/12.webp" alt="Нужен второй пункт — «AmneziaWG настройки сервера»" decoding="async"><figcaption>Нужен второй пункт — «AmneziaWG настройки сервера»</figcaption></figure></div>
 
-<figure class="cz-shot"><img src="/img/cascade/13.webp" alt="Cascade endpoint и Cascade port (1) берутся из личного кабинета: адрес VPN (3) и порт из строки UDP (2)" loading="lazy"><figcaption>Cascade endpoint и Cascade port (1) берутся из личного кабинета: адрес VPN (3) и порт из строки UDP (2)</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/13.webp" alt="Cascade endpoint и Cascade port (1) берутся из личного кабинета: адрес VPN (3) и порт из строки UDP (2)" decoding="async"><figcaption>Cascade endpoint и Cascade port (1) берутся из личного кабинета: адрес VPN (3) и порт из строки UDP (2)</figcaption></figure>
 
 ::: danger Уже выданные ключи не изменятся
 Через Каскад будут работать только подключения, созданные после сохранения. Если сервером пользуются другие люди, поделитесь с ними доступом заново — см. [ниже](#share).
@@ -198,9 +198,9 @@ onUnmounted(() => detach && detach())
 
 Нажмите **«Подключиться»**. Затем откройте любой сайт проверки IP, например 2ip.ru: он должен показать **IP вашего сервера**. Это значит, что трафик идёт через Каскад на ваш сервер, а оттуда — в интернет.
 
-<figure class="cz-shot"><img src="/img/cascade/14.webp" alt="VPN подключён через Каскад" loading="lazy"><figcaption>VPN подключён через Каскад</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/14.webp" alt="VPN подключён через Каскад" decoding="async"><figcaption>VPN подключён через Каскад</figcaption></figure>
 
-<figure class="cz-shot"><img src="/img/cascade/15.webp" alt="Сайт видит IP вашего сервера — всё работает" loading="lazy"><figcaption>Сайт видит IP вашего сервера — всё работает</figcaption></figure>
+<figure class="cz-shot"><img src="/img/cascade/15.webp" alt="Сайт видит IP вашего сервера — всё работает" decoding="async"><figcaption>Сайт видит IP вашего сервера — всё работает</figcaption></figure>
 
 ## Шпаргалка: что куда вводить {#cheat}
 
