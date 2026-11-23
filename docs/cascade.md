@@ -236,6 +236,12 @@ ssh -p 38906 root@203.0.113.89
 | <span class="cz-dot cz-red"></span>Ошибка | Настройка не применилась | Проверить сервер и порт, сохранить заново или написать в поддержку |
 | <span class="cz-dot cz-grey"></span>Сервер недоступен | Сервер удалён или сменил IP | Выбрать другой сервер в поле «Сервер» |
 
+<div class="cz-cta">
+<span class="cz-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<div class="cz-cta-text"><h2 id="get-cascade" class="cz-cta-title">Ещё нет Каскада?</h2><span>Подключите заранее, чтобы не потерять доступ к серверу</span></div>
+<a class="cz-cta-btn" href="https://amnezia.host/ru/cascade" target="_blank" rel="noreferrer">Подключить Каскад <span aria-hidden="true">→</span></a>
+</div>
+
 ## Частые вопросы {#faq}
 
 ::: details Чем Каскад лучше замены сервера?
@@ -309,4 +315,14 @@ ssh -p 38906 root@203.0.113.89
 .cz-lightbox{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.86);display:flex;align-items:center;justify-content:center;padding:16px;cursor:zoom-out}
 .cz-lightbox img{max-width:100%;max-height:100%;border-radius:8px}
 .cz-lightbox button{position:absolute;top:12px;right:16px;background:rgba(255,255,255,.15);color:#fff;border:0;border-radius:20px;padding:6px 14px;font-size:14px;cursor:pointer}
+/* Плашка «Ещё нет Каскада?» перед частыми вопросами */
+.cz-cta{display:flex;align-items:center;gap:20px;margin:28px 0 8px;padding:22px 24px;border:1px solid var(--vp-c-brand-1);border-radius:16px;background:linear-gradient(110deg,var(--vp-c-bg-soft) 35%,var(--vp-c-brand-soft))}
+.cz-cta-icon{flex:none;width:52px;height:52px;border-radius:12px;display:grid;place-items:center;background:var(--vp-c-brand-soft);color:var(--vp-c-brand-1)}
+.cz-cta-text{flex:1;min-width:0}
+.vp-doc .cz-cta-text h2.cz-cta-title{display:block;margin:0;padding:0;border:0;font-size:18px;line-height:1.35;letter-spacing:0;color:var(--vp-c-text-1)}
+.cz-cta-text span{display:block;margin-top:2px;font-size:15px;line-height:1.5;color:var(--vp-c-text-2)}
+.vp-doc a.cz-cta-btn{flex:none;display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;background:var(--vp-c-brand-1);color:#06210f;font-size:15px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background-color .15s ease}
+.vp-doc a.cz-cta-btn:hover{background:var(--vp-c-brand-2);color:#06210f}
+@media (max-width:640px){.cz-cta{flex-direction:column;align-items:flex-start;gap:14px}.vp-doc a.cz-cta-btn{align-self:stretch;justify-content:center}}
+
 </style>
