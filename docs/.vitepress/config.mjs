@@ -602,10 +602,10 @@ export default defineConfig({
                 badge: 'Urgent',
                 hot: true
               },
-              { text: '🔀 Cascade', link: '/en/cascade', homeText: '🔀 Cascade: VPN works again without changing the server', badge: 'New' }
+              { text: '🔀 Cascade', link: '/en/cascade', homeText: '🔀 Cascade: VPN works again without changing the server', badge: 'New' },
+              { text: '⚙️ AmneziaWG parameter generator', link: '/en/awg-generator', homeText: '⚙️ AmneziaWG parameter generator — your own masking in a minute', badge: 'New' }
             ]
           },
-             { text: '⚙️ AmneziaWG parameter generator', link: '/en/awg-generator', homeText: '⚙️ AmneziaWG parameter generator — your own masking in a minute', badge: 'New' }
           {
             text: 'Just getting started',
             home: 'column',
