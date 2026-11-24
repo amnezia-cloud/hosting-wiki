@@ -1829,3 +1829,56 @@ html {
 .amz-home__link:hover {
   opacity: 1;
 }
+
+/* ==========================================================================
+   ГЕНЕРАТОР ПАРАМЕТРОВ AMNEZIAWG (theme/AwgFrame.js, страница /awg-generator)
+   ========================================================================== */
+.awg-gen-page .VPPage,
+.awg-gen-page .VPContent.is-page {
+  padding: 0 !important;
+}
+.awg-frame {
+  width: 100%;
+}
+.awg-frame__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 38px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--vp-c-divider);
+  font-size: 13px;
+}
+.awg-frame__title {
+  flex: 1;
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+}
+.awg-frame__open {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+  text-decoration: none;
+}
+.awg-frame__open:hover {
+  text-decoration: underline;
+}
+@media (max-width: 640px) {
+  .awg-frame__bar {
+    padding: 0 16px;
+  }
+  .awg-frame__title {
+    display: none;
+  }
+  .awg-frame__open {
+    margin-left: auto;
+  }
+}
+.awg-frame iframe,
+.awg-frame__ph {
+  display: block;
+  width: 100%;
+  height: calc(100vh - var(--vp-nav-height) - 38px);
+  height: calc(100dvh - var(--vp-nav-height) - 38px);
+  border: 0;
+  background: var(--vp-c-bg);
+}
