@@ -230,7 +230,8 @@ export default defineConfig({
                 link: '/split-tunneling',
                 homeText: '🚦 Раздельное туннелирование — настройте сразу',
                 badge: 'Новое'
-              }
+              },
+              { text: '⚙️ Генератор параметров AmneziaWG', link: '/awg-generator', homeText: '⚙️ Генератор параметров AmneziaWG — своя маскировка за минуту', badge: 'Новое' }
             ]
           },
           {
@@ -604,6 +605,7 @@ export default defineConfig({
               { text: '🔀 Cascade', link: '/en/cascade', homeText: '🔀 Cascade: VPN works again without changing the server', badge: 'New' }
             ]
           },
+             { text: '⚙️ AmneziaWG parameter generator', link: '/en/awg-generator', homeText: '⚙️ AmneziaWG parameter generator — your own masking in a minute', badge: 'New' }
           {
             text: 'Just getting started',
             home: 'column',
