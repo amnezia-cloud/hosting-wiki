@@ -1,0 +1,119 @@
+import { h } from 'vue'
+import DefaultTheme from 'vitepress/theme'
+import Feedback from './Feedback.js'
+import NewsCarousel from './NewsCarousel.js'
+// import Banner from './Banner.js' — баннер выключен, см. слоты ниже
+import Breadcrumbs from './Breadcrumbs.js'
+import PageMeta, { pageUrl, copyText } from './PageMeta.js'
+import HelpLinks from './HelpLinks.js'
+import Footer from './Footer.js'
+import Home from './Home.js'
+import HostCube from './HostCube.js'
+import AwgFrame from './AwgFrame.js'
+import PlanGuide from './components/plan-guide/PlanGuide.vue'
+import PlanCta from './components/plan-guide/PlanCta.vue'
+import './custom.css'
+
+// Клик по заголовку раздела копирует ссылку на него. Кириллица в якоре
+// остаётся читаемой (decodeURI в pageUrl), а сам якорь попадает в адресную
+// строку — как если бы перешли по «#».
+function setupHeadingLinks() {
+  let toast
+  let timer
+
+  const showToast = (text) => {
+    if (!toast) {
+      toast = document.createElement('div')
+      toast.className = 'amz-toast'
+      toast.setAttribute('role', 'status')
+      document.body.appendChild(toast)
+    }
+    toast.textContent = text
+    toast.classList.add('is-visible')
+    clearTimeout(timer)
+    timer = setTimeout(() => toast.classList.remove('is-visible'), 1800)
+  }
+
+  document.addEventListener('click', async (event) => {
+    const heading = event.target.closest('.vp-doc :is(h2, h3, h4)[id]')
+    if (!heading) return
+    // Ссылки внутри заголовка (в т.ч. штатный «#») работают как обычно.
+    if (event.target.closest('a')) return
+    // Выделение текста мышью — не клик по заголовку.
+    if (String(window.getSelection())) return
+
+    const id = decodeURIComponent(heading.id)
+    history.replaceState(history.state, '', `#${encodeURIComponent(id)}`)
+    const en = document.documentElement.lang.startsWith('en')
+    if (await copyText(`${pageUrl()}#${id}`)) {
+      showToast(en ? 'Link to the section copied' : 'Ссылка на раздел скопирована')
+    }
+  })
+}
+
+// Сайдбар и оглавление зафиксированы до низа окна, а футер идёт в потоке
+// страницы. Без поправки футер наезжает на них, и нижние пункты меню
+// уходят под него — долистать до них уже нельзя. Поэтому сколько футера
+// видно на экране, на столько и укорачиваем обе колонки
+// (--amz-footer-overlap в custom.css).
+function setupFooterOverlap() {
+  let frame = 0
+  let last = -1
+
+  const update = () => {
+    frame = 0
+    const footer = document.querySelector('.amz-footer')
+    const top = footer ? footer.getBoundingClientRect().top : Infinity
+    const overlap = Math.max(0, Math.round(window.innerHeight - top))
+    if (overlap === last) return
+    last = overlap
+    document.documentElement.style.setProperty('--amz-footer-overlap', `${overlap}px`)
+  }
+  const schedule = () => {
+    if (!frame) frame = requestAnimationFrame(update)
+  }
+
+  window.addEventListener('scroll', schedule, { passive: true })
+  window.addEventListener('resize', schedule)
+  // Смена страницы меняет высоту контента без прокрутки.
+  new ResizeObserver(schedule).observe(document.body)
+  schedule()
+}
+
+export default {
+  extends: DefaultTheme,
+  Layout: () =>
+    h(DefaultTheme.Layout, null, {
+      // Красный баннер (Banner.js) сейчас выключен. Чтобы вернуть:
+      // 'home-hero-before': () => h(Banner) и h(Banner) после крошек в 'doc-before'.
+      // Над текстом страницы — хлебные крошки.
+      'doc-before': () => h(Breadcrumbs),
+      'nav-bar-content-before': () => h(HostCube),
+      // Блок «предложить правку» — перед «Назад / Вперёд», чтобы пагинация
+      // и кнопки помощи под ней стояли вместе, как на docs.amnezia.org.
+      'doc-footer-before': () => h(Feedback),
+      'doc-after': () => h(HelpLinks),
+      // Футер на всю ширину страницы, поверх нижнего края сайдбара.
+      'layout-bottom': () => h(Footer)
+    }),
+  enhanceApp({ app }) {
+    // Лента новостей: <NewsCarousel /> доступен в любой markdown-странице.
+    // Сама страница новостей сейчас исключена из сборки (srcExclude в config.mjs).
+    app.component('NewsCarousel', NewsCarousel)
+    // Строка «Последнее обновление» под заголовком — её вставляет плагин
+    // amzSections из config.mjs, поэтому компонент регистрируется глобально.
+    app.component('AmzPageMeta', PageMeta)
+    // Главная страница целиком (docs/index.md, docs/en/index.md).
+    app.component('AmzHome', Home)
+    // Генератор параметров AmneziaWG на странице /awg-generator
+    app.component('AwgFrame', AwgFrame)
+    // Страница «Какой тариф выбрать» (docs/choose-plan.md).
+    app.component('PlanGuide', PlanGuide)
+    app.component('PlanCta', PlanCta)
+
+    if (!import.meta.env.SSR) {
+      setupHeadingLinks()
+      setupFooterOverlap()
+    }
+  }
+}
