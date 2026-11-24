@@ -4,7 +4,7 @@ description: "Как перейти с AmneziaWG 2.0 на 3.1 через пер�
 head:
   - - meta
     - name: keywords
-      content: "amneziawg 3.1, awg 3.1, обновление awg, переход с 2.0 на 3.1, откат на 2.0, защита транспорта, headerprotectionkey, contentpaddingaddition, mtu 1280, цепочка cps, architect, генератор параметров"
+      content: "amneziawg 3.1, awg 3.1, обновление awg, переход с 2.0 на 3.1, откат на 2.0, защита транспорта, headerprotectionkey, contentpaddingaddition, mtu 1280, цепочка cps, генератор параметров"
 ---
 
 # 🆙 AmneziaWG: обновление с 2.0 на 3.1
@@ -64,7 +64,7 @@ head:
 
 Порядок действий:
 
-1.  Сгенерируйте параметры на сайте **[architect.vai-rice.space/amneziawg](https://architect.vai-rice.space/amneziawg/)**.
+1.  Сгенерируйте параметры в **[генераторе параметров AmneziaWG](/awg-generator)** — раздел «Настраиваю сервер в приложении».
 2.  В приложении AmneziaVPN откройте **«Настройки сервера» → «AmneziaWG» → «AmneziaWG настройки сервера»**.
 3.  Вручную перенесите все сгенерированные значения в соответствующие поля.
 4.  Сохраните изменения.

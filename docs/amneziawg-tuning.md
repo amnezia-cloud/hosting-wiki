@@ -32,7 +32,7 @@ head:
 
 Значения обфускации удобнее не придумывать, а генерировать:
 
-*   [architect.vai-rice.space](https://architect.vai-rice.space/amneziawg/)
+*   **[Генератор параметров AmneziaWG](/awg-generator)** — наш генератор: значения в порядке полей приложения, проверка правил и обновление готового конфига
 *   [voidwaifu.github.io/Special-Junk-Packet-List](https://voidwaifu.github.io/Special-Junk-Packet-List/) — на сайте есть кнопка с инструкцией по заполнению
 *   [spatiumstas.github.io/junker](https://spatiumstas.github.io/junker/)
 *   [sageptr.github.io/mini_quic_generator](https://sageptr.github.io/mini_quic_generator/)
@@ -58,7 +58,7 @@ I2 = <b 0xd300...>
 
 Порядок действий:
 
-1.  Сгенерируйте параметры на [architect.vai-rice.space](https://architect.vai-rice.space/amneziawg/).
+1.  Сгенерируйте параметры в [генераторе параметров](/awg-generator): выключите «Шифрование заголовков» и перенесите Jc, Jmin, Jmax, S1–S4 и H1–H4 — полей защиты транспорта в 2.0 нет.
 2.  В приложении AmneziaVPN откройте **«Настройки сервера» → «AmneziaWG» → «AmneziaWG настройки сервера»**.
 3.  Перенесите сгенерированные значения в соответствующие поля вручную.
 4.  Сохраните изменения.

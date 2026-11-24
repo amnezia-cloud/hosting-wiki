@@ -4,7 +4,7 @@ description: "How to move from AmneziaWG 2.0 to 3.1 by reinstalling the protocol
 head:
   - - meta
     - name: keywords
-      content: "amneziawg 3.1, awg 3.1, awg upgrade, 2.0 to 3.1, roll back to 2.0, transport protection, headerprotectionkey, contentpaddingaddition, mtu 1280, cps chain, architect, parameter generator"
+      content: "amneziawg 3.1, awg 3.1, awg upgrade, 2.0 to 3.1, roll back to 2.0, transport protection, headerprotectionkey, contentpaddingaddition, mtu 1280, cps chain, parameter generator"
 ---
 
 # 🆙 AmneziaWG: Upgrading from 2.0 to 3.1
@@ -60,7 +60,7 @@ We strongly recommend not leaving the parameters the container receives by defau
 
 Steps:
 
-1.  Generate the parameters at **[architect.vai-rice.space/amneziawg](https://architect.vai-rice.space/amneziawg/)**.
+1.  Generate the parameters in the **[AmneziaWG parameter generator](/en/awg-generator)** — “I set up my server in the app”.
 2.  In the AmneziaVPN app open **“Server settings” → “AmneziaWG” → “AmneziaWG server settings”**.
 3.  Transfer every generated value into the matching field manually.
 4.  Save the changes.

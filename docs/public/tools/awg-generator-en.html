@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AmneziaWG 3.1 parameter generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+(function () {
+  var q = location.search, embed = window.self !== window.top || /[?&]embed=1/.test(q);
+  if (embed) document.documentElement.classList.add('embed');
+  var t = (q.match(/[?&]theme=(dark|light)/) || [])[1];
+  if (t) document.documentElement.setAttribute('data-theme', t);
+  window.addEventListener('message', function (e) {
+    var d = e.data || {};
+    if (d.type === 'awg-theme') document.documentElement.setAttribute('data-theme', d.dark ? 'dark' : 'light');
+  });
+})();
+</script>
+<style>
+:root{
+  --bg:#ffffff; --soft:#f6f6f7; --card:#ffffff; --border:#e2e2e3; --text:#1f1f24; --text2:#5c5c63; --text3:#929295;
+  --brand:#00a52c; --brand2:#00c935; --brandsoft:rgba(0,190,55,.12); --red:#e11d48; --redsoft:rgba(244,63,94,.12);
+  --yellow:#b45309; --yellowsoft:rgba(234,179,8,.16); --code:#f1f3f2; --overlay:rgba(20,20,24,.5);
+  /* AmneziaVPN app window — always dark, like the app itself */
+  --app-bg:#0e0e10; --app-field:#1c1c1f; --app-line:rgba(255,255,255,.32); --app-label:#8e8e93; --app-text:#f2f2f2; --app-accent:#fbb26a; --app-accent-dark:#2a1f13;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1b1b1f; --soft:#161618; --card:#202127; --border:#2e2e32; --text:rgba(255,255,245,.92); --text2:rgba(235,235,245,.62); --text3:rgba(235,235,245,.4);
+    --brand:#00e63d; --brand2:#3cf06a; --brandsoft:rgba(0,230,61,.14); --red:#fb7185; --redsoft:rgba(244,63,94,.16);
+    --yellow:#facc15; --yellowsoft:rgba(250,204,21,.14); --code:#141816; --overlay:rgba(0,0,0,.65);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1b1b1f; --soft:#161618; --card:#202127; --border:#2e2e32; --text:rgba(255,255,245,.92); --text2:rgba(235,235,245,.62); --text3:rgba(235,235,245,.4);
+  --brand:#00e63d; --brand2:#3cf06a; --brandsoft:rgba(0,230,61,.14); --red:#fb7185; --redsoft:rgba(244,63,94,.16);
+  --yellow:#facc15; --yellowsoft:rgba(250,204,21,.14); --code:#141816; --overlay:rgba(0,0,0,.65);
+  color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 "IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1920px;margin:0 auto;padding:32px 28px 90px}
+.top{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.top h1{flex:1;min-width:260px;margin:0;font-size:30px;line-height:1.2}
+.top h1 span{color:var(--brand)}
+.lead{margin:6px 0 16px;color:var(--text2);max-width:760px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.badge{font-size:12.5px;font-weight:600;padding:4px 12px;border-radius:999px;background:var(--brandsoft);color:var(--brand)}
+.badge.grey{background:var(--soft);color:var(--text2);border:1px solid var(--border)}
+.btn{font:inherit;font-size:13px;padding:7px 14px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer}
+.btn:hover{border-color:var(--brand)}
+
+.embed #themeBtn{display:none}
+.embed .wrap{padding-top:22px}
+.choose{margin:0 0 8px;font-size:14px;font-weight:600;color:var(--text2)}
+.pick-col{display:grid;gap:8px;margin-bottom:14px}
+.pick-col .pc{padding:12px 12px;gap:10px}
+.pick-col .pc-ic{width:38px;height:38px;font-size:20px;border-radius:10px}
+.pick-col .pc-t b{font-size:14px}
+.tabs{display:grid;grid-template-columns:repeat(2,minmax(0,420px));gap:10px;margin-bottom:22px}
+@media (max-width:760px){.tabs{grid-template-columns:1fr}}
+.tab{display:flex;align-items:center;gap:14px;text-align:left;font:inherit;padding:14px 18px;border-radius:16px;border:1.5px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.tab:hover{border-color:var(--brand2)}
+.tab .ti{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:var(--soft)}
+.tab b{display:block;font-size:15px;line-height:1.3}
+.tab small{display:block;font-size:12.5px;color:var(--text2);line-height:1.4;margin-top:2px}
+.tab[aria-selected="true"]{border-color:var(--brand);box-shadow:0 0 0 3px var(--brandsoft)}
+.tab[aria-selected="true"] .ti{background:var(--brandsoft)}
+.pane[hidden]{display:none}
+
+.grid{display:grid;grid-template-columns:280px minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.card{border:1px solid var(--border);border-radius:18px;background:var(--card);padding:20px}
+.card h2{margin:0 0 4px;font-size:16px}
+.card .sub{margin:0 0 14px;font-size:13px;color:var(--text3)}
+.side{position:sticky;top:16px;display:grid;gap:16px}
+@media (max-width:900px){.side{position:static}}
+
+.prof{display:grid;gap:8px;margin-bottom:16px}
+.prof button{display:block;width:100%;text-align:left;font:inherit;padding:12px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--soft);color:var(--text);cursor:pointer;transition:border-color .15s,background .15s}
+.prof button b{display:flex;justify-content:space-between;align-items:center;font-size:14.5px}
+.prof button b em{font-style:normal;font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;background:var(--brand);color:#06210f}
+.prof button span{display:block;font-size:12.5px;color:var(--text2);margin-top:2px}
+.prof button[aria-pressed="true"]{border-color:var(--brand);background:var(--brandsoft)}
+.sw{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px solid var(--border);cursor:pointer}
+.sw input{position:absolute;opacity:0;pointer-events:none}
+.sw .knob{flex:none;width:40px;height:22px;border-radius:999px;background:var(--border);position:relative;transition:background .2s;margin-top:2px}
+.sw .knob::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s}
+.sw input:checked + .knob{background:var(--brand)}
+.sw input:checked + .knob::after{transform:translateX(18px)}
+.sw input:focus-visible + .knob{outline:2px solid var(--brand);outline-offset:2px}
+.sw b{display:block;font-size:14px}
+.sw small{display:block;font-size:12.5px;color:var(--text2);line-height:1.45}
+.go{width:100%;font:inherit;font-size:15px;font-weight:700;padding:12px 18px;border-radius:12px;border:0;background:var(--brand);color:#06210f;cursor:pointer;display:inline-flex;gap:8px;align-items:center;justify-content:center;margin-top:12px}
+.go:hover{background:var(--brand2)}
+.go svg{transition:transform .5s}
+.go.spin svg{transform:rotate(360deg)}
+.checks{display:grid;gap:6px;font-size:13px}
+.ck{display:flex;gap:8px;align-items:flex-start;color:var(--text2)}
+.ck i{flex:none;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:700;margin-top:1px}
+.ck.ok i{background:var(--brandsoft);color:var(--brand)}
+.ck.bad i{background:var(--redsoft);color:var(--red)}
+
+/* ===== AmneziaVPN-style window ===== */
+.app{max-width:none;margin:0;border-radius:30px;background:var(--app-bg);color:var(--app-text);border:1px solid #2a2a2e;box-shadow:0 30px 70px -35px rgba(0,0,0,.8);overflow:hidden}
+.app-head{display:flex;align-items:center;gap:12px;padding:18px 20px 12px;font-weight:700;font-size:17px}
+.app-head .back{font-size:22px;line-height:1;color:var(--app-text)}
+.app-head .t{flex:1;text-align:center;margin-right:26px}
+.app-hint{margin:0 20px 10px;font-size:12.5px;color:var(--app-label);text-align:center}
+.app-body{padding:4px 18px 20px}
+.app-cap{font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#5f5f66;margin:16px 4px 8px}
+.af{position:relative;display:block;width:100%;text-align:left;font:inherit;color:inherit;border:1px solid var(--app-line);border-radius:16px;background:var(--app-field);padding:9px 16px 11px;margin:0 0 10px;cursor:pointer;transition:border-color .15s,background .15s}
+.af:hover{border-color:rgba(255,255,255,.6)}
+.af:focus-visible{outline:2px solid var(--app-accent);outline-offset:2px}
+.af .l{display:block;font-size:12.5px;color:var(--app-label);line-height:1.35}
+.af .v{display:block;font-size:16px;color:var(--app-text);margin-top:2px;word-break:break-all}
+.af .cp{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:600;color:var(--app-label);opacity:0;transition:opacity .15s}
+.af:hover .cp{opacity:1}
+.af.copied{border-color:var(--app-accent);background:var(--app-accent-dark)}
+.af.copied .cp{opacity:1;color:var(--app-accent)}
+.af.flip .v{animation:flip .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes flip{0%{opacity:0;transform:translateY(-5px)}100%{opacity:1;transform:none}}
+.af.mono .v{font:500 13px/1.5 "JetBrains Mono",monospace}
+.afg{display:grid;gap:10px;margin:0 0 10px}
+.afg .af{margin:0;display:flex;flex-direction:column;justify-content:space-between}
+.app-cols{display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+.app-cols > div{min-width:0}
+.app-cols > div + div{border-left:1px solid #26262a;padding-left:22px}
+@media (max-width:1100px){.app-cols{grid-template-columns:1fr}.app-cols > div + div{border-left:0;padding-left:0}}
+.app-full{margin-top:6px}
+.apps-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;margin-bottom:18px}
+@media (max-width:1100px){.apps-row{grid-template-columns:1fr}}
+.shot{display:flex;justify-content:center;margin:-4px 0 8px}
+.shot span{font-size:11.5px;font-weight:600;padding:2px 10px;border-radius:999px;background:#1f1f23;color:var(--app-label)}
+.app .app-body > .app-cap:first-child{margin-top:4px}
+.afg.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.afg.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.afg.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:760px){.afg.c4{grid-template-columns:repeat(2,minmax(0,1fr))}.afg.c3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){.afg.c2,.afg.c3,.afg.c4{grid-template-columns:1fr}}
+.afg .af .l{min-height:2.7em}
+@media (max-width:520px){.afg .af .l{min-height:0}}
+.chk-row{display:flex;align-items:center;gap:12px;padding:12px 4px;font-size:15px}
+.chk-row .box{width:22px;height:22px;border-radius:6px;border:2px solid var(--app-accent);display:grid;place-items:center;flex:none}
+.chk-row .box.on{background:var(--app-accent)}
+.chk-row small{display:block;font-size:12px;color:var(--app-label)}
+/* CPS block inside the window */
+.cps-row{border:1px dashed rgba(255,255,255,.28);border-radius:16px;padding:14px 16px;margin:0 0 10px;background:rgba(255,255,255,.02)}
+.cps-row .h{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.cps-row b{font-size:15px}
+.cps-row .st{font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;background:#26262a;color:var(--app-label);white-space:nowrap}
+.cps-row .st.on{background:var(--app-accent-dark);color:var(--app-accent)}
+.cps-row p{margin:8px 0 12px;font-size:13px;line-height:1.5;color:#b9b9bf}
+.cps-row ul{margin:0 0 12px;padding-left:18px;font-size:13px;line-height:1.5;color:#b9b9bf}
+.cps-row ul li{margin:2px 0}
+.cps-btns{display:flex;gap:8px;flex-wrap:wrap}
+.app-btn{font:inherit;font-size:14px;font-weight:600;padding:10px 16px;border-radius:12px;border:1px solid var(--app-line);background:#26262a;color:var(--app-text);cursor:pointer}
+.app-btn:hover{border-color:var(--app-accent)}
+.app-btn.accent{background:var(--app-accent);border-color:var(--app-accent);color:#1c1206}
+.app-btn.accent:hover{filter:brightness(1.07)}
+.app-btn.ghost{background:none;border-color:transparent;color:var(--app-label)}
+.app-save{display:block;width:100%;margin-top:14px;padding:14px;border-radius:14px;border:0;font:inherit;font-size:15px;font-weight:700;background:var(--app-accent);color:#1c1206;cursor:pointer}
+.app-save:hover{filter:brightness(1.07)}
+.app-dev{margin-top:8px;width:100%;padding:12px;border-radius:14px;border:1px solid var(--app-line);background:none;color:var(--app-text);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.app-dev:hover{border-color:var(--app-accent)}
+
+.notes{display:grid;gap:12px;margin-top:18px}
+.note{display:flex;gap:12px;padding:14px 16px;border-radius:14px;font-size:13.5px;line-height:1.55}
+.note.warn{background:var(--yellowsoft);color:var(--text)}
+.note.warn b{color:var(--yellow)}
+.note.info{background:var(--soft);border:1px solid var(--border);color:var(--text2)}
+.steps{margin:6px 0 0;padding-left:20px}
+.steps li{margin:3px 0}
+.steps b{color:var(--text)}
+
+/* ===== Three app screens ===== */
+.wins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+@media (max-width:1200px){.wins{grid-template-columns:1fr}}
+.pan{display:flex;flex-direction:column;border-radius:26px;background:var(--app-bg);color:var(--app-text);border:1px solid #2a2a2e;box-shadow:0 26px 60px -34px rgba(0,0,0,.85);overflow:hidden}
+.pan .app-head{padding:18px 18px 4px}
+.pan .app-head .t{font-size:16px}
+.pan .win-tag{margin:2px auto 4px}
+.pan .app-body{flex:1;padding:4px 16px 16px}
+.pan .afg{margin-bottom:10px}
+.pan .af{margin:0 0 10px}
+.pan .afg .af{margin:0}
+.pan .win-foot{padding:0 16px 16px}
+.pan .win-save{background:#2a2a2e;color:var(--app-text);border:1px solid var(--app-line)}
+.pan .win-save:hover{border-color:var(--app-accent);background:#2a2a2e}
+.pan .cps-mini{margin-bottom:12px}
+.win{display:flex;flex-direction:column;border-radius:14px;overflow:hidden;background:var(--app-bg);color:var(--app-text);border:1px solid #2c2c31;box-shadow:0 26px 60px -32px rgba(0,0,0,.85);min-height:780px}
+.win-bar{display:flex;align-items:center;gap:8px;height:30px;padding:0 10px;background:#f3f3f3;color:#333;font-size:12px}
+.win-bar .ico{width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fbb26a,#7a4a14)}
+.win-bar .sp{flex:1}
+.win-bar .ctl{display:flex;gap:18px;color:#666;font-size:13px;letter-spacing:2px}
+.win-head{display:flex;align-items:center;padding:16px 18px 6px;font-weight:700;font-size:17px}
+.win-head .back{font-size:22px;line-height:1}
+.win-head .t{flex:1;text-align:center;margin-right:22px}
+.win-tag{align-self:center;margin:2px 0 6px;font-size:11px;font-weight:600;padding:2px 10px;border-radius:999px;background:#1f1f23;color:var(--app-label)}
+.win-body{flex:1;padding:8px 16px 4px}
+.win-body .af{margin:0 0 10px}
+.win-body .af .v:empty::after{content:"\00a0"}
+.af.blank{cursor:default}
+.af.blank .v{color:#5d5d63;font-size:13px}
+.win-foot{padding:10px 16px 16px}
+.win-save{display:block;width:100%;padding:13px;border-radius:14px;border:0;background:#e9e9ea;color:#111;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+.win-save:hover{background:#fff}
+.chk-row.c{padding:8px 6px 14px}
+.chk-row.c .box{width:24px;height:24px;border-radius:6px}
+.cps-mini{border:1px dashed rgba(251,178,106,.45);border-radius:14px;padding:11px 13px;margin:0 0 10px;background:rgba(251,178,106,.05);font-size:12.5px;line-height:1.5;color:#c9c9ce}
+.cps-mini b{color:#fff}
+.cps-mini .r{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px}
+.cps-mini .st{font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;background:#26262a;color:var(--app-label);white-space:nowrap}
+.cps-mini .st.on{background:var(--app-accent-dark);color:var(--app-accent)}
+.cps-mini .cps-btns{margin-top:8px}
+.cps-mini .app-btn{font-size:13px;padding:7px 12px;border-radius:10px}
+.below{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.below .go{width:auto;margin:0;padding:11px 20px}
+.below .go2{font:inherit;font-size:14px;font-weight:600;padding:11px 18px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer}
+.below .go2:hover{border-color:var(--brand)}
+.dev-card{margin-top:14px;border-radius:14px;background:var(--app-bg);border:1px solid #2c2c31;padding:14px 16px 6px;color:var(--app-text)}
+.dev-card p{margin:0 0 10px;font-size:13px;color:#b9b9bf}
+.dev-card .grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:10px}
+.dev-card .af{margin:0}
+
+/* ===== Modal ===== */
+.modal-back{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));background:var(--overlay);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+.modal-back.on{display:flex;animation:fade .15s ease}
+@keyframes fade{from{opacity:0}}
+.modal{width:100%;max-width:520px;max-height:100%;overflow-y:auto;border-radius:26px;background:var(--app-bg);color:var(--app-text);border:1px solid #2a2a2e;box-shadow:0 40px 90px -30px rgba(0,0,0,.85);animation:pop .2s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.98)}}
+.modal .app-head .t{margin-right:0}
+.modal .x{font:inherit;font-size:22px;line-height:1;background:none;border:0;color:var(--app-label);cursor:pointer;padding:4px}
+.modal .x:hover{color:var(--app-text)}
+.mim{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 10px}
+.mim button{text-align:left;font:inherit;padding:10px 12px;border-radius:14px;border:1px solid var(--app-line);background:var(--app-field);color:var(--app-text);cursor:pointer}
+.mim button b{display:block;font-size:14px}
+.mim button span{display:block;font-size:12px;color:var(--app-label);line-height:1.35;margin-top:2px}
+.mim button[aria-pressed="true"]{border-color:var(--app-accent);background:var(--app-accent-dark)}
+.mim-note{font-size:12.5px;color:#b9b9bf;margin:0 4px 12px}
+.len{font-size:11px;color:#6d6d73;margin-left:6px}
+.modal-foot{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+
+/* ===== Update my config ===== */
+.stepper{display:flex;gap:10px;flex-wrap:wrap;list-style:none;margin:0 0 18px;padding:0;counter-reset:none}
+.stepper li{display:flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:999px;background:var(--soft);border:1px solid var(--border);font-size:14px;font-weight:600;color:var(--text2)}
+.stepper li span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--brand);color:#06210f;font-weight:700;font-size:13px}
+.stepper li + li{position:relative}
+.pick{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+.pick-cards{flex:1 1 620px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:720px){.pick-cards{grid-template-columns:1fr}}
+.pc{display:flex;align-items:center;gap:12px;text-align:left;font:inherit;color:var(--text);padding:14px 16px;border-radius:16px;border:1.5px solid var(--border);background:var(--card);cursor:pointer;transition:border-color .2s,box-shadow .2s,transform .15s}
+.pc:hover{transform:translateY(-1px);border-color:var(--brand2)}
+.pc[aria-pressed="true"]{border-color:var(--brand);box-shadow:0 0 0 3px var(--brandsoft),0 14px 30px -20px var(--brand)}
+.pc-ic{font-size:24px;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--soft);flex:none}
+.pc[aria-pressed="true"] .pc-ic{background:var(--brandsoft)}
+.pc-t{flex:1;min-width:0}
+.pc-t b{display:block;font-size:15px;line-height:1.3}
+.pc-t small{display:block;font-size:12.5px;color:var(--text2)}
+.meter{display:flex;gap:3px;align-items:flex-end;height:18px}
+.meter i{width:5px;border-radius:2px;background:var(--border)}
+.meter i:nth-child(1){height:7px}.meter i:nth-child(2){height:12px}.meter i:nth-child(3){height:18px}
+.meter i.on{background:var(--brand)}
+.pick-opts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chipsel,.chiptog,.chipbtn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text);font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.chipsel span{color:var(--text3);font-weight:500}
+.chipsel select{font:inherit;font-weight:700;border:0;background:transparent;color:var(--text);cursor:pointer;padding:0 2px}
+.chipsel select:focus{outline:none}
+.chipsel:focus-within,.chiptog:focus-within,.chipbtn:focus-visible{border-color:var(--brand)}
+.chiptog input{position:absolute;opacity:0;pointer-events:none}
+.chiptog .dot{width:30px;height:18px;border-radius:999px;background:var(--border);position:relative;transition:background .2s}
+.chiptog .dot::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .2s}
+.chiptog input:checked + .dot{background:var(--brand)}
+.chiptog input:checked + .dot::after{transform:translateX(12px)}
+.chipbtn{background:var(--brand);border-color:var(--brand);color:#06210f}
+.chipbtn:hover{background:var(--brand2)}
+.chipbtn svg{transition:transform .5s}
+.chipbtn.spin svg{transform:rotate(360deg)}
+
+.eds{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr);align-items:stretch}
+@media (max-width:1000px){.eds{grid-template-columns:1fr}.ed-arrow{transform:rotate(90deg);margin:10px auto}}
+.ed{display:flex;flex-direction:column;min-width:0;height:620px;border-radius:18px;overflow:hidden;background:#0e0e10;border:1px solid #2a2a2e;box-shadow:0 30px 70px -40px rgba(0,0,0,.9)}
+.ed-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-height:48px;padding:8px 14px;background:#17171a;border-bottom:1px solid #26262a;color:#e6e6ea}
+.ed-bar .sp{flex:1}
+.dots{display:flex;gap:6px}
+.dots i{width:10px;height:10px;border-radius:50%;background:#3a3a40}
+.ed-t{font-size:13.5px;font-weight:700}
+.ed textarea{flex:1;width:100%;resize:none;border:0;background:transparent;color:#d6d6db;font:12.5px/1.65 "JetBrains Mono",monospace;padding:14px 16px}
+.ed textarea:focus{outline:none}
+.ed textarea::placeholder{color:#4b4b52;opacity:1}
+.ed-hint{padding:10px 16px;font-size:12.5px;line-height:1.5;color:#b9b9bf;background:rgba(0,230,61,.06);border-bottom:1px solid #26262a}
+.ed-hint b{color:#3cf06a}
+.ed-hint code{font:12px "JetBrains Mono",monospace;color:#e6e6ea;background:#1f1f23;padding:1px 5px;border-radius:5px}
+.ex-btn{font:inherit;font-size:12px;font-weight:600;padding:4px 10px;border-radius:8px;border:1px solid #3a3a40;background:none;color:#b9b9bf;cursor:pointer}
+.ex-btn:hover{border-color:#3cf06a;color:#3cf06a}
+.empty{display:grid;place-items:center;height:100%;min-height:260px;padding:30px;text-align:center;color:#6d6d73;font:14px/1.6 "IBM Plex Sans",sans-serif;white-space:normal}
+.empty b{display:block;font-size:30px;margin-bottom:6px}
+.ed-foot{padding:9px 16px;border-top:1px solid #26262a;font-size:12px;color:#7a7a80}
+.ed-arrow{display:grid;place-items:center;align-self:center;width:40px;height:40px;margin:0 auto;border-radius:50%;background:var(--brand);color:#06210f;font-weight:700;font-size:18px;box-shadow:0 0 0 6px var(--bg);position:relative;z-index:1}
+@media (min-width:1001px){.ed-arrow{margin:0 -14px;width:40px}}
+.det{display:flex;gap:6px;flex-wrap:wrap}
+.det span{font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px;background:rgba(0,230,61,.14);color:#3cf06a}
+.det span.g{background:#26262a;color:#a9a9af}
+.det span.r{background:rgba(244,63,94,.18);color:#fb7185}
+.det span.o{background:rgba(251,178,106,.16);color:#fbb26a}
+.mini{display:flex;align-items:center;gap:6px;font-weight:500;color:#9a9aa0;font-size:12.5px;cursor:pointer}
+.code-btn{font:inherit;font-size:13px;font-weight:700;padding:6px 14px;border-radius:9px;border:0;background:var(--app-accent);color:#1c1206;cursor:pointer}
+.code-btn:hover{filter:brightness(1.07)}
+#upWarn .wb{display:flex;gap:10px;align-items:flex-start;padding:10px 16px;font-size:12.5px;line-height:1.5;border-bottom:1px solid #26262a}
+#upWarn .wb b{color:#fff}
+#upWarn .wb.i{background:rgba(96,165,250,.08);color:#b9c8dc}
+#upWarn .wb.w{background:rgba(250,204,21,.08);color:#e5d9a8}
+#upOut{flex:1;margin:0;padding:12px 0;overflow:auto;font:12.5px/1.65 "JetBrains Mono",monospace;color:#cfcfd4}
+#upOut .ln{display:block;position:relative;padding:0 16px 0 30px;white-space:pre-wrap;word-break:break-all}
+#upOut .ln::before{position:absolute;left:12px;top:0;color:#4a4a50}
+#upOut .ln.ch{background:rgba(251,178,106,.1);color:#fff}
+#upOut .ln.ch::before{content:"~";color:var(--app-accent)}
+#upOut .ln.add{background:rgba(0,230,61,.09);color:#fff}
+#upOut .ln.add::before{content:"+";color:#00e63d}
+#upOut .ln.sec{color:#00e63d;font-weight:600}
+#upOut .ln.cm{color:#6d6d73}
+#upOut .k{color:#9cdcfe}
+
+.below2{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;margin-top:18px;align-items:start}
+@media (max-width:1000px){.below2{grid-template-columns:1fr}}
+.fold{border:1px solid var(--border);border-radius:16px;background:var(--card);padding:4px 18px}
+.fold summary{cursor:pointer;padding:12px 0;font-weight:700;font-size:15px;list-style:none;display:flex;align-items:center;gap:8px}
+.fold summary::-webkit-details-marker{display:none}
+.fold summary::before{content:"›";display:inline-block;transition:transform .2s;color:var(--text3);font-size:18px}
+.fold[open] summary::before{transform:rotate(90deg)}
+.fold summary span{font-weight:500;font-size:13px;color:var(--text3)}
+.chg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px;padding:2px 0 16px}
+.chg .r{display:flex;flex-direction:column;gap:2px;padding:9px 12px;border-radius:12px;background:var(--soft);border:1px solid var(--border)}
+.chg code{font:600 12px "JetBrains Mono",monospace;color:var(--text2)}
+.chg .vv{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;font:12.5px "JetBrains Mono",monospace}
+.chg .old{color:var(--text3);text-decoration:line-through;word-break:break-all}
+.chg .new{color:var(--brand);font-weight:600;word-break:break-all}
+.chg .keep{color:var(--text3);font:12.5px "IBM Plex Sans",sans-serif}
+.chg .r.wide{grid-column:1/-1;background:transparent;border-style:dashed}
+.ckchips{display:flex;flex-wrap:wrap;gap:6px;padding:2px 0 16px}
+.ckchips .ck{padding:5px 10px 5px 6px;border-radius:999px;background:var(--soft);border:1px solid var(--border);font-size:12.5px;align-items:center}
+.ckchips .ck i{margin-top:0}
+
+/* ===== Forge — hacker console ===== */
+.forge{position:relative;border-radius:22px;overflow:hidden;border:1px solid #1f3a26;background:
+  radial-gradient(900px 400px at 15% -10%,rgba(0,230,61,.10),transparent 60%),
+  radial-gradient(700px 360px at 110% 110%,rgba(0,230,61,.07),transparent 60%),
+  linear-gradient(rgba(0,230,61,.035) 1px,transparent 1px) 0 0/100% 26px,
+  linear-gradient(90deg,rgba(0,230,61,.035) 1px,transparent 1px) 0 0/26px 100%,
+  #07090a;color:#d7e3da;box-shadow:0 0 0 1px rgba(0,230,61,.05),0 40px 90px -50px rgba(0,230,61,.45)}
+.forge::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px)}
+.fg-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 18px;border-bottom:1px solid #15261a;background:rgba(0,0,0,.35)}
+.leds{display:flex;gap:6px}
+.leds i{width:9px;height:9px;border-radius:50%;background:#1d2a20}
+.leds i:first-child{background:#00e63d;box-shadow:0 0 8px #00e63d}
+.fg-title{font:700 14px "JetBrains Mono",monospace;letter-spacing:.04em;color:#eafff0}
+.fg-title span{color:#00e63d}
+.fg-sub{font-size:12.5px;color:#6f8a77}
+.fg-head .sp,.fg-foot .sp,.pane-bar .sp{flex:1}
+.fg-secure{font:600 11.5px "JetBrains Mono",monospace;color:#3cf06a;padding:3px 10px;border-radius:999px;border:1px solid #1f4a2a;background:rgba(0,230,61,.06)}
+.fg-ctrl{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:16px 18px;border-bottom:1px solid #15261a}
+.fg-prof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;flex:1 1 560px}
+@media (max-width:760px){.fg-prof{grid-template-columns:1fr}}
+.fg-prof button{display:flex;align-items:center;gap:10px;text-align:left;font:inherit;color:#d7e3da;padding:10px 12px;border-radius:12px;border:1px solid #1c2c21;background:rgba(10,16,12,.8);cursor:pointer;transition:border-color .2s,box-shadow .2s,background .2s}
+.fg-prof button:hover{border-color:#2f6b3f}
+.fg-prof button[aria-pressed="true"]{border-color:#00e63d;background:rgba(0,230,61,.08);box-shadow:0 0 0 1px rgba(0,230,61,.4),0 0 24px -6px rgba(0,230,61,.55)}
+.fg-prof .pi{font-size:20px;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:#0f1a13;flex:none}
+.fg-prof .pt{flex:1;min-width:0}
+.fg-prof b{display:block;font-size:14px;color:#f0fff4}
+.fg-prof code{display:block;font:11.5px "JetBrains Mono",monospace;color:#4f7a5b}
+.fg-prof button[aria-pressed="true"] code{color:#3cf06a}
+.fg-prof .meter i{background:#1d2a20}
+.fg-prof .meter i.on{background:#00e63d;box-shadow:0 0 6px rgba(0,230,61,.6)}
+.fg-flags{display:flex;gap:8px;flex-wrap:wrap}
+.flag{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:10px;border:1px solid #1c2c21;background:rgba(10,16,12,.8);font-size:13px;color:#8fb39a;cursor:pointer}
+.flag select{font:600 13px "IBM Plex Sans",sans-serif;border:0;background:transparent;color:#eafff0;cursor:pointer}
+.flag select option{background:#0d120f;color:#eafff0}
+.flag select:focus{outline:none}
+.flag:focus-within{border-color:#00e63d}
+.flag.tg input{position:absolute;opacity:0;pointer-events:none}
+.sw2{width:30px;height:18px;border-radius:999px;background:#1d2a20;position:relative;transition:background .2s}
+.sw2::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#8fb39a;transition:transform .2s,background .2s}
+.flag.tg input:checked + .sw2{background:#0a6a26}
+.flag.tg input:checked + .sw2::after{transform:translateX(12px);background:#00e63d;box-shadow:0 0 8px #00e63d}
+.flag.tg span:last-child{color:#eafff0;font-weight:600}
+.fg-run{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 22px;border-radius:12px;border:0;background:#00e63d;color:#03160a;font:700 15px "IBM Plex Sans",sans-serif;cursor:pointer;box-shadow:0 0 0 1px #00e63d,0 0 26px -4px rgba(0,230,61,.75);transition:transform .1s,box-shadow .2s}
+.fg-run:hover{box-shadow:0 0 0 1px #3cf06a,0 0 34px -2px rgba(0,230,61,.9)}
+.fg-run:active{transform:scale(.98)}
+.fg-run .tri{font-size:11px}
+.fg-run.busy{background:#0a6a26;color:#b9ffcb;box-shadow:0 0 0 1px #0a6a26}
+.fg-panes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:1000px){.fg-panes{grid-template-columns:1fr}}
+.fg-pane{display:flex;flex-direction:column;min-width:0;height:600px;border-right:1px solid #15261a}
+.fg-pane.out{border-right:0}
+@media (max-width:1000px){.fg-pane{border-right:0;border-bottom:1px solid #15261a}}
+.pane-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-height:44px;padding:8px 14px;background:rgba(0,0,0,.3);border-bottom:1px solid #15261a}
+.pn{font:700 11px "JetBrains Mono",monospace;color:#03160a;background:#00e63d;border-radius:5px;padding:1px 6px}
+.ptl{font:600 12.5px "JetBrains Mono",monospace;color:#cfe8d6}
+.pane-hint{padding:9px 14px;font-size:12.5px;line-height:1.5;color:#9cb7a4;background:rgba(0,230,61,.045);border-bottom:1px solid #15261a}
+.pane-hint b{color:#3cf06a}
+.pane-hint code{font:12px "JetBrains Mono",monospace;color:#eafff0;background:#0f1a13;padding:1px 5px;border-radius:5px}
+.ed2{flex:1;display:flex;min-height:0;font:12.5px/1.7 "JetBrains Mono",monospace}
+.gut{margin:0;padding:12px 8px 12px 0;width:44px;flex:none;text-align:right;color:#2f4a37;overflow:hidden;user-select:none;border-right:1px solid #122016;background:rgba(0,0,0,.2)}
+.ed2 textarea{flex:1;min-width:0;resize:none;border:0;background:transparent;color:#d7e3da;font:inherit;padding:12px 14px;white-space:pre;overflow:auto;caret-color:#00e63d}
+.ed2 textarea:focus{outline:none}
+.ed2 textarea::placeholder{color:#2c4233;opacity:1}
+.ed2 textarea::selection,#upOut ::selection{background:rgba(0,230,61,.3)}
+.outed{position:relative}
+#upOut{flex:1;min-width:0;margin:0;padding:12px 0;overflow:auto;font:inherit;color:#cbd8cf}
+#upOut .ln{display:block;position:relative;padding:0 14px 0 22px;white-space:pre}
+#upOut .ln::before{position:absolute;left:8px;top:0}
+#upOut .ln.ch{background:linear-gradient(90deg,rgba(251,178,106,.14),rgba(251,178,106,.03));color:#fff}
+#upOut .ln.ch::before{content:"~";color:#fbb26a}
+#upOut .ln.add{background:linear-gradient(90deg,rgba(0,230,61,.16),rgba(0,230,61,.03));color:#fff}
+#upOut .ln.add::before{content:"+";color:#00e63d}
+#upOut .ln.sec{color:#00e63d;font-weight:700;text-shadow:0 0 10px rgba(0,230,61,.5)}
+#upOut .ln.cm{color:#4f6656}
+#upOut .k{color:#7fd8a0}
+#upOut .val{color:inherit}
+#upOut .ln.ch .val,#upOut .ln.add .val{color:#fff;text-shadow:0 0 8px rgba(0,230,61,.35)}
+.empty{display:grid;place-items:center;height:100%;min-height:240px;padding:30px;text-align:center;color:#4f6656;font:13.5px/1.7 "JetBrains Mono",monospace;white-space:normal}
+.empty b{display:block;font-size:26px;color:#2f6b3f;margin-bottom:6px}
+.log{font:12px/1.65 "JetBrains Mono",monospace;color:#6f8a77;padding:0 14px;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s;border-bottom:1px solid transparent}
+.log.on{max-height:190px;padding:10px 14px;border-bottom-color:#15261a;background:rgba(0,0,0,.25)}
+.log div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:lgin .18s ease both}
+@keyframes lgin{from{opacity:0;transform:translateX(-6px)}}
+.log .p{color:#00e63d}
+.log .ok{color:#3cf06a}
+.log .w{color:#fbb26a}
+.log .cur{display:inline-block;width:7px;height:13px;background:#00e63d;vertical-align:-2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+#upWarn .wb{display:flex;gap:10px;align-items:flex-start;padding:9px 14px;font-size:12.5px;line-height:1.5;border-bottom:1px solid #15261a}
+#upWarn .wb b{color:#fff}
+#upWarn .wb.i{background:rgba(96,165,250,.06);color:#a9bccf}
+#upWarn .wb.w{background:rgba(250,204,21,.06);color:#d8cfa0}
+.det{display:flex;gap:6px;flex-wrap:wrap}
+.det span{font:700 11px "JetBrains Mono",monospace;padding:2px 8px;border-radius:6px;background:rgba(0,230,61,.12);color:#3cf06a;border:1px solid rgba(0,230,61,.25)}
+.det span.g{background:#101812;color:#8fb39a;border-color:#1c2c21}
+.det span.r{background:rgba(244,63,94,.14);color:#fb7185;border-color:rgba(244,63,94,.3)}
+.det span.o{background:rgba(251,178,106,.12);color:#fbb26a;border-color:rgba(251,178,106,.3)}
+.ex-btn{font:600 12px "IBM Plex Sans",sans-serif;padding:4px 10px;border-radius:8px;border:1px solid #234030;background:none;color:#8fb39a;cursor:pointer}
+.ex-btn:hover{border-color:#00e63d;color:#3cf06a}
+.ex-btn.clr{border-color:#4a2a30;color:#fb8a9c;animation:popin .22s cubic-bezier(.2,.8,.2,1)}
+.ex-btn.clr:hover{border-color:#fb7185;color:#fb7185;background:rgba(244,63,94,.08)}
+.ex-btn[hidden]{display:none}
+@keyframes popin{from{opacity:0;transform:scale(.85) translateX(6px)}}
+.mini input{accent-color:#00e63d}
+.fg-foot{display:flex;align-items:center;gap:10px;padding:12px 18px;border-top:1px solid #15261a;background:rgba(0,0,0,.4)}
+.st-led{width:9px;height:9px;border-radius:50%;background:#2f4a37}
+.st-led.ok{background:#00e63d;box-shadow:0 0 10px #00e63d}
+.st-led.busy{background:#fbb26a;box-shadow:0 0 10px #fbb26a;animation:blink .6s steps(2) infinite}
+.st-led.bad{background:#fb7185;box-shadow:0 0 10px #fb7185}
+.st-txt{font:12.5px "JetBrains Mono",monospace;color:#8fb39a}
+.st-txt b{color:#eafff0}
+.fg-copy{font:700 14px "IBM Plex Sans",sans-serif;height:40px;padding:0 18px;border-radius:10px;border:1px solid #00e63d;background:rgba(0,230,61,.1);color:#3cf06a;cursor:pointer;transition:background .2s,box-shadow .2s}
+.fg-copy:hover{background:rgba(0,230,61,.18);box-shadow:0 0 20px -4px rgba(0,230,61,.7)}
+.fg-copy.done{background:#00e63d;color:#03160a}
+
+.fg-apps{padding:16px}
+.credit{margin:34px auto 0;max-width:720px;text-align:center;font-size:12.5px;line-height:1.6;color:var(--text3)}
+.credit .cr-name{font-weight:600;color:var(--text2)}
+.fg-apps .pan{border-color:#1f2a22;box-shadow:0 20px 50px -30px rgba(0,0,0,.9)}
+.fg-ghost{font:600 13.5px "IBM Plex Sans",sans-serif;height:40px;padding:0 14px;border-radius:10px;border:1px solid #234030;background:none;color:#8fb39a;cursor:pointer}
+.fg-ghost:hover{border-color:#00e63d;color:#3cf06a}
+#p-gen .log.on{max-height:220px}
+#devOut .dev-card{margin:14px 0 0;border-color:#1f2a22}
+/* ===== Checks ===== */
+.cfg{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:860px){.cfg{grid-template-columns:1fr}}
+.cfg textarea{width:100%;min-height:380px;resize:vertical;border-radius:14px;border:1px solid var(--border);background:var(--code);color:var(--text);font:12.5px/1.6 "JetBrains Mono",monospace;padding:14px}
+.cfg textarea:focus{outline:none;border-color:var(--brand)}
+.cfg-res{border-radius:14px;border:1px solid var(--border);background:var(--soft);padding:10px;max-height:520px;overflow-y:auto}
+.sum{display:flex;gap:8px;flex-wrap:wrap;padding:6px 6px 10px}
+.pill{font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px}
+.pill.ok{background:var(--brandsoft);color:var(--brand)} .pill.warn{background:var(--yellowsoft);color:var(--yellow)} .pill.bad{background:var(--redsoft);color:var(--red)}
+.row{display:grid;grid-template-columns:150px 1fr;gap:10px;padding:8px;border-top:1px solid var(--border);font-size:13px}
+.row code{font:12.5px "JetBrains Mono",monospace}
+.row .v{font:12px "JetBrains Mono",monospace;color:var(--text3);word-break:break-all}
+.row .d{color:var(--text2)}
+.s{display:inline-block;margin-top:3px;font-size:12px;font-weight:600}
+.s.ok{color:var(--brand)} .s.warn{color:var(--yellow)} .s.bad{color:var(--red)}
+.sec{padding:8px 8px 4px;font-size:12px;font-weight:700;color:var(--brand)}
+
+.toast{position:fixed;left:50%;bottom:calc(26px + env(safe-area-inset-bottom,0px));z-index:95;transform:translate(-50%,20px);opacity:0;padding:10px 18px;border-radius:999px;background:var(--text);color:var(--bg);font-size:14px;font-weight:600;transition:.25s;pointer-events:none;max-width:90vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>Parameter generator <span>AmneziaWG 3.1</span></h1>
+    <button class="btn" type="button" id="themeBtn">Switch theme</button>
+  </div>
+  <p class="lead" id="lead">Unique obfuscation parameters for your server in AmneziaVPN. Below are three “AmneziaWG settings” screens laid out like the app: same fields, same order, same names. Click a field to copy its value.</p>
+  <div class="badges"><span class="badge">🔒 Everything runs in your browser — nothing is sent anywhere</span><span class="badge grey">AmneziaWG 3.1 · AmneziaVPN</span></div>
+
+  <p class="choose">Where to start? Pick your case:</p>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="p-gen" id="t-gen"><span class="ti" aria-hidden="true">📱</span><span><b>I set up my server in the app</b><small>Get the values and copy them into the AmneziaVPN fields</small></span></button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="p-chk" id="t-chk"><span class="ti" aria-hidden="true">📄</span><span><b>I have a config file</b><small>Paste it — a new config is built automatically</small></span></button>
+  </div>
+
+  <!-- ========== GENERATOR ========== -->
+  <section class="pane" id="p-gen" role="tabpanel" aria-labelledby="t-gen">
+    <div class="forge">
+      <div class="fg-head">
+        <span class="leds" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="fg-title">AWG<span>://</span>server-forge</span>
+        <span class="fg-sub">parameters for the AmneziaVPN app</span>
+        <span class="sp"></span>
+        <span class="fg-secure">🔒 local · nothing sent</span>
+      </div>
+      <div class="fg-ctrl">
+        <div class="fg-prof" role="group" aria-label="Profile">
+          <button type="button" data-p="eco" aria-pressed="false"><span class="pi">🍃</span><span class="pt"><b>Economy</b><code>--profile eco</code></span><span class="meter" aria-hidden="true"><i class="on"></i><i></i><i></i></span></button>
+          <button type="button" data-p="bal" aria-pressed="true"><span class="pi">⚖️</span><span class="pt"><b>Balanced</b><code>--profile balanced</code></span><span class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span></button>
+          <button type="button" data-p="max" aria-pressed="false"><span class="pi">🛡️</span><span class="pt"><b>Hardened</b><code>--profile max</code></span><span class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></span></button>
+        </div>
+        <div class="fg-flags">
+          <label class="flag tg" title="HeaderProtectionKey — header encryption.&#10;On: H1–H4 stay at the standard 1–4, the app creates the key.&#10;Off: H1–H4 ranges are generated."><input type="checkbox" id="hpk" checked><span class="sw2" aria-hidden="true"></span><span>Header encryption</span></label>
+        </div>
+        <button type="button" class="fg-run" id="goBtn"><span class="tri" aria-hidden="true">▶</span>Generate</button>
+      </div>
+      <div class="log" id="genLog" aria-live="polite"></div>
+      <div class="fg-apps"><div id="appBody" aria-label="AmneziaWG settings screens in the app"></div></div>
+      <div class="fg-foot">
+        <span class="st-led" id="genLed" aria-hidden="true"></span><span id="genStatus" class="st-txt">generating…</span>
+        <span class="sp"></span>
+        <button type="button" class="fg-ghost" id="devBtn2">📱 One more device</button>
+        <button type="button" class="fg-copy" id="copyAll2">⧉ Copy all</button>
+      </div>
+    </div>
+
+    <div class="below2">
+      <div class="notes" style="margin:0">
+        <div class="note warn"><span aria-hidden="true">⚠️</span><div><b>New parameters will disable every issued config.</b> After saving, re-issue connections to yourself and everyone you shared access with. Take all values from a single generation — don’t mix sets.</div></div>
+        <details class="fold"><summary>Where to paste — step by step</summary>
+          <ol class="steps" style="margin:0 0 14px">
+            <li>AmneziaVPN → <b>Server settings</b> → <b>AmneziaWG</b> → <b>AmneziaWG server settings</b>.</li>
+            <li>Copy the values into the fields with the same names — screen by screen, top to bottom.</li>
+            <li>Tick <b>HeaderProtectionKey</b> if header encryption is on. The app creates the key itself.</li>
+            <li>Leave I1–I5 empty unless you turned on the CPS chain. Keep RandomTrailers and DisableCookies ticked.</li>
+            <li>In the connection settings, set <b>MTU = 1280</b>.</li>
+            <li>Click <b>Save</b> → <b>Continue</b> and wait for the protocol to reinstall.</li>
+          </ol>
+        </details>
+      </div>
+      <details class="fold"><summary>Checks <span id="ckSum"></span></summary><div class="ckchips" id="checks"></div></details>
+    </div>
+  </section>
+
+  <!-- ========== UPDATE ========== -->
+  <section class="pane" id="p-chk" role="tabpanel" aria-labelledby="t-chk" hidden>
+    <div class="forge">
+      <div class="fg-head">
+        <span class="leds" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="fg-title">AWG<span>://</span>config-forge</span>
+        <span class="fg-sub">AmneziaWG config update</span>
+        <span class="sp"></span>
+        <span class="fg-secure">🔒 local · nothing sent</span>
+      </div>
+
+      <div class="fg-ctrl">
+        <div class="fg-prof" role="group" aria-label="Profile">
+          <button type="button" data-up="eco" aria-pressed="false"><span class="pi">🍃</span><span class="pt"><b>Economy</b><code>--profile eco</code></span><span class="meter" aria-hidden="true"><i class="on"></i><i></i><i></i></span></button>
+          <button type="button" data-up="bal" aria-pressed="true"><span class="pi">⚖️</span><span class="pt"><b>Balanced</b><code>--profile balanced</code></span><span class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span></button>
+          <button type="button" data-up="max" aria-pressed="false"><span class="pi">🛡️</span><span class="pt"><b>Hardened</b><code>--profile max</code></span><span class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></span></button>
+        </div>
+        <div class="fg-flags">
+          <label class="flag" title="I1–I5 are extra masking. They are empty out of the box, and the VPN works without them"><span>CPS chain</span><select id="upCps"><option value="keep">Empty by default</option><option value="quic">add: QUIC</option><option value="dns">add: DNS query</option><option value="noise">add: random noise</option></select></label>
+          <label class="flag tg" title="On — MTU = 1280 is written to the client config (recommended for AmneziaWG 3.1).&#10;Off — your config keeps its own MTU."><input type="checkbox" id="upMtu" checked><span class="sw2" aria-hidden="true"></span><span>MTU 1280</span></label>
+        </div>
+        <button type="button" class="fg-run" id="upGo"><span class="tri" aria-hidden="true">▶</span>Generate</button>
+      </div>
+
+      <div class="fg-panes">
+        <div class="fg-pane">
+          <div class="pane-bar"><span class="pn">01</span><span class="ptl">your_config.conf</span><span id="detect" class="det"></span><span class="sp"></span><button type="button" class="ex-btn clr" id="clrBtn" hidden>✕ Clear</button><button type="button" class="ex-btn" id="exBtn">Insert example</button></div>
+          <div class="pane-hint"><b>⬇ Paste your config here in its original format</b> — the whole text, from the <code>[Interface]</code> line to the end. The faint text below is only an example — no need to delete it.</div>
+          <div class="ed2"><pre class="gut" id="gut" aria-hidden="true">1</pre><textarea id="cfgIn" spellcheck="false" aria-label="Your AmneziaWG config"></textarea></div>
+        </div>
+        <div class="fg-pane out">
+          <div class="pane-bar"><span class="pn">02</span><span class="ptl">new_config.conf</span><span id="outChips" class="det"></span><span class="sp"></span><label class="mini" title="Showing keys does not affect how the config works — the checkbox is just for convenience.&#10;“Copy” always copies the config with the real keys."><input type="checkbox" id="showKeys"> keys ⓘ</label></div>
+          <div class="log" id="log" aria-live="polite"></div>
+          <div id="upWarn"></div>
+          <div class="ed2 outed"><pre class="gut" id="gutOut" aria-hidden="true"></pre><pre id="upOut"></pre></div>
+        </div>
+      </div>
+
+      <div class="fg-foot">
+        <span class="st-led" id="stLed" aria-hidden="true"></span><span id="statusLine" class="st-txt">waiting for a config…</span>
+        <span class="sp"></span>
+        <button type="button" class="fg-copy" id="upCopy">⧉ Copy config</button>
+      </div>
+    </div>
+
+    <div class="below2">
+      <details class="fold" open><summary>What changed <span id="chgSum"></span></summary><div id="chg" class="chg"></div></details>
+      <details class="fold"><summary>Checks <span id="upCkSum"></span></summary><div class="ckchips" id="upChecks"></div></details>
+    </div>
+  </section>
+
+  <p class="credit">This generator is built on the ideas of <b class="cr-name">AmneziaWG Architect</b> (architect.vai-rice.space): parameter logic, client limits and compatibility rules. Thanks to its author for the open work.</p>
+</div>
+
+<!-- ========== CPS chain modal ========== -->
+<div class="modal-back" id="cpsBack" role="dialog" aria-modal="true" aria-labelledby="cpsTitle">
+  <div class="modal">
+    <div class="app-head"><span class="t" id="cpsTitle">I1–I5 · Special junk</span><button class="x" type="button" id="cpsClose" aria-label="Close">✕</button></div>
+    <div class="app-body">
+      <p class="mim-note" style="margin-top:0">Choose what the packets before the connection should look like. The number of packets depends on the profile: economy — 1, balanced — 3, hardened — 5.</p>
+      <div class="mim" role="group" aria-label="Masking">
+        <button type="button" data-m="quic" aria-pressed="true"><b>QUIC</b><span>Like YouTube and Google. The most popular disguise</span></button>
+        <button type="button" data-m="dns" aria-pressed="false"><b>DNS query</b><span>An ordinary lookup of a popular site. Lightweight</span></button>
+        <button type="button" data-m="noise" aria-pressed="false"><b>Random noise</b><span>No protocol imitation — for when QUIC and DNS get blocked</span></button>
+        <button type="button" data-m="regen" aria-pressed="false"><b>↻ Other values</b><span>Same disguise, new random data</span></button>
+      </div>
+      <div id="cpsFields"></div>
+      <div class="modal-foot">
+        <button class="app-btn accent" type="button" id="cpsApply">Add to the set</button>
+        <button class="app-btn" type="button" id="cpsOff">Don’t use</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  /* ---------- utils ---------- */
+  function rnd(a, b) { var x = new Uint32Array(1); crypto.getRandomValues(x); return a + (x[0] % (b - a + 1)); }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+  var toastEl = document.getElementById('toast'), tt = 0;
+  function toast(t) { toastEl.textContent = t; toastEl.classList.add('on'); clearTimeout(tt); tt = setTimeout(function () { toastEl.classList.remove('on'); }, 1600); }
+  function copy(text, done) { var ok = function () { done && done(); }; if (navigator.clipboard) navigator.clipboard.writeText(text).then(ok, ok); else ok(); }
+  document.getElementById('themeBtn').addEventListener('click', function () {
+    var cur = document.documentElement.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+  });
+  var tabs = [['t-gen', 'p-gen'], ['t-chk', 'p-chk']];
+  tabs.forEach(function (p) {
+    document.getElementById(p[0]).addEventListener('click', function () {
+      tabs.forEach(function (q) { var on = q[0] === p[0]; document.getElementById(q[0]).setAttribute('aria-selected', on); document.getElementById(q[1]).hidden = !on; });
+      document.getElementById('lead').textContent = p[0] === 't-chk'
+        ? 'Already have a config from the AmneziaVPN app? Paste it into the left window — the generator rebuilds it with new masking parameters. Keys, addresses and Endpoint stay as they were, and every change is highlighted.'
+        : 'Unique obfuscation parameters for your server in AmneziaVPN. Below are three “AmneziaWG settings” screens laid out like the app: same fields, same order, same names. Click a field to copy its value.';
+    });
+  });
+
+  /* ---------- parameters ---------- */
+  var MTU = 1280;
+  var PROF = {
+    eco: { jc: [3, 3], jmin: [48, 96], jmax: [420, 560], cpa: [[2, 4], [8, 10]] },
+    bal: { jc: [4, 6], jmin: [96, 160], jmax: [880, 1080], cpa: [[6, 12], [40, 60]] },
+    max: { jc: [7, 10], jmin: [200, 300], jmax: [1150, 1240], cpa: [[10, 20], [80, 100]] }
+  };
+  var prof = 'bal', cur = null;
+  function hRanges() {
+    var out = [], used = [];
+    while (out.length < 4) {
+      var w = rnd(10000, 60000), s = rnd(100000000, 2000000000), e = s + w;
+      if (used.some(function (u) { return !(e + 1000 < u[0] || s > u[1] + 1000); })) continue;
+      used.push([s, e]); out.push(s + '-' + e);
+    }
+    return out;
+  }
+  function range(lo, hi) { var a = rnd(lo[0], lo[1]), b = rnd(hi[0], hi[1]); return a + '-' + Math.max(b, a + 1); }
+
+  /* ---------- CPS chain ---------- */
+  function h2(n) { return ('0' + n.toString(16)).slice(-2); }
+  var DNS_HOSTS = ['www.google.com', 'www.microsoft.com', 'www.apple.com', 'www.cloudflare.com', 'www.bing.com', 'www.amazon.com'];
+  function quicI1() {
+    var first = h2(0xc0 + rnd(0, 3)), total = 1200, head = 1 + 4 + 1 + 8 + 1 + 1 + 2, len = total - head;
+    return '<b 0x' + first + '0000000108><r 8><b 0x0000' + h2(0x40 | (len >> 8)) + h2(len & 0xff) + '><r ' + len + '>';
+  }
+  function dnsI1() {
+    var host = DNS_HOSTS[rnd(0, DNS_HOSTS.length - 1)], q = '';
+    host.split('.').forEach(function (l) { q += h2(l.length) + l.split('').map(function (c) { return h2(c.charCodeAt(0)); }).join(''); });
+    return '<r 2><b 0x01000001000000000000' + q + '00' + (rnd(0, 1) ? '0001' : '001c') + '0001>';
+  }
+  function noiseI() { return '<r ' + rnd(24, 96) + '><t><rc ' + rnd(4, 16) + '><r ' + rnd(8, 48) + '>'; }
+  function entropyI() { var p = ['<r ' + rnd(16, 80) + '>', '<t>', '<rd ' + rnd(2, 8) + '>', '<rc ' + rnd(4, 12) + '>']; p.sort(function () { return rnd(0, 1) ? 1 : -1; }); return p.join(''); }
+  var CPS_COUNT = { eco: 1, bal: 3, max: 5 };
+  function genCPS(m, pr) {
+    var out = ['', '', '', '', ''], n = CPS_COUNT[pr || prof];
+    out[0] = m === 'quic' ? quicI1() : m === 'dns' ? dnsI1() : noiseI();
+    for (var i = 1; i < n; i++) out[i] = m === 'noise' ? noiseI() : entropyI();
+    return out;
+  }
+  function cpsLen(str) {
+    if (!str) return 0;
+    var re = /<(\w+)(?:\s+([^>]*))?>/g, m, len = 0;
+    while ((m = re.exec(str))) { var t = m[1], a = (m[2] || '').trim(); if (t === 'b') len += a.replace(/^0x/i, '').length / 2; else if (t === 't') len += 4; else len += parseInt(a, 10) || 0; }
+    return len;
+  }
+  function cpsIssues(str) {
+    var issues = []; if (!str) return issues;
+    var rest = str.replace(/<(b 0x[0-9a-fA-F]+|t|r \d+|rc \d+|rd \d+)>/g, '');
+    if (/<c\b/.test(str)) issues.push('bad:the tag <c> is not supported in AmneziaVPN — the client will reject the config');
+    else if (/<(d|ds|dz)\b/.test(str)) issues.push('warn:the d / ds / dz tags currently do nothing');
+    else if (rest.trim()) issues.push('bad:unknown tag or typo: ' + rest.trim().slice(0, 30));
+    (str.match(/<b 0x([0-9a-fA-F]+)>/g) || []).forEach(function (b) { if ((b.length - 6) % 2) issues.push('bad:odd number of hex characters in <b>'); });
+    if (cpsLen(str) > 1400) issues.push('bad:packet is ' + cpsLen(str) + ' bytes — over 1400, it may not get through');
+    return issues;
+  }
+
+  /* chain state: off by default, like the app out of the box */
+  var cps = { on: false, mim: 'quic', vals: ['', '', '', '', ''] }, draft = null;
+
+  function generate() {
+    var P = PROF[prof], hpk = document.getElementById('hpk').checked, minS = hpk ? 12 : 8, v = {};
+    v.Jc = rnd(P.jc[0], P.jc[1]);
+    v.Jmin = rnd(P.jmin[0], P.jmin[1]);
+    v.Jmax = Math.min(rnd(P.jmax[0], P.jmax[1]), MTU);
+    do { v.S1 = rnd(Math.max(15, minS), 72); v.S2 = rnd(Math.max(15, minS), 72); } while (v.S1 + 56 === v.S2 || v.S1 === v.S2);
+    v.S3 = rnd(minS, 48); v.S4 = rnd(minS, 32);
+    if (hpk) { v.H1 = '1'; v.H2 = '2'; v.H3 = '3'; v.H4 = '4'; } else { var h = hRanges(); v.H1 = h[0]; v.H2 = h[1]; v.H3 = h[2]; v.H4 = h[3]; }
+    v.ContentPaddingAddition = range(P.cpa[0], P.cpa[1]);
+    var rk = [rnd(95, 110)]; rk.push(rk[0] + rnd(10, 25));
+    v.RekeyAfterTime = rk[0] + '-' + rk[1];
+    v.RekeyTimeout = rnd(3, 4) + '-' + rnd(6, 8);
+    var rj = Math.max(rk[1] + rnd(15, 30), 150);
+    v.RejectAfterTime = rj + '-' + (rj + rnd(10, 25));
+    v.KeepaliveTimeout = rnd(5, 8) + '-' + rnd(12, 16);
+    v.MaxHandshakeAttempts = rnd(15, 17) + '-' + rnd(19, 22);
+    v.MTU = MTU; v._hpk = hpk;
+    if (cps.on) cps.vals = genCPS(cps.mim);
+    return v;
+  }
+  function parseR(x) { var m = String(x).match(/^(\d+)(?:-(\d+))?$/); return m ? [+m[1], m[2] ? +m[2] : +m[1]] : null; }
+  function rules(v) {
+    var r = [], hpk = v._hpk; function add(ok, t) { r.push({ ok: !!ok, t: t }); }
+    var s = [+v.S1, +v.S2, +v.S3, +v.S4];
+    add(+v.Jc >= 1 && +v.Jc <= 10, 'Jc between 1 and 10');
+    add(+v.Jmin < +v.Jmax, 'Jmin is less than Jmax');
+    add(+v.Jmax <= MTU, 'Jmax is not above MTU ' + MTU);
+    add(s[0] + 56 !== s[1], 'S1 + 56 ≠ S2');
+    add(s[3] <= 32, 'S4 is not above 32');
+    add(!hpk || s.every(function (x) { return x >= 12; }), 'S1–S4 ≥ 12 with header encryption');
+    var hs = ['H1', 'H2', 'H3', 'H4'].map(function (k) { return parseR(v[k]); }), over = false;
+    for (var a = 0; a < 4; a++) for (var b = a + 1; b < 4; b++) if (hs[a] && hs[b] && !(hs[a][1] < hs[b][0] || hs[b][1] < hs[a][0])) over = true;
+    add(hs.every(Boolean) && !over, 'H1–H4 don’t overlap');
+    var rk = parseR(v.RekeyAfterTime), rj = parseR(v.RejectAfterTime);
+    add(rk && rj && rj[0] > rk[1], 'RejectAfterTime is above RekeyAfterTime');
+    if (cps.on) add(cps.vals.every(function (x) { return !cpsIssues(x).length; }), 'I1–I5: valid tags and size');
+    return r;
+  }
+
+  /* ---------- app screen ---------- */
+  var LABELS = {
+    Jc: 'Jc - Junk packet count', Jmin: 'Jmin - Junk packet minimum size', Jmax: 'Jmax - Junk packet maximum size',
+    S1: 'S1 - Init packet junk size', S2: 'S2 - Response packet junk size', S3: 'S3 - Cookie reply packet junk size', S4: 'S4 - Transport packet junk size',
+    H1: 'H1 - Init packet magic header', H2: 'H2 - Response packet magic header', H3: 'H3 - Underload packet magic header', H4: 'H4 - Transport packet magic header',
+    ContentPaddingAddition: 'ContentPaddingAddition - Content padding addition', RekeyAfterTime: 'RekeyAfterTime - Rekey after time', RekeyTimeout: 'RekeyTimeout - Rekey timeout', RejectAfterTime: 'RejectAfterTime - Reject after time',
+    KeepaliveTimeout: 'KeepaliveTimeout - Keepalive timeout', MaxHandshakeAttempts: 'MaxHandshakeAttempts - Max handshake attempts', MTU: 'MTU — recommended'
+  };
+  function af(k, val, anim, label, mono) {
+    return '<button type="button" class="af' + (anim ? ' flip' : '') + (mono ? ' mono' : '') + '" data-k="' + k + '" data-v="' + esc(val) + '"><span class="l">' + esc(label || LABELS[k] || k) + '</span><span class="v">' + esc(val) + '</span><span class="cp">copy</span></button>';
+  }
+  function cap(t) { return '<div class="app-cap">' + t + '</div>'; }
+  function grp(keys, cols, anim) { return '<div class="afg c' + cols + '">' + keys.map(function (k) { return af(k, cur[k], anim); }).join('') + '</div>'; }
+  function cpsBlock() {
+    if (cps.on) {
+      var n = cps.vals.filter(Boolean).length, name = { quic: 'QUIC', dns: 'DNS query', noise: 'Random noise' }[cps.mim];
+      return '<div class="cps-row"><div class="h"><b>I1–I5 · Special junk</b><span class="st on">' + name + ' · ' + n + ' of 5</span></div>' +
+        '<p>The chain is on. Copy the filled fields into the app and leave the rest empty.</p>' +
+        cps.vals.map(function (v, i) { return v ? af('I' + (i + 1), v, false, 'I' + (i + 1) + ' - Special junk ' + (i + 1), true) : ''; }).join('') +
+        '<div class="cps-btns"><button type="button" class="app-btn" data-act="cps-open">Change</button><button type="button" class="app-btn ghost" data-act="cps-off">Don’t use</button></div></div>';
+    }
+    return '<div class="cps-row"><div class="h"><b>I1–I5 · Special junk</b><span class="st">Optional</span></div>' +
+      '<p>The CPS chain is up to five masking packets the app sends <b style="color:#fff">before</b> connecting, so the start looks like QUIC (as on YouTube) or DNS.</p>' +
+      '<ul><li>Out of the box these fields are <b style="color:#fff">empty</b> — and the VPN works fine without them.</li><li>It is an extra layer on top of Jc, S1–S4 and transport protection. Turn it on if the VPN still gets blocked.</li><li>They don’t have to match the server: you can add them later or only on some devices.</li></ul>' +
+      '<div class="cps-btns"><button type="button" class="app-btn accent" data-act="cps-open">Set up the CPS chain</button></div></div>';
+  }
+  function box(on) { return '<span class="box' + (on ? ' on' : '') + '" aria-hidden="true">' + (on ? '<svg width="15" height="15" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" fill="none" stroke="#1c1206" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '') + '</span>'; }
+  function chk(name, on, hint) { return '<div class="chk-row c">' + box(on) + '<span>' + name + (hint ? '<small>' + hint + '</small>' : '') + '</span></div>'; }
+  function pan(title, tag, body, keys) {
+    return '<div class="pan"><div class="app-head"><span class="back" aria-hidden="true">←</span><span class="t">' + title + '</span></div>' +
+      '<span class="win-tag">' + tag + '</span><div class="app-body">' + body + '</div>' +
+      '<div class="win-foot"><button type="button" class="win-save" data-act="copy-win" data-keys="' + keys.join(',') + '">Copy this screen</button></div></div>';
+  }
+  function cpsMini() {
+    if (cps.on) {
+      var n = cps.vals.filter(Boolean).length, name = { quic: 'QUIC', dns: 'DNS query', noise: 'Random noise' }[cps.mim];
+      return '<div class="cps-mini"><div class="r"><b>CPS chain</b><span class="st on">' + name + ' · ' + n + ' of 5</span></div>Copy the filled fields into the app and leave the empty ones empty.<div class="cps-btns"><button type="button" class="app-btn" data-act="cps-open">Change</button> <button type="button" class="app-btn ghost" data-act="cps-off">Don’t use</button></div></div>';
+    }
+    return '<div class="cps-mini"><div class="r"><b>I1–I5 — optional</b><span class="st">empty out of the box</span></div>Masking packets sent before connecting make the start look like QUIC (as on YouTube) or DNS. The VPN works without them — turn them on if it still gets blocked. They don’t have to match the server.<div class="cps-btns"><button type="button" class="app-btn accent" data-act="cps-open">Set up the CPS chain</button></div></div>';
+  }
+  function iField(i) {
+    var v = cps.on ? cps.vals[i] : '', label = 'I' + (i + 1) + ' - Special junk ' + (i + 1);
+    if (!v) return '<div class="af blank"><span class="l">' + label + '</span><span class="v"></span></div>';
+    return af('I' + (i + 1), v, false, label, true);
+  }
+  function render(anim) {
+    var v = cur;
+    var w1 = cap('Junk packets') + grp(['Jc', 'Jmin', 'Jmax'], 3, anim) +
+      cap('Packet sizes') + grp(['S1', 'S2', 'S3', 'S4'], 2, anim) +
+      cap('Headers') + grp(['H1', 'H2', 'H3', 'H4'], 2, anim);
+    var w2 = cap('Transport protection') + chk('HeaderProtectionKey', v._hpk, v._hpk ? 'Tick it — the app creates the key' : '') +
+      grp(['ContentPaddingAddition', 'RekeyAfterTime', 'RekeyTimeout', 'RejectAfterTime', 'KeepaliveTimeout', 'MaxHandshakeAttempts'], 2, anim) +
+      chk('RandomTrailers', true) + chk('DisableCookies', true) +
+      cap('Connection settings') + grp(['MTU'], 2, anim);
+    var w3 = cpsMini() + [0, 1, 2, 3, 4].map(iField).join('');
+    var html = '<div class="wins">' +
+      pan('AmneziaWG server settings', 'Screen 1 · top', w1, ['Jc', 'Jmin', 'Jmax', 'S1', 'S2', 'S3', 'S4', 'H1', 'H2', 'H3', 'H4']) +
+      pan('AmneziaWG server settings', 'Screen 2 · further down', w2, ['ContentPaddingAddition', 'RekeyAfterTime', 'RekeyTimeout', 'RejectAfterTime', 'KeepaliveTimeout', 'MaxHandshakeAttempts']) +
+      pan('I1–I5 · Special junk', 'Optional block', w3, ['I1', 'I2', 'I3', 'I4', 'I5']) +
+      '</div>';
+    html += '<div id="devOut"></div>';
+    document.getElementById('appBody').innerHTML = html;
+    var r = rules(v), ok = r.filter(function (x) { return x.ok; }).length;
+    document.getElementById('checks').innerHTML = r.map(function (x) { return '<div class="ck ' + (x.ok ? 'ok' : 'bad') + '"><i>' + (x.ok ? '✓' : '✕') + '</i>' + x.t + '</div>'; }).join('');
+    document.getElementById('ckSum').textContent = ok + ' of ' + r.length;
+    lastRules = { ok: ok, n: r.length };
+  }
+  function onField(f) {
+    var val = f.dataset.v;
+    copy(val, function () {
+      f.classList.add('copied'); f.querySelector('.cp').textContent = 'copied ✓';
+      toast(f.dataset.k + ' = ' + val);
+      setTimeout(function () { f.classList.remove('copied'); f.querySelector('.cp').textContent = 'copy'; }, 1400);
+    });
+  }
+  document.getElementById('appBody').addEventListener('click', function (e) {
+    var f = e.target.closest('.af'); if (f) { onField(f); return; }
+    var a = e.target.closest('[data-act]'); if (!a) return;
+    var act = a.dataset.act;
+    if (act === 'cps-open') openCPS();
+    if (act === 'cps-off') { cps.on = false; cps.vals = ['', '', '', '', '']; render(false); toast('The CPS chain is not used — I1–I5 stay empty'); }
+    if (act === 'copy-all') copyAll();
+    if (act === 'copy-win') {
+      var ks = a.dataset.keys.split(','), lines = [];
+      ks.forEach(function (k) { var val = /^I[1-5]$/.test(k) ? (cps.on ? cps.vals[+k.slice(1) - 1] : '') : cur[k]; if (val !== '' && val !== undefined) lines.push(k + ' = ' + val); });
+      if (a.dataset.keys.indexOf('ContentPaddingAddition') >= 0) { lines.unshift('# HeaderProtectionKey: ' + (cur._hpk ? 'ticked' : 'unticked')); lines.push('# RandomTrailers: ticked', '# DisableCookies: ticked'); }
+      copy(lines.join('\n'), function () { toast('Screen copied: ' + lines.filter(function (l) { return l[0] !== '#'; }).length + ' fields'); });
+    }
+    if (act === 'dev') devParams();
+  });
+  function copyAll() {
+    var keys = ['Jc', 'Jmin', 'Jmax', 'S1', 'S2', 'S3', 'S4', 'H1', 'H2', 'H3', 'H4'];
+    var lines = keys.map(function (k) { return k + ' = ' + cur[k]; });
+    cps.vals.forEach(function (v, i) { if (cps.on && v) lines.push('I' + (i + 1) + ' = ' + v); });
+    ['ContentPaddingAddition', 'RekeyAfterTime', 'RekeyTimeout', 'RejectAfterTime', 'KeepaliveTimeout', 'MaxHandshakeAttempts'].forEach(function (k) { lines.push(k + ' = ' + cur[k]); });
+    lines.push('# HeaderProtectionKey: ' + (cur._hpk ? 'tick it in the app' : 'unticked'), '# RandomTrailers: tick it', '# DisableCookies: tick it', '# MTU = 1280 (in the connection settings)');
+    copy(lines.join('\n'), function () { toast('All parameters copied'); });
+  }
+  function devParams() {
+    var P = PROF[prof], d = { Jc: rnd(P.jc[0], P.jc[1]), Jmin: rnd(P.jmin[0], P.jmin[1]), Jmax: Math.min(rnd(P.jmax[0], P.jmax[1]), MTU), ContentPaddingAddition: range(P.cpa[0], P.cpa[1]) };
+    var html = '<div class="dev-card"><p>For one specific device’s config — only the client-side part changes. Different values on different devices keep DPI from finding a common pattern.</p><div class="grid2">';
+    html += Object.keys(d).map(function (k) { return af(k, d[k], true); }).join('');
+    if (cps.on) genCPS(cps.mim).forEach(function (v, i) { if (v) html += af('I' + (i + 1), v, true, 'I' + (i + 1) + ' - Special junk ' + (i + 1), true); });
+    html += '</div></div>';
+    var out = document.getElementById('devOut'); out.innerHTML = html;
+    out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /* ---------- CPS modal ---------- */
+  var back = document.getElementById('cpsBack'), lastFocus = null;
+  function renderDraft() {
+    document.querySelectorAll('[data-m]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.m === draft.mim ? 'true' : 'false'); });
+    document.getElementById('cpsFields').innerHTML = draft.vals.map(function (v, i) {
+      var label = 'I' + (i + 1) + ' - Special junk ' + (i + 1);
+      if (!v) return '<div class="af" style="cursor:default"><span class="l">' + label + '</span><span class="v" style="color:#6d6d73;font-size:13.5px">empty — leave the field empty</span></div>';
+      return af('I' + (i + 1), v, true, label + '  ·  ≈ ' + cpsLen(v) + ' bytes', true);
+    }).join('');
+  }
+  function openCPS() {
+    lastFocus = document.activeElement;
+    draft = { mim: cps.mim, vals: cps.on ? cps.vals.slice() : genCPS(cps.mim) };
+    renderDraft(); back.classList.add('on');
+    setTimeout(function () { document.getElementById('cpsClose').focus(); }, 20);
+  }
+  function closeCPS() { back.classList.remove('on'); if (lastFocus) lastFocus.focus(); }
+  document.querySelectorAll('[data-m]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (b.dataset.m !== 'regen') draft.mim = b.dataset.m;
+      draft.vals = genCPS(draft.mim); renderDraft();
+    });
+  });
+  document.getElementById('cpsFields').addEventListener('click', function (e) { var f = e.target.closest('.af[data-v]'); if (f) onField(f); });
+  document.getElementById('cpsApply').addEventListener('click', function () { cps.on = true; cps.mim = draft.mim; cps.vals = draft.vals; closeCPS(); render(false); toast('The CPS chain has been added to the set'); });
+  document.getElementById('cpsOff').addEventListener('click', function () { cps.on = false; cps.vals = ['', '', '', '', '']; closeCPS(); render(false); toast('I1–I5 stay empty'); });
+  document.getElementById('cpsClose').addEventListener('click', closeCPS);
+  back.addEventListener('click', function (e) { if (e.target === back) closeCPS(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && back.classList.contains('on')) closeCPS(); });
+
+  /* ---------- start ---------- */
+  var lastRules = { ok: 0, n: 0 }, genT = [], RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var GL = '0123456789abcdef<>/#$%&*+=';
+  function scr(el) {
+    var final = el.textContent; if (!final) return;
+    var t0 = performance.now(), dur = 450 + Math.random() * 350;
+    (function tick(now) {
+      var k = Math.min(1, (now - t0) / dur), n = Math.floor(final.length * k), x = final.slice(0, n);
+      for (var i = n; i < final.length; i++) x += final[i] === ' ' ? ' ' : GL[Math.floor(Math.random() * GL.length)];
+      el.textContent = x; if (k < 1) requestAnimationFrame(tick); else el.textContent = final;
+    })(t0);
+  }
+  function gStatus(kind, html) { document.getElementById('genLed').className = 'st-led ' + kind; document.getElementById('genStatus').innerHTML = html; }
+  function run() {
+    genT.forEach(clearTimeout); genT = [];
+    cur = generate(); render(false);
+    var v = cur, pn = { eco: 'Economy', bal: 'Balanced', max: 'Hardened' }[prof];
+    var cpsTxt = cps.on ? ({ quic: 'QUIC', dns: 'DNS query', noise: 'random noise' }[cps.mim] + ' · ' + cps.vals.filter(Boolean).length + ' of 5') : 'empty by default';
+    var okAll = lastRules.ok === lastRules.n;
+    var lines = [
+      '<span class="p">›</span> profile: ' + pn + ' · AmneziaWG 3.1',
+      '<span class="p">›</span> junk packets … Jc ' + v.Jc + ' · Jmin ' + v.Jmin + ' · Jmax ' + v.Jmax,
+      '<span class="p">›</span> packet sizes … S1 ' + v.S1 + ' · S2 ' + v.S2 + ' · S3 ' + v.S3 + ' · S4 ' + v.S4,
+      '<span class="p">›</span> headers … ' + (v._hpk ? 'H1–H4 standard · <span class="ok">encryption on</span>' : '4 non-overlapping ranges'),
+      '<span class="p">›</span> transport protection and timers … <span class="ok">✓</span>',
+      '<span class="p">›</span> CPS chain … ' + cpsTxt,
+      '<span class="p">›</span> rule checks … ' + (okAll ? '<span class="ok">' + lastRules.ok + '/' + lastRules.n + ' ✓</span>' : '<span class="w">' + lastRules.ok + '/' + lastRules.n + '</span>'),
+      '<span class="ok">✓ done</span> — copy the values into the app <span class="cur"></span>'
+    ];
+    var log = document.getElementById('genLog'), btn = document.getElementById('goBtn');
+    var done = function () { btn.classList.remove('busy'); gStatus(okAll ? 'ok' : 'bad', '<b>' + (okAll ? 'done' : 'errors found') + '</b> · ' + pn.toLowerCase() + ' · checks ' + lastRules.ok + '/' + lastRules.n + (cps.on ? ' · CPS: ' + cpsTxt : '')); };
+    if (RM) { log.className = 'log on'; log.innerHTML = lines.map(function (l) { return '<div style="animation:none">' + l + '</div>'; }).join(''); done(); return; }
+    log.className = 'log on'; log.innerHTML = ''; btn.classList.add('busy'); gStatus('busy', 'generating…');
+    lines.forEach(function (l, i) { genT.push(setTimeout(function () { var d = document.createElement('div'); d.innerHTML = l; log.appendChild(d); }, 85 * i)); });
+    document.querySelectorAll('#appBody .af .v').forEach(function (el, i) { genT.push(setTimeout(function () { scr(el); }, 150 + i * 22)); });
+    genT.push(setTimeout(done, 85 * lines.length));
+  }
+  document.getElementById('copyAll2').addEventListener('click', function () { copyAll(); var b = this; b.classList.add('done'); b.textContent = '✓ Copied'; setTimeout(function () { b.classList.remove('done'); b.textContent = '⧉ Copy all'; }, 1600); });
+  document.getElementById('devBtn2').addEventListener('click', function () { devParams(); });
+  document.getElementById('goBtn').addEventListener('click', run);
+  document.querySelectorAll('[data-p]').forEach(function (b) {
+    b.addEventListener('click', function () { prof = b.dataset.p; document.querySelectorAll('[data-p]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); run(); });
+  });
+  document.getElementById('hpk').addEventListener('change', run);
+  run();
+
+  /* ---------- update my config ---------- */
+  var cfgIn = document.getElementById('cfgIn'), upProf = 'bal';
+  var SAMPLE = '[Interface]\nPrivateKey = uK2n7bG3XqJ8pW4sV9yLmT1cR6dE0aZfH5oN2kQ3iYw=\nAddress = 10.8.1.2/32\nDNS = 1.1.1.1, 1.0.0.1\nJc = 5\nJmin = 16\nJmax = 256\nS1 = 12\nS2 = 12\nS3 = 12\nS4 = 12\nH1 = 1\nH2 = 2\nH3 = 3\nH4 = 4\nHeaderProtectionKey = 26kFigLmRXG0fx/3F3v7hw1zzacCpyHQC2LGUCDgmFg=\nContentPaddingAddition = 10-100\nRekeyAfterTime = 100-120\nRekeyTimeout = 3-7\nRejectAfterTime = 150-180\nKeepaliveTimeout = 5-15\nMaxHandshakeAttempts = 15-20\n\n[Peer]\nPublicKey = CH2k3YRFCTJ82FKp+ljSd53OXCM/Z2tVckN0GMFksCY=\nPresharedKey = 7s9Lq1Vb3Xn5Jk8Wd2Rt6Yp0Gc4Fh1Mz9Ae3Uo5Ki7S=\nAllowedIPs = 0.0.0.0/0, ::/0\nEndpoint = 203.0.113.89:34329\nPersistentKeepalive = 25';
+  cfgIn.value = '';
+  cfgIn.placeholder = SAMPLE;
+  var SECRET = /^(privatekey|presharedkey|headerprotectionkey)$/i;
+  var OBF_ORDER = ['Jc', 'Jmin', 'Jmax', 'S1', 'S2', 'S3', 'S4', 'H1', 'H2', 'H3', 'H4', 'I1', 'I2', 'I3', 'I4', 'I5', 'HeaderProtectionKey', 'ContentPaddingAddition', 'RekeyAfterTime', 'RekeyTimeout', 'RejectAfterTime', 'KeepaliveTimeout', 'MaxHandshakeAttempts', 'RandomTrailers', 'DisableCookies'];
+  function parseCfg(text) {
+    var lines = text.replace(/\r/g, '').split('\n'), sect = '', items = [], iface = {}, peers = 0, hasEndpoint = false, hasListen = false;
+    lines.forEach(function (raw) {
+      var l = raw.trim(), m;
+      if ((m = l.match(/^\[(.+)\]$/))) { sect = m[1]; if (/peer/i.test(sect)) peers++; items.push({ raw: raw, sect: sect, isSect: true }); return; }
+      if ((m = l.match(/^([A-Za-z0-9]+)\s*=\s*(.*)$/))) {
+        items.push({ raw: raw, sect: sect, key: m[1], val: m[2] });
+        if (/interface/i.test(sect)) { iface[m[1].toLowerCase()] = m[2]; if (/^listenport$/i.test(m[1])) hasListen = true; }
+        if (/peer/i.test(sect) && /^endpoint$/i.test(m[1])) hasEndpoint = true;
+        return;
+      }
+      items.push({ raw: raw, sect: sect });
+    });
+    var ver = ('headerprotectionkey' in iface || 'contentpaddingaddition' in iface) ? 3 : (/-/.test(iface.h1 || '') || 's3' in iface) ? 2 : ('jc' in iface ? 1 : 0);
+    var type = hasListen && !hasEndpoint ? 'server' : hasEndpoint ? 'client' : 'unknown';
+    return { items: items, iface: iface, peers: peers, ver: ver, type: type, hasIface: Object.keys(iface).length > 0 };
+  }
+  function buildNew(cfg, pr, cpsMode, mtu) {
+    var P = PROF[pr], f = cfg.iface, hpk = 'headerprotectionkey' in f, nv = {}, minS = hpk ? 12 : 8;
+    // client-side part — always safe to change
+    nv.Jc = rnd(P.jc[0], P.jc[1]); nv.Jmin = rnd(P.jmin[0], P.jmin[1]); nv.Jmax = Math.min(rnd(P.jmax[0], P.jmax[1]), MTU);
+    if (cfg.ver >= 3) {
+      nv.ContentPaddingAddition = range(P.cpa[0], P.cpa[1]);
+      var rk = [rnd(95, 110)]; rk.push(rk[0] + rnd(10, 25));
+      nv.RekeyAfterTime = rk[0] + '-' + rk[1]; nv.RekeyTimeout = rnd(3, 4) + '-' + rnd(6, 8);
+      var rj = Math.max(rk[1] + rnd(15, 30), 150); nv.RejectAfterTime = rj + '-' + (rj + rnd(10, 25));
+      nv.KeepaliveTimeout = rnd(5, 8) + '-' + rnd(12, 16); nv.MaxHandshakeAttempts = rnd(15, 17) + '-' + rnd(19, 22);
+    }
+    if (cpsMode !== 'keep') {
+      var c = cpsMode === 'clear' ? ['', '', '', '', ''] : genCPS(cpsMode, pr);
+      for (var i = 0; i < 5; i++) nv['I' + (i + 1)] = c[i];
+    }
+    // shared part — only in a server config, otherwise the client stops connecting
+    if (cfg.type === 'server') {
+      do { nv.S1 = rnd(Math.max(15, minS), 72); nv.S2 = rnd(Math.max(15, minS), 72); } while (nv.S1 + 56 === nv.S2 || nv.S1 === nv.S2);
+      if (cfg.ver >= 2) { nv.S3 = rnd(minS, 48); nv.S4 = rnd(minS, 32); }
+      if (hpk) { nv.H1 = '1'; nv.H2 = '2'; nv.H3 = '3'; nv.H4 = '4'; }
+      else if (cfg.ver >= 2) { var h = hRanges(); nv.H1 = h[0]; nv.H2 = h[1]; nv.H3 = h[2]; nv.H4 = h[3]; }
+      else { var hs = []; while (hs.length < 4) { var x = String(rnd(100000000, 2000000000)); if (hs.indexOf(x) < 0) hs.push(x); } nv.H1 = hs[0]; nv.H2 = hs[1]; nv.H3 = hs[2]; nv.H4 = hs[3]; }
+    }
+    if (mtu) nv.MTU = '1280';
+    return nv;
+  }
+  function assemble(cfg, nv) {
+    var out = [], done = {}, inIface = false, lastIfaceIdx = -1;
+    cfg.items.forEach(function (it) {
+      if (it.isSect) { inIface = /interface/i.test(it.sect); out.push({ t: it.raw, c: 'sec' }); return; }
+      if (inIface && it.key) {
+        var k = Object.keys(nv).find(function (n) { return n.toLowerCase() === it.key.toLowerCase(); });
+        if (k) {
+          done[k] = 1;
+          if (nv[k] === '') { out.push({ t: '', c: 'skip', key: it.key, old: it.val }); return; }
+          out.push({ t: it.key + ' = ' + nv[k], c: String(nv[k]) === String(it.val) ? '' : 'ch', key: it.key, old: it.val, nw: nv[k] });
+        } else out.push({ t: it.raw, c: '', key: it.key, old: it.val });
+        lastIfaceIdx = out.length - 1; return;
+      }
+      if (inIface && it.raw.trim()) lastIfaceIdx = out.length;
+      out.push({ t: it.raw, c: /^\s*#/.test(it.raw) ? 'cm' : '' });
+    });
+    // missing parameters go to the end of [Interface], in app order
+    var add = [];
+    OBF_ORDER.concat(['MTU']).forEach(function (k) { if (k in nv && !done[k] && nv[k] !== '') add.push({ t: k + ' = ' + nv[k], c: 'add', key: k, nw: nv[k] }); });
+    if (add.length && lastIfaceIdx >= 0) out.splice.apply(out, [lastIfaceIdx + 1, 0].concat(add));
+    return out.filter(function (o) { return o.c !== 'skip'; }).concat(out.filter(function (o) { return o.c === 'skip'; }).map(function (o) { return { removed: true, key: o.key, old: o.old }; }));
+  }
+  function maskLine(t) { return t.replace(/^(\s*(PrivateKey|PresharedKey|HeaderProtectionKey)\s*=\s*).+$/i, '$1••••••••'); }
+  var lastOut = null;
+  var R = window.matchMedia('(prefers-reduced-motion: reduce)').matches, logT = [];
+  function syncGut() {
+    var n = Math.max(1, cfgIn.value.split('\n').length);
+    if (!cfgIn.value) n = cfgIn.placeholder.split('\n').length;
+    var s2 = ''; for (var i = 1; i <= n; i++) s2 += i + '\n';
+    document.getElementById('gut').textContent = s2;
+    document.getElementById('gut').scrollTop = cfgIn.scrollTop;
+  }
+  cfgIn.addEventListener('scroll', function () { document.getElementById('gut').scrollTop = cfgIn.scrollTop; });
+  document.getElementById('upOut').addEventListener('scroll', function () { document.getElementById('gutOut').scrollTop = this.scrollTop; });
+  function status(kind, html) { document.getElementById('stLed').className = 'st-led ' + kind; document.getElementById('statusLine').innerHTML = html; }
+  function runUpdate(anim) {
+    syncGut();
+    document.getElementById('clrBtn').hidden = !cfgIn.value;
+    logT.forEach(clearTimeout); logT = [];
+    if (!cfgIn.value.trim()) {
+      document.getElementById('log').className = 'log'; document.getElementById('log').innerHTML = '';
+      document.getElementById('gutOut').textContent = '';
+      status('', 'waiting for a config…');
+      lastOut = null;
+      document.getElementById('detect').innerHTML = '';
+      document.getElementById('outChips').innerHTML = '';
+      document.getElementById('upWarn').innerHTML = '';
+      document.getElementById('upOut').innerHTML = '<div class="empty"><div><b>⟵</b>paste a config on the left<br>the new config will appear here</div></div>';
+      document.getElementById('chg').innerHTML = '<p class="keep" style="margin:0 0 14px;color:var(--text3)">Appears once you paste a config.</p>';
+      document.getElementById('chgSum').textContent = '';
+      document.getElementById('upChecks').innerHTML = '';
+      document.getElementById('upCkSum').textContent = '';
+      return;
+    }
+    var cfg = parseCfg(cfgIn.value), det = document.getElementById('detect'), warn = document.getElementById('upWarn');
+    var typeName = { server: 'Server', client: 'Client', unknown: 'Unknown type' }[cfg.type];
+    det.innerHTML = cfg.hasIface ? '<span class="' + (cfg.type === 'unknown' ? 'r' : '') + '">' + typeName + '</span><span class="g">AmneziaWG ' + (cfg.ver >= 3 ? '3.x' : cfg.ver === 2 ? '2.0' : cfg.ver === 1 ? '1.x' : '— no obfuscation') + '</span>' + (cfg.type === 'server' ? '<span class="g">clients: ' + cfg.peers + '</span>' : '') : '<span class="r">Config not recognised</span>';
+    if (!cfg.hasIface) { document.getElementById('chgSum').textContent = ''; document.getElementById('upCkSum').textContent = ''; document.getElementById('log').className = 'log'; status('bad', 'error: no <b>[Interface]</b> section found'); document.getElementById('gutOut').textContent = ''; document.getElementById('outChips').innerHTML = ''; warn.innerHTML = '<div class="wb w"><span>⚠️</span><div><b>No [Interface] section found.</b> Paste the whole config — from the [Interface] line to the end.</div></div>'; document.getElementById('upOut').innerHTML = ''; document.getElementById('chg').innerHTML = ''; document.getElementById('upChecks').innerHTML = ''; return; }
+    var nv = buildNew(cfg, upProf, document.getElementById('upCps').value, document.getElementById('upMtu').checked && cfg.type === 'client');
+    var out = assemble(cfg, nv); lastOut = out;
+    // warnings
+    var w = '';
+    if (cfg.type === 'client') w = '<div class="wb i"><span>📱</span><div><b>Client config.</b> Only what doesn’t have to match the server changes. S1–S4, H1–H4 and HeaderProtectionKey are left as they are.</div></div>';
+    else if (cfg.type === 'server') w = '<div class="wb w"><span>⚠️</span><div><b>Server config — everything changes.</b> Every issued connection will stop working and must be re-issued. With the AmneziaVPN app, “I set up my server in the app” is easier.</div></div>';
+    else w = '<div class="wb w"><span>⚠️</span><div><b>Can’t tell if this is a server or a client</b> — only the client-side part changes.</div></div>';
+    if (cfg.ver === 0) w += '<div class="wb w"><span>⚠️</span><div><b>No AmneziaWG parameters</b> — looks like plain WireGuard.</div></div>';
+    warn.innerHTML = w;
+    renderOut(anim);
+    // what changed
+    var rows = out.filter(function (o) { return (o.c === 'ch' || o.c === 'add') || o.removed; });
+    var keepCommon = cfg.type !== 'server' ? ['S1', 'S2', 'S3', 'S4', 'H1', 'H2', 'H3', 'H4'].filter(function (k) { return k.toLowerCase() in cfg.iface; }) : [];
+    document.getElementById('chg').innerHTML = rows.map(function (o) {
+      if (o.removed) return '<div class="r"><code>' + esc(o.key) + '</code><div class="vv"><span class="old">' + esc(o.old) + '</span>→<span class="new">cleared</span></div></div>';
+      return '<div class="r"><code>' + esc(o.key) + '</code><div class="vv">' + (o.c === 'add' ? '<span class="keep">new</span>' : '<span class="old">' + esc(o.old) + '</span>') + '→<span class="new">' + esc(o.nw) + '</span></div></div>';
+    }).join('') + (keepCommon.length ? '<div class="r wide"><code>' + keepCommon.join(' · ') + '</code><div class="keep">unchanged — must match the server</div></div>' : '');
+    document.getElementById('chgSum').textContent = rows.length + ' parameters';
+    // checks
+    var fin = {}; out.forEach(function (o) { if (o.key && !o.removed) fin[o.key.toLowerCase()] = o.nw !== undefined ? String(o.nw) : o.old; });
+    var r = [], add2 = function (ok, t) { r.push({ ok: !!ok, t: t }); };
+    add2(+fin.jmin < +fin.jmax, 'Jmin is less than Jmax');
+    add2(+fin.jmax <= MTU, 'Jmax is not above 1280');
+    if ('s1' in fin && 's2' in fin) add2(+fin.s1 + 56 !== +fin.s2, 'S1 + 56 ≠ S2');
+    if ('s4' in fin) add2(+fin.s4 <= 32, 'S4 is not above 32');
+    if ('headerprotectionkey' in fin) add2(['s1', 's2', 's3', 's4'].every(function (k) { return !(k in fin) || +fin[k] >= 12; }), 'S1–S4 ≥ 12 with header encryption');
+    var hs = ['h1', 'h2', 'h3', 'h4'].map(function (k) { return parseR(fin[k]); }), over = false;
+    for (var a = 0; a < 4; a++) for (var b = a + 1; b < 4; b++) if (hs[a] && hs[b] && !(hs[a][1] < hs[b][0] || hs[b][1] < hs[a][0])) over = true;
+    if (hs.every(Boolean)) add2(!over, 'H1–H4 don’t overlap');
+    if (fin.rekeyaftertime && fin.rejectaftertime) { var rk = parseR(fin.rekeyaftertime), rj = parseR(fin.rejectaftertime); add2(rk && rj && rj[0] > rk[1], 'RejectAfterTime is above RekeyAfterTime'); }
+    var cpsVals = ['i1', 'i2', 'i3', 'i4', 'i5'].map(function (k) { return fin[k] || ''; });
+    if (cpsVals.some(Boolean)) add2(cpsVals.every(function (x) { return !cpsIssues(x).some(function (i) { return i.indexOf('bad:') === 0; }); }), 'I1–I5: valid tags and size');
+    var ok = r.filter(function (x) { return x.ok; }).length;
+    document.getElementById('upChecks').innerHTML = r.map(function (x) { return '<div class="ck ' + (x.ok ? 'ok' : 'bad') + '"><i>' + (x.ok ? '✓' : '✕') + '</i>' + x.t + '</div>'; }).join('');
+    document.getElementById('upCkSum').textContent = ok + ' of ' + r.length;
+    var nCh = out.filter(function (o) { return o.c === 'ch'; }).length, nAdd = out.filter(function (o) { return o.c === 'add'; }).length;
+    document.getElementById('outChips').innerHTML = '<span class="o">~ ' + nCh + '</span>' + (nAdd ? '<span>+ ' + nAdd + '</span>' : '') + '<span class="' + (ok === r.length ? '' : 'r') + '">✓ ' + ok + '/' + r.length + '</span>';
+    var pn = { eco: 'Economy', bal: 'Balanced', max: 'Hardened' }[upProf];
+    var cpsSel = document.getElementById('upCps');
+    var lines = [
+      '<span class="p">›</span> reading config … <span class="ok">✓</span> ' + typeName.toLowerCase() + ' · AmneziaWG ' + (cfg.ver >= 3 ? '3.x' : cfg.ver === 2 ? '2.0' : cfg.ver === 1 ? '1.x' : '—') + ' · ' + cfgIn.value.split('\n').length + ' lines',
+      '<span class="p">›</span> profile: ' + pn,
+      '<span class="p">›</span> junk packets … Jc ' + (nv.Jc) + ' · Jmin ' + nv.Jmin + ' · Jmax ' + nv.Jmax,
+      cfg.type === 'server' ? '<span class="p">›</span> sizes and headers … S1 ' + nv.S1 + ' · S2 ' + nv.S2 + ' · H1–H4 ' + (nv.H1 === '1' ? 'standard' : 'new ranges') : '<span class="p">›</span> S1–S4, H1–H4 … <span class="w">unchanged</span> (match the server)',
+      cfg.ver >= 3 ? '<span class="p">›</span> transport protection and timers … <span class="ok">✓</span>' : '<span class="p">›</span> transport protection … <span class="w">not in this version</span>',
+      '<span class="p">›</span> CPS chain … ' + cpsSel.options[cpsSel.selectedIndex].text.toLowerCase(),
+      '<span class="p">›</span> rule checks … ' + (ok === r.length ? '<span class="ok">' + ok + '/' + r.length + ' ✓</span>' : '<span class="w">' + ok + '/' + r.length + '</span>'),
+      '<span class="ok">✓ done</span> — ~' + nCh + ' changed' + (nAdd ? ', +' + nAdd + ' added' : '') + ' <span class="cur"></span>'
+    ];
+    var log = document.getElementById('log');
+    var finish = function () { status(ok === r.length ? 'ok' : 'bad', (ok === r.length ? '<b>done</b> · ' : '<b>errors found</b> · ') + '~' + nCh + ' changed · +' + nAdd + ' added · checks ' + ok + '/' + r.length + ' · ' + typeName.toLowerCase()); };
+    if (anim && !R) {
+      log.className = 'log on'; log.innerHTML = '';
+      status('busy', 'generating…');
+      var btn = document.getElementById('upGo'); btn.classList.add('busy');
+      lines.forEach(function (l, i) { logT.push(setTimeout(function () { var d = document.createElement('div'); d.innerHTML = l; log.appendChild(d); log.scrollTop = log.scrollHeight; }, 90 * i)); });
+      logT.push(setTimeout(function () { btn.classList.remove('busy'); finish(); }, 90 * lines.length));
+    } else {
+      log.className = 'log on'; log.innerHTML = lines.map(function (l) { return '<div style="animation:none">' + l + '</div>'; }).join('');
+      finish();
+    }
+  }
+  var GLYPH = '0123456789abcdef<>/#$%&*+=';
+  function scramble(el) {
+    var final = el.textContent, t0 = performance.now(), dur = 520 + Math.random() * 300;
+    (function tick(now) {
+      var k = Math.min(1, (now - t0) / dur), n = Math.floor(final.length * k), s3 = final.slice(0, n);
+      for (var i = n; i < final.length; i++) s3 += final[i] === ' ' ? ' ' : GLYPH[Math.floor(Math.random() * GLYPH.length)];
+      el.textContent = s3;
+      if (k < 1) requestAnimationFrame(tick); else el.textContent = final;
+    })(t0);
+  }
+  function renderOut(anim) {
+    if (!lastOut) return;
+    var show = document.getElementById('showKeys').checked, rows = lastOut.filter(function (o) { return !o.removed; });
+    document.getElementById('upOut').innerHTML = rows.map(function (o) {
+      var t = show ? o.t : maskLine(o.t);
+      var m = t.match(/^(\s*)([A-Za-z0-9]+)(\s*=\s*)(.*)$/);
+      var body = m && o.c !== 'sec' ? esc(m[1]) + '<span class="k">' + esc(m[2]) + '</span>' + esc(m[3]) + '<span class="val">' + esc(m[4]) + '</span>' : esc(t);
+      return '<span class="ln ' + (o.c || '') + '">' + (body || '&nbsp;') + '</span>';
+    }).join('');
+    var g = ''; for (var i = 1; i <= rows.length; i++) g += i + '\n';
+    document.getElementById('gutOut').textContent = g;
+    if (anim === true && !R) document.querySelectorAll('#upOut .ln.ch .val, #upOut .ln.add .val').forEach(function (el, i) { setTimeout(function () { scramble(el); }, 300 + i * 40); });
+  }
+  document.getElementById('showKeys').addEventListener('change', function () { renderOut(false); });
+  document.getElementById('exBtn').addEventListener('click', function () { cfgIn.value = SAMPLE; runUpdate(true); toast('Example inserted — replace it with your own config'); });
+  document.getElementById('upCopy').addEventListener('click', function () {
+    if (!lastOut) { toast('Paste your config on the left first'); return; }
+    var cb = this; copy(lastOut.filter(function (o) { return !o.removed; }).map(function (o) { return o.t; }).join('\n'), function () { cb.classList.add('done'); cb.textContent = '✓ Copied'; setTimeout(function () { cb.classList.remove('done'); cb.textContent = '⧉ Copy config'; }, 1600); toast('New config copied — with your keys'); });
+  });
+  document.querySelectorAll('[data-up]').forEach(function (b) {
+    b.addEventListener('click', function () { upProf = b.dataset.up; document.querySelectorAll('[data-up]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); runUpdate(true); });
+  });
+  document.getElementById('upGo').addEventListener('click', function () { if (!cfgIn.value.trim()) { toast('Paste your config on the left first'); cfgIn.focus(); return; } runUpdate(true); });
+  document.getElementById('upCps').addEventListener('change', function () { runUpdate(true); });
+  document.getElementById('upMtu').addEventListener('change', function () { runUpdate(true); });
+  var ut = 0, wasEmpty = true; cfgIn.addEventListener('input', function () { syncGut(); document.getElementById('clrBtn').hidden = !cfgIn.value; clearTimeout(ut); ut = setTimeout(function () { var big = wasEmpty && cfgIn.value.trim(); wasEmpty = !cfgIn.value.trim(); runUpdate(!!big); }, 300); });
+  document.getElementById('clrBtn').addEventListener('click', function () { cfgIn.value = ''; wasEmpty = true; runUpdate(false); cfgIn.focus(); toast('Field cleared — paste your config'); });
+  runUpdate();
+})();
+</script>
+</body>
+</html>

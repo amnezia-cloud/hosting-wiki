@@ -32,7 +32,7 @@ Version 3.x added transport protection, which hides not just the handshake but t
 
 Obfuscation values are easier to generate than to invent:
 
-*   [architect.vai-rice.space](https://architect.vai-rice.space/amneziawg/)
+*   **[AmneziaWG parameter generator](/en/awg-generator)** — our generator: values in app field order, rule checks and updates of an existing config
 *   [voidwaifu.github.io/Special-Junk-Packet-List](https://voidwaifu.github.io/Special-Junk-Packet-List/) — the site has a button with filling instructions
 *   [spatiumstas.github.io/junker](https://spatiumstas.github.io/junker/)
 *   [sageptr.github.io/mini_quic_generator](https://sageptr.github.io/mini_quic_generator/)
@@ -58,7 +58,7 @@ If you mimic DNS, use port `53`. For web traffic (QUIC / HTTP3), use port `443`.
 
 Steps:
 
-1.  Generate the parameters at [architect.vai-rice.space](https://architect.vai-rice.space/amneziawg/).
+1.  Generate the parameters in the [parameter generator](/en/awg-generator): turn off “Header encryption” and transfer Jc, Jmin, Jmax, S1–S4 and H1–H4 — 2.0 has no transport protection fields.
 2.  In the AmneziaVPN app open **“Server settings” → “AmneziaWG” → “AmneziaWG server settings”**.
 3.  Transfer the generated values into the matching fields manually.
 4.  Save the changes.
