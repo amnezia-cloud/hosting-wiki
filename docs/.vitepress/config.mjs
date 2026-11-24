@@ -388,20 +388,7 @@ export default defineConfig({
                   { text: 'Смена подсети', link: '/amneziawg-tuning#subnet' }
                 ]
               },
-              {
-                text: '🛠️ AmneziaWG: обфускация через Architect',
-                link: '/amneziawg-architect',
-                collapsed: true,
-                items: [
-                  { text: 'Что понадобится', link: '/amneziawg-architect#s1' },
-                  { text: 'Установка AmneziaWG', link: '/amneziawg-architect#s4' },
-                  { text: 'Настройки в Architect', link: '/amneziawg-architect#s6' },
-                  { text: 'Перенос в приложение', link: '/amneziawg-architect#s7' },
-                  { text: 'Проверка и раздача', link: '/amneziawg-architect#s8' },
-                  { text: 'Если что-то не работает', link: '/amneziawg-architect#s9' },
-                  { text: 'Шпаргалка', link: '/amneziawg-architect#s10' }
-                ]
-              },
+              { text: '⚙️ Генератор параметров AmneziaWG', link: '/awg-generator' },
               {
                 text: '⚡ XRay (VLESS): маскировка и настройка',
                 link: '/xray-tuning',
@@ -756,20 +743,7 @@ export default defineConfig({
                   { text: 'Changing the subnet', link: '/en/amneziawg-tuning#subnet' }
                 ]
               },
-              {
-                text: '🛠️ AmneziaWG: obfuscation with Architect',
-                link: '/en/amneziawg-architect',
-                collapsed: true,
-                items: [
-                  { text: 'What you need', link: '/en/amneziawg-architect#s1' },
-                  { text: 'Install AmneziaWG', link: '/en/amneziawg-architect#s4' },
-                  { text: 'Architect settings', link: '/en/amneziawg-architect#s6' },
-                  { text: 'Transfer to the app', link: '/en/amneziawg-architect#s7' },
-                  { text: 'Check and share', link: '/en/amneziawg-architect#s8' },
-                  { text: 'Troubleshooting', link: '/en/amneziawg-architect#s9' },
-                  { text: 'Quick reference', link: '/en/amneziawg-architect#s10' }
-                ]
-              },
+              { text: '⚙️ AmneziaWG parameter generator', link: '/en/awg-generator' },
               {
                 text: '⚡ XRay (VLESS): masking and tuning',
                 link: '/en/xray-tuning',
