@@ -45,9 +45,11 @@ const SPRING_OUT = 'cubic-bezier(.25,1.35,.4,1)'
 const SPRING_BACK = 'cubic-bezier(.3,1.15,.4,1)'
 
 let bursting = false
+let lastBurst = -1e9 // когда закончилась прошлая раскрутка (до первой её не было)
 
 function burst(host) {
   if (bursting || typeof window === 'undefined') return
+  if (performance.now() - lastBurst < 6000) return // не чаще раза в 6 секунд
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
   const cubeEl = host.querySelector('.amz-cube')
@@ -104,7 +106,11 @@ function burst(host) {
   ], { duration: D }))
 
   bursting = true
-  const done = () => { bursting = false }
+  const done = () => {
+    bursting = false
+    lastBurst = performance.now()
+    anims.forEach((x) => x.cancel()) // ничего не оставляем после ритуала
+  }
   Promise.all(anims.map((x) => x.finished)).then(done, done)
 }
 
@@ -180,7 +186,8 @@ export default {
             rel: 'noreferrer',
             onMouseenter: (e) => { hover = true; show(); burst(e.currentTarget) },
             onMouseleave: () => { hover = false; close() },
-            onFocus: (e) => { show(); burst(e.currentTarget) },
+            // раскрутка по фокусу — только если фокус с клавиатуры (не после клика мышью)
+            onFocus: (e) => { show(); if (e.currentTarget.matches(':focus-visible')) burst(e.currentTarget) },
             onBlur: close
           }, [
             cube(),
