@@ -1,5 +1,6 @@
 import { h, reactive } from 'vue'
 import { useData, withBase } from 'vitepress'
+import AmzStories from './Stories.js'
 
 // Главная в духе docs.amnezia.org: заголовок, строка полезных ссылок, большой
 // поиск, колонки и плитки разделов, плашка поддержки. Всё строится из сайдбара —
@@ -201,8 +202,8 @@ export default {
           ])
         : null
 
-      return h('div', { class: 'amz-home' }, [
-        h('header', { class: 'amz-home__hero' }, [
+      const hasStories = !(lang.value && lang.value.startsWith('en'))
+      const hero = h('header', { class: 'amz-home__hero' }, [
           h('h1', { class: 'amz-home__title' }, t.title),
           h('p', { class: 'amz-home__lead' }, t.lead),
           h('nav', { class: 'amz-home__links' }, [
@@ -224,9 +225,12 @@ export default {
             h('span', { class: 'amz-home__search-text' }, t.search),
             h('kbd', { class: 'amz-home__search-key' }, 'Ctrl K')
           ])
-        ]),
+        ])
+      return h('div', { class: 'amz-home' }, [
+        hasStories ? h('div', { class: 'amz-home__top' }, [hero, h(AmzStories, { mode: 'hero' })]) : hero,
         paths,
         tiles.length ? h('div', { class: 'amz-home__tiles' }, tiles.map(tile)) : null,
+        hasStories ? h(AmzStories, { mode: 'shelf' }) : null,
         h('aside', { class: 'amz-home__help' }, [
           TELEGRAM_ICON,
           h('div', { class: 'amz-home__help-body' }, [
