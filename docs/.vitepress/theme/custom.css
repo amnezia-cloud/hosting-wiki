@@ -1884,49 +1884,128 @@ html {
 }
 
 /* ==========================================================================
-   СТОРИС НА ГЛАВНОЙ (theme/Stories.js, тексты — theme/storiesData.js)
+   WIKI STORIES НА ГЛАВНОЙ (theme/Stories.js, тексты — theme/storiesData.js)
+   Широкий экран: колонка справа (.amz-st-rail). Узкий: лента под поиском
+   (.amz-st-strip), история открывается во весь экран (.amz-st-ov).
    ========================================================================== */
-.amz-st-phone{width:100%;aspect-ratio:9/17.5;border-radius:40px;padding:9px;background:linear-gradient(160deg,#2b2f2d,#0c0e0d);box-shadow:0 34px 80px -40px rgba(0,0,0,.75),inset 0 0 0 1px rgba(255,255,255,.08)}
+.amz-home-wrap{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:32px;max-width:1640px;margin:0 auto;padding:0 32px;align-items:start}
+.amz-home-wrap > .amz-home{max-width:none;margin:0;padding-left:0;padding-right:0}
+.amz-st-rail{padding-top:40px}
+.amz-st-strip{display:none}
+@media (max-width:1399px){
+  .amz-home-wrap{display:block;padding:0}
+  .amz-home-wrap > .amz-home{max-width:1152px;margin:0 auto;padding-left:24px;padding-right:24px}
+  .amz-st-rail{display:none}
+  .amz-st-strip{display:block}
+}
+/* шапка ленты: кольцо и «Wiki Stories» */
+.amz-st-head{display:flex;align-items:center;gap:11px;margin-bottom:8px}
+.amz-st-head .ring{flex:none;width:42px;height:42px;border-radius:50%;padding:3px;background:conic-gradient(#00e63d 0 22%,transparent 22% 25%,#00e63d 25% 47%,transparent 47% 50%,#00e63d 50% 72%,transparent 72% 75%,#7dffa3 75% 97%,transparent 97%);transition:width .45s,height .45s}
+.amz-st-head .ring span{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:var(--vp-c-bg-soft);font-weight:800;font-size:15px;color:#00c935}
+.dark .amz-st-head .ring span{color:#3cf06a}
+.amz-st-head b{display:block;font-weight:800;font-size:19px;letter-spacing:-.01em;line-height:1.15;background:linear-gradient(90deg,var(--vp-c-text-1),#00c935 70%);-webkit-background-clip:text;background-clip:text;color:transparent;transition:font-size .45s}
+.dark .amz-st-head b{background-image:linear-gradient(90deg,#fff,#7dffa3 60%,#00e63d)}
+.amz-st-head > div > span{display:block;font-size:12.5px;color:var(--vp-c-text-2)}
+/* карточки историй */
+.amz-st-card{position:relative;aspect-ratio:9/14;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:13px;color:#eafff0;text-align:left;font:inherit;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 50px -30px rgba(0,0,0,.8);cursor:pointer}
+.amz-st-card:focus-visible{outline:2px solid var(--vp-c-brand-1);outline-offset:3px}
+.amz-st-card .e{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);font-size:48px;filter:drop-shadow(0 10px 24px rgba(0,230,61,.45));transition:font-size .5s}
+.amz-st-card .pr{position:absolute;top:9px;left:11px;right:11px;height:3px;border-radius:2px;background:rgba(255,255,255,.2);overflow:hidden}
+.amz-st-card .pr i{display:block;height:100%;background:#fff}
+.amz-st-card.is-seen .pr i{background:rgba(255,255,255,.55)}
+.amz-st-card .bt{position:relative;display:block;margin:0 -13px -13px;padding:34px 13px 13px;background:linear-gradient(transparent,rgba(0,0,0,.65))}
+.amz-st-card b{display:block;font-size:15px;line-height:1.25;margin-bottom:8px;transition:font-size .5s}
+.amz-st-card .go{display:inline-flex;font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15)}
+.amz-st-card:hover .go{background:#00e63d;color:#04190b;border-color:#00e63d}
+.amz-st-card.c1{background:radial-gradient(120% 80% at 30% 0%,#14532d,#07090a 65%)}
+.amz-st-card.c2{background:radial-gradient(120% 80% at 70% 10%,#065f46,#07090a 65%)}
+.amz-st-card.c3{background:radial-gradient(120% 80% at 30% 10%,#1e3a5f,#07090a 65%)}
+.amz-st-card.c4{background:radial-gradient(120% 80% at 70% 0%,#4c1d95,#07090a 65%)}
+/* колонка справа */
+.amz-st-spacer{height:var(--sp,346px);transition:height .55s cubic-bezier(.2,.8,.2,1)}
+.amz-st-rail.is-open .amz-st-spacer{height:0}
+.amz-st-player{position:relative;overflow:hidden;max-height:0;opacity:0;transform:translateY(-14px) scale(.96);transform-origin:50% 0;transition:max-height .55s cubic-bezier(.2,.8,.2,1),opacity .35s,transform .45s cubic-bezier(.2,.8,.2,1),margin .45s}
+.amz-st-rail.is-open .amz-st-player{max-height:700px;opacity:1;transform:none;margin-bottom:18px}
+.amz-st-rail .amz-st-phone{width:380px;zoom:.868}
+.amz-st-car{height:var(--ch,508px);overflow:hidden;border-radius:22px;border:1px solid var(--vp-c-divider);background:radial-gradient(120% 60% at 50% 0%,rgba(0,230,61,.10),transparent 60%),var(--vp-c-bg-soft);padding:16px 16px 14px;transition:height .55s cubic-bezier(.2,.8,.2,1),padding .45s}
+.amz-st-rail.is-open .amz-st-car{height:309px;padding:12px 12px 10px}
+.amz-st-stage{position:relative;height:calc(var(--ch,508px) - 92px);display:flex;align-items:center;justify-content:center;transition:height .5s cubic-bezier(.2,.8,.2,1)}
+.amz-st-rail.is-open .amz-st-stage{height:236px}
+.amz-st-stage .amz-st-card{position:absolute;width:250px;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .4s,width .5s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.amz-st-stage .amz-st-card[data-pos="0"]{transform:none;z-index:3;box-shadow:0 0 0 2px #00e63d,0 24px 50px -18px rgba(0,230,61,.6)}
+.amz-st-stage .amz-st-card[data-pos="0"] .go{background:#00e63d;color:#04190b;border-color:#00e63d}
+.amz-st-stage .amz-st-card[data-pos="1"]{transform:translateX(124px) scale(.8);opacity:.55;z-index:2}
+.amz-st-stage .amz-st-card[data-pos="-1"]{transform:translateX(-124px) scale(.8);opacity:.55;z-index:2}
+.amz-st-stage .amz-st-card[data-pos="2"],.amz-st-stage .amz-st-card[data-pos="-2"]{transform:scale(.6);opacity:0;z-index:1;pointer-events:none}
+.amz-st-rail.is-open .amz-st-stage .amz-st-card{width:142px;padding:10px}
+.amz-st-rail.is-open .amz-st-stage .amz-st-card .e{font-size:30px}
+.amz-st-rail.is-open .amz-st-stage .amz-st-card b{font-size:11.5px;margin-bottom:5px}
+.amz-st-rail.is-open .amz-st-stage .amz-st-card .go{font-size:10px;padding:3px 8px}
+.amz-st-rail.is-open .amz-st-stage .amz-st-card .bt{margin:0 -10px -10px;padding:26px 10px 10px}
+.amz-st-rail.is-open .amz-st-stage .amz-st-card[data-pos="1"]{transform:translateX(92px) scale(.8)}
+.amz-st-rail.is-open .amz-st-stage .amz-st-card[data-pos="-1"]{transform:translateX(-92px) scale(.8)}
+.amz-st-rail.is-open .amz-st-head .ring{width:32px;height:32px}
+.amz-st-rail.is-open .amz-st-head .ring span{font-size:12px}
+.amz-st-rail.is-open .amz-st-head b{font-size:16px}
+.amz-st-arr{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:38px;height:38px;border-radius:50%;border:1px solid var(--vp-c-divider);background:var(--vp-c-bg);color:var(--vp-c-text-1);font-size:18px;display:grid;place-items:center;cursor:pointer}
+.amz-st-arr:hover{border-color:var(--vp-c-brand-1)}
+.amz-st-arr.l{left:-4px}.amz-st-arr.r{right:-4px}
+.amz-st-dots{display:flex;gap:6px;justify-content:center;margin-top:4px}
+.amz-st-dots i{width:7px;height:7px;border-radius:50%;background:var(--vp-c-divider);transition:.3s}
+.amz-st-dots i.on{background:var(--vp-c-brand-1);width:20px;border-radius:4px}
+/* экран истории */
+.amz-st-phone{position:relative;width:100%;aspect-ratio:9/17.5;border-radius:40px;padding:9px;background:linear-gradient(160deg,#2b2f2d,#0c0e0d);box-shadow:0 34px 80px -40px rgba(0,0,0,.75),inset 0 0 0 1px rgba(255,255,255,.08)}
+.amz-st-x{position:absolute;top:40px;right:20px;z-index:8;width:36px;height:36px;border-radius:50%;border:0;background:rgba(0,0,0,.45);color:#fff;font-size:16px;cursor:pointer}
+.amz-st-x:hover{background:rgba(0,0,0,.7)}
 .amz-st{font-family:"IBM Plex Sans",var(--vp-font-family-base);line-height:1.6;cursor:pointer}
 .amz-st .slide a,.amz-st .slide button{cursor:pointer}
 .amz-st .slide h2{border:0;padding:0;letter-spacing:-.01em;font-weight:700;color:#fff}
 .amz-st .slide p{color:#c3dacb}
-/* блок историй внизу */
-.amz-st-shelf{display:grid;grid-template-columns:220px minmax(0,1fr);gap:16px;margin:36px 0 18px}
-.amz-st-side{display:flex;flex-direction:column;justify-content:center;gap:4px;padding:22px;border-radius:22px;background:radial-gradient(120% 80% at 0% 0%,rgba(0,230,61,.16),transparent 60%),var(--vp-c-bg-soft);border:1px solid var(--vp-c-divider)}
-.amz-st-side .av{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#00e63d,#7dffa3,#00b830,#00e63d);color:#04190b;font-weight:800;font-size:22px;margin-bottom:8px;box-shadow:inset 0 0 0 3px var(--vp-c-bg-soft)}
-.amz-st-side b{font-size:17px;color:var(--vp-c-text-1)}
-.amz-st-side span{font-size:13.5px;color:var(--vp-c-text-2)}
-.amz-st-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.amz-st-card{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;color:#eafff0;text-align:left;font:inherit;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 50px -30px rgba(0,0,0,.8);cursor:pointer;transition:transform .25s,box-shadow .25s}
-.amz-st-card:hover{transform:translateY(-4px)}
-.amz-st-card:focus-visible{outline:2px solid var(--vp-c-brand-1);outline-offset:3px}
-.amz-st-card .e{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);font-size:52px;filter:drop-shadow(0 10px 24px rgba(0,230,61,.45))}
-.amz-st-card .pr{position:absolute;top:10px;left:12px;right:12px;height:3px;border-radius:2px;background:rgba(255,255,255,.2);overflow:hidden}
-.amz-st-card .pr i{display:block;height:100%;background:#fff}
-.amz-st-card .tm{position:absolute;top:20px;left:12px;font:700 10.5px "JetBrains Mono",monospace;color:rgba(255,255,255,.75)}
-.amz-st-card .bt{position:relative;display:block;margin:0 -14px -14px;padding:40px 14px 14px;background:linear-gradient(transparent,rgba(0,0,0,.65))}
-.amz-st-card b{display:block;font-size:15px;line-height:1.25;margin-bottom:9px}
-.amz-st-card .go{display:inline-flex;font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15)}
-.amz-st-card:hover .go{background:#00e63d;color:#04190b;border-color:#00e63d}
-.amz-st-card.is-seen .pr i{background:rgba(255,255,255,.55)}
-.amz-st-card.c1{background:radial-gradient(120% 80% at 30% 0%,#14532d,#07090a 65%)}
-.amz-st-card.c2{background:radial-gradient(120% 80% at 70% 10%,#065f46,#07090a 65%)}
-.amz-st-card.c3{background:radial-gradient(120% 80% at 30% 10%,#1e3a5f,#07090a 65%)}
-@media (max-width:760px){
-  .amz-st-shelf{grid-template-columns:1fr}
-  .amz-st-side{flex-direction:row;align-items:center;gap:12px;padding:14px 16px}
-  .amz-st-side .av{width:44px;height:44px;font-size:18px;margin:0}
-  .amz-st-side b{font-size:15px}
-  .amz-st-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 4px 8px;margin:0 -4px}
-  .amz-st-card{flex:0 0 58%;aspect-ratio:9/13;scroll-snap-align:start}
-}
-/* история во весь экран (телефоны и узкие экраны) */
+/* лента под поиском (узкие экраны) */
+.amz-st-strip{margin:6px 0 30px}
+.amz-st-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 4px 8px;margin:0 -4px;scrollbar-width:none}
+.amz-st-row::-webkit-scrollbar{display:none}
+.amz-st-row .amz-st-card{flex:0 0 172px;aspect-ratio:3/4;scroll-snap-align:start}
+.amz-st-row .amz-st-card .e{font-size:40px}
+.amz-st-row .amz-st-card b{font-size:14px}
+@media (max-width:760px){.amz-st-row .amz-st-card{flex:0 0 44%;aspect-ratio:9/13}}
+/* история во весь экран */
 .amz-st-ov{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:calc(12px + env(safe-area-inset-top,0px)) 12px calc(12px + env(safe-area-inset-bottom,0px));background:rgba(0,0,0,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .amz-st-ov .amz-st-phone{width:min(400px,100%,calc((100dvh - 24px) * 9 / 17.5))}
-.amz-st-ov__x{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:16px;z-index:2;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:18px;cursor:pointer}
 html.amz-st-lock,html.amz-st-lock body{overflow:hidden}
-@media (prefers-reduced-motion:reduce){.amz-st *,.amz-st-card{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){.amz-st *,.amz-st-card,.amz-st-rail *{animation:none!important;transition:none!important}}
+/* экраны истории про тарифы */
+.amz-st .c4bg{background:radial-gradient(120% 80% at 70% 0%,#4c1d95 0%,#07090a 62%)}
+.amz-st .ppl{display:flex;flex-direction:column;align-items:center;gap:12px}
+.amz-st .ppl .pp{display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid rgba(167,139,250,.4)}
+.amz-st .ppl .pp span{font-size:44px}
+.amz-st .ppl .pp i{font-style:normal;font-size:28px;opacity:.9}
+.amz-st .on .ppl .pp i{animation:st-popin .5s both}
+.amz-st .on .ppl .pp i:nth-of-type(2){animation-delay:.3s}
+.amz-st .on .ppl .pp i:nth-of-type(3){animation-delay:.6s}
+.amz-st .ppl .eq{font:700 15px "JetBrains Mono",monospace;color:#c4b5fd}
+.amz-st .proto2{display:flex;align-items:center;gap:10px;width:100%}
+.amz-st .proto2 div{flex:1;padding:14px;border-radius:14px;background:#121614;border:1px solid rgba(0,230,61,.3);text-align:center}
+.amz-st .proto2 b{display:block;font-size:15px}
+.amz-st .proto2 span{font-size:11.5px;color:#9fb8a7}
+.amz-st .proto2 em{font-style:normal;font-size:26px;font-weight:800;color:#3cf06a}
+.amz-st .plans{display:grid;gap:9px;width:100%}
+.amz-st .plans div{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto auto;gap:2px 10px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12)}
+.amz-st .plans div.hl{border-color:#a78bfa;background:rgba(167,139,250,.1);box-shadow:0 0 24px -10px rgba(167,139,250,.9)}
+.amz-st .plans .pn{font-weight:800;font-size:17px}
+.amz-st .plans .pn em{font-style:normal;font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:999px;background:#a78bfa;color:#1a1030;vertical-align:3px;margin-left:4px}
+.amz-st .plans .pp2{grid-row:1/3;grid-column:2;align-self:center;font:700 18px "JetBrains Mono",monospace;color:#3cf06a}
+.amz-st .plans .pu{font-size:13px;color:#c3dacb}
+.amz-st .plans small{grid-column:1/-1;font-size:11.5px;color:#9fb8a7;line-height:1.4}
+.amz-st .plans.mini div{grid-template-columns:1fr auto auto;grid-template-rows:auto;align-items:center;padding:10px 12px}
+.amz-st .plans.mini .pp2{grid-row:auto;grid-column:auto;font-size:15px}
+.amz-st .plans.mini .pn{font-size:15px}
+.amz-st .signs{display:grid;gap:8px;width:100%}
+.amz-st .signs div{padding:11px 13px;border-radius:12px;background:rgba(244,63,94,.08);border:1px solid rgba(244,63,94,.25);font-size:13.5px}
+.amz-st .on .signs div:nth-child(2){animation:st-risein .4s .4s both}
+.amz-st .on .signs div:nth-child(3){animation:st-risein .4s .7s both}
+@keyframes st-popin{from{transform:scale(.3);opacity:0}}
+@keyframes st-risein{from{opacity:0;transform:translateY(10px)}}
 .amz-st{position:relative;width:100%;height:100%;border-radius:35px;overflow:hidden;background:#07090a;color:#eafff0;user-select:none;-webkit-user-select:none;touch-action:manipulation}
 .amz-st .bars{position:absolute;top:14px;left:14px;right:14px;display:flex;gap:4px;z-index:5}
 .amz-st .bars span{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.22);overflow:hidden}

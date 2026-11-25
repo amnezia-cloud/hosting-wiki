@@ -129,6 +129,48 @@ export const STORIES = {
         "<div class=\"grow\"><div class=\"big rise\">🛡️</div></div>\n        <div class=\"k rise d1\">Готово</div>\n        <h2 class=\"rise d2\">Ваша маскировка не похожа ни на чью</h2>\n        <p class=\"rise d3\" style=\"margin-bottom:16px\">Всё считается прямо в браузере — ничего не отправляется.</p>\n        <div class=\"cta rise d4\">\n          <a class=\"p\" href=\"/awg-generator.html\">⚙️ Открыть генератор</a>\n        </div>\n        <button class=\"replay\" type=\"button\" data-next-story>Смотреть сначала ↻</button>"
       ]
     ]
+  },
+  {
+    "id": "plans",
+    "title": "Какой тариф выбрать",
+    "who": "Какой тариф выбрать",
+    "emoji": "☁️",
+    "grad": "c4",
+    "time": "0:50",
+    "slides": [
+      [
+        "c4bg",
+        "<div class=\"grow\"><div class=\"big rise\">☁️</div></div>\n        <div class=\"k rise d1\">Тарифы</div>\n        <h2 class=\"rise d2\">Какой тариф выбрать</h2>\n        <p class=\"rise d3\">Сколько человек потянет сервер под ваш VPN — и когда пора брать тариф побольше.</p>"
+      ],
+      [
+        "c4bg",
+        "<div class=\"k rise\">Главное правило</div>\n        <h2 class=\"rise d1\">Считаем людей, а не устройства</h2>\n        <p class=\"rise d2\">Один человек — это <b>2–3 устройства</b>, подключённых не все одновременно.</p>\n        <div class=\"grow\">\n          <div class=\"ppl rise d3\"><div class=\"pp\"><span>👤</span><i>📱</i><i>💻</i><i>🖥️</i></div><div class=\"eq\">= 1 человек</div></div>\n        </div>\n        <p class=\"rise d4\" style=\"font-size:13px\">Это рекомендация, а не ограничение: мы не считаем пользователей и ничего не блокируем.</p>"
+      ],
+      [
+        "bg3",
+        "<div class=\"k rise\">Протокол не важен</div>\n        <h2 class=\"rise d1\">AmneziaWG и XRay тянут одинаково</h2>\n        <p class=\"rise d2\">Количество человек от протокола не зависит. А если нужно <b>два протокола сразу</b> — основной и резервный — берите тариф от <b>Basic</b>.</p>\n        <div class=\"grow\">\n          <div class=\"proto2 rise d3\"><div><b>AmneziaWG</b><span>быстрый, UDP</span></div><em>=</em><div><b>XRay</b><span>маскировка под HTTPS</span></div></div>\n        </div>"
+      ],
+      [
+        "c4bg",
+        "<div class=\"steps rise\"><span class=\"on\">👤</span><span>👥</span><span>🏢</span></div>\n        <h2 class=\"rise d1\">Для себя и семьи</h2>\n        <div class=\"grow\">\n          <div class=\"plans rise d2\">\n            <div><span class=\"pn\">Start</span><span class=\"pu\">до 5 человек</span><span class=\"pp2\">5,25 $</span><small>Личный VPN · 1 ядро, 1 ГБ</small></div>\n            <div class=\"hl\"><span class=\"pn\">Basic</span><span class=\"pu\">до 8 человек</span><span class=\"pp2\">6,15 $</span><small>Семья · два протокола, панель 3X-UI</small></div>\n          </div>\n        </div>"
+      ],
+      [
+        "c4bg",
+        "<div class=\"steps rise\"><span class=\"on\">👤</span><span class=\"on\">👥</span><span>🏢</span></div>\n        <h2 class=\"rise d1\">Друзья, команда, офис</h2>\n        <div class=\"grow\">\n          <div class=\"plans rise d2\">\n            <div class=\"hl\"><span class=\"pn\">Advanced <em>популярный</em></span><span class=\"pu\">до 15 человек</span><span class=\"pp2\">9,45 $</span><small>2 ядра, канал 200 Мбит/с · видео без борьбы за скорость</small></div>\n            <div><span class=\"pn\">Pro</span><span class=\"pu\">до 25 человек</span><span class=\"pp2\">15,15 $</span><small>4 ядра · офис или сообщество</small></div>\n          </div>\n        </div>"
+      ],
+      [
+        "c4bg",
+        "<div class=\"steps rise\"><span class=\"on\">👤</span><span class=\"on\">👥</span><span class=\"on\">🏢</span></div>\n        <h2 class=\"rise d1\">Большие нагрузки</h2>\n        <div class=\"grow\">\n          <div class=\"plans mini rise d2\">\n            <div><span class=\"pn\">Pro Plus</span><span class=\"pu\">до 30</span><span class=\"pp2\">18,95 $</span></div>\n            <div><span class=\"pn\">Power</span><span class=\"pu\">до 50</span><span class=\"pp2\">30,35 $</span></div>\n            <div><span class=\"pn\">Max</span><span class=\"pu\">до 80</span><span class=\"pp2\">37,95 $</span></div>\n            <div><span class=\"pn\">Ultra</span><span class=\"pu\">120+</span><span class=\"pp2\">58,85 $</span></div>\n          </div>\n        </div>\n        <p class=\"rise d3\" style=\"font-size:13px\">Pro Plus — если рядом с VPN бот или сайт; Max — канал 1 Гбит/с для 4K и тяжёлого трафика.</p>"
+      ],
+      [
+        "bg2",
+        "<div class=\"k rise\">Когда пора выше</div>\n        <h2 class=\"rise d1\">Сервер не справляется, если…</h2>\n        <div class=\"grow\">\n          <div class=\"signs rise d2\">\n            <div>🌙 Вечером скорость заметно ниже, чем днём</div>\n            <div>📺 Видео буферизуется у нескольких человек сразу</div>\n            <div>🐢 Приложение и SSH отвечают с задержкой</div>\n          </div>\n        </div>\n        <p class=\"rise d3\" style=\"font-size:13px\">Не страшно: тариф меняется за пару минут, данные и IP сохраняются.</p>"
+      ],
+      [
+        "c4bg",
+        "<div class=\"grow\"><div class=\"big rise\">🧮</div></div>\n        <div class=\"k rise d1\">Подбор</div>\n        <h2 class=\"rise d2\">Подберите тариф за два шага</h2>\n        <p class=\"rise d3\" style=\"margin-bottom:16px\">Сколько человек и чем заняты в интернете — и сразу видно подходящий тариф.</p>\n        <div class=\"cta rise d4\">\n          <a class=\"p\" href=\"/choose-plan.html\">☁️ Подобрать тариф</a>\n        </div>\n        <button class=\"replay\" type=\"button\" data-next-story>Смотреть сначала ↻</button>"
+      ]
+    ]
   }
 ]
 }

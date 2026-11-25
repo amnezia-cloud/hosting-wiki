@@ -1,15 +1,21 @@
-import { h, reactive, onMounted, onUnmounted, nextTick, Teleport } from 'vue'
+import { h, reactive, ref, onMounted, onUnmounted, nextTick, Teleport } from 'vue'
 import { STORIES } from './storiesData.js'
 
-// Сторис на главной вики: блок карточек внизу главной (<AmzStories />).
-// Нажатие на карточку открывает историю во весь экран. Истории идут подряд,
-// после последней окно закрывается само. Тексты экранов — в storiesData.js.
+// Wiki Stories на главной вики (тексты экранов — storiesData.js).
+//   <AmzStories mode="rail" />  — колонка справа на широких экранах: лента карточек
+//                                 стоит вровень с колонками главной; по нажатию сверху
+//                                 выезжает экран с историей, лента уезжает вниз и
+//                                 уменьшается; ✕ возвращает всё на место.
+//   <AmzStories mode="strip" /> — на узких экранах лента под поиском; история
+//                                 открывается во весь экран.
+// Оба экземпляра делят одно состояние. Какой из них виден, решает CSS (custom.css).
 
-const state = reactive({ story: 0, slide: 0, p: 0, hold: false, open: false, seen: {} })
+const state = reactive({ story: 0, slide: 0, p: 0, hold: false, open: false, where: '', seen: {} })
 let raf = 0
 let last = 0
 
 const list = () => STORIES.ru
+const N = () => list().length
 const slidesOf = (i) => list()[i].slides
 
 // Время показа экрана зависит от количества текста на нём.
@@ -26,8 +32,7 @@ function close() {
   document.documentElement.classList.remove('amz-st-lock')
 }
 function show(i, k = 0) {
-  const n = list().length
-  state.story = (i + n) % n
+  state.story = ((i % N()) + N()) % N()
   state.slide = k
   state.p = 0
 }
@@ -35,7 +40,7 @@ function go(k) {
   const s = slidesOf(state.story)
   if (k >= s.length) {
     state.seen[list()[state.story].id] = true
-    if (state.story === list().length - 1) close()
+    if (state.story === N() - 1) close()
     else show(state.story + 1)
     return
   }
@@ -58,21 +63,22 @@ function tick(t) {
   }
   if (state.open) raf = requestAnimationFrame(tick)
 }
-function open(i) {
+function open(i, where) {
   show(i)
   state.open = true
+  state.where = where
   state.hold = false
-  document.documentElement.classList.add('amz-st-lock')
+  if (where === 'overlay') document.documentElement.classList.add('amz-st-lock')
   last = 0
   cancelAnimationFrame(raf)
   raf = requestAnimationFrame(tick)
   nextTick(() => {
-    const x = document.querySelector('.amz-st-ov__x')
+    const x = document.querySelector(where === 'overlay' ? '.amz-st-ov .amz-st-x' : '.amz-st-rail .amz-st-x')
     if (x) x.focus({ preventScroll: true })
   })
 }
 
-// Телефон с историей: полоски прогресса, шапка, текущий экран
+// Экран истории: полоски прогресса, шапка, текущий экран, ✕
 function phone() {
   const st = list()[state.story]
   const slides = st.slides
@@ -99,6 +105,7 @@ function phone() {
     go(e.clientX - r.left < r.width * 0.35 ? state.slide - 1 : state.slide + 1)
   }
   return h('div', { class: 'amz-st-phone' }, [
+    h('button', { type: 'button', class: 'amz-st-x', 'aria-label': 'Закрыть', onClick: close }, '✕'),
     h('div', {
       class: ['amz-st', state.hold ? 'is-paused' : null],
       role: 'region',
@@ -114,8 +121,8 @@ function phone() {
         h('span', null, [h('b', { style: { width: (k < state.slide ? 1 : k === state.slide ? Math.min(state.p, 1) : 0) * 100 + '%' } })])
       )),
       h('div', { class: 'who' }, [
-        h('span', { class: 'av' }, 'A'),
-        h('span', null, ['Amnezia Hosting', h('br'), h('small', null, st.who)]),
+        h('span', { class: 'av' }, 'W'),
+        h('span', null, ['Wiki Stories', h('br'), h('small', null, st.who)]),
         h('span', { class: 'sp' }),
         h('span', { class: 'pz' }, '❚❚ пауза')
       ]),
@@ -124,14 +131,16 @@ function phone() {
   ])
 }
 
-function card(st, i) {
+function card(st, i, onPick, pos) {
   const now = state.open && i === state.story
   const prog = now ? (state.slide + Math.min(state.p, 1)) / st.slides.length : (state.seen[st.id] ? 1 : 0)
   return h('button', {
     type: 'button',
     class: ['amz-st-card', st.grad, state.seen[st.id] ? 'is-seen' : null],
+    'data-pos': pos,
+    tabindex: pos === undefined || Math.abs(pos) <= 1 ? null : -1,
     'aria-label': 'Смотреть: ' + st.title,
-    onClick: () => open(i)
+    onClick: () => onPick(i)
   }, [
     h('span', { class: 'pr' }, [h('i', { style: { width: prog * 100 + '%' } })]),
     h('span', { class: 'e', 'aria-hidden': 'true' }, st.emoji),
@@ -139,30 +148,96 @@ function card(st, i) {
   ])
 }
 
+const head = () =>
+  h('div', { class: 'amz-st-head' }, [
+    h('span', { class: 'ring', 'aria-hidden': 'true' }, [h('span', null, 'W')]),
+    h('div', null, [h('b', null, 'Wiki Stories'), h('span', null, 'Новостная лента')])
+  ])
+
 export default {
   name: 'AmzStories',
-  setup() {
+  props: { mode: { type: String, default: 'strip' } },
+  setup(props) {
+    const spacer = ref(0)
+    const carH = ref(0)
+    let el = null
+    let ro = null
+
+    // Колонка справа: лента стоит вровень с колонками главной
+    const align = () => {
+      if (props.mode !== 'rail' || !el) return
+      const paths = document.querySelector('.amz-home__paths')
+      const sp = el.querySelector('.amz-st-spacer')
+      if (!paths || !sp || !el.offsetWidth) return
+      const top = sp.getBoundingClientRect().top + window.scrollY
+      const r = paths.getBoundingClientRect()
+      spacer.value = Math.max(0, Math.round(r.top + window.scrollY - top))
+      carH.value = Math.max(420, Math.round(r.height))
+    }
     const onKey = (e) => {
       if (!state.open) return
       if (e.key === 'Escape') close()
       else if (e.key === 'ArrowRight') go(state.slide + 1)
       else if (e.key === 'ArrowLeft') go(state.slide - 1)
     }
-    onMounted(() => window.addEventListener('keydown', onKey))
+    onMounted(() => {
+      if (props.mode === 'rail') {
+        nextTick(align)
+        // ещё раз — после анимации появления главной и загрузки шрифтов
+        setTimeout(align, 700)
+        if (document.fonts) document.fonts.ready.then(align)
+        ro = new ResizeObserver(align)
+        const paths = document.querySelector('.amz-home__paths')
+        if (paths) ro.observe(paths)
+        window.addEventListener('resize', align)
+      } else {
+        window.addEventListener('keydown', onKey)
+      }
+    })
     onUnmounted(() => {
+      if (ro) ro.disconnect()
+      window.removeEventListener('resize', align)
       window.removeEventListener('keydown', onKey)
       if (state.open) close()
     })
 
-    return () =>
-      h('section', { class: 'amz-st-shelf', 'aria-label': 'Сторис' }, [
-        h('div', { class: 'amz-st-side' }, [
-          h('span', { class: 'av', 'aria-hidden': 'true' }, 'A'),
-          h('b', null, 'Amnezia Hosting'),
-          h('span', null, 'Главное о VPN')
-        ]),
-        h('div', { class: 'amz-st-row' }, list().map(card)),
-        state.open
+    const pickRail = (i) => {
+      if (state.open && state.where === 'rail' && i === state.story) return
+      state.seen = { ...state.seen }
+      open(i, 'rail')
+    }
+    const step = (d) => {
+      if (state.open && state.where === 'rail') open(state.story + d, 'rail')
+      else show(state.story + d)
+    }
+
+    return () => {
+      if (props.mode === 'rail') {
+        const isOpen = state.open && state.where === 'rail'
+        const pos = (k) => { let d = ((k - state.story) % N() + N()) % N(); if (d > N() / 2) d -= N(); return d }
+        return h('aside', {
+          class: ['amz-st-rail', isOpen ? 'is-open' : null],
+          'aria-label': 'Wiki Stories',
+          ref: (r) => { el = r },
+          style: { '--sp': spacer.value + 'px', '--ch': carH.value + 'px' }
+        }, [
+          h('div', { class: 'amz-st-spacer', 'aria-hidden': 'true' }),
+          h('div', { class: 'amz-st-player' }, isOpen ? [phone()] : []),
+          h('div', { class: 'amz-st-car' }, [
+            head(),
+            h('div', { class: 'amz-st-stage' }, [
+              ...list().map((st, i) => card(st, i, pickRail, pos(i))),
+              h('button', { type: 'button', class: 'amz-st-arr l', 'aria-label': 'Назад', onClick: () => step(-1) }, '‹'),
+              h('button', { type: 'button', class: 'amz-st-arr r', 'aria-label': 'Дальше', onClick: () => step(1) }, '›')
+            ]),
+            h('div', { class: 'amz-st-dots', 'aria-hidden': 'true' }, list().map((_, k) => h('i', { class: k === state.story ? 'on' : null })))
+          ])
+        ])
+      }
+      return h('section', { class: 'amz-st-strip', 'aria-label': 'Wiki Stories' }, [
+        head(),
+        h('div', { class: 'amz-st-row' }, list().map((st, i) => card(st, i, (k) => open(k, 'overlay')))),
+        state.open && state.where === 'overlay'
           ? h(Teleport, { to: 'body' }, [
               h('div', {
                 class: 'amz-st-ov',
@@ -170,12 +245,10 @@ export default {
                 'aria-modal': 'true',
                 'aria-label': list()[state.story].title,
                 onClick: (e) => { if (e.target === e.currentTarget) close() }
-              }, [
-                h('button', { type: 'button', class: 'amz-st-ov__x', 'aria-label': 'Закрыть', onClick: close }, '✕'),
-                phone()
-              ])
+              }, [phone()])
             ])
           : null
       ])
+    }
   }
 }

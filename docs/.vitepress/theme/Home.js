@@ -226,11 +226,11 @@ export default {
             h('kbd', { class: 'amz-home__search-key' }, 'Ctrl K')
           ])
         ])
-      return h('div', { class: 'amz-home' }, [
+      const home = h('div', { class: ['amz-home', hasStories ? 'has-stories' : null] }, [
         hero,
+        hasStories ? h(AmzStories, { mode: 'strip' }) : null,
         paths,
         tiles.length ? h('div', { class: 'amz-home__tiles' }, tiles.map(tile)) : null,
-        hasStories ? h(AmzStories) : null,
         h('aside', { class: 'amz-home__help' }, [
           TELEGRAM_ICON,
           h('div', { class: 'amz-home__help-body' }, [
@@ -247,6 +247,8 @@ export default {
           t.credit[4]
         ])
       ])
+      // Wiki Stories: справа на широких экранах (rail), лента под поиском на узких (strip)
+      return hasStories ? h('div', { class: 'amz-home-wrap' }, [home, h(AmzStories, { mode: 'rail' })]) : home
     }
   }
 }
