@@ -227,10 +227,10 @@ export default {
           ])
         ])
       return h('div', { class: 'amz-home' }, [
-        hasStories ? h('div', { class: 'amz-home__top' }, [hero, h(AmzStories, { mode: 'hero' })]) : hero,
+        hero,
         paths,
         tiles.length ? h('div', { class: 'amz-home__tiles' }, tiles.map(tile)) : null,
-        hasStories ? h(AmzStories, { mode: 'shelf' }) : null,
+        hasStories ? h(AmzStories) : null,
         h('aside', { class: 'amz-home__help' }, [
           TELEGRAM_ICON,
           h('div', { class: 'amz-home__help-body' }, [

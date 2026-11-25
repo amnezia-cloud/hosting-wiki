@@ -1891,15 +1891,6 @@ html {
 .amz-st .slide a,.amz-st .slide button{cursor:pointer}
 .amz-st .slide h2{border:0;padding:0;letter-spacing:-.01em;font-weight:700;color:#fff}
 .amz-st .slide p{color:#c3dacb}
-/* шапка главной: текст слева, телефон справа */
-.amz-home__top{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:48px;align-items:center;max-width:1180px;margin:0 auto}
-.amz-st-hero{width:320px}
-.amz-st-hero .amz-st-phone{width:380px;zoom:.842}
-.amz-st-cap{margin:10px 0 0;text-align:center;font-size:12px;color:var(--vp-c-text-3)}
-@media (max-width:1099px){
-  .amz-home__top{display:block}
-  .amz-st-hero{display:none}
-}
 /* блок историй внизу */
 .amz-st-shelf{display:grid;grid-template-columns:220px minmax(0,1fr);gap:16px;margin:36px 0 18px}
 .amz-st-side{display:flex;flex-direction:column;justify-content:center;gap:4px;padding:22px;border-radius:22px;background:radial-gradient(120% 80% at 0% 0%,rgba(0,230,61,.16),transparent 60%),var(--vp-c-bg-soft);border:1px solid var(--vp-c-divider)}
@@ -1917,8 +1908,8 @@ html {
 .amz-st-card .bt{position:relative;display:block;margin:0 -14px -14px;padding:40px 14px 14px;background:linear-gradient(transparent,rgba(0,0,0,.65))}
 .amz-st-card b{display:block;font-size:15px;line-height:1.25;margin-bottom:9px}
 .amz-st-card .go{display:inline-flex;font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15)}
-.amz-st-card.is-now{box-shadow:0 0 0 2px #00e63d,0 0 36px -8px rgba(0,230,61,.7)}
-.amz-st-card.is-now .go{background:#00e63d;color:#04190b;border-color:#00e63d}
+.amz-st-card:hover .go{background:#00e63d;color:#04190b;border-color:#00e63d}
+.amz-st-card.is-seen .pr i{background:rgba(255,255,255,.55)}
 .amz-st-card.c1{background:radial-gradient(120% 80% at 30% 0%,#14532d,#07090a 65%)}
 .amz-st-card.c2{background:radial-gradient(120% 80% at 70% 10%,#065f46,#07090a 65%)}
 .amz-st-card.c3{background:radial-gradient(120% 80% at 30% 10%,#1e3a5f,#07090a 65%)}
