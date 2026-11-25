@@ -1552,7 +1552,7 @@ html {
   color: var(--vp-c-text-1);
   text-decoration: none;
   white-space: nowrap;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.4s ease;
 }
 .amz-host:hover {
   border-color: var(--vp-c-brand-2);
@@ -1562,45 +1562,67 @@ html {
   flex-direction: column;
   line-height: 1.2;
 }
+/* Надпись на плашке: мелкий надзаголовок «НАШ САЙТ» и крупное название бренда */
 .amz-host__title {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vp-c-text-2);
 }
 .amz-host__url {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--vp-c-brand-1);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--vp-c-text-1);
 }
+.amz-host__url b {
+  font-weight: 700;
+  color: var(--vp-c-brand-1);
+}/* Подсказка под плашкой: тёмное «стекло» с зелёной рамкой и светящейся точкой.
+   Центрируется без сдвига (flex), чтобы текст не оказывался на половине пикселя и
+   не размывался. Жирное начертание — из подключённых шрифтов. */
 .amz-host__tip {
   position: absolute;
   top: calc(100% + 10px);
-  left: 50%;
+  left: 0;
+  right: 0;
   z-index: 30;
-  padding: 5px 11px;
-  border-radius: 8px;
-  background: var(--vp-c-text-1);
-  color: var(--vp-c-bg);
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1.4;
-  white-space: nowrap;
+  display: flex;
+  justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transform: translate(-50%, -4px);
+  transform: translateY(-4px);
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
-.amz-host__tip::before {
+.amz-host__tip-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgba(10, 15, 12, 0.86);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 230, 61, 0.45);
+  color: #eafff0;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+  white-space: nowrap;
+  box-shadow: 0 12px 30px -12px rgba(0, 230, 61, 0.55);
+}
+.amz-host__tip-box::before {
   content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border: 5px solid transparent;
-  border-bottom-color: var(--vp-c-text-1);
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00e63d;
+  box-shadow: 0 0 8px #00e63d;
 }
 .amz-host.is-tip .amz-host__tip {
   opacity: 1;
-  transform: translate(-50%, 0);
+  transform: none;
 }
 /* Рядом с поиском места меньше: на узких экранах остаётся только кубик. */
 @media (max-width: 1439px) {
@@ -1757,6 +1779,35 @@ html {
   0%, 72%, 100% { transform: translate3d(var(--x), var(--y), var(--z)); }
   78%, 86% {
     transform: translate3d(calc(var(--x) + var(--px)), calc(var(--y) + var(--py)), calc(var(--z) + var(--pz)));
+  }
+}
+/* При наведении кубик вырастает (с «пружинным» перелётом) и светится. Сама плашка
+   не меняет размер — кубик просто выходит за её край (влево и вниз: сверху шапка
+   упирается в край окна), соседние элементы шапки не двигаются. Дальше его
+   раскручивает и разбирает на блоки HostCube.js (burst). Только там, где есть мышь,
+   и если анимации не отключены. */
+.amz-cube {
+  transform-origin: 50% 50%;
+  transition: transform 0.55s cubic-bezier(0.2, 1.6, 0.35, 1), filter 0.4s ease;
+}
+.amz-host__text {
+  transition: transform 0.5s cubic-bezier(0.2, 1.6, 0.35, 1);
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .amz-host:hover,
+  .amz-host:focus-visible {
+    z-index: 40;
+    border-color: var(--vp-c-brand-2);
+    box-shadow: 0 0 0 4px rgba(0, 230, 61, 0.12), 0 10px 30px -12px rgba(0, 230, 61, 0.7);
+  }
+  .amz-host:hover .amz-cube,
+  .amz-host:focus-visible .amz-cube {
+    transform: translate(-15px, 14px) scale(2.5);
+    filter: drop-shadow(0 0 12px rgba(0, 230, 61, 0.65));
+  }
+  .amz-host:hover .amz-host__text,
+  .amz-host:focus-visible .amz-host__text {
+    transform: translateX(4px);
   }
 }
 @media (prefers-reduced-motion: reduce) {

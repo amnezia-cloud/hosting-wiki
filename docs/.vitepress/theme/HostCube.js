@@ -8,16 +8,23 @@ import { useData } from 'vitepress'
 // «Кубик»): графитовые грани с мигающими огоньками. Он медленно вращается,
 // верхний и нижний слои по очереди поворачиваются, как у кубика Рубика,
 // блоки по одному «всплывают», а под плашкой появляется подсказка о хостинге.
+// При наведении кубик вырастает и проходит короткую последовательность (burst):
+// плавный разгон вращения до очень быстрого, затем замедление, во время которого
+// блоки разлетаются, и сборка обратно, когда лишнее вращение уже затихло.
+// Лишнее вращение — свойство rotate у слоёв (складывается с обычным вращением из CSS),
+// сумма оборотов целая, поэтому в конце кубик в том же положении и с прежней скоростью.
+// Рост при наведении — в custom.css; последовательность не запускается без наведения
+// (телефоны) и при настройке системы «меньше анимации».
 
 const STRINGS = {
   ru: {
-    title: 'Наш Сайт',
+    title: 'Наш сайт',
     url: 'https://storage.googleapis.com/amnezia/host',
     label: 'AmneziaCloud Hosting',
     tips: ['VPS от 5,25 $/мес', 'Безлимитный трафик', 'Сервер за 5 минут', 'Дата-центр в Амстердаме', 'Оплата картами и СБП']
   },
   en: {
-    title: 'Our website',
+    title: 'Our site',
     url: 'https://storage.googleapis.com/amnezia/host',
     label: 'AmneziaCloud Hosting',
     tips: ['VPS from $5.25/mo', 'Unlimited traffic', 'Server in 5 minutes', 'Amsterdam data center', 'Pay by card or crypto']
@@ -29,6 +36,77 @@ const CELLS = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0], [0, 0, 1], [1, 0, 1],
 const DELAYS = [0, 5, 2.5, 7.5, 6.25, 1.25, 8.75, 3.75]
 
 const SIZE = 26
+
+// Параметры последовательности: обороты, длительность (мс), доли времени
+const BURST = { turns: 9, duration: 4800, up: 0.27, peak: 0.1, down: 0.4, spread: 3.4, shrink: 0.56, out: 900, back: 1000 }
+const IN = 'cubic-bezier(.11,0,.5,0)'
+const OUT = 'cubic-bezier(.5,1,.89,1)'
+const SPRING_OUT = 'cubic-bezier(.25,1.35,.4,1)'
+const SPRING_BACK = 'cubic-bezier(.3,1.15,.4,1)'
+
+let bursting = false
+
+function burst(host) {
+  if (bursting || typeof window === 'undefined') return
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  const cubeEl = host.querySelector('.amz-cube')
+  if (!cubeEl || !cubeEl.animate) return
+
+  const { turns, duration: D, up, peak, down, spread, shrink, out, back } = BURST
+  const T1 = up * D
+  const T2 = peak * D
+  const T3 = down * D
+  const E = T1 + T2 + T3
+  const total = 360 * turns
+  const w = total / (T1 / 2 + T2 + T3 / 2)
+  const A1 = (w * T1) / 2
+  const A2 = w * T2
+  const rot = (deg) => '0 1 0 ' + -deg + 'deg'
+
+  const anims = []
+  host.querySelectorAll('.amz-cube__layer').forEach((layer) => {
+    anims.push(layer.animate([
+      { rotate: rot(0), offset: 0, easing: IN },
+      { rotate: rot(A1), offset: T1 / D, easing: 'linear' },
+      { rotate: rot(A1 + A2), offset: (T1 + T2) / D, easing: OUT },
+      { rotate: rot(total), offset: E / D },
+      { rotate: rot(total), offset: 1 }
+    ], { duration: D }))
+  })
+
+  // Разлёт: начинается к концу быстрого вращения, сборка — когда лишнее вращение затихло
+  const a = (T1 + 0.4 * T2) / D
+  const b = a + out / D
+  const c = E / D
+  const d = Math.min(1, c + back / D)
+  const zero = '0px 0px 0px'
+  host.querySelectorAll('.amz-cube__cell').forEach((el) => {
+    const cs = getComputedStyle(el)
+    const e = ['--px', '--py', '--pz'].map((v) => parseFloat(cs.getPropertyValue(v)) * spread + 'px').join(' ')
+    anims.push(el.animate([
+      { translate: zero, offset: 0 },
+      { translate: zero, offset: a, easing: SPRING_OUT },
+      { translate: e, offset: b },
+      { translate: e, offset: c, easing: SPRING_BACK },
+      { translate: zero, offset: d },
+      { translate: zero, offset: 1 }
+    ], { duration: D }))
+  })
+  // На время разлёта кубик чуть сжимается и опускается, чтобы блоки не упирались в верхний край окна
+  anims.push(cubeEl.animate([
+    { scale: 1, translate: '0px 0px', offset: 0 },
+    { scale: 1, translate: '0px 0px', offset: a, easing: SPRING_OUT },
+    { scale: shrink, translate: '0px 10px', offset: b },
+    { scale: shrink, translate: '0px 10px', offset: c, easing: SPRING_BACK },
+    { scale: 1, translate: '0px 0px', offset: d },
+    { scale: 1, translate: '0px 0px', offset: 1 }
+  ], { duration: D }))
+
+  bursting = true
+  const done = () => { bursting = false }
+  Promise.all(anims.map((x) => x.finished)).then(done, done)
+}
 
 const cell = ([x, y, z], i) => {
   const c = SIZE / 2
@@ -100,17 +178,17 @@ export default {
             href: t.value.url,
             target: '_blank',
             rel: 'noreferrer',
-            onMouseenter: () => { hover = true; show() },
+            onMouseenter: (e) => { hover = true; show(); burst(e.currentTarget) },
             onMouseleave: () => { hover = false; close() },
-            onFocus: show,
+            onFocus: (e) => { show(); burst(e.currentTarget) },
             onBlur: close
           }, [
             cube(),
             h('span', { class: 'amz-host__text' }, [
               h('span', { class: 'amz-host__title' }, t.value.title),
-              h('span', { class: 'amz-host__url' }, t.value.label)
+              h('span', { class: 'amz-host__url' }, ['Amnezia', h('b', null, 'Cloud'), ' Hosting'])
             ]),
-            h('span', { class: 'amz-host__tip', role: 'status' }, tip.value)
+            h('span', { class: 'amz-host__tip', role: 'status' }, [h('span', { class: 'amz-host__tip-box' }, tip.value)])
           ])
   }
 }
