@@ -1607,7 +1607,7 @@ html {
     left: 56px;
   }
 }
-.amz-host__tip-box {
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) { .amz-host:hover .amz-host__tip, .amz-host:focus-visible .amz-host__tip { opacity: 0 !important; } } .amz-host__tip-box {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1823,7 +1823,7 @@ html {
   .amz-host:hover .amz-host__text,
   .amz-host:focus-visible .amz-host__text {
     opacity: 0;
-    transform: translateX(8px);
+    opacity: 1; transform: translateX(4px);
   }
 }
 @media (prefers-reduced-motion: reduce) {
