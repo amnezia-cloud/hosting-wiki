@@ -1959,6 +1959,15 @@ html {
 .amz-home-wrap > .amz-home{max-width:none;margin:0;padding-left:0;padding-right:0}
 .amz-st-rail{padding-top:40px}
 .amz-st-strip{display:none}
+/* Шапка главной (заголовок, кнопки, поиск) центрируется по всей ширине блока вместе с
+   колонкой историй, а не только над четырьмя колонками: отрицательный правый отступ
+   равен ширине колонки историй (330) плюс промежутку (32). Колонка историй не
+   перехватывает клики в пустой верхней части. */
+@media (min-width:1400px){
+  .amz-home-wrap .amz-home__hero{margin-right:-362px}
+  .amz-st-rail{pointer-events:none}
+  .amz-st-rail .amz-st-player,.amz-st-rail .amz-st-car{pointer-events:auto}
+}
 @media (max-width:1399px){
   .amz-home-wrap{display:block;padding:0}
   .amz-home-wrap > .amz-home{max-width:1152px;margin:0 auto;padding-left:24px;padding-right:24px}
