@@ -6,8 +6,8 @@ import { useData } from 'vitepress'
 // на остальных страницах — рядом с поиском. Ведёт на зеркало сайта хостинга.
 // Кубик собран из 8 маленьких «серверных» блоков на CSS (custom.css, раздел
 // «Кубик»): графитовые грани с мигающими огоньками. Он медленно вращается,
-// а надпись «Наш сайт» на плашке — табло, как у перекидных часов: раз в несколько
-// секунд створка перелистывается и показывает подсказку о хостинге (цена, трафик и т.д.).
+// а надпись «Наш сайт» на плашке время от времени сменяется подсказкой о хостинге
+// (цена, трафик и т.д.) — прямо в плашке, без всплывающих окон.
 // При наведении кубик вырастает и проходит короткую последовательность (burst):
 // плавный разгон вращения до очень быстрого, затем замедление, во время которого
 // блоки разлетаются, и сборка обратно, когда лишнее вращение уже затихло.
@@ -152,45 +152,24 @@ export default {
     const t = computed(() => (lang.value && lang.value.startsWith('en') ? STRINGS.en : STRINGS.ru))
     const isHome = computed(() => frontmatter.value.layout === 'home')
 
-    // Табло как у перекидных часов: «Наш сайт» и подсказки по кругу.
-    // step — номер текущей надписи; prev — предыдущая (её створки и перелистываются).
-    const step = ref(0)
-    const prev = ref(-1)
+    // Номер показанной подсказки; -1 — видна надпись «Наш сайт».
+    const current = ref(-1)
+    let index = 0
     let hover = false
     let cycle = 0
-    let settle = 0
-    const lines = () => [t.value.title, ...t.value.tips]
+    let hide = 0
 
     onMounted(() => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-      // Раз в 5 секунд табло перелистывается на следующую надпись.
+      // Раз в 7 секунд вместо «Наш сайт» на 3 секунды встаёт следующая подсказка.
       cycle = setInterval(() => {
         if (hover || document.hidden) return
-        prev.value = step.value
-        step.value = (step.value + 1) % lines().length
-        // после перелистывания (2 × 0,28 с) створки убираем — табло снова цельное
-        clearTimeout(settle)
-        settle = setTimeout(() => { prev.value = -1 }, 700)
-      }, 5000)
+        current.value = index % t.value.tips.length
+        index += 1
+        hide = setTimeout(() => { current.value = -1 }, 3000)
+      }, 7000)
     })
-    onUnmounted(() => { clearInterval(cycle); clearTimeout(settle) })
-
-    // Половина табло: верхняя или нижняя часть строки text.
-    const half = (cls, text, key) => h('span', { class: 'amz-flap__half ' + cls, key }, [h('i', null, text)])
-    const flap = () => {
-      const all = lines()
-      const cur = all[step.value]
-      const old = prev.value < 0 ? cur : all[prev.value]
-      const k = String(step.value) + ':' + String(prev.value)
-      return h('span', { class: ['amz-flap', step.value ? 'is-tip' : null], 'aria-label': cur }, [
-        // невидимые строки задают ширину по самой длинной — табло не меняет размер
-        ...all.map((x) => h('span', { class: 'amz-flap__size', 'aria-hidden': 'true' }, x)),
-        half('is-top', cur, 'top'),
-        half('is-bot', old, 'bot:' + k),
-        prev.value < 0 ? null : half('is-top is-fold', old, 'fold:' + k),
-        prev.value < 0 ? null : half('is-bot is-unfold', cur, 'unfold:' + k)
-      ])
-    }
+    onUnmounted(() => { clearInterval(cycle); clearTimeout(hide) })
 
     return () =>
       h('a', {
@@ -205,7 +184,12 @@ export default {
           }, [
             cube(),
             h('span', { class: 'amz-host__text' }, [
-              h('span', { class: 'amz-host__title' }, [flap()]),
+              h('span', { class: 'amz-host__title' }, [
+                h('span', { class: ['amz-host__say', current.value < 0 ? 'is-on' : null] }, t.value.title),
+                ...t.value.tips.map((tip, i) =>
+                  h('span', { class: ['amz-host__say', 'is-tip', current.value === i ? 'is-on' : null], 'aria-hidden': 'true' }, tip)
+                )
+              ]),
               h('span', { class: 'amz-host__url' }, ['Amnezia', h('b', null, 'Cloud'), ' Hosting'])
             ])
           ])
