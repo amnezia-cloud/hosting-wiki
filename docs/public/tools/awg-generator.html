@@ -540,7 +540,7 @@ body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 "IBM Plex San
   </div>
   <details class="start" id="start-gen">
     <summary><span class="st-ic" aria-hidden="true">🧭</span><span><b>С чего начать?</b><small>Настройка сервера в приложении AmneziaVPN</small></span><span class="st-dot" aria-hidden="true"></span><span class="chev" aria-hidden="true">⌄</span></summary>
-    <div class="st-body"><ol class="st-steps"><li><span>Установите протокол <b>AmneziaWG 3.1</b>: в AmneziaVPN <b>5.0.1.5</b> нажмите <b>шестерёнку ⚙️</b> у сервера → вкладка <b>«Протоколы»</b> → <b>AmneziaWG</b> → установить.</span></li><li><span>Откройте <b>«Настройки сервера» → «AmneziaWG» → «AmneziaWG настройки сервера»</b>.</span></li><li><span>Нажмите <b>«Сгенерировать»</b> ниже и перенесите значения в поля с теми же названиями — экран за экраном, сверху вниз.</span></li><li><span>Нажмите <b>«Сохранить» → «Продолжить»</b> и дождитесь переустановки протокола. Подключения выдайте заново.</span></li></ol><p class="st-note">Уже есть файл конфига? Выберите вторую карточку ниже.</p></div>
+    <div class="st-body"><ol class="st-steps"><li><span>Установите протокол <b>AmneziaWG 3.1</b>: в приложении AmneziaVPN нажмите <b>шестерёнку ⚙️</b> у сервера → вкладка <b>«Протоколы»</b> → <b>AmneziaWG</b> → установить.</span></li><li><span>Откройте <b>«Настройки сервера» → «AmneziaWG» → «AmneziaWG настройки сервера»</b>.</span></li><li><span>Нажмите <b>«Сгенерировать»</b> ниже и перенесите значения в поля с теми же названиями — экран за экраном, сверху вниз.</span></li><li><span>Нажмите <b>«Сохранить» → «Продолжить»</b> и дождитесь переустановки протокола. Подключения выдайте заново.</span></li></ol><p class="st-note">Уже есть файл конфига? Выберите вторую карточку ниже.</p></div>
   </details>
   <details class="start" id="start-chk" hidden>
     <summary><span class="st-ic" aria-hidden="true">🧭</span><span><b>С чего начать?</b><small>Как получить конфиг из приложения</small></span><span class="st-dot" aria-hidden="true"></span><span class="chev" aria-hidden="true">⌄</span></summary>
@@ -1198,13 +1198,13 @@ body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 "IBM Plex San
 /* «С чего начать?»: у каждой карточки своя подсказка; состояние «свёрнуто / развёрнуто» запоминается */
 (function () {
   var cards = { gen: document.getElementById('start-gen'), chk: document.getElementById('start-chk') };
-  function get(k) { try { return localStorage.getItem('awg-start-' + k); } catch (e) { return null; } }
-  function put(k, v) { try { localStorage.setItem('awg-start-' + k, v); } catch (e) {} }
+  function get(k) { try { return localStorage.getItem('awg-start-seen-' + k); } catch (e) { return null; } }
+  function put(k, v) { try { localStorage.setItem('awg-start-seen-' + k, v); } catch (e) {} }
   Object.keys(cards).forEach(function (k) {
-    var d = cards[k], s = get(k);
-    d.open = s === 'open'; /* по умолчанию свёрнуто */
-    if (!s) d.classList.add('attn'); /* ни разу не трогали — мигаем, привлекаем внимание */
-    d.querySelector('summary').addEventListener('click', function () { d.classList.remove('attn'); put(k, d.open ? 'closed' : 'open'); });
+    var d = cards[k];
+    d.open = false; /* всегда начинаем со свёрнутой подсказки */
+    if (!get(k)) d.classList.add('attn'); /* ни разу не открывали — мигаем, привлекаем внимание */
+    d.querySelector('summary').addEventListener('click', function () { d.classList.remove('attn'); put(k, 'seen'); });
   });
   function sync() { var gen = document.getElementById('t-gen').getAttribute('aria-selected') === 'true'; cards.gen.hidden = !gen; cards.chk.hidden = gen; }
   ['t-gen', 't-chk'].forEach(function (id) { document.getElementById(id).addEventListener('click', function () { setTimeout(sync, 0); }); });
