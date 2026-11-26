@@ -22,7 +22,10 @@ export default {
       const w = frame.value && frame.value.contentWindow
       if (w) w.postMessage({ type: 'awg-theme', dark: isDark.value }, '*')
     }
-    onMounted(() => { src.value = file() + '?embed=1&theme=' + (isDark.value ? 'dark' : 'light') })
+    // Параметр v меняется раз в 10 минут: браузер и CDN не держат старую копию генератора
+    // (файл лежит в public/tools и без этого может «залипать» после обновления).
+    const bust = () => Math.floor(Date.now() / 600000)
+    onMounted(() => { src.value = file() + '?embed=1&theme=' + (isDark.value ? 'dark' : 'light') + '&v=' + bust() })
     watch(isDark, send)
     return () =>
       h('div', { class: 'awg-frame' }, [
