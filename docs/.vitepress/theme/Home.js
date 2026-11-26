@@ -228,7 +228,7 @@ export default {
         ])
       const home = h('div', { class: ['amz-home', hasStories ? 'has-stories' : null] }, [
         hero,
-        hasStories ? h(AmzStories) : null,
+        hasStories ? h(AmzStories, { mode: 'strip' }) : null,
         paths,
         tiles.length ? h('div', { class: 'amz-home__tiles' }, tiles.map(tile)) : null,
         h('aside', { class: 'amz-home__help' }, [
@@ -247,7 +247,8 @@ export default {
           t.credit[4]
         ])
       ])
-      return home
+      // Wiki Stories: справа на широких экранах (rail), лента под поиском на узких (strip)
+      return hasStories ? h('div', { class: 'amz-home-wrap' }, [home, h(AmzStories, { mode: 'rail' })]) : home
     }
   }
 }
