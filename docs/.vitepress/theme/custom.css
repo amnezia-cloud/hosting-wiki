@@ -1587,24 +1587,86 @@ html {
   font-weight: 600;
   color: var(--vp-c-brand-1);
 }
-/* Подсказки о хостинге («VPS от 5,25 $/мес» и т.д.) — прямо в плашке, на месте
-   надписи «Наш сайт»: строки лежат стопкой в одной ячейке сетки, видна одна.
-   Ширина плашки = самая длинная строка, поэтому при смене ничего не прыгает. */
-.amz-host__title {
+/* Табло «Наш сайт» / подсказки — как у перекидных часов (HostCube.js, flap()).
+   Строка разрезана на верхнюю и нижнюю половины. При смене верхняя створка со старым
+   текстом падает вниз (до ребра), затем нижняя с новым текстом доворачивается до конца.
+   Под створками уже лежат: сверху — новый текст, снизу — старый. */
+.amz-flap {
+  --h: 18px;
+  position: relative;
   display: grid;
+  align-self: flex-start;
+  height: var(--h);
+  margin-bottom: 1px;
+  padding: 0 7px;
+  font-size: 10.5px;
+  border-radius: 4px;
+  perspective: 120px;
+  color: #b9f5c9;
 }
-.amz-host__say {
+.amz-flap.is-tip {
+  color: #3cf06a;
+}
+.amz-flap__size {
   grid-area: 1 / 1;
-  opacity: 0;
-  transform: translateY(5px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  visibility: hidden;
+  line-height: var(--h);
+  white-space: nowrap;
 }
-.amz-host__say.is-on {
-  opacity: 1;
-  transform: none;
+.amz-flap__half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: calc(var(--h) / 2);
+  overflow: hidden;
+  background: #161c19;
+  backface-visibility: hidden;
 }
-.amz-host__say.is-tip {
-  color: var(--vp-c-brand-1);
+.amz-flap__half.is-top {
+  top: 0;
+  border-radius: 4px 4px 0 0;
+  transform-origin: 50% 100%;
+  background: linear-gradient(#1f2723, #161c19);
+}
+.amz-flap__half.is-bot {
+  top: 50%;
+  border-radius: 0 0 4px 4px;
+  transform-origin: 50% 0;
+}
+.amz-flap__half i {
+  display: block;
+  height: var(--h);
+  font-style: normal;
+  line-height: var(--h);
+  text-align: center;
+  white-space: nowrap;
+}
+.amz-flap__half.is-bot i {
+  margin-top: calc(var(--h) / -2);
+}
+.amz-flap__half.is-fold {
+  z-index: 2;
+  animation: amz-flap-fold 0.28s ease-in forwards;
+}
+/* Шов между створками виден только пока табло перелистывается: в покое он
+   на мелком тексте читался бы как зачёркивание. */
+.amz-flap__half.is-fold {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+.amz-flap__half.is-unfold {
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  transform: rotateX(90deg);
+  animation: amz-flap-unfold 0.28s 0.28s ease-out forwards;
+}
+@keyframes amz-flap-fold {
+  from { transform: rotateX(0deg); }
+  to { transform: rotateX(-90deg); filter: brightness(0.6); }
+}
+@keyframes amz-flap-unfold {
+  from { transform: rotateX(90deg); filter: brightness(0.6); }
+  90% { border-top-color: rgba(0, 0, 0, 0.5); }
+  to { transform: rotateX(0deg); border-top-color: transparent; }
 }
 /* Рядом с поиском места меньше: на узких экранах остаётся только кубик. */
 @media (max-width: 1439px) {
