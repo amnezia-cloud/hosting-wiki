@@ -6,8 +6,8 @@ import { useData } from 'vitepress'
 // на остальных страницах — рядом с поиском. Ведёт на зеркало сайта хостинга.
 // Кубик собран из 8 маленьких «серверных» блоков на CSS (custom.css, раздел
 // «Кубик»): графитовые грани с мигающими огоньками. Он медленно вращается,
-// верхний и нижний слои по очереди поворачиваются, как у кубика Рубика,
-// блоки по одному «всплывают», а под плашкой появляется подсказка о хостинге.
+// а надпись «Наш сайт» на плашке время от времени сменяется подсказкой о хостинге
+// (цена, трафик и т.д.) — прямо в плашке, без всплывающих окон.
 // При наведении кубик вырастает и проходит короткую последовательность (burst):
 // плавный разгон вращения до очень быстрого, затем замедление, во время которого
 // блоки разлетаются, и сборка обратно, когда лишнее вращение уже затихло.
@@ -35,7 +35,7 @@ const STRINGS = {
 const CELLS = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0], [0, 0, 1], [1, 0, 1], [0, 1, 1], [1, 1, 1]]
 const DELAYS = [0, 5, 2.5, 7.5, 6.25, 1.25, 8.75, 3.75]
 
-const SIZE = 26
+const SIZE = 22
 
 // Параметры последовательности: обороты, длительность (мс), доли времени
 const BURST = { turns: 9, duration: 4800, up: 0.27, peak: 0.1, down: 0.4, spread: 3.4, shrink: 0.56, out: 900, back: 1000 }
@@ -152,50 +152,46 @@ export default {
     const t = computed(() => (lang.value && lang.value.startsWith('en') ? STRINGS.en : STRINGS.ru))
     const isHome = computed(() => frontmatter.value.layout === 'home')
 
-    const tip = ref('')
-    const open = ref(false)
+    // Номер показанной подсказки; -1 — видна надпись «Наш сайт».
+    const current = ref(-1)
     let index = 0
     let hover = false
     let cycle = 0
     let hide = 0
 
-    const next = () => {
-      const tips = t.value.tips
-      tip.value = tips[index % tips.length]
-      index += 1
-    }
-    const show = () => { clearTimeout(hide); next(); open.value = true }
-    const close = () => { open.value = false }
-
     onMounted(() => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-      // Раз в 7 секунд подсказка всплывает сама на пару секунд.
+      // Раз в 7 секунд вместо «Наш сайт» на 3 секунды встаёт следующая подсказка.
       cycle = setInterval(() => {
         if (hover || document.hidden) return
-        show()
-        hide = setTimeout(close, 2600)
+        current.value = index % t.value.tips.length
+        index += 1
+        hide = setTimeout(() => { current.value = -1 }, 3000)
       }, 7000)
     })
     onUnmounted(() => { clearInterval(cycle); clearTimeout(hide) })
 
     return () =>
       h('a', {
-            class: ['amz-host', isHome.value ? 'is-home' : null, open.value ? 'is-tip' : null],
+            class: ['amz-host', isHome.value ? 'is-home' : null],
             href: t.value.url,
             target: '_blank',
             rel: 'noreferrer',
-            onMouseenter: (e) => { hover = true; show(); burst(e.currentTarget) },
-            onMouseleave: () => { hover = false; close() },
+            onMouseenter: (e) => { hover = true; burst(e.currentTarget) },
+            onMouseleave: () => { hover = false },
             // раскрутка по фокусу — только если фокус с клавиатуры (не после клика мышью)
-            onFocus: (e) => { show(); if (e.currentTarget.matches(':focus-visible')) burst(e.currentTarget) },
-            onBlur: close
+            onFocus: (e) => { if (e.currentTarget.matches(':focus-visible')) burst(e.currentTarget) }
           }, [
             cube(),
             h('span', { class: 'amz-host__text' }, [
-              h('span', { class: 'amz-host__title' }, t.value.title),
+              h('span', { class: 'amz-host__title' }, [
+                h('span', { class: ['amz-host__say', current.value < 0 ? 'is-on' : null] }, t.value.title),
+                ...t.value.tips.map((tip, i) =>
+                  h('span', { class: ['amz-host__say', 'is-tip', current.value === i ? 'is-on' : null], 'aria-hidden': 'true' }, tip)
+                )
+              ]),
               h('span', { class: 'amz-host__url' }, ['Amnezia', h('b', null, 'Cloud'), ' Hosting'])
-            ]),
-            h('span', { class: 'amz-host__tip', role: 'status' }, [h('span', { class: 'amz-host__tip-box' }, tip.value)])
+            ])
           ])
   }
 }
