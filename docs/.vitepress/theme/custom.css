@@ -2190,3 +2190,13 @@ html.amz-st-lock,html.amz-st-lock body{overflow:hidden}
 @keyframes st-tapp{0%{box-shadow:0 0 0 0 rgba(251,178,106,.6)}100%{box-shadow:0 0 0 12px rgba(251,178,106,0)}}
 @keyframes st-press{50%{transform:scale(.95)}}
 @keyframes st-bl{50%{opacity:0}}
+
+/* Низ главной (плитки «Сервер / Справочная / Оплата», плашка поддержки, спасибо)
+   стоит под колонкой историй, поэтому растягивается на всю ширину блока, как шапка:
+   тогда он по центру страницы, а не только под четырьмя колонками. */
+@media (min-width:1400px){
+  .amz-home-wrap .amz-home__tiles,
+  .amz-home-wrap .amz-home__help{margin-right:-362px}
+  /* у текста своя ширина 720px с auto-полями — сдвигаем на половину колонки историй */
+  .amz-home-wrap .amz-home__credit{position:relative;left:181px}
+}
