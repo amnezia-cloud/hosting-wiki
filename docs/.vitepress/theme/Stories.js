@@ -1,9 +1,14 @@
-import { h, reactive, onMounted, onUnmounted, nextTick, Teleport } from 'vue'
+import { h, reactive, ref, onMounted, onUnmounted, nextTick, Teleport } from 'vue'
 import { STORIES } from './storiesData.js'
 
 // Wiki Stories на главной вики (тексты экранов — storiesData.js).
-// Ряд кружков по центру под поиском, как сторис в соцсетях; история
-// открывается поверх страницы во весь экран.
+//   <AmzStories mode="rail" />  — колонка справа на широких экранах: лента карточек
+//                                 стоит вровень с колонками главной; по нажатию сверху
+//                                 выезжает экран с историей, лента уезжает вниз и
+//                                 уменьшается; ✕ возвращает всё на место.
+//   <AmzStories mode="strip" /> — на узких экранах лента под поиском; история
+//                                 открывается во весь экран.
+// Оба экземпляра делят одно состояние. Какой из них виден, решает CSS (custom.css).
 
 const state = reactive({ story: 0, slide: 0, p: 0, hold: false, open: false, where: '', seen: {} })
 let raf = 0
@@ -68,7 +73,7 @@ function open(i, where) {
   cancelAnimationFrame(raf)
   raf = requestAnimationFrame(tick)
   nextTick(() => {
-    const x = document.querySelector('.amz-st-ov .amz-st-x')
+    const x = document.querySelector(where === 'overlay' ? '.amz-st-ov .amz-st-x' : '.amz-st-rail .amz-st-x')
     if (x) x.focus({ preventScroll: true })
   })
 }
@@ -126,41 +131,113 @@ function phone() {
   ])
 }
 
-// Кружок истории: кольцо зелёное, пока история не просмотрена (серое — после),
-// внутри эмодзи на фоне истории, под кружком название.
-function bubble(st, i) {
+function card(st, i, onPick, pos) {
+  const now = state.open && i === state.story
+  const prog = now ? (state.slide + Math.min(state.p, 1)) / st.slides.length : (state.seen[st.id] ? 1 : 0)
   return h('button', {
     type: 'button',
-    class: ['amz-st-bub', state.seen[st.id] ? 'is-seen' : null],
+    class: ['amz-st-card', st.grad, state.seen[st.id] ? 'is-seen' : null],
+    'data-pos': pos,
+    tabindex: pos === undefined || Math.abs(pos) <= 1 ? null : -1,
     'aria-label': 'Смотреть: ' + st.title,
-    onClick: () => open(i, 'overlay')
+    onClick: () => onPick(i)
   }, [
-    h('span', { class: 'ring', 'aria-hidden': 'true' }, [
-      h('span', { class: ['pic', st.grad] }, st.emoji)
-    ]),
-    h('span', { class: 'cap' }, st.title)
+    h('span', { class: 'pr' }, [h('i', { style: { width: prog * 100 + '%' } })]),
+    h('span', { class: 'e', 'aria-hidden': 'true' }, st.emoji),
+    h('span', { class: 'bt' }, [h('b', null, st.title), h('span', { class: 'go' }, '▶ Смотреть')])
   ])
 }
 
+const head = () =>
+  h('div', { class: 'amz-st-head' }, [
+    h('span', { class: 'ring', 'aria-hidden': 'true' }, [h('span', null, 'W')]),
+    h('div', null, [h('b', null, 'Wiki Stories'), h('span', null, 'Новостная лента')])
+  ])
+
 export default {
   name: 'AmzStories',
-  setup() {
+  props: { mode: { type: String, default: 'strip' } },
+  setup(props) {
+    const spacer = ref(0)
+    const carH = ref(0)
+    let el = null
+    let ro = null
+
+    // Колонка справа: лента стоит вровень с колонками главной
+    const align = () => {
+      if (props.mode !== 'rail' || !el) return
+      const paths = document.querySelector('.amz-home__paths')
+      const sp = el.querySelector('.amz-st-spacer')
+      if (!paths || !sp || !el.offsetWidth) return
+      const top = sp.getBoundingClientRect().top + window.scrollY
+      const r = paths.getBoundingClientRect()
+      spacer.value = Math.max(0, Math.round(r.top + window.scrollY - top))
+      carH.value = Math.max(420, Math.round(r.height))
+    }
     const onKey = (e) => {
       if (!state.open) return
       if (e.key === 'Escape') close()
       else if (e.key === 'ArrowRight') go(state.slide + 1)
       else if (e.key === 'ArrowLeft') go(state.slide - 1)
     }
-    onMounted(() => window.addEventListener('keydown', onKey))
+    onMounted(() => {
+      if (props.mode === 'rail') {
+        nextTick(align)
+        // ещё раз — после анимации появления главной и загрузки шрифтов
+        setTimeout(align, 700)
+        if (document.fonts) document.fonts.ready.then(align)
+        ro = new ResizeObserver(align)
+        const paths = document.querySelector('.amz-home__paths')
+        if (paths) ro.observe(paths)
+        window.addEventListener('resize', align)
+      } else {
+        window.addEventListener('keydown', onKey)
+      }
+    })
     onUnmounted(() => {
+      if (ro) ro.disconnect()
+      window.removeEventListener('resize', align)
       window.removeEventListener('keydown', onKey)
       if (state.open) close()
     })
 
-    return () =>
-      h('section', { class: 'amz-st-strip', 'aria-label': 'Wiki Stories' }, [
-        h('div', { class: 'amz-st-row' }, list().map(bubble)),
-        state.open
+    const pickRail = (i) => {
+      if (state.open && state.where === 'rail' && i === state.story) return
+      state.seen = { ...state.seen }
+      open(i, 'rail')
+    }
+    const step = (d) => {
+      if (state.open && state.where === 'rail') open(state.story + d, 'rail')
+      else show(state.story + d)
+    }
+
+    return () => {
+      if (props.mode === 'rail') {
+        const isOpen = state.open && state.where === 'rail'
+        const pos = (k) => { let d = ((k - state.story) % N() + N()) % N(); if (d > N() / 2) d -= N(); return d }
+        return h('aside', {
+          class: ['amz-st-rail', isOpen ? 'is-open' : null],
+          'aria-label': 'Wiki Stories',
+          ref: (r) => { el = r },
+          style: { '--sp': spacer.value + 'px', '--ch': carH.value + 'px' }
+        }, [
+          h('div', { class: 'amz-st-spacer', 'aria-hidden': 'true' }),
+          h('div', { class: 'amz-st-player' }, isOpen ? [phone()] : []),
+          h('div', { class: 'amz-st-car' }, [
+            head(),
+            h('div', { class: 'amz-st-stage' }, [
+              ...list().map((st, i) => card(st, i, pickRail, pos(i))),
+              h('button', { type: 'button', class: 'amz-st-arr l', 'aria-label': 'Назад', onClick: () => step(-1) }, '‹'),
+              h('button', { type: 'button', class: 'amz-st-arr r', 'aria-label': 'Дальше', onClick: () => step(1) }, '›')
+            ]),
+            h('div', { class: 'amz-st-dots', 'aria-hidden': 'true' }, list().map((_, k) => h('i', { class: k === state.story ? 'on' : null })))
+          ])
+        ])
+      }
+      return h('section', { class: 'amz-st-strip', 'aria-label': 'Wiki Stories' }, [
+        head(),
+        h('div', { class: 'amz-st-row' }, list().map((st, i) => card(st, i, (k) => open(k, 'overlay')))),
+        state.open && state.where === 'overlay'
           ? h(Teleport, { to: 'body' }, [
               h('div', {
                 class: 'amz-st-ov',
@@ -172,5 +249,6 @@ export default {
             ])
           : null
       ])
+    }
   }
 }
