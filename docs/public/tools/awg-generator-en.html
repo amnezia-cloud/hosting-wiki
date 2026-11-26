@@ -515,6 +515,16 @@ body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 "IBM Plex San
 .st-steps code{font:12px "JetBrains Mono",monospace;padding:1px 6px;border-radius:6px;background:var(--code);color:var(--text)}
 .st-note{margin:12px 0 0;padding:9px 12px;border-radius:12px;background:var(--brandsoft);font-size:12.5px;line-height:1.45;color:var(--text2)}
 .st-note b{color:var(--text)}
+
+/* привлекаем внимание к свёрнутой подсказке, пока человек ни разу её не открывал */
+.st-dot{display:none;flex:none;width:9px;height:9px;border-radius:50%;background:var(--brand)}
+.start.attn:not([open]){animation:startPulse 2s ease-in-out infinite}
+.start.attn:not([open]) .st-dot{display:block;animation:dotPing 1.6s infinite}
+.start.attn:not([open]) .chev{color:var(--brand);animation:chevNudge 1.4s ease-in-out infinite}
+@keyframes startPulse{0%,100%{border-color:var(--border);box-shadow:0 0 0 0 rgba(0,230,61,0)}50%{border-color:var(--brand);box-shadow:0 0 0 5px rgba(0,230,61,.16),0 0 26px -4px rgba(0,230,61,.55)}}
+@keyframes dotPing{0%{box-shadow:0 0 0 0 rgba(0,230,61,.75)}100%{box-shadow:0 0 0 10px rgba(0,230,61,0)}}
+@keyframes chevNudge{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+@media (prefers-reduced-motion:reduce){.start.attn:not([open]){animation:none;border-color:var(--brand)}.start.attn:not([open]) .st-dot,.start.attn:not([open]) .chev{animation:none}}
 </style>
 </head>
 <body>
@@ -529,12 +539,12 @@ body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 "IBM Plex San
   <div class="badges"><span class="badge">🔒 Everything runs in your browser — nothing is sent anywhere</span><span class="badge grey">AmneziaWG 3.1 · AmneziaVPN</span></div>
   </div>
   <details class="start" id="start-gen">
-    <summary><span class="st-ic" aria-hidden="true">🧭</span><span><b>Where to start?</b><small>Setting up the server in the AmneziaVPN app</small></span><span class="chev" aria-hidden="true">⌄</span></summary>
-    <div class="st-body"><ol class="st-steps"><li><span>Install the <b>AmneziaWG 3.1</b> protocol: in AmneziaVPN <b>5.0.1.5</b> tap the <b>gear ⚙️</b> by your server → <b>Protocols</b> tab → <b>AmneziaWG</b> → install. Already on 2.0? See <a href="/en/awg-3-1-upgrade.html" target="_top">“AmneziaWG: 2.0 → 3.1”</a>.</span></li><li><span>Open <b>Server settings → AmneziaWG → AmneziaWG server settings</b>.</span></li><li><span>Press <b>“Generate”</b> below and copy the values into the fields with the same names — screen by screen, top to bottom.</span></li><li><span>Press <b>Save → Continue</b> and wait for the protocol to reinstall. Re-issue connections afterwards.</span></li></ol><p class="st-note">Already have a config file? Pick the second card below.</p></div>
+    <summary><span class="st-ic" aria-hidden="true">🧭</span><span><b>Where to start?</b><small>Setting up the server in the AmneziaVPN app</small></span><span class="st-dot" aria-hidden="true"></span><span class="chev" aria-hidden="true">⌄</span></summary>
+    <div class="st-body"><ol class="st-steps"><li><span>Install the <b>AmneziaWG 3.1</b> protocol: in AmneziaVPN <b>5.0.1.5</b> tap the <b>gear ⚙️</b> by your server → <b>Protocols</b> tab → <b>AmneziaWG</b> → install.</span></li><li><span>Open <b>Server settings → AmneziaWG → AmneziaWG server settings</b>.</span></li><li><span>Press <b>“Generate”</b> below and copy the values into the fields with the same names — screen by screen, top to bottom.</span></li><li><span>Press <b>Save → Continue</b> and wait for the protocol to reinstall. Re-issue connections afterwards.</span></li></ol><p class="st-note">Already have a config file? Pick the second card below.</p></div>
   </details>
   <details class="start" id="start-chk" hidden>
-    <summary><span class="st-ic" aria-hidden="true">🧭</span><span><b>Where to start?</b><small>How to get a config file from the app</small></span><span class="chev" aria-hidden="true">⌄</span></summary>
-    <div class="st-body"><ol class="st-steps"><li><span>Install the <b>AmneziaWG</b> protocol on your server in AmneziaVPN if it isn’t installed yet: <b>gear ⚙️</b> by the server → <b>Protocols</b> → <b>AmneziaWG</b>.</span></li><li><span>Click <b>Share</b> in the bottom bar (left of the gear) and open the <b>Connection</b> tab.</span></li><li><span>Choose your <b>server</b>, the <b>AmneziaWG</b> protocol and the connection format <b>AmneziaWG native format</b>. Click <b>Share</b> and save the <code>.conf</code> file.</span></li><li><span>Open the file in a text editor, copy all the text and paste it into the left window below — the new config appears on the right.</span></li></ol><p class="st-note">QR codes don’t work with this format — you need the <code>.conf</code> file itself.</p></div>
+    <summary><span class="st-ic" aria-hidden="true">🧭</span><span><b>Where to start?</b><small>How to get a config from the app</small></span><span class="st-dot" aria-hidden="true"></span><span class="chev" aria-hidden="true">⌄</span></summary>
+    <div class="st-body"><ol class="st-steps"><li><span>Install the <b>AmneziaWG</b> protocol on your server in AmneziaVPN if it isn’t installed yet: <b>gear ⚙️</b> by the server → <b>Protocols</b> → <b>AmneziaWG</b>.</span></li><li><span>Click <b>Share</b> in the bottom bar (left of the gear) and open the <b>Connection</b> tab.</span></li><li><span>Choose your <b>server</b>, the <b>AmneziaWG</b> protocol and the connection format <b>AmneziaWG native format</b>. Click <b>Share</b> → <b>Copy</b> (saving the file is optional).</span></li><li><span>Paste the copied text into the left window below — the new config appears on the right.</span></li></ol><p class="st-note">QR codes don’t work with this format — use <b>Copy</b>.</p></div>
   </details>
   </div>
 
@@ -1192,8 +1202,9 @@ body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 "IBM Plex San
   function put(k, v) { try { localStorage.setItem('awg-start-' + k, v); } catch (e) {} }
   Object.keys(cards).forEach(function (k) {
     var d = cards[k], s = get(k);
-    d.open = s ? s === 'open' : innerWidth >= 900;
-    d.querySelector('summary').addEventListener('click', function () { put(k, d.open ? 'closed' : 'open'); });
+    d.open = s === 'open'; /* по умолчанию свёрнуто */
+    if (!s) d.classList.add('attn'); /* ни разу не трогали — мигаем, привлекаем внимание */
+    d.querySelector('summary').addEventListener('click', function () { d.classList.remove('attn'); put(k, d.open ? 'closed' : 'open'); });
   });
   function sync() { var gen = document.getElementById('t-gen').getAttribute('aria-selected') === 'true'; cards.gen.hidden = !gen; cards.chk.hidden = gen; }
   ['t-gen', 't-chk'].forEach(function (id) { document.getElementById(id).addEventListener('click', function () { setTimeout(sync, 0); }); });
