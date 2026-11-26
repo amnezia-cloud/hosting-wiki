@@ -491,18 +491,54 @@ body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 "IBM Plex San
 .toast{position:fixed;left:50%;bottom:calc(26px + env(safe-area-inset-bottom,0px));z-index:95;transform:translate(-50%,20px);opacity:0;padding:10px 18px;border-radius:999px;background:var(--text);color:var(--bg);font-size:14px;font-weight:600;transition:.25s;pointer-events:none;max-width:90vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== «С чего начать?» — сворачиваемая подсказка справа от заголовка ===== */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,600px);gap:28px;align-items:start}
+@media (max-width:1100px){.hero{grid-template-columns:1fr;gap:0}}
+.hero-l{min-width:0}
+.start{margin-top:4px;margin-bottom:18px;border:1px solid var(--border);border-radius:18px;overflow:hidden;background:radial-gradient(120% 140% at 100% 0%,var(--brandsoft),transparent 62%),var(--soft)}
+.start[hidden]{display:none}
+.start summary{display:flex;align-items:center;gap:10px;padding:13px 16px;cursor:pointer;list-style:none;user-select:none}
+.start summary::-webkit-details-marker{display:none}
+.start summary:focus-visible{outline:2px solid var(--brand);outline-offset:-2px;border-radius:18px}
+.start .st-ic{flex:none;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-size:17px;background:var(--brandsoft)}
+.start summary b{font-size:16px;color:var(--text)}
+.start summary small{display:block;font-size:12.5px;color:var(--text2);line-height:1.3}
+.start .chev{margin-left:auto;font-size:18px;color:var(--text3);transition:transform .25s}
+.start[open] .chev{transform:rotate(180deg)}
+.st-body{padding:0 16px 14px}
+.st-steps{list-style:none;margin:0;padding:0;counter-reset:st;display:grid;gap:10px}
+.st-steps li{counter-increment:st;display:grid;grid-template-columns:24px minmax(0,1fr);gap:11px;font-size:13.5px;line-height:1.5;color:var(--text2)}
+.st-steps li::before{content:counter(st);width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--brand);color:#04190b;font:700 12px "JetBrains Mono",monospace}
+.st-steps b{color:var(--text)}
+.st-steps a{color:var(--brand);font-weight:600}
+.st-steps code{font:12px "JetBrains Mono",monospace;padding:1px 6px;border-radius:6px;background:var(--code);color:var(--text)}
+.st-note{margin:12px 0 0;padding:9px 12px;border-radius:12px;background:var(--brandsoft);font-size:12.5px;line-height:1.45;color:var(--text2)}
+.st-note b{color:var(--text)}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div class="hero">
+  <div class="hero-l">
   <div class="top">
     <h1>Parameter generator <span>AmneziaWG 3.1</span></h1>
     <button class="btn" type="button" id="themeBtn">Switch theme</button>
   </div>
   <p class="lead" id="lead">Unique obfuscation parameters for your server in AmneziaVPN. Below are three “AmneziaWG settings” screens laid out like the app: same fields, same order, same names. Click a field to copy its value.</p>
   <div class="badges"><span class="badge">🔒 Everything runs in your browser — nothing is sent anywhere</span><span class="badge grey">AmneziaWG 3.1 · AmneziaVPN</span></div>
+  </div>
+  <details class="start" id="start-gen">
+    <summary><span class="st-ic" aria-hidden="true">🧭</span><span><b>Where to start?</b><small>Setting up the server in the AmneziaVPN app</small></span><span class="chev" aria-hidden="true">⌄</span></summary>
+    <div class="st-body"><ol class="st-steps"><li><span>Install the <b>AmneziaWG 3.1</b> protocol: in AmneziaVPN <b>5.0.1.5</b> tap the <b>gear ⚙️</b> by your server → <b>Protocols</b> tab → <b>AmneziaWG</b> → install. Already on 2.0? See <a href="/en/awg-3-1-upgrade.html" target="_top">“AmneziaWG: 2.0 → 3.1”</a>.</span></li><li><span>Open <b>Server settings → AmneziaWG → AmneziaWG server settings</b>.</span></li><li><span>Press <b>“Generate”</b> below and copy the values into the fields with the same names — screen by screen, top to bottom.</span></li><li><span>Press <b>Save → Continue</b> and wait for the protocol to reinstall. Re-issue connections afterwards.</span></li></ol><p class="st-note">Already have a config file? Pick the second card below.</p></div>
+  </details>
+  <details class="start" id="start-chk" hidden>
+    <summary><span class="st-ic" aria-hidden="true">🧭</span><span><b>Where to start?</b><small>How to get a config file from the app</small></span><span class="chev" aria-hidden="true">⌄</span></summary>
+    <div class="st-body"><ol class="st-steps"><li><span>Install the <b>AmneziaWG</b> protocol on your server in AmneziaVPN if it isn’t installed yet: <b>gear ⚙️</b> by the server → <b>Protocols</b> → <b>AmneziaWG</b>.</span></li><li><span>Click <b>Share</b> in the bottom bar (left of the gear) and open the <b>Connection</b> tab.</span></li><li><span>Choose your <b>server</b>, the <b>AmneziaWG</b> protocol and the connection format <b>AmneziaWG native format</b>. Click <b>Share</b> and save the <code>.conf</code> file.</span></li><li><span>Open the file in a text editor, copy all the text and paste it into the left window below — the new config appears on the right.</span></li></ol><p class="st-note">QR codes don’t work with this format — you need the <code>.conf</code> file itself.</p></div>
+  </details>
+  </div>
 
-  <p class="choose">Where to start? Pick your case:</p>
+  <p class="choose">Pick your case:</p>
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" aria-selected="true" aria-controls="p-gen" id="t-gen"><span class="ti" aria-hidden="true">📱</span><span><b>I set up my server in the app</b><small>Get the values and copy them into the AmneziaVPN fields</small></span></button>
     <button class="tab" role="tab" aria-selected="false" aria-controls="p-chk" id="t-chk"><span class="ti" aria-hidden="true">📄</span><span><b>I have a config file</b><small>Paste it — a new config is built automatically</small></span></button>
@@ -1146,6 +1182,22 @@ body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 "IBM Plex San
   var ut = 0, wasEmpty = true; cfgIn.addEventListener('input', function () { syncGut(); document.getElementById('clrBtn').hidden = !cfgIn.value; clearTimeout(ut); ut = setTimeout(function () { var big = wasEmpty && cfgIn.value.trim(); wasEmpty = !cfgIn.value.trim(); runUpdate(!!big); }, 300); });
   document.getElementById('clrBtn').addEventListener('click', function () { cfgIn.value = ''; wasEmpty = true; runUpdate(false); cfgIn.focus(); toast('Field cleared — paste your config'); });
   runUpdate();
+})();
+</script>
+<script>
+/* «С чего начать?»: у каждой карточки своя подсказка; состояние «свёрнуто / развёрнуто» запоминается */
+(function () {
+  var cards = { gen: document.getElementById('start-gen'), chk: document.getElementById('start-chk') };
+  function get(k) { try { return localStorage.getItem('awg-start-' + k); } catch (e) { return null; } }
+  function put(k, v) { try { localStorage.setItem('awg-start-' + k, v); } catch (e) {} }
+  Object.keys(cards).forEach(function (k) {
+    var d = cards[k], s = get(k);
+    d.open = s ? s === 'open' : innerWidth >= 900;
+    d.querySelector('summary').addEventListener('click', function () { put(k, d.open ? 'closed' : 'open'); });
+  });
+  function sync() { var gen = document.getElementById('t-gen').getAttribute('aria-selected') === 'true'; cards.gen.hidden = !gen; cards.chk.hidden = gen; }
+  ['t-gen', 't-chk'].forEach(function (id) { document.getElementById(id).addEventListener('click', function () { setTimeout(sync, 0); }); });
+  sync();
 })();
 </script>
 </body>
