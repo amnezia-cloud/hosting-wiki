@@ -1897,83 +1897,31 @@ html {
 
 /* ==========================================================================
    WIKI STORIES НА ГЛАВНОЙ (theme/Stories.js, тексты — theme/storiesData.js)
-   Широкий экран: колонка справа (.amz-st-rail). Узкий: лента под поиском
-   (.amz-st-strip), история открывается во весь экран (.amz-st-ov).
+   Ряд кружков по центру под поиском; история открывается во весь экран (.amz-st-ov).
    ========================================================================== */
-.amz-home-wrap{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:32px;max-width:1640px;margin:0 auto;padding:0 32px;align-items:start}
-.amz-home-wrap > .amz-home{max-width:none;margin:0;padding-left:0;padding-right:0}
-.amz-st-rail{padding-top:40px}
-.amz-st-strip{display:none}
+.amz-st-strip{margin:22px 0 4px}
+.amz-st-row{display:flex;justify-content:center;gap:14px;padding:4px 2px 6px;overflow-x:auto;scrollbar-width:none}
+.amz-st-row::-webkit-scrollbar{display:none}
+.amz-st-bub{flex:none;display:flex;flex-direction:column;align-items:center;gap:8px;width:118px;padding:0;border:0;background:none;font:inherit;color:var(--vp-c-text-1);cursor:pointer}
+.amz-st-bub .ring{display:grid;place-items:center;width:78px;height:78px;border-radius:50%;padding:3px;background:conic-gradient(from 210deg,#00e63d,#7dffa3,#00b833,#00e63d);transition:transform .2s ease,box-shadow .2s ease}
+.amz-st-bub.is-seen .ring{background:var(--vp-c-divider)}
+.amz-st-bub .pic{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;border:3px solid var(--vp-c-bg);font-size:32px;line-height:1}
+.amz-st-bub .pic.c1{background:radial-gradient(120% 100% at 30% 0%,#14532d,#07090a 75%)}
+.amz-st-bub .pic.c2{background:radial-gradient(120% 100% at 70% 10%,#065f46,#07090a 75%)}
+.amz-st-bub .pic.c3{background:radial-gradient(120% 100% at 30% 10%,#1e3a5f,#07090a 75%)}
+.amz-st-bub .pic.c4{background:radial-gradient(120% 100% at 70% 0%,#4c1d95,#07090a 75%)}
+.amz-st-bub .cap{font-size:12.5px;font-weight:500;line-height:1.3;text-align:center;color:var(--vp-c-text-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.amz-st-bub:hover .ring{transform:scale(1.06);box-shadow:0 0 18px rgba(0,230,61,.35)}
+.amz-st-bub:hover .cap{color:var(--vp-c-text-1)}
+.amz-st-bub:focus-visible{outline:none}
+.amz-st-bub:focus-visible .ring{box-shadow:0 0 0 2px var(--vp-c-bg),0 0 0 4px var(--vp-c-brand-1)}
+@media (max-width:640px){.amz-st-row{justify-content:flex-start;gap:12px}.amz-st-bub{width:84px}.amz-st-bub .ring{width:68px;height:68px}.amz-st-bub .pic{font-size:28px}}
 /* Шапка главной (заголовок, кнопки, поиск) центрируется по всей ширине блока вместе с
    колонкой историй, а не только над четырьмя колонками: отрицательный правый отступ
    равен ширине колонки историй (330) плюс промежутку (32). Колонка историй не
    перехватывает клики в пустой верхней части. */
-@media (min-width:1400px){
-  .amz-home-wrap .amz-home__hero{margin-right:-362px}
-  .amz-st-rail{pointer-events:none}
-  .amz-st-rail .amz-st-player,.amz-st-rail .amz-st-car{pointer-events:auto}
-}
-@media (max-width:1399px){
-  .amz-home-wrap{display:block;padding:0}
-  .amz-home-wrap > .amz-home{max-width:1152px;margin:0 auto;padding-left:24px;padding-right:24px}
-  .amz-st-rail{display:none}
-  .amz-st-strip{display:block}
-}
-/* шапка ленты: кольцо и «Wiki Stories» */
-.amz-st-head{display:flex;align-items:center;gap:11px;margin-bottom:8px}
-.amz-st-head .ring{flex:none;width:42px;height:42px;border-radius:50%;padding:3px;background:conic-gradient(#00e63d 0 22%,transparent 22% 25%,#00e63d 25% 47%,transparent 47% 50%,#00e63d 50% 72%,transparent 72% 75%,#7dffa3 75% 97%,transparent 97%);transition:width .45s,height .45s}
-.amz-st-head .ring span{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:var(--vp-c-bg-soft);font-weight:800;font-size:15px;color:#00c935}
 .dark .amz-st-head .ring span{color:#3cf06a}
-.amz-st-head b{display:block;font-weight:800;font-size:19px;letter-spacing:-.01em;line-height:1.15;background:linear-gradient(90deg,var(--vp-c-text-1),#00c935 70%);-webkit-background-clip:text;background-clip:text;color:transparent;transition:font-size .45s}
 .dark .amz-st-head b{background-image:linear-gradient(90deg,#fff,#7dffa3 60%,#00e63d)}
-.amz-st-head > div > span{display:block;font-size:12.5px;color:var(--vp-c-text-2)}
-/* карточки историй */
-.amz-st-card{position:relative;aspect-ratio:9/14;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:13px;color:#eafff0;text-align:left;font:inherit;border:1px solid rgba(255,255,255,.08);box-shadow:0 24px 50px -30px rgba(0,0,0,.8);cursor:pointer}
-.amz-st-card:focus-visible{outline:2px solid var(--vp-c-brand-1);outline-offset:3px}
-.amz-st-card .e{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);font-size:48px;filter:drop-shadow(0 10px 24px rgba(0,230,61,.45));transition:font-size .5s}
-.amz-st-card .pr{position:absolute;top:9px;left:11px;right:11px;height:3px;border-radius:2px;background:rgba(255,255,255,.2);overflow:hidden}
-.amz-st-card .pr i{display:block;height:100%;background:#fff}
-.amz-st-card.is-seen .pr i{background:rgba(255,255,255,.55)}
-.amz-st-card .bt{position:relative;display:block;margin:0 -13px -13px;padding:34px 13px 13px;background:linear-gradient(transparent,rgba(0,0,0,.65))}
-.amz-st-card b{display:block;font-size:15px;line-height:1.25;margin-bottom:8px;transition:font-size .5s}
-.amz-st-card .go{display:inline-flex;font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15)}
-.amz-st-card:hover .go{background:#00e63d;color:#04190b;border-color:#00e63d}
-.amz-st-card.c1{background:radial-gradient(120% 80% at 30% 0%,#14532d,#07090a 65%)}
-.amz-st-card.c2{background:radial-gradient(120% 80% at 70% 10%,#065f46,#07090a 65%)}
-.amz-st-card.c3{background:radial-gradient(120% 80% at 30% 10%,#1e3a5f,#07090a 65%)}
-.amz-st-card.c4{background:radial-gradient(120% 80% at 70% 0%,#4c1d95,#07090a 65%)}
-/* колонка справа */
-.amz-st-spacer{height:var(--sp,346px);transition:height .55s cubic-bezier(.2,.8,.2,1)}
-.amz-st-rail.is-open .amz-st-spacer{height:0}
-.amz-st-player{position:relative;overflow:hidden;max-height:0;opacity:0;transform:translateY(-14px) scale(.96);transform-origin:50% 0;transition:max-height .55s cubic-bezier(.2,.8,.2,1),opacity .35s,transform .45s cubic-bezier(.2,.8,.2,1),margin .45s}
-.amz-st-rail.is-open .amz-st-player{max-height:700px;opacity:1;transform:none;margin-bottom:18px}
-.amz-st-rail .amz-st-phone{width:380px;zoom:.868}
-.amz-st-car{height:var(--ch,508px);overflow:hidden;border-radius:22px;border:1px solid var(--vp-c-divider);background:radial-gradient(120% 60% at 50% 0%,rgba(0,230,61,.10),transparent 60%),var(--vp-c-bg-soft);padding:16px 16px 14px;transition:height .55s cubic-bezier(.2,.8,.2,1),padding .45s}
-.amz-st-rail.is-open .amz-st-car{height:309px;padding:12px 12px 10px}
-.amz-st-stage{position:relative;height:calc(var(--ch,508px) - 92px);display:flex;align-items:center;justify-content:center;transition:height .5s cubic-bezier(.2,.8,.2,1)}
-.amz-st-rail.is-open .amz-st-stage{height:236px}
-.amz-st-stage .amz-st-card{position:absolute;width:250px;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .4s,width .5s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
-.amz-st-stage .amz-st-card[data-pos="0"]{transform:none;z-index:3;box-shadow:0 0 0 2px #00e63d,0 24px 50px -18px rgba(0,230,61,.6)}
-.amz-st-stage .amz-st-card[data-pos="0"] .go{background:#00e63d;color:#04190b;border-color:#00e63d}
-.amz-st-stage .amz-st-card[data-pos="1"]{transform:translateX(124px) scale(.8);opacity:.55;z-index:2}
-.amz-st-stage .amz-st-card[data-pos="-1"]{transform:translateX(-124px) scale(.8);opacity:.55;z-index:2}
-.amz-st-stage .amz-st-card[data-pos="2"],.amz-st-stage .amz-st-card[data-pos="-2"]{transform:scale(.6);opacity:0;z-index:1;pointer-events:none}
-.amz-st-rail.is-open .amz-st-stage .amz-st-card{width:142px;padding:10px}
-.amz-st-rail.is-open .amz-st-stage .amz-st-card .e{font-size:30px}
-.amz-st-rail.is-open .amz-st-stage .amz-st-card b{font-size:11.5px;margin-bottom:5px}
-.amz-st-rail.is-open .amz-st-stage .amz-st-card .go{font-size:10px;padding:3px 8px}
-.amz-st-rail.is-open .amz-st-stage .amz-st-card .bt{margin:0 -10px -10px;padding:26px 10px 10px}
-.amz-st-rail.is-open .amz-st-stage .amz-st-card[data-pos="1"]{transform:translateX(92px) scale(.8)}
-.amz-st-rail.is-open .amz-st-stage .amz-st-card[data-pos="-1"]{transform:translateX(-92px) scale(.8)}
-.amz-st-rail.is-open .amz-st-head .ring{width:32px;height:32px}
-.amz-st-rail.is-open .amz-st-head .ring span{font-size:12px}
-.amz-st-rail.is-open .amz-st-head b{font-size:16px}
-.amz-st-arr{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:38px;height:38px;border-radius:50%;border:1px solid var(--vp-c-divider);background:var(--vp-c-bg);color:var(--vp-c-text-1);font-size:18px;display:grid;place-items:center;cursor:pointer}
-.amz-st-arr:hover{border-color:var(--vp-c-brand-1)}
-.amz-st-arr.l{left:-4px}.amz-st-arr.r{right:-4px}
-.amz-st-dots{display:flex;gap:6px;justify-content:center;margin-top:4px}
-.amz-st-dots i{width:7px;height:7px;border-radius:50%;background:var(--vp-c-divider);transition:.3s}
-.amz-st-dots i.on{background:var(--vp-c-brand-1);width:20px;border-radius:4px}
 /* экран истории */
 .amz-st-phone{position:relative;width:100%;aspect-ratio:9/17.5;border-radius:40px;padding:9px;background:linear-gradient(160deg,#2b2f2d,#0c0e0d);box-shadow:0 34px 80px -40px rgba(0,0,0,.75),inset 0 0 0 1px rgba(255,255,255,.08)}
 .amz-st-x{position:absolute;top:40px;right:20px;z-index:8;width:36px;height:36px;border-radius:50%;border:0;background:rgba(0,0,0,.45);color:#fff;font-size:16px;cursor:pointer}
@@ -1982,19 +1930,11 @@ html {
 .amz-st .slide a,.amz-st .slide button{cursor:pointer}
 .amz-st .slide h2{border:0;padding:0;letter-spacing:-.01em;font-weight:700;color:#fff}
 .amz-st .slide p{color:#c3dacb}
-/* лента под поиском (узкие экраны) */
-.amz-st-strip{margin:6px 0 30px}
-.amz-st-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 4px 8px;margin:0 -4px;scrollbar-width:none}
-.amz-st-row::-webkit-scrollbar{display:none}
-.amz-st-row .amz-st-card{flex:0 0 172px;aspect-ratio:3/4;scroll-snap-align:start}
-.amz-st-row .amz-st-card .e{font-size:40px}
-.amz-st-row .amz-st-card b{font-size:14px}
-@media (max-width:760px){.amz-st-row .amz-st-card{flex:0 0 44%;aspect-ratio:9/13}}
 /* история во весь экран */
 .amz-st-ov{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:calc(12px + env(safe-area-inset-top,0px)) 12px calc(12px + env(safe-area-inset-bottom,0px));background:rgba(0,0,0,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .amz-st-ov .amz-st-phone{width:min(400px,100%,calc((100dvh - 24px) * 9 / 17.5))}
 html.amz-st-lock,html.amz-st-lock body{overflow:hidden}
-@media (prefers-reduced-motion:reduce){.amz-st *,.amz-st-card,.amz-st-rail *{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){.amz-st *,.amz-st-bub .ring{animation:none!important;transition:none!important}}
 /* экраны истории про тарифы */
 .amz-st .c4bg{background:radial-gradient(120% 80% at 70% 0%,#4c1d95 0%,#07090a 62%)}
 .amz-st .ppl{display:flex;flex-direction:column;align-items:center;gap:12px}
@@ -2194,9 +2134,3 @@ html.amz-st-lock,html.amz-st-lock body{overflow:hidden}
 /* Низ главной (плитки «Сервер / Справочная / Оплата», плашка поддержки, спасибо)
    стоит под колонкой историй, поэтому растягивается на всю ширину блока, как шапка:
    тогда он по центру страницы, а не только под четырьмя колонками. */
-@media (min-width:1400px){
-  .amz-home-wrap .amz-home__tiles,
-  .amz-home-wrap .amz-home__help{margin-right:-362px}
-  /* у текста своя ширина 720px с auto-полями — сдвигаем на половину колонки историй */
-  .amz-home-wrap .amz-home__credit{position:relative;left:181px}
-}
