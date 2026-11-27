@@ -76,6 +76,15 @@ function open(i, where) {
     const x = document.querySelector(where === 'overlay' ? '.amz-st-ov .amz-st-x' : '.amz-st-rail .amz-st-x')
     if (x) x.focus({ preventScroll: true })
   })
+  // Экран истории выезжает в верху страницы. Если страницу прокрутили вниз, он оказался бы
+  // над видимой областью, а лента просто «уезжала» бы вниз. Поэтому мягко возвращаем страницу вверх.
+  if (where === 'rail') {
+    const rail = document.querySelector('.amz-st-rail')
+    if (rail) {
+      const want = Math.max(0, rail.getBoundingClientRect().top + window.scrollY + 40 - 64 - 16)
+      if (window.scrollY > want + 8) window.scrollTo({ top: want, behavior: reduce() ? 'auto' : 'smooth' })
+    }
+  }
 }
 
 // Экран истории: полоски прогресса, шапка, текущий экран, ✕
@@ -160,6 +169,7 @@ export default {
   setup(props) {
     const spacer = ref(0)
     const carH = ref(0)
+    const ready = ref(false) // колонка выровнена и можно показывать (до этого скрыта, без анимаций)
     let el = null
     let ro = null
 
@@ -173,6 +183,12 @@ export default {
       const r = paths.getBoundingClientRect()
       spacer.value = Math.max(0, Math.round(r.top + window.scrollY - top))
       carH.value = Math.max(420, Math.round(r.height))
+      // Открытая колонка (экран 330×642 + зазор 18 + уменьшенная лента 309) выше четырёх колонок.
+      // Нижние плитки растянуты на всю ширину, поэтому их нужно отодвинуть на этот «вылет».
+      const openBottom = top + 642 + 18 + 309 + 24
+      const tilesTop = r.bottom + window.scrollY + 16
+      const wrap = el.parentElement
+      if (wrap) wrap.style.setProperty('--st-extra', Math.max(0, Math.round(openBottom - tilesTop)) + 'px')
     }
     const onKey = (e) => {
       if (!state.open) return
@@ -182,6 +198,15 @@ export default {
     }
     onMounted(() => {
       if (props.mode === 'rail') {
+        // Показываем колонку только после первого точного расчёта (шрифты загружены), иначе при
+        // загрузке страницы лента сначала сжата вверху и потом «съезжает» на место.
+        const markReady = () => {
+          if (ready.value) return
+          align()
+          nextTick(() => requestAnimationFrame(() => { ready.value = true }))
+        }
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => setTimeout(markReady, 120))
+        setTimeout(markReady, 1500)
         nextTick(align)
         // ещё раз — после анимации появления главной и загрузки шрифтов
         setTimeout(align, 700)
@@ -216,7 +241,7 @@ export default {
         const isOpen = state.open && state.where === 'rail'
         const pos = (k) => { let d = ((k - state.story) % N() + N()) % N(); if (d > N() / 2) d -= N(); return d }
         return h('aside', {
-          class: ['amz-st-rail', isOpen ? 'is-open' : null],
+          class: ['amz-st-rail', isOpen ? 'is-open' : null, ready.value ? 'is-ready' : null],
           'aria-label': 'Wiki Stories',
           ref: (r) => { el = r },
           style: { '--sp': spacer.value + 'px', '--ch': carH.value + 'px' }

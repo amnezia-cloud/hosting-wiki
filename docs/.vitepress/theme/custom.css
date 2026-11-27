@@ -1997,6 +1997,8 @@ html {
 /* на телефоне история во весь экран, без полей и скруглений */
 @media (max-width:640px){.amz-st-ov{padding:0}.amz-st-ov .amz-st-phone{width:100%;height:100dvh;aspect-ratio:auto;border-radius:0;box-shadow:none}.amz-st-ov .amz-st{border-radius:0}.amz-st-ov .amz-st-x{top:calc(31px + env(safe-area-inset-top,0px))}.amz-st-ov .amz-st .bars{top:calc(14px + env(safe-area-inset-top,0px))}}
 html.amz-st-lock,html.amz-st-lock body{overflow:hidden}
+/* Не даём странице «прыгать», когда пропадает полоса прокрутки (на ноутбуках и в окнах уже 1400px) */
+html.amz-st-lock{scrollbar-gutter:stable}
 @media (prefers-reduced-motion:reduce){.amz-st *,.amz-st-card,.amz-st-rail *{animation:none!important;transition:none!important}}
 /* экраны истории про тарифы */
 .amz-st .c4bg{background:radial-gradient(120% 80% at 70% 0%,#4c1d95 0%,#07090a 62%)}
@@ -2203,3 +2205,19 @@ html.amz-st-lock,html.amz-st-lock body{overflow:hidden}
   /* у текста своя ширина 720px с auto-полями — сдвигаем на половину колонки историй */
   .amz-home-wrap .amz-home__credit{position:relative;left:181px}
 }
+
+/* Открытая колонка Wiki Stories (экран + лента) выше четырёх колонок главной. Нижние плитки
+   растянуты на всю ширину и стоят под ней, поэтому пока история открыта, отодвигаем их вниз
+   на «вылет» (его считает Stories.js), а не даём ленте наезжать на плитку «Оплата и тарифы». */
+@media (min-width:1400px){
+  .amz-home-wrap .amz-home__paths{transition:margin-bottom .55s cubic-bezier(.2,.8,.2,1)}
+  .amz-home-wrap:has(.amz-st-rail.is-open) .amz-home__paths{margin-bottom:var(--st-extra,130px)}
+}
+
+/* Пока колонка историй не выровнена (до первого расчёта), она скрыта и без анимаций: иначе при
+   загрузке страницы лента сначала сжата вверху, потом раздувается и съезжает на место. */
+.amz-st-rail:not(.is-ready){visibility:hidden}
+.amz-st-rail:not(.is-ready),.amz-st-rail:not(.is-ready) *{transition:none!important}
+.amz-st-rail.is-ready{animation:amz-st-appear .45s ease both}
+@keyframes amz-st-appear{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.amz-st-rail.is-ready{animation:none}}
