@@ -159,24 +159,59 @@ export default {
     let cycle = 0
     let hide = 0
 
+    // «Остров» на узких экранах, где надпись на плашке скрыта: первое нажатие на кубик раскрывает
+    // плашку («Наш сайт» и название хостинга), второе — на раскрытую — открывает сайт.
+    // Раскрытая плашка сама закрывается через 6 секунд, по нажатию в другом месте и по Esc.
+    const open = ref(false)
+    let openTimer = 0
+    const setOpen = (v) => {
+      open.value = v
+      document.documentElement.classList.toggle('amz-host-open', v)
+      // на страницах статей плашка раскрывается и над логотипом — прячем его целиком
+      document.documentElement.classList.toggle('amz-host-open--wide', v && !isHome.value)
+      clearTimeout(openTimer)
+      if (v) openTimer = setTimeout(() => setOpen(false), 6000)
+    }
+    const onDocPointer = (e) => { if (open.value && !(e.target.closest && e.target.closest('.amz-host'))) setOpen(false) }
+    const onDocKey = (e) => { if (open.value && e.key === 'Escape') setOpen(false) }
+    const onClick = (e) => {
+      if (open.value) { setOpen(false); return } // второе нажатие: ссылка открывает сайт
+      const txt = e.currentTarget.querySelector('.amz-host__text')
+      if (txt && getComputedStyle(txt).display === 'none') {
+        e.preventDefault() // надпись скрыта: первое нажатие только раскрывает плашку
+        setOpen(true)
+      }
+    }
+
     onMounted(() => {
+      document.addEventListener('pointerdown', onDocPointer)
+      document.addEventListener('keydown', onDocKey)
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
       // Раз в 7 секунд вместо «Наш сайт» на 3 секунды встаёт следующая подсказка.
       cycle = setInterval(() => {
-        if (hover || document.hidden) return
+        if (hover || open.value || document.hidden) return
         current.value = index % t.value.tips.length
         index += 1
         hide = setTimeout(() => { current.value = -1 }, 3000)
       }, 7000)
     })
-    onUnmounted(() => { clearInterval(cycle); clearTimeout(hide) })
+    onUnmounted(() => {
+      clearInterval(cycle)
+      clearTimeout(hide)
+      clearTimeout(openTimer)
+      document.removeEventListener('pointerdown', onDocPointer)
+      document.removeEventListener('keydown', onDocKey)
+      document.documentElement.classList.remove('amz-host-open')
+      document.documentElement.classList.remove('amz-host-open--wide')
+    })
 
     return () =>
       h('a', {
-            class: ['amz-host', isHome.value ? 'is-home' : null],
+            class: ['amz-host', isHome.value ? 'is-home' : null, open.value ? 'is-open' : null],
             href: t.value.url,
             target: '_blank',
             rel: 'noreferrer',
+            onClick,
             onMouseenter: (e) => { hover = true; burst(e.currentTarget) },
             onMouseleave: () => { hover = false },
             // раскрутка по фокусу — только если фокус с клавиатуры (не после клика мышью)

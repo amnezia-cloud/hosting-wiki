@@ -1559,7 +1559,7 @@ html {
   color: var(--vp-c-text-1);
   text-decoration: none;
   white-space: nowrap;
-  transition: border-color 0.2s ease, box-shadow 0.4s ease;
+  transition: border-color 0.2s ease, box-shadow 0.4s ease, width 0.35s ease, margin-left 0.35s ease;
 }
 .amz-host:hover {
   border-color: var(--vp-c-brand-2);
@@ -1609,6 +1609,7 @@ html {
 /* Рядом с поиском места меньше: на узких экранах остаётся только кубик. */
 @media (max-width: 1439px) {
   .amz-host:not(.is-home) {
+    width: 46px;
     padding: 0 11px;
   }
   .amz-host:not(.is-home) .amz-host__text {
@@ -1617,20 +1618,18 @@ html {
 }
 @media (max-width: 1099px) {
   .amz-host.is-home {
+    width: 46px;
     padding: 0 11px;
   }
   .amz-host.is-home .amz-host__text {
     display: none;
   }
 }
-/* Планшеты и телефоны: рядом с меню и поиском места нет — кубик только на главной. */
-@media (max-width: 1023px) {
-  .amz-host:not(.is-home) {
-    display: none;
-  }
-}
+/* Планшеты и телефоны: кубик остаётся на всех страницах, как на компьютере. Места под надпись нет,
+   поэтому по нажатию на кубик плашка раскрывается («остров»), см. «.is-open» ниже. */
 @media (max-width: 767px) {
   .amz-host {
+    width: 46px;
     padding: 0 11px;
   }
   .amz-host__text {
@@ -2225,3 +2224,55 @@ html.amz-st-lock{scrollbar-gutter:stable}
    пока их положение не пересчитывалось. */
 .amz-home-wrap > .amz-home{animation:none}
 .amz-home-wrap{animation:amz-fade-up .5s ease both}
+
+/* «Остров» на узких экранах: первое нажатие на кубик раскрывает плашку влево поверх названия вики
+   (Наш сайт + название хостинга, без подсказок), второе нажатие на раскрытую открывает сайт.
+   Место в шапке не меняется: ширина добавляется отрицательным левым отступом. */
+.amz-host.is-open {
+  z-index: 60;
+  width: 222px;
+  margin-left: -176px;
+  padding: 0 14px 0 11px;
+  gap: 12px;
+  overflow: hidden;
+  background: rgba(10, 15, 12, 0.94);
+  border-color: rgba(0, 230, 61, 0.6);
+  box-shadow: 0 0 0 4px rgba(0, 230, 61, 0.1), 0 10px 30px -12px rgba(0, 230, 61, 0.7);
+}
+.amz-host.is-open .amz-host__text {
+  display: flex !important;
+  opacity: 1;
+  transform: none;
+  animation: amz-host-in 0.3s ease 0.12s both;
+}
+.amz-host.is-open .amz-host__url {
+  color: #eef3ef;
+}
+.amz-host.is-open .amz-host__title {
+  color: #aab3ad;
+}
+.amz-host.is-open .amz-host__say {
+  opacity: 0 !important;
+  transform: none !important;
+}
+.amz-host.is-open .amz-host__say:first-child {
+  opacity: 1 !important;
+}
+.amz-host.is-open .amz-cube {
+  transform: none !important;
+  filter: none !important;
+}
+html.amz-host-open .VPNavBarTitle .title span {
+  opacity: 0;
+}
+html.amz-host-open--wide .VPNavBarTitle .title {
+  opacity: 0;
+}
+.VPNavBarTitle .title,
+.VPNavBarTitle .title span {
+  transition: opacity 0.2s ease;
+}
+@keyframes amz-host-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
