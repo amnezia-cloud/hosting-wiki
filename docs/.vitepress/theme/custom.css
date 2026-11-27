@@ -2219,6 +2219,9 @@ html.amz-st-lock{scrollbar-gutter:stable}
    как страница устаканилась (первые ~1,2 с поправки положения мгновенные). */
 .amz-st-rail:not(.is-ready){visibility:hidden}
 .amz-st-rail:not(.is-settled),.amz-st-rail:not(.is-settled) *{transition:none!important}
-.amz-st-rail.is-ready{animation:amz-st-appear .2s ease both}
-@keyframes amz-st-appear{from{opacity:0}to{opacity:1}}
-@media (prefers-reduced-motion:reduce){.amz-st-rail.is-ready{animation:none}}
+/* Плавное появление главной (прозрачность + сдвиг вверх на 14px) вешаем на общую обёртку, а не на
+   блок с колонками: тогда колонки и колонка историй — один элемент и двигаются абсолютно одинаково.
+   Иначе лента стояла на месте, а колонки ещё ехали вверх, и верх ленты оказывался ниже на 10–14px,
+   пока их положение не пересчитывалось. */
+.amz-home-wrap > .amz-home{animation:none}
+.amz-home-wrap{animation:amz-fade-up .5s ease both}
