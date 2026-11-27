@@ -161,21 +161,37 @@ export default {
 
     // «Остров» на узких экранах, где надпись на плашке скрыта: первое нажатие на кубик раскрывает
     // плашку («Наш сайт» и название хостинга), второе — на раскрытую — открывает сайт.
-    // Раскрытая плашка сама закрывается через 6 секунд, по нажатию в другом месте и по Esc.
+    // Раскрытая по нажатию плашка закрывается сама через 6 секунд, по нажатию в другом месте и по Esc.
+    // Если кубик не трогают, плашка раскрывается сама раз в 9 секунд на 3 секунды (первый раз через 4).
     const open = ref(false)
     let openTimer = 0
-    const setOpen = (v) => {
+    let openedAt = 0
+    let hostEl = null
+    let islandTimer = 0
+    let firstTimer = 0
+    // Надпись на плашке скрыта (узкий экран): значит, работает «остров»
+    const isCompact = () => {
+      const t = hostEl && hostEl.querySelector('.amz-host__text')
+      return !!t && getComputedStyle(t).display === 'none'
+    }
+    const setOpen = (v, ms = 6000) => {
       open.value = v
       document.documentElement.classList.toggle('amz-host-open', v)
       // на страницах статей плашка раскрывается и над логотипом — прячем его целиком
       document.documentElement.classList.toggle('amz-host-open--wide', v && !isHome.value)
       clearTimeout(openTimer)
-      if (v) openTimer = setTimeout(() => setOpen(false), 6000)
+      if (v) { openedAt = Date.now(); openTimer = setTimeout(() => setOpen(false), ms) }
     }
     const onDocPointer = (e) => { if (open.value && !(e.target.closest && e.target.closest('.amz-host'))) setOpen(false) }
     const onDocKey = (e) => { if (open.value && e.key === 'Escape') setOpen(false) }
     const onClick = (e) => {
-      if (open.value) { setOpen(false); return } // второе нажатие: ссылка открывает сайт
+      if (open.value) {
+        // Некоторые браузеры (например, Firefox в режиме касаний) шлют на одно нажатие два «клика»:
+        // второй, пришедший сразу после раскрытия, не считаем «вторым нажатием».
+        if (Date.now() - openedAt < 450) { e.preventDefault(); return }
+        setOpen(false) // второе нажатие: ссылка открывает сайт
+        return
+      }
       const txt = e.currentTarget.querySelector('.amz-host__text')
       if (txt && getComputedStyle(txt).display === 'none') {
         e.preventDefault() // надпись скрыта: первое нажатие только раскрывает плашку
@@ -187,9 +203,19 @@ export default {
       document.addEventListener('pointerdown', onDocPointer)
       document.addEventListener('keydown', onDocKey)
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-      // Раз в 7 секунд вместо «Наш сайт» на 3 секунды встаёт следующая подсказка.
+      // Узкий экран: сама раскрываем плашку («Наш сайт» и название хостинга, без подсказок).
+      const autoIsland = () => {
+        if (hover || open.value || document.hidden || !isCompact()) return
+        if (document.querySelector('.VPNavScreen.open')) return // открыто меню
+        setOpen(true, 3200)
+      }
+      firstTimer = setTimeout(() => {
+        autoIsland()
+        islandTimer = setInterval(autoIsland, 9000)
+      }, 4000)
+      // Широкий экран: раз в 7 секунд вместо «Наш сайт» на 3 секунды встаёт следующая подсказка.
       cycle = setInterval(() => {
-        if (hover || open.value || document.hidden) return
+        if (hover || open.value || document.hidden || isCompact()) return
         current.value = index % t.value.tips.length
         index += 1
         hide = setTimeout(() => { current.value = -1 }, 3000)
@@ -199,6 +225,8 @@ export default {
       clearInterval(cycle)
       clearTimeout(hide)
       clearTimeout(openTimer)
+      clearTimeout(firstTimer)
+      clearInterval(islandTimer)
       document.removeEventListener('pointerdown', onDocPointer)
       document.removeEventListener('keydown', onDocKey)
       document.documentElement.classList.remove('amz-host-open')
@@ -207,6 +235,7 @@ export default {
 
     return () =>
       h('a', {
+            ref: (el) => { hostEl = el },
             class: ['amz-host', isHome.value ? 'is-home' : null, open.value ? 'is-open' : null],
             href: t.value.url,
             target: '_blank',
