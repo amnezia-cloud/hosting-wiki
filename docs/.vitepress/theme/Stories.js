@@ -169,7 +169,8 @@ export default {
   setup(props) {
     const spacer = ref(0)
     const carH = ref(0)
-    const ready = ref(false) // колонка выровнена и можно показывать (до этого скрыта, без анимаций)
+    const ready = ref(false) // место колонки посчитано — можно показывать (до этого она скрыта)
+    const settled = ref(false) // страница устаканилась — можно включать плавные переходы
     let el = null
     let ro = null
 
@@ -198,15 +199,14 @@ export default {
     }
     onMounted(() => {
       if (props.mode === 'rail') {
-        // Показываем колонку только после первого точного расчёта (шрифты загружены), иначе при
-        // загрузке страницы лента сначала сжата вверху и потом «съезжает» на место.
-        const markReady = () => {
-          if (ready.value) return
-          align()
-          nextTick(() => requestAnimationFrame(() => { ready.value = true }))
-        }
-        if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => setTimeout(markReady, 120))
-        setTimeout(markReady, 1500)
+        // Колонку показываем сразу, как только посчитано её место, — вместе с остальной страницей,
+        // без ожидания шрифтов. Пока расчёта нет, она скрыта: иначе при загрузке лента была бы сжата
+        // вверху и потом «съезжала» бы на место.
+        align()
+        ready.value = true
+        // Плавные переходы включаем только когда страница «устаканилась» (шрифты, перенос строк):
+        // до этого поправки положения должны быть мгновенными, а не «ползущими».
+        setTimeout(() => { settled.value = true }, 1200)
         nextTick(align)
         // ещё раз — после анимации появления главной и загрузки шрифтов
         setTimeout(align, 700)
@@ -241,7 +241,7 @@ export default {
         const isOpen = state.open && state.where === 'rail'
         const pos = (k) => { let d = ((k - state.story) % N() + N()) % N(); if (d > N() / 2) d -= N(); return d }
         return h('aside', {
-          class: ['amz-st-rail', isOpen ? 'is-open' : null, ready.value ? 'is-ready' : null],
+          class: ['amz-st-rail', isOpen ? 'is-open' : null, ready.value ? 'is-ready' : null, settled.value ? 'is-settled' : null],
           'aria-label': 'Wiki Stories',
           ref: (r) => { el = r },
           style: { '--sp': spacer.value + 'px', '--ch': carH.value + 'px' }

@@ -2214,10 +2214,11 @@ html.amz-st-lock{scrollbar-gutter:stable}
   .amz-home-wrap:has(.amz-st-rail.is-open) .amz-home__paths{margin-bottom:var(--st-extra,130px)}
 }
 
-/* Пока колонка историй не выровнена (до первого расчёта), она скрыта и без анимаций: иначе при
-   загрузке страницы лента сначала сжата вверху, потом раздувается и съезжает на место. */
+/* Пока место колонки историй не посчитано, она скрыта: иначе при загрузке страницы лента сначала
+   сжата вверху, потом раздувается и съезжает на место. Плавные переходы — только после того,
+   как страница устаканилась (первые ~1,2 с поправки положения мгновенные). */
 .amz-st-rail:not(.is-ready){visibility:hidden}
-.amz-st-rail:not(.is-ready),.amz-st-rail:not(.is-ready) *{transition:none!important}
-.amz-st-rail.is-ready{animation:amz-st-appear .45s ease both}
+.amz-st-rail:not(.is-settled),.amz-st-rail:not(.is-settled) *{transition:none!important}
+.amz-st-rail.is-ready{animation:amz-st-appear .2s ease both}
 @keyframes amz-st-appear{from{opacity:0}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.amz-st-rail.is-ready{animation:none}}
